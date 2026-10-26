@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="What is Recursive Self Improvement (RSI)? Module 17 · Lesson 17.3 Source: Outcome School · Published: September 15, 2026 · Reading time: 22 min · Tags: ai , machine learning Recurs">
+<title>What is Recursive Self-Improvement (RSI)? · AI Engineering Course</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/pygments.css">
+</head>
+<body class="">
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="topbar">
+  <button id="menu-toggle" class="icon-btn" type="button" aria-label="Toggle navigation">☰</button>
+  <a class="brand" href="../index.html">AI Engineering Course</a>
+  <div class="search-wrap">
+    <input id="search" type="search" placeholder="Search lessons…" autocomplete="off" aria-label="Search lessons">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+  <div class="progress-mini" title="Course progress"><span id="progress-text">0%</span></div>
+  <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle light/dark theme">🌙</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="progress-box">
+      <div class="progress-bar"><span id="progress-fill"></span></div>
+      <div class="progress-label" id="progress-label">0 of 0 lessons read</div>
+    </div>
+    <nav class="course-nav" aria-label="Course modules">
+<a class="nav-home" href="../index.html">Course home</a>
+<a class="nav-module-single" href="../modules/m00.html">0. Must Know</a>
+<details class="nav-module" data-module="1">
+<summary><span class="nav-module-title">1. Machine Learning Foundations</span><span class="nav-count" data-nav-count="1">0/9</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0101" data-module="1" aria-label="Mark What is Machine Learning? as read"></label><a href="../lessons/m01-l0101-what-is-machine-learning.html">1.1 What is Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0102" data-module="1" aria-label="Mark Supervised vs Unsupervised Learning as read"></label><a href="../lessons/m01-l0102-supervised-vs-unsupervised-learning.html">1.2 Supervised vs Unsupervised Learning</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0103" data-module="1" aria-label="Mark Linear Regression vs Logistic Regression as read"></label><a href="../lessons/m01-l0103-linear-regression-vs-logistic-regression.html">1.3 Linear Regression vs Logistic Regression</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0104" data-module="1" aria-label="Mark What is Feature Engineering in Machine Learning? as read"></label><a href="../lessons/m01-l0104-what-is-feature-engineering-in-machine-learning.html">1.4 What is Feature Engineering in Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0105" data-module="1" aria-label="Mark Precision vs Recall as read"></label><a href="../lessons/m01-l0105-precision-vs-recall.html">1.5 Precision vs Recall</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0106" data-module="1" aria-label="Mark What Are L1 and L2 Loss Functions? as read"></label><a href="../lessons/m01-l0106-what-are-l1-and-l2-loss-functions.html">1.6 What Are L1 and L2 Loss Functions?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0107" data-module="1" aria-label="Mark What is Regularization in Machine Learning? L1 vs L2 Explained as read"></label><a href="../lessons/m01-l0107-what-is-regularization-in-machine-learning-l1-vs-l2-explained.html">1.7 What is Regularization in Machine Learning? L1 vs L2 Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0108" data-module="1" aria-label="Mark What is Reinforcement Learning? as read"></label><a href="../lessons/m01-l0108-what-is-reinforcement-learning.html">1.8 What is Reinforcement Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0109" data-module="1" aria-label="Mark What is Contrastive Learning? How It Works Step by Step as read"></label><a href="../lessons/m01-l0109-what-is-contrastive-learning-how-it-works-step-by-step.html">1.9 What is Contrastive Learning? How It Works Step by Step</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="2">
+<summary><span class="nav-module-title">2. Deep Learning and Neural Networks</span><span class="nav-count" data-nav-count="2">0/12</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0201" data-module="2" aria-label="Mark What is a Neural Network and How Does It Work? as read"></label><a href="../lessons/m02-l0201-what-is-a-neural-network-and-how-does-it-work.html">2.1 What is a Neural Network and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0202" data-module="2" aria-label="Mark What is Bias In Artificial Neural Network? as read"></label><a href="../lessons/m02-l0202-what-is-bias-in-artificial-neural-network.html">2.2 What is Bias In Artificial Neural Network?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0203" data-module="2" aria-label="Mark How Does Matrix Multiplication Work in Neural Networks? as read"></label><a href="../lessons/m02-l0203-how-does-matrix-multiplication-work-in-neural-networks.html">2.3 How Does Matrix Multiplication Work in Neural Networks?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0204" data-module="2" aria-label="Mark How Does Gradient Descent Work? as read"></label><a href="../lessons/m02-l0204-how-does-gradient-descent-work.html">2.4 How Does Gradient Descent Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0205" data-module="2" aria-label="Mark How Does Backpropagation Work? The Math Explained Step by Step as read"></label><a href="../lessons/m02-l0205-how-does-backpropagation-work-the-math-explained-step-by-step.html">2.5 How Does Backpropagation Work? The Math Explained Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0206" data-module="2" aria-label="Mark What is Cross-Entropy Loss? as read"></label><a href="../lessons/m02-l0206-what-is-cross-entropy-loss.html">2.6 What is Cross-Entropy Loss?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0207" data-module="2" aria-label="Mark What is Dropout in Neural Networks and How Does It Work? as read"></label><a href="../lessons/m02-l0207-what-is-dropout-in-neural-networks-and-how-does-it-work.html">2.7 What is Dropout in Neural Networks and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0208" data-module="2" aria-label="Mark Batch Normalization vs Layer Normalization as read"></label><a href="../lessons/m02-l0208-batch-normalization-vs-layer-normalization.html">2.8 Batch Normalization vs Layer Normalization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0209" data-module="2" aria-label="Mark What is RMSNorm? Root Mean Square Layer Normalization Explained as read"></label><a href="../lessons/m02-l0209-what-is-rmsnorm-root-mean-square-layer-normalization-explained.html">2.9 What is RMSNorm? Root Mean Square Layer Normalization Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0210" data-module="2" aria-label="Mark What is a Recurrent Neural Network (RNN)? as read"></label><a href="../lessons/m02-l0210-what-is-a-recurrent-neural-network-rnn.html">2.10 What is a Recurrent Neural Network (RNN)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0211" data-module="2" aria-label="Mark How does PyTorch work? as read"></label><a href="../lessons/m02-l0211-how-does-pytorch-work.html">2.11 How does PyTorch work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0212" data-module="2" aria-label="Mark How Does The Machine Learning Library TensorFlow Work? as read"></label><a href="../lessons/m02-l0212-how-does-the-machine-learning-library-tensorflow-work.html">2.12 How Does The Machine Learning Library TensorFlow Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="3">
+<summary><span class="nav-module-title">3. Generative AI and the Transformer Architecture</span><span class="nav-count" data-nav-count="3">0/16</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0301" data-module="3" aria-label="Mark What is Generative AI? as read"></label><a href="../lessons/m03-l0301-what-is-generative-ai.html">3.1 What is Generative AI?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0302" data-module="3" aria-label="Mark What are Autoregressive Models? as read"></label><a href="../lessons/m03-l0302-what-are-autoregressive-models.html">3.2 What are Autoregressive Models?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0303" data-module="3" aria-label="Mark Tokenization in LLMs as read"></label><a href="../lessons/m03-l0303-tokenization-in-llms.html">3.3 Tokenization in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0304" data-module="3" aria-label="Mark What is Byte Pair Encoding (BPE) in LLMs? as read"></label><a href="../lessons/m03-l0304-what-is-byte-pair-encoding-bpe-in-llms.html">3.4 What is Byte Pair Encoding (BPE) in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0305" data-module="3" aria-label="Mark What are Embeddings? as read"></label><a href="../lessons/m03-l0305-what-are-embeddings.html">3.5 What are Embeddings?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0306" data-module="3" aria-label="Mark How do RNNs and Transformers differ? as read"></label><a href="../lessons/m03-l0306-how-do-rnns-and-transformers-differ.html">3.6 How do RNNs and Transformers differ?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0307" data-module="3" aria-label="Mark How Does the Transformer Architecture Work? as read"></label><a href="../lessons/m03-l0307-how-does-the-transformer-architecture-work.html">3.7 How Does the Transformer Architecture Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0308" data-module="3" aria-label="Mark Encoder vs Decoder in Transformers as read"></label><a href="../lessons/m03-l0308-encoder-vs-decoder-in-transformers.html">3.8 Encoder vs Decoder in Transformers</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0309" data-module="3" aria-label="Mark What is Self Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0309-what-is-self-attention-in-transformers-and-how-does-it-work.html">3.9 What is Self Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0310" data-module="3" aria-label="Mark How Does Attention Work? The Math Behind Q, K, and V Step by Step as read"></label><a href="../lessons/m03-l0310-how-does-attention-work-the-math-behind-q-k-and-v-step-by-step.html">3.10 How Does Attention Work? The Math Behind Q, K, and V Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0311" data-module="3" aria-label="Mark Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor as read"></label><a href="../lessons/m03-l0311-why-do-we-scale-attention-by-dk-the-math-behind-the-scaling-factor.html">3.11 Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0312" data-module="3" aria-label="Mark What is Causal Masking in Attention and Why Do LLMs Need It? as read"></label><a href="../lessons/m03-l0312-what-is-causal-masking-in-attention-and-why-do-llms-need-it.html">3.12 What is Causal Masking in Attention and Why Do LLMs Need It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0313" data-module="3" aria-label="Mark What is Multi-Head Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0313-what-is-multi-head-attention-in-transformers-and-how-does-it-work.html">3.13 What is Multi-Head Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0314" data-module="3" aria-label="Mark What is Cross Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0314-what-is-cross-attention-in-transformers-and-how-does-it-work.html">3.14 What is Cross Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0315" data-module="3" aria-label="Mark What is RoPE (Rotary Position Embedding)? The Math Behind It as read"></label><a href="../lessons/m03-l0315-what-is-rope-rotary-position-embedding-the-math-behind-it.html">3.15 What is RoPE (Rotary Position Embedding)? The Math Behind It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0316" data-module="3" aria-label="Mark What is the Feed-Forward Network in LLMs and What Does It Do? as read"></label><a href="../lessons/m03-l0316-what-is-the-feed-forward-network-in-llms-and-what-does-it-do.html">3.16 What is the Feed-Forward Network in LLMs and What Does It Do?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="4">
+<summary><span class="nav-module-title">4. How LLMs Generate Text</span><span class="nav-count" data-nav-count="4">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0401" data-module="4" aria-label="Mark How does Temperature control LLM output? as read"></label><a href="../lessons/m04-l0401-how-does-temperature-control-llm-output.html">4.1 How does Temperature control LLM output?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0402" data-module="4" aria-label="Mark How do Top-k and Top-p Sampling work? as read"></label><a href="../lessons/m04-l0402-how-do-top-k-and-top-p-sampling-work.html">4.2 How do Top-k and Top-p Sampling work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0403" data-module="4" aria-label="Mark Stop Tokens in LLMs as read"></label><a href="../lessons/m04-l0403-stop-tokens-in-llms.html">4.3 Stop Tokens in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0404" data-module="4" aria-label="Mark How does Token Streaming work? as read"></label><a href="../lessons/m04-l0404-how-does-token-streaming-work.html">4.4 How does Token Streaming work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0405" data-module="4" aria-label="Mark What is the Lost in the Middle Problem in LLMs and How to Fix It? as read"></label><a href="../lessons/m04-l0405-what-is-the-lost-in-the-middle-problem-in-llms-and-how-to-fix-it.html">4.5 What is the Lost in the Middle Problem in LLMs and How to Fix It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0406" data-module="4" aria-label="Mark Why Do LLMs Hallucinate? The Token-Level Explanation as read"></label><a href="../lessons/m04-l0406-why-do-llms-hallucinate-the-token-level-explanation.html">4.6 Why Do LLMs Hallucinate? The Token-Level Explanation</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="5">
+<summary><span class="nav-module-title">5. Modern LLM Architecture</span><span class="nav-count" data-nav-count="5">0/7</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0501" data-module="5" aria-label="Mark Evolution of LLM Architecture as read"></label><a href="../lessons/m05-l0501-evolution-of-llm-architecture.html">5.1 Evolution of LLM Architecture</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0502" data-module="5" aria-label="Mark What is Mixture of Experts (MoE) and How Does It Work? as read"></label><a href="../lessons/m05-l0502-what-is-mixture-of-experts-moe-and-how-does-it-work.html">5.2 What is Mixture of Experts (MoE) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0503" data-module="5" aria-label="Mark What is Grouped Query Attention (GQA) and Why Do LLMs Use It? as read"></label><a href="../lessons/m05-l0503-what-is-grouped-query-attention-gqa-and-why-do-llms-use-it.html">5.3 What is Grouped Query Attention (GQA) and Why Do LLMs Use It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0504" data-module="5" aria-label="Mark How does Sliding Window Attention work? as read"></label><a href="../lessons/m05-l0504-how-does-sliding-window-attention-work.html">5.4 How does Sliding Window Attention work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0505" data-module="5" aria-label="Mark How do Attention Sinks work? as read"></label><a href="../lessons/m05-l0505-how-do-attention-sinks-work.html">5.5 How do Attention Sinks work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0506" data-module="5" aria-label="Mark What is Flash Attention and Why Is It So Fast? as read"></label><a href="../lessons/m05-l0506-what-is-flash-attention-and-why-is-it-so-fast.html">5.6 What is Flash Attention and Why Is It So Fast?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0507" data-module="5" aria-label="Mark What is DeepSeek-V4 and How Does It Work? Architecture Explained as read"></label><a href="../lessons/m05-l0507-what-is-deepseek-v4-and-how-does-it-work-architecture-explained.html">5.7 What is DeepSeek-V4 and How Does It Work? Architecture Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="6">
+<summary><span class="nav-module-title">6. Types of Language Models</span><span class="nav-count" data-nav-count="6">0/5</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0601" data-module="6" aria-label="Mark What are Small Language Models (SLMs) and When Should We Use Them? as read"></label><a href="../lessons/m06-l0601-what-are-small-language-models-slms-and-when-should-we-use-them.html">6.1 What are Small Language Models (SLMs) and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0602" data-module="6" aria-label="Mark What are Large Reasoning Models (LRMs) and How Are They Different from LLMs? as read"></label><a href="../lessons/m06-l0602-what-are-large-reasoning-models-lrms-and-how-are-they-different-from-llms.html">6.2 What are Large Reasoning Models (LRMs) and How Are They Different from LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0603" data-module="6" aria-label="Mark What are Recursive Language Models (RLMs) and How Do They Work? as read"></label><a href="../lessons/m06-l0603-what-are-recursive-language-models-rlms-and-how-do-they-work.html">6.3 What are Recursive Language Models (RLMs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0604" data-module="6" aria-label="Mark How do Diffusion Language Models (DLMs) work? as read"></label><a href="../lessons/m06-l0604-how-do-diffusion-language-models-dlms-work.html">6.4 How do Diffusion Language Models (DLMs) work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0605" data-module="6" aria-label="Mark Jev and System One Models Explained as read"></label><a href="../lessons/m06-l0605-jev-and-system-one-models-explained.html">6.5 Jev and System One Models Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="7">
+<summary><span class="nav-module-title">7. Training, Fine-Tuning, and Alignment</span><span class="nav-count" data-nav-count="7">0/11</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0701" data-module="7" aria-label="Mark How does fine-tuning work? as read"></label><a href="../lessons/m07-l0701-how-does-fine-tuning-work.html">7.1 How does fine-tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0702" data-module="7" aria-label="Mark What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs? as read"></label><a href="../lessons/m07-l0702-what-is-lora-low-rank-adaptation-and-how-does-it-fine-tune-llms.html">7.2 What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0703" data-module="7" aria-label="Mark How does Prefix Tuning work? as read"></label><a href="../lessons/m07-l0703-how-does-prefix-tuning-work.html">7.3 How does Prefix Tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0704" data-module="7" aria-label="Mark How does Knowledge Distillation work? as read"></label><a href="../lessons/m07-l0704-how-does-knowledge-distillation-work.html">7.4 How does Knowledge Distillation work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0705" data-module="7" aria-label="Mark What is Continual Learning in LLMs? Solving Catastrophic Forgetting as read"></label><a href="../lessons/m07-l0705-what-is-continual-learning-in-llms-solving-catastrophic-forgetting.html">7.5 What is Continual Learning in LLMs? Solving Catastrophic Forgetting</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0706" data-module="7" aria-label="Mark What is Deep RL from Human Preferences? The Paper That Started RLHF as read"></label><a href="../lessons/m07-l0706-what-is-deep-rl-from-human-preferences-the-paper-that-started-rlhf.html">7.6 What is Deep RL from Human Preferences? The Paper That Started RLHF</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0707" data-module="7" aria-label="Mark What is InstructGPT? How GPT-3 Learned to Follow Instructions as read"></label><a href="../lessons/m07-l0707-what-is-instructgpt-how-gpt-3-learned-to-follow-instructions.html">7.7 What is InstructGPT? How GPT-3 Learned to Follow Instructions</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0708" data-module="7" aria-label="Mark What is RLHF? Reinforcement Learning from Human Feedback Explained as read"></label><a href="../lessons/m07-l0708-what-is-rlhf-reinforcement-learning-from-human-feedback-explained.html">7.8 What is RLHF? Reinforcement Learning from Human Feedback Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0709" data-module="7" aria-label="Mark What is Proximal Policy Optimization (PPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0709-what-is-proximal-policy-optimization-ppo-and-how-does-it-work.html">7.9 What is Proximal Policy Optimization (PPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0710" data-module="7" aria-label="Mark What is Direct Preference Optimization (DPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0710-what-is-direct-preference-optimization-dpo-and-how-does-it-work.html">7.10 What is Direct Preference Optimization (DPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0711" data-module="7" aria-label="Mark What is Group Relative Policy Optimization (GRPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0711-what-is-group-relative-policy-optimization-grpo-and-how-does-it-work.html">7.11 What is Group Relative Policy Optimization (GRPO) and How Does It Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="8">
+<summary><span class="nav-module-title">8. Prompt Engineering and Context Engineering</span><span class="nav-count" data-nav-count="8">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0801" data-module="8" aria-label="Mark How does Chain-of-Thought (CoT) Prompting work? as read"></label><a href="../lessons/m08-l0801-how-does-chain-of-thought-cot-prompting-work.html">8.1 How does Chain-of-Thought (CoT) Prompting work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0802" data-module="8" aria-label="Mark How does Tree of Thoughts work? as read"></label><a href="../lessons/m08-l0802-how-does-tree-of-thoughts-work.html">8.2 How does Tree of Thoughts work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0803" data-module="8" aria-label="Mark How does Prompt Chaining work? as read"></label><a href="../lessons/m08-l0803-how-does-prompt-chaining-work.html">8.3 How does Prompt Chaining work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0804" data-module="8" aria-label="Mark How does Prompt Caching work? as read"></label><a href="../lessons/m08-l0804-how-does-prompt-caching-work.html">8.4 How does Prompt Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0805" data-module="8" aria-label="Mark What is Context Engineering? as read"></label><a href="../lessons/m08-l0805-what-is-context-engineering.html">8.5 What is Context Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0806" data-module="8" aria-label="Mark How does context compaction work? as read"></label><a href="../lessons/m08-l0806-how-does-context-compaction-work.html">8.6 How does context compaction work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="9">
+<summary><span class="nav-module-title">9. Vector Search and Retrieval-Augmented Generation (RAG)</span><span class="nav-count" data-nav-count="9">0/15</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0901" data-module="9" aria-label="Mark How does a Vector Database work? as read"></label><a href="../lessons/m09-l0901-how-does-a-vector-database-work.html">9.1 How does a Vector Database work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0902" data-module="9" aria-label="Mark How does Approximate Nearest Neighbor (ANN) search work? as read"></label><a href="../lessons/m09-l0902-how-does-approximate-nearest-neighbor-ann-search-work.html">9.2 How does Approximate Nearest Neighbor (ANN) search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0903" data-module="9" aria-label="Mark How does Semantic Search work? as read"></label><a href="../lessons/m09-l0903-how-does-semantic-search-work.html">9.3 How does Semantic Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0904" data-module="9" aria-label="Mark How does Hybrid Search work? as read"></label><a href="../lessons/m09-l0904-how-does-hybrid-search-work.html">9.4 How does Hybrid Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0905" data-module="9" aria-label="Mark How does a Reranker work? as read"></label><a href="../lessons/m09-l0905-how-does-a-reranker-work.html">9.5 How does a Reranker work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0906" data-module="9" aria-label="Mark What is ColBERT? Late Interaction Retrieval Explained as read"></label><a href="../lessons/m09-l0906-what-is-colbert-late-interaction-retrieval-explained.html">9.6 What is ColBERT? Late Interaction Retrieval Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0907" data-module="9" aria-label="Mark How to Chunk Documents for RAG? Chunking Strategies Explained as read"></label><a href="../lessons/m09-l0907-how-to-chunk-documents-for-rag-chunking-strategies-explained.html">9.7 How to Chunk Documents for RAG? Chunking Strategies Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0908" data-module="9" aria-label="Mark How does Contextual Retrieval work? as read"></label><a href="../lessons/m09-l0908-how-does-contextual-retrieval-work.html">9.8 How does Contextual Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0909" data-module="9" aria-label="Mark How does HyDE work in RAG? as read"></label><a href="../lessons/m09-l0909-how-does-hyde-work-in-rag.html">9.9 How does HyDE work in RAG?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0910" data-module="9" aria-label="Mark How do Query Rewriting and Multi-Query Retrieval work? as read"></label><a href="../lessons/m09-l0910-how-do-query-rewriting-and-multi-query-retrieval-work.html">9.10 How do Query Rewriting and Multi-Query Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0911" data-module="9" aria-label="Mark How does an Embedding Cache work? as read"></label><a href="../lessons/m09-l0911-how-does-an-embedding-cache-work.html">9.11 How does an Embedding Cache work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0912" data-module="9" aria-label="Mark How does Semantic Caching work? as read"></label><a href="../lessons/m09-l0912-how-does-semantic-caching-work.html">9.12 How does Semantic Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0913" data-module="9" aria-label="Mark What is Agentic RAG? How It Works and When to Use It as read"></label><a href="../lessons/m09-l0913-what-is-agentic-rag-how-it-works-and-when-to-use-it.html">9.13 What is Agentic RAG? How It Works and When to Use It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0914" data-module="9" aria-label="Mark What is GraphRAG? How Knowledge Graphs Improve RAG as read"></label><a href="../lessons/m09-l0914-what-is-graphrag-how-knowledge-graphs-improve-rag.html">9.14 What is GraphRAG? How Knowledge Graphs Improve RAG</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0915" data-module="9" aria-label="Mark What is Vectorless RAG? RAG Without Embeddings or a Vector Database as read"></label><a href="../lessons/m09-l0915-what-is-vectorless-rag-rag-without-embeddings-or-a-vector-database.html">9.15 What is Vectorless RAG? RAG Without Embeddings or a Vector Database</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="10">
+<summary><span class="nav-module-title">10. AI Agents and Agentic Systems</span><span class="nav-count" data-nav-count="10">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1001" data-module="10" aria-label="Mark What is an AI Agent? How It Works as read"></label><a href="../lessons/m10-l1001-what-is-an-ai-agent-how-it-works.html">10.1 What is an AI Agent? How It Works</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1002" data-module="10" aria-label="Mark How does Function Calling work in LLMs? as read"></label><a href="../lessons/m10-l1002-how-does-function-calling-work-in-llms.html">10.2 How does Function Calling work in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1003" data-module="10" aria-label="Mark What is an AI Agent Loop? as read"></label><a href="../lessons/m10-l1003-what-is-an-ai-agent-loop.html">10.3 What is an AI Agent Loop?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1004" data-module="10" aria-label="Mark What is a ReAct Agent? How It Thinks and Acts, Explained as read"></label><a href="../lessons/m10-l1004-what-is-a-react-agent-how-it-thinks-and-acts-explained.html">10.4 What is a ReAct Agent? How It Thinks and Acts, Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1005" data-module="10" aria-label="Mark What is a Plan-and-Execute Agent and How Does It Work? as read"></label><a href="../lessons/m10-l1005-what-is-a-plan-and-execute-agent-and-how-does-it-work.html">10.5 What is a Plan-and-Execute Agent and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1006" data-module="10" aria-label="Mark What is a Reflection Agent? How It Generates, Critiques, and Revises as read"></label><a href="../lessons/m10-l1006-what-is-a-reflection-agent-how-it-generates-critiques-and-revises.html">10.6 What is a Reflection Agent? How It Generates, Critiques, and Revises</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1007" data-module="10" aria-label="Mark How Does AI Agent Memory Work? The Memory Stack Explained as read"></label><a href="../lessons/m10-l1007-how-does-ai-agent-memory-work-the-memory-stack-explained.html">10.7 How Does AI Agent Memory Work? The Memory Stack Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1008" data-module="10" aria-label="Mark How does ChatGPT remember you? as read"></label><a href="../lessons/m10-l1008-how-does-chatgpt-remember-you.html">10.8 How does ChatGPT remember you?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1009" data-module="10" aria-label="Mark What is MCP (Model Context Protocol)? as read"></label><a href="../lessons/m10-l1009-what-is-mcp-model-context-protocol.html">10.9 What is MCP (Model Context Protocol)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1010" data-module="10" aria-label="Mark What are Agent Skills? as read"></label><a href="../lessons/m10-l1010-what-are-agent-skills.html">10.10 What are Agent Skills?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1011" data-module="10" aria-label="Mark What is OKF (Open Knowledge Format)? as read"></label><a href="../lessons/m10-l1011-what-is-okf-open-knowledge-format.html">10.11 What is OKF (Open Knowledge Format)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1012" data-module="10" aria-label="Mark What are Multi-Agent Systems and When Should We Use Them? as read"></label><a href="../lessons/m10-l1012-what-are-multi-agent-systems-and-when-should-we-use-them.html">10.12 What are Multi-Agent Systems and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1013" data-module="10" aria-label="Mark What are AI SubAgents? Why We Need Them and How They Work as read"></label><a href="../lessons/m10-l1013-what-are-ai-subagents-why-we-need-them-and-how-they-work.html">10.13 What are AI SubAgents? Why We Need Them and How They Work</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1014" data-module="10" aria-label="Mark How AI Agents Communicate as read"></label><a href="../lessons/m10-l1014-how-ai-agents-communicate.html">10.14 How AI Agents Communicate</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1015" data-module="10" aria-label="Mark What is AI Orchestration? How It Works and the Common Patterns as read"></label><a href="../lessons/m10-l1015-what-is-ai-orchestration-how-it-works-and-the-common-patterns.html">10.15 What is AI Orchestration? How It Works and the Common Patterns</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1016" data-module="10" aria-label="Mark What is Sakana Fugu? The Technical Report Explained as read"></label><a href="../lessons/m10-l1016-what-is-sakana-fugu-the-technical-report-explained.html">10.16 What is Sakana Fugu? The Technical Report Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1017" data-module="10" aria-label="Mark How do Computer-Use Agents work? as read"></label><a href="../lessons/m10-l1017-how-do-computer-use-agents-work.html">10.17 How do Computer-Use Agents work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1018" data-module="10" aria-label="Mark How do Browser Agents work? as read"></label><a href="../lessons/m10-l1018-how-do-browser-agents-work.html">10.18 How do Browser Agents work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="11">
+<summary><span class="nav-module-title">11. Agentic Engineering and Agent Frameworks</span><span class="nav-count" data-nav-count="11">0/8</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1101" data-module="11" aria-label="Mark What is Harness Engineering? as read"></label><a href="../lessons/m11-l1101-what-is-harness-engineering.html">11.1 What is Harness Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1102" data-module="11" aria-label="Mark What is Loop Engineering? as read"></label><a href="../lessons/m11-l1102-what-is-loop-engineering.html">11.2 What is Loop Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1103" data-module="11" aria-label="Mark What is Graph Engineering? as read"></label><a href="../lessons/m11-l1103-what-is-graph-engineering.html">11.3 What is Graph Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1104" data-module="11" aria-label="Mark AI Is Only as Good as Our Definition of Done as read"></label><a href="../lessons/m11-l1104-ai-is-only-as-good-as-our-definition-of-done.html">11.4 AI Is Only as Good as Our Definition of Done</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1105" data-module="11" aria-label="Mark How does LangChain work? as read"></label><a href="../lessons/m11-l1105-how-does-langchain-work.html">11.5 How does LangChain work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1106" data-module="11" aria-label="Mark How does LangGraph work? as read"></label><a href="../lessons/m11-l1106-how-does-langgraph-work.html">11.6 How does LangGraph work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1107" data-module="11" aria-label="Mark How does Claude Code work? as read"></label><a href="../lessons/m11-l1107-how-does-claude-code-work.html">11.7 How does Claude Code work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1108" data-module="11" aria-label="Mark How does Cursor work? as read"></label><a href="../lessons/m11-l1108-how-does-cursor-work.html">11.8 How does Cursor work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="12">
+<summary><span class="nav-module-title">12. LLM Inference Engineering</span><span class="nav-count" data-nav-count="12">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1201" data-module="12" aria-label="Mark LLM Inference Optimization as read"></label><a href="../lessons/m12-l1201-llm-inference-optimization.html">12.1 LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1202" data-module="12" aria-label="Mark Prefill vs Decode: LLM Inference Optimization as read"></label><a href="../lessons/m12-l1202-prefill-vs-decode-llm-inference-optimization.html">12.2 Prefill vs Decode: LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1203" data-module="12" aria-label="Mark What is Prefill-Decode Disaggregation in LLM Inference? as read"></label><a href="../lessons/m12-l1203-what-is-prefill-decode-disaggregation-in-llm-inference.html">12.3 What is Prefill-Decode Disaggregation in LLM Inference?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1204" data-module="12" aria-label="Mark KV Cache in LLMs as read"></label><a href="../lessons/m12-l1204-kv-cache-in-llms.html">12.4 KV Cache in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1205" data-module="12" aria-label="Mark What is KV Cache Compression? as read"></label><a href="../lessons/m12-l1205-what-is-kv-cache-compression.html">12.5 What is KV Cache Compression?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1206" data-module="12" aria-label="Mark What is Paged Attention in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1206-what-is-paged-attention-in-llms-and-how-does-it-work.html">12.6 What is Paged Attention in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1207" data-module="12" aria-label="Mark What is Continuous Batching in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1207-what-is-continuous-batching-in-llms-and-how-does-it-work.html">12.7 What is Continuous Batching in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1208" data-module="12" aria-label="Mark What is Speculative Decoding and How Does It Make LLMs Faster? as read"></label><a href="../lessons/m12-l1208-what-is-speculative-decoding-and-how-does-it-make-llms-faster.html">12.8 What is Speculative Decoding and How Does It Make LLMs Faster?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1209" data-module="12" aria-label="Mark What is N-gram Speculation in LLMs and How Does It Speed Up Generation? as read"></label><a href="../lessons/m12-l1209-what-is-n-gram-speculation-in-llms-and-how-does-it-speed-up-generation.html">12.9 What is N-gram Speculation in LLMs and How Does It Speed Up Generation?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1210" data-module="12" aria-label="Mark What is Medusa? Multi-Head Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1210-what-is-medusa-multi-head-speculative-decoding-explained.html">12.10 What is Medusa? Multi-Head Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1211" data-module="12" aria-label="Mark What is EAGLE? Feature-Level Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1211-what-is-eagle-feature-level-speculative-decoding-explained.html">12.11 What is EAGLE? Feature-Level Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1212" data-module="12" aria-label="Mark How does Model Quantization work? as read"></label><a href="../lessons/m12-l1212-how-does-model-quantization-work.html">12.12 How does Model Quantization work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1213" data-module="12" aria-label="Mark How does GGUF work? as read"></label><a href="../lessons/m12-l1213-how-does-gguf-work.html">12.13 How does GGUF work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1214" data-module="12" aria-label="Mark How does llama.cpp run LLMs on everyday hardware? as read"></label><a href="../lessons/m12-l1214-how-does-llama-cpp-run-llms-on-everyday-hardware.html">12.14 How does llama.cpp run LLMs on everyday hardware?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1215" data-module="12" aria-label="Mark How does Ollama work? as read"></label><a href="../lessons/m12-l1215-how-does-ollama-work.html">12.15 How does Ollama work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1216" data-module="12" aria-label="Mark How does vLLM work? as read"></label><a href="../lessons/m12-l1216-how-does-vllm-work.html">12.16 How does vLLM work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1217" data-module="12" aria-label="Mark How does SGLang work? as read"></label><a href="../lessons/m12-l1217-how-does-sglang-work.html">12.17 How does SGLang work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1218" data-module="12" aria-label="Mark How does TensorRT-LLM work? as read"></label><a href="../lessons/m12-l1218-how-does-tensorrt-llm-work.html">12.18 How does TensorRT-LLM work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="13">
+<summary><span class="nav-module-title">13. Evaluation and Observability</span><span class="nav-count" data-nav-count="13">0/4</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1301" data-module="13" aria-label="Mark What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained as read"></label><a href="../lessons/m13-l1301-what-is-llm-evaluation-metrics-benchmarks-and-methods-explained.html">13.1 What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1302" data-module="13" aria-label="Mark What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs as read"></label><a href="../lessons/m13-l1302-what-is-llm-as-a-judge-how-to-use-an-llm-to-evaluate-llm-outputs.html">13.2 What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1303" data-module="13" aria-label="Mark How to Evaluate AI Agents? Metrics, Methods, and Best Practices as read"></label><a href="../lessons/m13-l1303-how-to-evaluate-ai-agents-metrics-methods-and-best-practices.html">13.3 How to Evaluate AI Agents? Metrics, Methods, and Best Practices</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1304" data-module="13" aria-label="Mark What is AI Agent Observability? Traces, Spans, and Metrics Explained as read"></label><a href="../lessons/m13-l1304-what-is-ai-agent-observability-traces-spans-and-metrics-explained.html">13.4 What is AI Agent Observability? Traces, Spans, and Metrics Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="14">
+<summary><span class="nav-module-title">14. AI Safety and Security</span><span class="nav-count" data-nav-count="14">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1401" data-module="14" aria-label="Mark How do LLM guardrails work? as read"></label><a href="../lessons/m14-l1401-how-do-llm-guardrails-work.html">14.1 How do LLM guardrails work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1402" data-module="14" aria-label="Mark What is Prompt Injection in LLMs and How Do We Defend Against It? as read"></label><a href="../lessons/m14-l1402-what-is-prompt-injection-in-llms-and-how-do-we-defend-against-it.html">14.2 What is Prompt Injection in LLMs and How Do We Defend Against It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1403" data-module="14" aria-label="Mark How Does LLM Watermarking Work? as read"></label><a href="../lessons/m14-l1403-how-does-llm-watermarking-work.html">14.3 How Does LLM Watermarking Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="15">
+<summary><span class="nav-module-title">15. Multimodal AI and Generative Models</span><span class="nav-count" data-nav-count="15">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1501" data-module="15" aria-label="Mark What is Multimodal AI? How It Works and Where It Is Used as read"></label><a href="../lessons/m15-l1501-what-is-multimodal-ai-how-it-works-and-where-it-is-used.html">15.1 What is Multimodal AI? How It Works and Where It Is Used</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1502" data-module="15" aria-label="Mark What is a Vision Transformer (ViT) and How Does It Work? as read"></label><a href="../lessons/m15-l1502-what-is-a-vision-transformer-vit-and-how-does-it-work.html">15.2 What is a Vision Transformer (ViT) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1503" data-module="15" aria-label="Mark How do Image Embeddings work? as read"></label><a href="../lessons/m15-l1503-how-do-image-embeddings-work.html">15.3 How do Image Embeddings work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1504" data-module="15" aria-label="Mark What are Diffusion Models and How Do They Generate Images? as read"></label><a href="../lessons/m15-l1504-what-are-diffusion-models-and-how-do-they-generate-images.html">15.4 What are Diffusion Models and How Do They Generate Images?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1505" data-module="15" aria-label="Mark What are Generative Adversarial Networks (GANs) and How Do They Work? as read"></label><a href="../lessons/m15-l1505-what-are-generative-adversarial-networks-gans-and-how-do-they-work.html">15.5 What are Generative Adversarial Networks (GANs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1506" data-module="15" aria-label="Mark What are Variational Autoencoders (VAEs) and How Do They Work? as read"></label><a href="../lessons/m15-l1506-what-are-variational-autoencoders-vaes-and-how-do-they-work.html">15.6 What are Variational Autoencoders (VAEs) and How Do They Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="16">
+<summary><span class="nav-module-title">16. AI Infrastructure, Deployment, and System Design</span><span class="nav-count" data-nav-count="16">0/17</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1601" data-module="16" aria-label="Mark How does a GPU work for Deep Learning? as read"></label><a href="../lessons/m16-l1601-how-does-a-gpu-work-for-deep-learning.html">16.1 How does a GPU work for Deep Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1602" data-module="16" aria-label="Mark How do CUDA Kernels work? as read"></label><a href="../lessons/m16-l1602-how-do-cuda-kernels-work.html">16.2 How do CUDA Kernels work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1603" data-module="16" aria-label="Mark How does a Google TPU work? as read"></label><a href="../lessons/m16-l1603-how-does-a-google-tpu-work.html">16.3 How does a Google TPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1604" data-module="16" aria-label="Mark How does an LPU work? as read"></label><a href="../lessons/m16-l1604-how-does-an-lpu-work.html">16.4 How does an LPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1605" data-module="16" aria-label="Mark Cloud vs On-device Model Deployment as read"></label><a href="../lessons/m16-l1605-cloud-vs-on-device-model-deployment.html">16.5 Cloud vs On-device Model Deployment</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1606" data-module="16" aria-label="Mark Android TensorFlow Lite Machine Learning Example as read"></label><a href="../lessons/m16-l1606-android-tensorflow-lite-machine-learning-example.html">16.6 Android TensorFlow Lite Machine Learning Example</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1607" data-module="16" aria-label="Mark What is LLM Routing? How to Send Each Query to the Right LLM as read"></label><a href="../lessons/m16-l1607-what-is-llm-routing-how-to-send-each-query-to-the-right-llm.html">16.7 What is LLM Routing? How to Send Each Query to the Right LLM</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1608" data-module="16" aria-label="Mark Design a Real-Time Voice AI Agent as read"></label><a href="../lessons/m16-l1608-design-a-real-time-voice-ai-agent.html">16.8 Design a Real-Time Voice AI Agent</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1609" data-module="16" aria-label="Mark What is turn-taking in a voice AI agent? as read"></label><a href="../lessons/m16-l1609-what-is-turn-taking-in-a-voice-ai-agent.html">16.9 What is turn-taking in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1610" data-module="16" aria-label="Mark What is barge-in in a voice AI agent? as read"></label><a href="../lessons/m16-l1610-what-is-barge-in-in-a-voice-ai-agent.html">16.10 What is barge-in in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1611" data-module="16" aria-label="Mark Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture? as read"></label><a href="../lessons/m16-l1611-cascaded-vs-speech-to-speech-how-to-choose-the-right-voice-agent-architecture.html">16.11 Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1612" data-module="16" aria-label="Mark How do you build a latency budget for a voice AI agent? as read"></label><a href="../lessons/m16-l1612-how-do-you-build-a-latency-budget-for-a-voice-ai-agent.html">16.12 How do you build a latency budget for a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1613" data-module="16" aria-label="Mark How does the voice-to-voice latency of a voice agent get measured? as read"></label><a href="../lessons/m16-l1613-how-does-the-voice-to-voice-latency-of-a-voice-agent-get-measured.html">16.13 How does the voice-to-voice latency of a voice agent get measured?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1614" data-module="16" aria-label="Mark Why does the time-to-first-audio matter more than total response time? as read"></label><a href="../lessons/m16-l1614-why-does-the-time-to-first-audio-matter-more-than-total-response-time.html">16.14 Why does the time-to-first-audio matter more than total response time?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1615" data-module="16" aria-label="Mark What is System Design? as read"></label><a href="../lessons/m16-l1615-what-is-system-design.html">16.15 What is System Design?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1616" data-module="16" aria-label="Mark HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events as read"></label><a href="../lessons/m16-l1616-http-request-vs-http-long-polling-vs-websocket-vs-server-sent-events.html">16.16 HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1617" data-module="16" aria-label="Mark How do Voice And Video Call Work? as read"></label><a href="../lessons/m16-l1617-how-do-voice-and-video-call-work.html">16.17 How do Voice And Video Call Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="17" open>
+<summary><span class="nav-module-title">17. Frontier Ideas in AI</span><span class="nav-count" data-nav-count="17">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1701" data-module="17" aria-label="Mark What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work? as read"></label><a href="../lessons/m17-l1701-what-is-joint-embedding-predictive-architecture-jepa-and-how-does-it-work.html">17.1 What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1702" data-module="17" aria-label="Mark How do World Models work? as read"></label><a href="../lessons/m17-l1702-how-do-world-models-work.html">17.2 How do World Models work?</a></li>
+<li class="nav-lesson active"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1703" data-module="17" aria-label="Mark What is Recursive Self-Improvement (RSI)? as read"></label><a href="../lessons/m17-l1703-what-is-recursive-self-improvement-rsi.html">17.3 What is Recursive Self-Improvement (RSI)?</a></li>
+</ul>
+</details>
+<a class="nav-module-single" href="../modules/m18.html">18. Prepare for AI Engineering Interviews</a>
+</nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="content-wrap">
+    <main class="content" id="content">
+      
+<article>
+  <header class="lesson-header">
+    <p class="breadcrumb">
+      <a href="../index.html">Course</a> /
+      <a href="../modules/m17.html">Module 17</a> /
+      Lesson 17.3
+    </p>
+    <h1>What is Recursive Self-Improvement (RSI)?</h1>
+    <div class="lesson-meta">
+      <span>Lesson 17.3 · ~22 min · Published September 15, 2026</span>
+      <a href="https://outcomeschool.com/blog/what-is-recursive-self-improvement-rsi" target="_blank" rel="noopener noreferrer">Original article</a>
+    </div>
+    <div class="lesson-tags"><span class="tag">ai</span> <span class="tag">machine-learning</span></div>
+    <label class="read-toggle">
+      <input type="checkbox" data-lesson="m17-l1703" data-module="17">
+      Mark as read
+    </label>
+    
+  </header>
+  <details class="toc">
+<summary>On this page</summary>
+<ul>
+<li><a href="#what-is-recursive-self-improvement">What is Recursive Self-Improvement?</a>
+</li>
+<li><a href="#why-does-recursive-self-improvement-matter">Why does Recursive Self-Improvement matter?</a>
+</li>
+<li><a href="#how-does-an-ai-get-better-today">How does an AI get better today?</a>
+</li>
+<li><a href="#how-does-recursive-self-improvement-work">How does Recursive Self-Improvement work?</a>
+</li>
+<li><a href="#a-simple-example-with-numbers">A simple example with numbers</a>
+</li>
+<li><a href="#two-kinds-of-improvement">Two kinds of improvement</a>
+</li>
+<li><a href="#what-exists-in-the-real-world-today">What exists in the real world today?</a>
+</li>
+<li><a href="#intelligence-explosion">Intelligence explosion</a>
+</li>
+<li><a href="#where-it-works-well-and-where-it-fails">Where it works well and where it fails</a>
+</li>
+<li><a href="#keeping-humans-in-the-loop">Keeping humans in the loop</a>
+</li>
+<li><a href="#recursive-self-improvement-vs-normal-training">Recursive Self-Improvement vs Normal Training</a>
+</li>
+<li><a href="#frequently-asked-questions">Frequently Asked Questions</a>
+<ul>
+<li><a href="#what-is-the-difference-between-self-improvement-and-recursive-self-improvement">What is the difference between self-improvement and recursive self-improvement?</a></li>
+<li><a href="#what-is-a-seed-ai">What is a seed AI?</a></li>
+<li><a href="#is-alphago-zero-an-example-of-recursive-self-improvement">Is AlphaGo Zero an example of recursive self-improvement?</a></li>
+<li><a href="#will-recursive-self-improvement-definitely-cause-an-intelligence-explosion">Will recursive self-improvement definitely cause an intelligence explosion?</a></li>
+<li><a href="#why-does-goodhart-s-law-matter-for-recursive-self-improvement">Why does Goodhart&#x27;s Law matter for recursive self-improvement?</a></li>
+</ul>
+</li>
+</ul>
+</details>
+  <p><img alt="What is Recursive Self-Improvement (RSI)?" decoding="async" loading="lazy" src="../assets/images/17-17-03-what-is-recursive-self-improvement-rsi/what-is-recursive-self-improvement-rsi.png"/></p>
+<p>Recursive Self-Improvement (RSI) is a process in which an AI system improves its own abilities, and then the improved version improves itself further, and this cycle keeps repeating.</p>
+<p>In this blog, we will learn about Recursive Self-Improvement (RSI), the idea of an AI system that makes itself smarter, and then uses that new smartness to make itself even smarter, again and again. We will also see why it matters, how an AI gets better today, how the self-improvement loop works step by step, a simple example with numbers, what already exists in the real world today, why people talk about an intelligence explosion, where it works well and where it fails, and why keeping humans in the loop is very important.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is Recursive Self-Improvement?</li>
+<li>Why does Recursive Self-Improvement matter?</li>
+<li>How does an AI get better today?</li>
+<li>How does Recursive Self-Improvement work?</li>
+<li>A simple example with numbers</li>
+<li>Two kinds of improvement</li>
+<li>What exists in the real world today?</li>
+<li>Intelligence explosion</li>
+<li>Where it works well and where it fails</li>
+<li>Keeping humans in the loop</li>
+<li>Recursive Self-Improvement vs Normal Training</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="what-is-recursive-self-improvement">What is Recursive Self-Improvement? <a aria-hidden="true" class="anchor" href="#what-is-recursive-self-improvement">#</a></h2>
+<p><strong>Recursive Self-Improvement is a process in which an AI system improves its own abilities, and then the improved version improves itself further, and this cycle keeps repeating.</strong></p>
+<p>In simple words, it is an AI that makes itself better, again and again, without waiting for a human to do it.</p>
+<p>Here, AI means Artificial Intelligence, which is a computer program that can <a href="https://outcomeschool.com/blog/machine-learning" rel="noopener noreferrer" target="_blank">learn from data</a> and do tasks that normally need human thinking.</p>
+<p>Let's break the term into parts.</p>
+<p><strong>Recursive Self-Improvement = Recursive + Self + Improvement</strong></p>
+<ul>
+<li><strong>Improvement</strong>: Getting better at something. For an AI, this means solving more problems correctly, making fewer mistakes, or working faster.</li>
+<li><strong>Self</strong>: The AI does the improving by itself. No human is sitting there and fixing it.</li>
+<li><strong>Recursive</strong>: The result of one round becomes the starting point of the next round. The improved AI is the one that does the next improvement.</li>
+</ul>
+<p>The word "recursive" is the most important word here. So, let's understand it with a simple example.</p>
+<p>Let's say there is a student preparing for an exam.</p>
+<p>A normal student studies from the notes given by the teacher. The teacher finds the weak topics of the student and tells the student what to study. Here, the teacher is doing the work of improvement.</p>
+<p>A self-improving student finds the weak topics on their own and studies them without the teacher. Here, the student is doing the work of improvement.</p>
+<p>Now, a recursively self-improving student does one more thing. After each round of study, the student not only knows more but also becomes better at the act of studying. The student learns how to find weak topics faster, how to make a better study plan, and how to remember things for longer. So, the next round of study is better and faster than the last one.</p>
+<p>Means, the student is not only getting better at the subject, the student is getting better at getting better.</p>
+<p>This is the heart of Recursive Self-Improvement. <strong>The AI improves not just its skills, but also its ability to improve.</strong></p>
+<p>Now, let's see why this idea matters so much.</p>
+<h2 id="why-does-recursive-self-improvement-matter">Why does Recursive Self-Improvement matter? <a aria-hidden="true" class="anchor" href="#why-does-recursive-self-improvement-matter">#</a></h2>
+<p>Today, making an AI better is slow and expensive work.</p>
+<p>Every improvement needs a team of human researchers, months of time, and a lot of computers. Humans are the bottleneck. A bottleneck is the narrow neck of a bottle that slows down the flow of water. Here, the human is the narrow part that slows down the flow of progress.</p>
+<p>Now, imagine that the AI could do this research work itself. It could find its own weaknesses, try new ideas, test them, and keep the ones that work. And, it could do this day and night, thousands of times, without getting tired.</p>
+<p>If this works, the speed of AI progress will no longer depend on how many human researchers we have. It will depend on how fast the AI can improve itself.</p>
+<p>And, this is not just an idea on paper. The top AI labs in the world are already working on this. They use their own AI models to help with their AI research, and some of them have openly said that their goal is to build an AI that can do AI research on its own. So, Recursive Self-Improvement is not a far-away dream. People are building the pieces of it right now.</p>
+<p>This is why Recursive Self-Improvement is one of the most discussed ideas in the world of AI. Some people see it as the path to the most powerful technology ever built. Some people see it as the biggest risk ever. Do not worry, we will see both sides in this blog.</p>
+<h2 id="how-does-an-ai-get-better-today">How does an AI get better today? <a aria-hidden="true" class="anchor" href="#how-does-an-ai-get-better-today">#</a></h2>
+<p>Before jumping into the self-improvement loop, we must know the traditional way of improving an AI, so that we can understand what changes with Recursive Self-Improvement.</p>
+<p>First, two simple words that we will use again and again.</p>
+<p><strong>Model</strong>: In AI, the model is the program that has learned from data. For the sake of understanding, think of the model as the brain of the AI.</p>
+<p><strong>Training</strong>: Training is the process of teaching the model from data. The model looks at millions of examples and learns patterns from them.</p>
+<p>Traditionally, an AI like a large language model, which is the type of AI behind chat apps like ChatGPT, gets better through the following steps:</p>
+<p><strong>Step 1: Collect data.</strong> Humans collect a huge amount of text, images, or examples for the model to learn from.</p>
+<p><strong>Step 2: Design the model.</strong> Humans decide the structure of the model, how big it must be, and how it must be trained.</p>
+<p><strong>Step 3: Write the training code.</strong> Humans write the code that teaches the model from the data. Code is the set of instructions that tells a computer what to do.</p>
+<p><strong>Step 4: Train the model.</strong> Big computers run the training code for days or weeks. The model learns patterns from the data.</p>
+<p><strong>Step 5: Test the model.</strong> Humans check the model on many questions and find where it fails.</p>
+<p><strong>Step 6: Fix and repeat.</strong> Humans go back, collect better data, change the design, fix the code, and train again.</p>
+<p>Here, we can notice that in this traditional way, almost every step needs humans. Only Step 4 is done fully by machines.</p>
+<p>One full round of this loop can take months. And, after every round, the humans are the same humans with the same speed. They do not become ten times faster after each round.</p>
+<p>Now, this is already changing. Today, AI labs use their own AI models to help in many of these steps. AI helps to create the training data in Step 1, AI writes a big part of the code in Step 3, and AI helps to run the tests in Step 5. So, the human is no longer doing everything alone. But, the human is still the one who decides what to try next and approves every change. The AI is a helper, not the one in charge. Do not worry, we will see these real-world examples in detail later in this blog.</p>
+<p>Here comes Recursive Self-Improvement into the picture. It goes one step further and lets the AI run the whole loop itself.</p>
+<h2 id="how-does-recursive-self-improvement-work">How does Recursive Self-Improvement work? <a aria-hidden="true" class="anchor" href="#how-does-recursive-self-improvement-work">#</a></h2>
+<p>The idea is simple. We replace the human in the loop with the AI itself.</p>
+<p>Let's see the loop step by step.</p>
+<p><strong>Step 1: Evaluate.</strong> The AI tests itself on a set of problems and records its score. Let's say it gets 60 questions right out of 100.</p>
+<p><strong>Step 2: Find the weakness.</strong> The AI looks at the 40 questions it got wrong and finds a pattern. Let's say it notices that it fails on problems that need many steps of thinking.</p>
+<p><strong>Step 3: Propose a change.</strong> The AI writes a change that can fix this weakness. The change can be anything: new training examples for multi-step problems, a better way of training, or a change in how the model thinks before it answers.</p>
+<p><strong>Step 4: Train and test the new version.</strong> The AI applies the change, trains a new version of itself, and tests the new version on the same 100 problems.</p>
+<p><strong>Step 5: Keep or discard.</strong> If the new version scores higher, it becomes the current version. If not, the change is thrown away and the AI tries something else.</p>
+<p><strong>Step 6: Repeat.</strong> Now, the new and better version goes back to Step 1 and does the whole loop again.</p>
+<p>Step 6 is where the "recursive" part comes in. In programming, recursion means a process that uses its own result to run again. Here, the AI that runs the next round is not the old AI. It is the improved AI. And, because it is improved, it is better at finding weaknesses, better at proposing changes, and better at testing them.</p>
+<p>So, each round of the loop is done by a smarter worker than the last round.</p>
+<p>The very first version that starts this loop is sometimes called a <strong>seed AI</strong>. Like a seed, it is small at the start, but it can grow into something much bigger.</p>
+<p>This is how Recursive Self-Improvement works.</p>
+<h2 id="a-simple-example-with-numbers">A simple example with numbers <a aria-hidden="true" class="anchor" href="#a-simple-example-with-numbers">#</a></h2>
+<p>The best way to learn this is by taking an example. The numbers here are just for the sake of understanding.</p>
+<p>Let's say we have an AI whose score is 60 out of 100.</p>
+<p><strong>Round 1:</strong> Version 1 finds a weakness, proposes a change, and trains Version 2. Version 2 scores 63. The improvement is 3 points.</p>
+<p><strong>Round 2:</strong> Now, Version 2 runs the loop. Version 2 is a little smarter, so it finds a better weakness and proposes a better change. Version 3 scores 68. The improvement is 5 points.</p>
+<p><strong>Round 3:</strong> Version 3 runs the loop. Version 4 scores 76. The improvement is 8 points.</p>
+<p><strong>Round 4:</strong> Version 4 runs the loop. Version 5 scores 88. The improvement is 12 points.</p>
+<p>Here, we can notice something interesting. The improvement in each round is bigger than the previous round: 3, then 5, then 8, then 12.</p>
+<p>Why? Because the worker doing the improvement is getting smarter every round. A smarter worker finds bigger improvements.</p>
+<p>This is different from the normal way. In the normal way, the humans doing the improvement stay the same, so the improvement in each round does not grow like this.</p>
+<p>This is why Recursive Self-Improvement is so powerful.</p>
+<p><strong>Note:</strong> In real life, the numbers do not always grow like this. We will see why in the section about where it fails.</p>
+<p>Now, let's understand why the worker gets smarter in each round.</p>
+<h2 id="two-kinds-of-improvement">Two kinds of improvement <a aria-hidden="true" class="anchor" href="#two-kinds-of-improvement">#</a></h2>
+<p>To understand Recursive Self-Improvement properly, we must understand that there are two different kinds of improvement.</p>
+<p><strong>First kind: Getting better at the task.</strong></p>
+<p>This is when the AI becomes better at math, better at writing code, or better at answering questions. This is what most people think of when they hear "the AI improved".</p>
+<p><strong>Second kind: Getting better at improving.</strong></p>
+<p>This is when the AI becomes better at the work of improvement itself. Better at finding its weaknesses. Better at writing training code. Better at creating useful training data. Better at designing tests.</p>
+<p>The first kind alone is not recursive. An AI that only becomes better at math will not make the next round of improvement any faster.</p>
+<p>The second kind is what makes the loop recursive. When the AI gets better at improving, the next round is faster and better than the last one. This is what gives the growing numbers we saw in the example.</p>
+<p>So, whenever we hear about Recursive Self-Improvement, we must ask: Is the AI getting better at the task only, or is it also getting better at improving? Only when the second kind is present, we have true Recursive Self-Improvement.</p>
+<p>This was all about the two kinds of improvement. Now, let's see what exists in the real world today.</p>
+<h2 id="what-exists-in-the-real-world-today">What exists in the real world today? <a aria-hidden="true" class="anchor" href="#what-exists-in-the-real-world-today">#</a></h2>
+<p>Now, the big question is: Does this exist today?</p>
+<p>The answer is: Partially. There is no AI today that fully improves itself without humans. But, this is not just a theory. People are actively working on it. Many pieces of this loop already work, and AI labs are building the remaining pieces right now. Let's see them.</p>
+<p><strong>Self-play in games</strong></p>
+<p>In 2017, DeepMind, which is the AI research lab of Google, built a system called AlphaGo Zero to play the board game Go. It started by knowing only the rules and playing random moves. Then, it played millions of games against itself. Each new version learned from the games played by the previous version. Within a few weeks, it became stronger than any human player in history.</p>
+<p>Here, the AI improved itself, and the improved version created the training data for the next version. This is a form of Recursive Self-Improvement, but only inside one game with fixed rules. Humans designed the system, and the AI could not change its own design.</p>
+<p>The method behind AlphaGo Zero is reinforcement learning, and we have a detailed blog on <a href="https://outcomeschool.com/blog/reinforcement-learning" rel="noopener noreferrer" target="_blank">Reinforcement Learning</a> that explains it in depth.</p>
+<p><strong>AI creating training data for the next AI</strong></p>
+<p>Modern large language models are partly trained on data that was written, filtered, or checked by earlier AI models. This is called synthetic data. Synthetic means made by a machine, not collected from the real world. The old model helps to teach the new model. So, one piece of the loop, which is collecting data, is already done partly by AI.</p>
+<p><strong>AI writing code for AI research</strong></p>
+<p><a href="https://outcomeschool.com/blog/how-does-claude-code-work" rel="noopener noreferrer" target="_blank">AI coding assistants</a> are now used by AI researchers to write and fix the code for training and testing models. Some AI labs have openly said that a large part of the code inside their company is now written by their own AI models. Means, the AI models are helping to write the code that builds their own next version. Some labs also use <a href="https://outcomeschool.com/blog/ai-agent" rel="noopener noreferrer" target="_blank">AI agents</a>, which are AI programs that can take actions on their own, to run experiments, read the results, and try the next experiment. So, the steps of writing code and running tests are also becoming partly automated.</p>
+<p><strong>AI discovering better algorithms</strong></p>
+<p>An algorithm is a step-by-step method to solve a problem, like a recipe. In 2025, DeepMind built a system called AlphaEvolve. It uses Gemini, which is the AI model made by Google, to write and improve code. It found a faster way to do one of the most important math operations inside AI training, called <a href="https://outcomeschool.com/blog/how-does-a-gpu-work-for-deep-learning" rel="noopener noreferrer" target="_blank">matrix multiplication</a>. Matrix multiplication is a way of multiplying big tables of numbers, and AI training does this billions of times. This faster method was used to reduce the training time of Gemini itself.</p>
+<p>Here, an AI found an improvement that was used to train the very AI family that powers it. This is the closest thing to Recursive Self-Improvement in the real world today.</p>
+<p>But, here is the catch. In all these examples, humans are still in the loop. Humans decide what to run, check the results, and approve the changes. The AI is a very fast helper, not an independent improver.</p>
+<p>Still, the direction is clear. Every year, the AI does a bigger share of the work, and the human does a smaller share. The AI labs are openly working towards the day when the AI can run the full research loop on its own. So, Recursive Self-Improvement is not a far-away idea. It is a work in progress.</p>
+<h2 id="intelligence-explosion">Intelligence explosion <a aria-hidden="true" class="anchor" href="#intelligence-explosion">#</a></h2>
+<p>Now that we have seen what exists today, it's time to learn about the big idea that comes from this loop.</p>
+<p>In 1965, a mathematician named I. J. Good wrote about an "ultraintelligent machine". He said that if a machine could design better machines, then those better machines could design even better machines, and this would lead to an "intelligence explosion". After that, he said, the intelligence of humans would be left far behind.</p>
+<p>Let's understand this with money.</p>
+<p>Let's say we put money in a bank that gives interest. In the first year, the money earns some interest. In the second year, the money plus the interest from the first year earns interest. So, the interest earns interest. This is called compound interest, and it grows slowly at first and then very fast.</p>
+<p>Recursive Self-Improvement is like compound interest for intelligence. Intelligence earns more intelligence. Each round is done by the improved version, so the gain from one round is added to the worker of the next round, just like the interest is added to the money. The smarter the AI becomes, the faster it becomes even smarter.</p>
+<p>This is why some people believe that once real Recursive Self-Improvement starts, AI could go from human level to far beyond human level in a very short time. This is the intelligence explosion.</p>
+<p>But, this is a prediction, not a fact. Many smart people disagree about how fast this will happen, or if it will happen at all. Let's see why.</p>
+<h2 id="where-it-works-well-and-where-it-fails">Where it works well and where it fails <a aria-hidden="true" class="anchor" href="#where-it-works-well-and-where-it-fails">#</a></h2>
+<p>First, let's see where it works well.</p>
+<p>Recursive Self-Improvement works well in closed worlds with clear rules and clear scores, like games, math, and code. In these worlds, the AI can check its own answer. A game is won or lost. A math answer is right or wrong. Code either passes the tests or fails them. So, the test is good, and the loop runs fast. This is why the biggest real-world successes we saw above are in games, math, and code. We have a detailed blog on <a href="https://outcomeschool.com/blog/ai-is-only-as-good-as-our-definition-of-done" rel="noopener noreferrer" target="_blank">AI Is Only as Good as Our Definition of Done</a> that explains this idea step by step.</p>
+<p>Now, let's see where it fails.</p>
+<p>Recursive Self-Improvement sounds like a machine that runs forever and keeps getting better. But, in the real world, there are many walls that slow it down or stop it. Let's see them one by one.</p>
+<p><strong>Wall 1: Compute</strong></p>
+<p>Compute means computing power, which is the number of computers we have and the electricity needed to run them. Every new idea must be tested by training a new version. Training a big model needs thousands of computers running for weeks. A smarter AI can think of better ideas faster, but it still needs the same computers to test them. So, the speed of the loop is limited by the number of computers we have, not just by how smart the AI is.</p>
+<p><strong>Wall 2: Data and the real world</strong></p>
+<p>Some knowledge cannot be found by thinking harder. It can be found only by looking at the real world. For example, to know if a new medicine works, someone must test it on real patients, and that takes years. No amount of intelligence can skip that waiting time.</p>
+<p><strong>Wall 3: The evaluation problem</strong></p>
+<p>Evaluation means checking how good the new version is. This is the most important wall. In Step 5 of the loop, the AI keeps the new version if it scores higher on the test. But, what if the test is not good?</p>
+<p>Let's say a student is given the answer key of the exam. The student memorizes the answer key and scores 100. Did the student become smarter? No. The student became better at that one test only.</p>
+<p>The same thing can happen with an AI. If the AI improves itself only to score higher on the test, it can learn tricks to pass the test without actually becoming better. This problem is so common that it has a name. <strong>Goodhart's Law</strong> says: "When a measure becomes a target, it stops being a good measure."</p>
+<p><strong>Very important:</strong> A Recursive Self-Improvement loop is only as good as its test. And, making a good test for "is this AI actually smarter?" is a very hard problem that is not solved yet.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/llm-evaluation" rel="noopener noreferrer" target="_blank">LLM Evaluation</a> that covers how these tests are built and where they break.</p>
+<p><strong>Wall 4: Errors pile up</strong></p>
+<p>Let's say Version 2 has a small mistake in the way it thinks. Now, Version 2 builds Version 3. The mistake goes into Version 3, and Version 3 adds its own small mistake. This is like taking a photocopy of a photocopy of a photocopy. Each copy gets a little worse. In the same way, small errors can grow in each round, and the AI can get worse instead of better without anyone noticing.</p>
+<p><strong>Wall 5: Diminishing returns</strong></p>
+<p>Diminishing returns means that each new effort gives less result than the one before. The easy improvements are found first. After that, each improvement is harder to find. This is like squeezing a lemon. The first squeeze gives a lot of juice. The tenth squeeze gives almost nothing. So, the growing numbers we saw in our example can slow down after some rounds.</p>
+<p>Because of these walls, many researchers believe that Recursive Self-Improvement will be a steady climb rather than an explosion. But, nobody knows for sure. And, that is exactly why we must be careful.</p>
+<h2 id="keeping-humans-in-the-loop">Keeping humans in the loop <a aria-hidden="true" class="anchor" href="#keeping-humans-in-the-loop">#</a></h2>
+<p>Now, let's discuss the most serious part.</p>
+<p>When an AI changes itself, the new version is not the same as the old one. The old version was tested and trusted by humans. The new version was built by the AI. What if the new version cares about different things than what we wanted?</p>
+<p>For example, we want the AI to be honest and helpful. But, the AI changes itself to score higher on a test. The new version learns that it scores higher when it gives confident answers, even when it is wrong. Now, we have a more confident AI, but a less honest one. And, this new version will build the next version.</p>
+<p>This is called the <a href="https://outcomeschool.com/blog/reinforcement-learning-from-human-feedback-rlhf" rel="noopener noreferrer" target="_blank">alignment problem</a>. <strong>Alignment means making sure that the goals of the AI stay the same as the goals of the humans who built it.</strong> In Recursive Self-Improvement, this problem becomes harder with every round, because every round moves the AI further away from the version that humans checked.</p>
+<p>So, how can we handle this? The answer is: keep humans in the loop.</p>
+<p>Few important points:</p>
+<ul>
+<li><strong>Human approval:</strong> Every change proposed by the AI must be checked and approved by a human before it is applied.</li>
+<li><strong>Sandbox:</strong> The AI must improve itself inside a closed and safe environment, called a sandbox, where it cannot reach the outside world.</li>
+<li><strong>Good tests:</strong> Test not only for skill, but also for honesty, safety, and behavior. A new version that is smarter but less safe must be rejected.</li>
+<li><strong>Logs:</strong> Record every change, so that if something goes wrong, we can go back to the last good version.</li>
+<li><strong>Limits:</strong> Put a limit on how much the AI can change itself in one round, and on how much compute it can use.</li>
+</ul>
+<p>This is how the AI labs are approaching Recursive Self-Improvement today. The AI does more and more of the work, but the human keeps the final say.</p>
+<h2 id="recursive-self-improvement-vs-normal-training">Recursive Self-Improvement vs Normal Training <a aria-hidden="true" class="anchor" href="#recursive-self-improvement-vs-normal-training">#</a></h2>
+<p>Let me tabulate the differences between Recursive Self-Improvement and Normal Training for your better understanding.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>Normal Training</th>
+<th>Recursive Self-Improvement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Who finds the weaknesses</td>
+<td>Humans</td>
+<td>The AI itself</td>
+</tr>
+<tr>
+<td>Who proposes the changes</td>
+<td>Humans</td>
+<td>The AI itself</td>
+</tr>
+<tr>
+<td>Who tests the new version</td>
+<td>Humans</td>
+<td>The AI itself</td>
+</tr>
+<tr>
+<td>Who does the next round</td>
+<td>Same humans, same speed</td>
+<td>The improved AI, smarter every round</td>
+</tr>
+<tr>
+<td>Time for one round</td>
+<td>Weeks to months</td>
+<td>Hours to days</td>
+</tr>
+<tr>
+<td>Main risk</td>
+<td>Slow progress</td>
+<td>Losing control and bad tests</td>
+</tr>
+<tr>
+<td>Where we are today</td>
+<td>Fully in use</td>
+<td>Actively being built, with humans in the loop</td>
+</tr>
+</tbody>
+</table></div>
+<p>Now, we must have understood Recursive Self-Improvement.</p>
+<p>Recursive Self-Improvement is an AI that gets better at getting better. Today, we have many pieces of the loop working, like self-play, synthetic data, AI writing research code, and AI discovering faster algorithms. But, the full loop, where the AI improves itself without any human, does not exist yet, and the AI labs are actively working towards it. The walls of compute, real-world data, bad tests, growing errors, and diminishing returns slow it down. And, the alignment problem tells us that even if the loop works, we must keep a human hand on it at every round.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions <a aria-hidden="true" class="anchor" href="#frequently-asked-questions">#</a></h2>
+<h3 id="what-is-the-difference-between-self-improvement-and-recursive-self-improvement">What is the difference between self-improvement and recursive self-improvement? <a aria-hidden="true" class="anchor" href="#what-is-the-difference-between-self-improvement-and-recursive-self-improvement">#</a></h3>
+<p>A self-improving AI finds and fixes its own weaknesses without a human. A recursively self-improving AI also gets better at the act of improving itself. So, each round is done by a smarter worker than the last round, and the next round becomes faster and better. In simple words, it gets better at getting better.</p>
+<h3 id="what-is-a-seed-ai">What is a seed AI? <a aria-hidden="true" class="anchor" href="#what-is-a-seed-ai">#</a></h3>
+<p>A seed AI is the very first version that starts the recursive self-improvement loop. Like a seed, it is small at the start, but it can grow into something much bigger. Each round, the improved version takes over and runs the next round of evaluating, finding weaknesses, proposing changes, and testing.</p>
+<h3 id="is-alphago-zero-an-example-of-recursive-self-improvement">Is AlphaGo Zero an example of recursive self-improvement? <a aria-hidden="true" class="anchor" href="#is-alphago-zero-an-example-of-recursive-self-improvement">#</a></h3>
+<p>Yes, but only in a limited form. AlphaGo Zero played millions of games against itself, and each new version learned from the games of the previous version. However, this happened only inside one game with fixed rules. Humans designed the system, and the AI could not change its own design.</p>
+<h3 id="will-recursive-self-improvement-definitely-cause-an-intelligence-explosion">Will recursive self-improvement definitely cause an intelligence explosion? <a aria-hidden="true" class="anchor" href="#will-recursive-self-improvement-definitely-cause-an-intelligence-explosion">#</a></h3>
+<p>No. The intelligence explosion is a prediction, not a fact, and many smart people disagree about how fast it will happen, or if it will happen at all. Walls like compute, real-world data, bad tests, growing errors, and diminishing returns slow the loop down, so many researchers expect a steady climb instead.</p>
+<h3 id="why-does-goodhart-s-law-matter-for-recursive-self-improvement">Why does Goodhart's Law matter for recursive self-improvement? <a aria-hidden="true" class="anchor" href="#why-does-goodhart-s-law-matter-for-recursive-self-improvement">#</a></h3>
+<p>It matters because the loop keeps a new version only if it scores higher on a test. Goodhart's Law says that when a measure becomes a target, it stops being a good measure. So, the AI can learn tricks to pass the test without actually becoming better. A self-improvement loop is only as good as its test.</p>
+
+  <nav class="prev-next" aria-label="Lesson navigation"><a href="m17-l1702-how-do-world-models-work.html"><span class="label">← Previous lesson</span>17.2 How do World Models work?</a></nav>
+  <footer class="footer">
+    <p>Personal offline study copy · Content © Outcome School / Amit Shekhar ·
+    <a href="../notice.html">usage notice</a>.</p>
+    <p>Source: <a href="https://outcomeschool.com/blog/what-is-recursive-self-improvement-rsi" target="_blank" rel="noopener noreferrer">https://outcomeschool.com/blog/what-is-recursive-self-improvement-rsi</a></p>
+  </footer>
+</article>
+
+    </main>
+  </div>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

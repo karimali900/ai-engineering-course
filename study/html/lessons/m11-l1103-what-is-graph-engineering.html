@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="What is Graph Engineering? Module 11 · Lesson 11.3 Source: Outcome School · Published: August 21, 2026 · Reading time: 24 min · Tags: ai agent , llm , ai , system design Graph Engi">
+<title>What is Graph Engineering? · AI Engineering Course</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/pygments.css">
+</head>
+<body class="">
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="topbar">
+  <button id="menu-toggle" class="icon-btn" type="button" aria-label="Toggle navigation">☰</button>
+  <a class="brand" href="../index.html">AI Engineering Course</a>
+  <div class="search-wrap">
+    <input id="search" type="search" placeholder="Search lessons…" autocomplete="off" aria-label="Search lessons">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+  <div class="progress-mini" title="Course progress"><span id="progress-text">0%</span></div>
+  <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle light/dark theme">🌙</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="progress-box">
+      <div class="progress-bar"><span id="progress-fill"></span></div>
+      <div class="progress-label" id="progress-label">0 of 0 lessons read</div>
+    </div>
+    <nav class="course-nav" aria-label="Course modules">
+<a class="nav-home" href="../index.html">Course home</a>
+<a class="nav-module-single" href="../modules/m00.html">0. Must Know</a>
+<details class="nav-module" data-module="1">
+<summary><span class="nav-module-title">1. Machine Learning Foundations</span><span class="nav-count" data-nav-count="1">0/9</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0101" data-module="1" aria-label="Mark What is Machine Learning? as read"></label><a href="../lessons/m01-l0101-what-is-machine-learning.html">1.1 What is Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0102" data-module="1" aria-label="Mark Supervised vs Unsupervised Learning as read"></label><a href="../lessons/m01-l0102-supervised-vs-unsupervised-learning.html">1.2 Supervised vs Unsupervised Learning</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0103" data-module="1" aria-label="Mark Linear Regression vs Logistic Regression as read"></label><a href="../lessons/m01-l0103-linear-regression-vs-logistic-regression.html">1.3 Linear Regression vs Logistic Regression</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0104" data-module="1" aria-label="Mark What is Feature Engineering in Machine Learning? as read"></label><a href="../lessons/m01-l0104-what-is-feature-engineering-in-machine-learning.html">1.4 What is Feature Engineering in Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0105" data-module="1" aria-label="Mark Precision vs Recall as read"></label><a href="../lessons/m01-l0105-precision-vs-recall.html">1.5 Precision vs Recall</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0106" data-module="1" aria-label="Mark What Are L1 and L2 Loss Functions? as read"></label><a href="../lessons/m01-l0106-what-are-l1-and-l2-loss-functions.html">1.6 What Are L1 and L2 Loss Functions?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0107" data-module="1" aria-label="Mark What is Regularization in Machine Learning? L1 vs L2 Explained as read"></label><a href="../lessons/m01-l0107-what-is-regularization-in-machine-learning-l1-vs-l2-explained.html">1.7 What is Regularization in Machine Learning? L1 vs L2 Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0108" data-module="1" aria-label="Mark What is Reinforcement Learning? as read"></label><a href="../lessons/m01-l0108-what-is-reinforcement-learning.html">1.8 What is Reinforcement Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0109" data-module="1" aria-label="Mark What is Contrastive Learning? How It Works Step by Step as read"></label><a href="../lessons/m01-l0109-what-is-contrastive-learning-how-it-works-step-by-step.html">1.9 What is Contrastive Learning? How It Works Step by Step</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="2">
+<summary><span class="nav-module-title">2. Deep Learning and Neural Networks</span><span class="nav-count" data-nav-count="2">0/12</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0201" data-module="2" aria-label="Mark What is a Neural Network and How Does It Work? as read"></label><a href="../lessons/m02-l0201-what-is-a-neural-network-and-how-does-it-work.html">2.1 What is a Neural Network and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0202" data-module="2" aria-label="Mark What is Bias In Artificial Neural Network? as read"></label><a href="../lessons/m02-l0202-what-is-bias-in-artificial-neural-network.html">2.2 What is Bias In Artificial Neural Network?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0203" data-module="2" aria-label="Mark How Does Matrix Multiplication Work in Neural Networks? as read"></label><a href="../lessons/m02-l0203-how-does-matrix-multiplication-work-in-neural-networks.html">2.3 How Does Matrix Multiplication Work in Neural Networks?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0204" data-module="2" aria-label="Mark How Does Gradient Descent Work? as read"></label><a href="../lessons/m02-l0204-how-does-gradient-descent-work.html">2.4 How Does Gradient Descent Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0205" data-module="2" aria-label="Mark How Does Backpropagation Work? The Math Explained Step by Step as read"></label><a href="../lessons/m02-l0205-how-does-backpropagation-work-the-math-explained-step-by-step.html">2.5 How Does Backpropagation Work? The Math Explained Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0206" data-module="2" aria-label="Mark What is Cross-Entropy Loss? as read"></label><a href="../lessons/m02-l0206-what-is-cross-entropy-loss.html">2.6 What is Cross-Entropy Loss?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0207" data-module="2" aria-label="Mark What is Dropout in Neural Networks and How Does It Work? as read"></label><a href="../lessons/m02-l0207-what-is-dropout-in-neural-networks-and-how-does-it-work.html">2.7 What is Dropout in Neural Networks and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0208" data-module="2" aria-label="Mark Batch Normalization vs Layer Normalization as read"></label><a href="../lessons/m02-l0208-batch-normalization-vs-layer-normalization.html">2.8 Batch Normalization vs Layer Normalization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0209" data-module="2" aria-label="Mark What is RMSNorm? Root Mean Square Layer Normalization Explained as read"></label><a href="../lessons/m02-l0209-what-is-rmsnorm-root-mean-square-layer-normalization-explained.html">2.9 What is RMSNorm? Root Mean Square Layer Normalization Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0210" data-module="2" aria-label="Mark What is a Recurrent Neural Network (RNN)? as read"></label><a href="../lessons/m02-l0210-what-is-a-recurrent-neural-network-rnn.html">2.10 What is a Recurrent Neural Network (RNN)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0211" data-module="2" aria-label="Mark How does PyTorch work? as read"></label><a href="../lessons/m02-l0211-how-does-pytorch-work.html">2.11 How does PyTorch work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0212" data-module="2" aria-label="Mark How Does The Machine Learning Library TensorFlow Work? as read"></label><a href="../lessons/m02-l0212-how-does-the-machine-learning-library-tensorflow-work.html">2.12 How Does The Machine Learning Library TensorFlow Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="3">
+<summary><span class="nav-module-title">3. Generative AI and the Transformer Architecture</span><span class="nav-count" data-nav-count="3">0/16</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0301" data-module="3" aria-label="Mark What is Generative AI? as read"></label><a href="../lessons/m03-l0301-what-is-generative-ai.html">3.1 What is Generative AI?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0302" data-module="3" aria-label="Mark What are Autoregressive Models? as read"></label><a href="../lessons/m03-l0302-what-are-autoregressive-models.html">3.2 What are Autoregressive Models?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0303" data-module="3" aria-label="Mark Tokenization in LLMs as read"></label><a href="../lessons/m03-l0303-tokenization-in-llms.html">3.3 Tokenization in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0304" data-module="3" aria-label="Mark What is Byte Pair Encoding (BPE) in LLMs? as read"></label><a href="../lessons/m03-l0304-what-is-byte-pair-encoding-bpe-in-llms.html">3.4 What is Byte Pair Encoding (BPE) in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0305" data-module="3" aria-label="Mark What are Embeddings? as read"></label><a href="../lessons/m03-l0305-what-are-embeddings.html">3.5 What are Embeddings?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0306" data-module="3" aria-label="Mark How do RNNs and Transformers differ? as read"></label><a href="../lessons/m03-l0306-how-do-rnns-and-transformers-differ.html">3.6 How do RNNs and Transformers differ?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0307" data-module="3" aria-label="Mark How Does the Transformer Architecture Work? as read"></label><a href="../lessons/m03-l0307-how-does-the-transformer-architecture-work.html">3.7 How Does the Transformer Architecture Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0308" data-module="3" aria-label="Mark Encoder vs Decoder in Transformers as read"></label><a href="../lessons/m03-l0308-encoder-vs-decoder-in-transformers.html">3.8 Encoder vs Decoder in Transformers</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0309" data-module="3" aria-label="Mark What is Self Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0309-what-is-self-attention-in-transformers-and-how-does-it-work.html">3.9 What is Self Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0310" data-module="3" aria-label="Mark How Does Attention Work? The Math Behind Q, K, and V Step by Step as read"></label><a href="../lessons/m03-l0310-how-does-attention-work-the-math-behind-q-k-and-v-step-by-step.html">3.10 How Does Attention Work? The Math Behind Q, K, and V Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0311" data-module="3" aria-label="Mark Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor as read"></label><a href="../lessons/m03-l0311-why-do-we-scale-attention-by-dk-the-math-behind-the-scaling-factor.html">3.11 Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0312" data-module="3" aria-label="Mark What is Causal Masking in Attention and Why Do LLMs Need It? as read"></label><a href="../lessons/m03-l0312-what-is-causal-masking-in-attention-and-why-do-llms-need-it.html">3.12 What is Causal Masking in Attention and Why Do LLMs Need It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0313" data-module="3" aria-label="Mark What is Multi-Head Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0313-what-is-multi-head-attention-in-transformers-and-how-does-it-work.html">3.13 What is Multi-Head Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0314" data-module="3" aria-label="Mark What is Cross Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0314-what-is-cross-attention-in-transformers-and-how-does-it-work.html">3.14 What is Cross Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0315" data-module="3" aria-label="Mark What is RoPE (Rotary Position Embedding)? The Math Behind It as read"></label><a href="../lessons/m03-l0315-what-is-rope-rotary-position-embedding-the-math-behind-it.html">3.15 What is RoPE (Rotary Position Embedding)? The Math Behind It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0316" data-module="3" aria-label="Mark What is the Feed-Forward Network in LLMs and What Does It Do? as read"></label><a href="../lessons/m03-l0316-what-is-the-feed-forward-network-in-llms-and-what-does-it-do.html">3.16 What is the Feed-Forward Network in LLMs and What Does It Do?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="4">
+<summary><span class="nav-module-title">4. How LLMs Generate Text</span><span class="nav-count" data-nav-count="4">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0401" data-module="4" aria-label="Mark How does Temperature control LLM output? as read"></label><a href="../lessons/m04-l0401-how-does-temperature-control-llm-output.html">4.1 How does Temperature control LLM output?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0402" data-module="4" aria-label="Mark How do Top-k and Top-p Sampling work? as read"></label><a href="../lessons/m04-l0402-how-do-top-k-and-top-p-sampling-work.html">4.2 How do Top-k and Top-p Sampling work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0403" data-module="4" aria-label="Mark Stop Tokens in LLMs as read"></label><a href="../lessons/m04-l0403-stop-tokens-in-llms.html">4.3 Stop Tokens in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0404" data-module="4" aria-label="Mark How does Token Streaming work? as read"></label><a href="../lessons/m04-l0404-how-does-token-streaming-work.html">4.4 How does Token Streaming work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0405" data-module="4" aria-label="Mark What is the Lost in the Middle Problem in LLMs and How to Fix It? as read"></label><a href="../lessons/m04-l0405-what-is-the-lost-in-the-middle-problem-in-llms-and-how-to-fix-it.html">4.5 What is the Lost in the Middle Problem in LLMs and How to Fix It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0406" data-module="4" aria-label="Mark Why Do LLMs Hallucinate? The Token-Level Explanation as read"></label><a href="../lessons/m04-l0406-why-do-llms-hallucinate-the-token-level-explanation.html">4.6 Why Do LLMs Hallucinate? The Token-Level Explanation</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="5">
+<summary><span class="nav-module-title">5. Modern LLM Architecture</span><span class="nav-count" data-nav-count="5">0/7</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0501" data-module="5" aria-label="Mark Evolution of LLM Architecture as read"></label><a href="../lessons/m05-l0501-evolution-of-llm-architecture.html">5.1 Evolution of LLM Architecture</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0502" data-module="5" aria-label="Mark What is Mixture of Experts (MoE) and How Does It Work? as read"></label><a href="../lessons/m05-l0502-what-is-mixture-of-experts-moe-and-how-does-it-work.html">5.2 What is Mixture of Experts (MoE) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0503" data-module="5" aria-label="Mark What is Grouped Query Attention (GQA) and Why Do LLMs Use It? as read"></label><a href="../lessons/m05-l0503-what-is-grouped-query-attention-gqa-and-why-do-llms-use-it.html">5.3 What is Grouped Query Attention (GQA) and Why Do LLMs Use It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0504" data-module="5" aria-label="Mark How does Sliding Window Attention work? as read"></label><a href="../lessons/m05-l0504-how-does-sliding-window-attention-work.html">5.4 How does Sliding Window Attention work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0505" data-module="5" aria-label="Mark How do Attention Sinks work? as read"></label><a href="../lessons/m05-l0505-how-do-attention-sinks-work.html">5.5 How do Attention Sinks work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0506" data-module="5" aria-label="Mark What is Flash Attention and Why Is It So Fast? as read"></label><a href="../lessons/m05-l0506-what-is-flash-attention-and-why-is-it-so-fast.html">5.6 What is Flash Attention and Why Is It So Fast?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0507" data-module="5" aria-label="Mark What is DeepSeek-V4 and How Does It Work? Architecture Explained as read"></label><a href="../lessons/m05-l0507-what-is-deepseek-v4-and-how-does-it-work-architecture-explained.html">5.7 What is DeepSeek-V4 and How Does It Work? Architecture Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="6">
+<summary><span class="nav-module-title">6. Types of Language Models</span><span class="nav-count" data-nav-count="6">0/5</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0601" data-module="6" aria-label="Mark What are Small Language Models (SLMs) and When Should We Use Them? as read"></label><a href="../lessons/m06-l0601-what-are-small-language-models-slms-and-when-should-we-use-them.html">6.1 What are Small Language Models (SLMs) and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0602" data-module="6" aria-label="Mark What are Large Reasoning Models (LRMs) and How Are They Different from LLMs? as read"></label><a href="../lessons/m06-l0602-what-are-large-reasoning-models-lrms-and-how-are-they-different-from-llms.html">6.2 What are Large Reasoning Models (LRMs) and How Are They Different from LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0603" data-module="6" aria-label="Mark What are Recursive Language Models (RLMs) and How Do They Work? as read"></label><a href="../lessons/m06-l0603-what-are-recursive-language-models-rlms-and-how-do-they-work.html">6.3 What are Recursive Language Models (RLMs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0604" data-module="6" aria-label="Mark How do Diffusion Language Models (DLMs) work? as read"></label><a href="../lessons/m06-l0604-how-do-diffusion-language-models-dlms-work.html">6.4 How do Diffusion Language Models (DLMs) work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0605" data-module="6" aria-label="Mark Jev and System One Models Explained as read"></label><a href="../lessons/m06-l0605-jev-and-system-one-models-explained.html">6.5 Jev and System One Models Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="7">
+<summary><span class="nav-module-title">7. Training, Fine-Tuning, and Alignment</span><span class="nav-count" data-nav-count="7">0/11</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0701" data-module="7" aria-label="Mark How does fine-tuning work? as read"></label><a href="../lessons/m07-l0701-how-does-fine-tuning-work.html">7.1 How does fine-tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0702" data-module="7" aria-label="Mark What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs? as read"></label><a href="../lessons/m07-l0702-what-is-lora-low-rank-adaptation-and-how-does-it-fine-tune-llms.html">7.2 What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0703" data-module="7" aria-label="Mark How does Prefix Tuning work? as read"></label><a href="../lessons/m07-l0703-how-does-prefix-tuning-work.html">7.3 How does Prefix Tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0704" data-module="7" aria-label="Mark How does Knowledge Distillation work? as read"></label><a href="../lessons/m07-l0704-how-does-knowledge-distillation-work.html">7.4 How does Knowledge Distillation work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0705" data-module="7" aria-label="Mark What is Continual Learning in LLMs? Solving Catastrophic Forgetting as read"></label><a href="../lessons/m07-l0705-what-is-continual-learning-in-llms-solving-catastrophic-forgetting.html">7.5 What is Continual Learning in LLMs? Solving Catastrophic Forgetting</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0706" data-module="7" aria-label="Mark What is Deep RL from Human Preferences? The Paper That Started RLHF as read"></label><a href="../lessons/m07-l0706-what-is-deep-rl-from-human-preferences-the-paper-that-started-rlhf.html">7.6 What is Deep RL from Human Preferences? The Paper That Started RLHF</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0707" data-module="7" aria-label="Mark What is InstructGPT? How GPT-3 Learned to Follow Instructions as read"></label><a href="../lessons/m07-l0707-what-is-instructgpt-how-gpt-3-learned-to-follow-instructions.html">7.7 What is InstructGPT? How GPT-3 Learned to Follow Instructions</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0708" data-module="7" aria-label="Mark What is RLHF? Reinforcement Learning from Human Feedback Explained as read"></label><a href="../lessons/m07-l0708-what-is-rlhf-reinforcement-learning-from-human-feedback-explained.html">7.8 What is RLHF? Reinforcement Learning from Human Feedback Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0709" data-module="7" aria-label="Mark What is Proximal Policy Optimization (PPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0709-what-is-proximal-policy-optimization-ppo-and-how-does-it-work.html">7.9 What is Proximal Policy Optimization (PPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0710" data-module="7" aria-label="Mark What is Direct Preference Optimization (DPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0710-what-is-direct-preference-optimization-dpo-and-how-does-it-work.html">7.10 What is Direct Preference Optimization (DPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0711" data-module="7" aria-label="Mark What is Group Relative Policy Optimization (GRPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0711-what-is-group-relative-policy-optimization-grpo-and-how-does-it-work.html">7.11 What is Group Relative Policy Optimization (GRPO) and How Does It Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="8">
+<summary><span class="nav-module-title">8. Prompt Engineering and Context Engineering</span><span class="nav-count" data-nav-count="8">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0801" data-module="8" aria-label="Mark How does Chain-of-Thought (CoT) Prompting work? as read"></label><a href="../lessons/m08-l0801-how-does-chain-of-thought-cot-prompting-work.html">8.1 How does Chain-of-Thought (CoT) Prompting work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0802" data-module="8" aria-label="Mark How does Tree of Thoughts work? as read"></label><a href="../lessons/m08-l0802-how-does-tree-of-thoughts-work.html">8.2 How does Tree of Thoughts work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0803" data-module="8" aria-label="Mark How does Prompt Chaining work? as read"></label><a href="../lessons/m08-l0803-how-does-prompt-chaining-work.html">8.3 How does Prompt Chaining work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0804" data-module="8" aria-label="Mark How does Prompt Caching work? as read"></label><a href="../lessons/m08-l0804-how-does-prompt-caching-work.html">8.4 How does Prompt Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0805" data-module="8" aria-label="Mark What is Context Engineering? as read"></label><a href="../lessons/m08-l0805-what-is-context-engineering.html">8.5 What is Context Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0806" data-module="8" aria-label="Mark How does context compaction work? as read"></label><a href="../lessons/m08-l0806-how-does-context-compaction-work.html">8.6 How does context compaction work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="9">
+<summary><span class="nav-module-title">9. Vector Search and Retrieval-Augmented Generation (RAG)</span><span class="nav-count" data-nav-count="9">0/15</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0901" data-module="9" aria-label="Mark How does a Vector Database work? as read"></label><a href="../lessons/m09-l0901-how-does-a-vector-database-work.html">9.1 How does a Vector Database work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0902" data-module="9" aria-label="Mark How does Approximate Nearest Neighbor (ANN) search work? as read"></label><a href="../lessons/m09-l0902-how-does-approximate-nearest-neighbor-ann-search-work.html">9.2 How does Approximate Nearest Neighbor (ANN) search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0903" data-module="9" aria-label="Mark How does Semantic Search work? as read"></label><a href="../lessons/m09-l0903-how-does-semantic-search-work.html">9.3 How does Semantic Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0904" data-module="9" aria-label="Mark How does Hybrid Search work? as read"></label><a href="../lessons/m09-l0904-how-does-hybrid-search-work.html">9.4 How does Hybrid Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0905" data-module="9" aria-label="Mark How does a Reranker work? as read"></label><a href="../lessons/m09-l0905-how-does-a-reranker-work.html">9.5 How does a Reranker work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0906" data-module="9" aria-label="Mark What is ColBERT? Late Interaction Retrieval Explained as read"></label><a href="../lessons/m09-l0906-what-is-colbert-late-interaction-retrieval-explained.html">9.6 What is ColBERT? Late Interaction Retrieval Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0907" data-module="9" aria-label="Mark How to Chunk Documents for RAG? Chunking Strategies Explained as read"></label><a href="../lessons/m09-l0907-how-to-chunk-documents-for-rag-chunking-strategies-explained.html">9.7 How to Chunk Documents for RAG? Chunking Strategies Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0908" data-module="9" aria-label="Mark How does Contextual Retrieval work? as read"></label><a href="../lessons/m09-l0908-how-does-contextual-retrieval-work.html">9.8 How does Contextual Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0909" data-module="9" aria-label="Mark How does HyDE work in RAG? as read"></label><a href="../lessons/m09-l0909-how-does-hyde-work-in-rag.html">9.9 How does HyDE work in RAG?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0910" data-module="9" aria-label="Mark How do Query Rewriting and Multi-Query Retrieval work? as read"></label><a href="../lessons/m09-l0910-how-do-query-rewriting-and-multi-query-retrieval-work.html">9.10 How do Query Rewriting and Multi-Query Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0911" data-module="9" aria-label="Mark How does an Embedding Cache work? as read"></label><a href="../lessons/m09-l0911-how-does-an-embedding-cache-work.html">9.11 How does an Embedding Cache work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0912" data-module="9" aria-label="Mark How does Semantic Caching work? as read"></label><a href="../lessons/m09-l0912-how-does-semantic-caching-work.html">9.12 How does Semantic Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0913" data-module="9" aria-label="Mark What is Agentic RAG? How It Works and When to Use It as read"></label><a href="../lessons/m09-l0913-what-is-agentic-rag-how-it-works-and-when-to-use-it.html">9.13 What is Agentic RAG? How It Works and When to Use It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0914" data-module="9" aria-label="Mark What is GraphRAG? How Knowledge Graphs Improve RAG as read"></label><a href="../lessons/m09-l0914-what-is-graphrag-how-knowledge-graphs-improve-rag.html">9.14 What is GraphRAG? How Knowledge Graphs Improve RAG</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0915" data-module="9" aria-label="Mark What is Vectorless RAG? RAG Without Embeddings or a Vector Database as read"></label><a href="../lessons/m09-l0915-what-is-vectorless-rag-rag-without-embeddings-or-a-vector-database.html">9.15 What is Vectorless RAG? RAG Without Embeddings or a Vector Database</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="10">
+<summary><span class="nav-module-title">10. AI Agents and Agentic Systems</span><span class="nav-count" data-nav-count="10">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1001" data-module="10" aria-label="Mark What is an AI Agent? How It Works as read"></label><a href="../lessons/m10-l1001-what-is-an-ai-agent-how-it-works.html">10.1 What is an AI Agent? How It Works</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1002" data-module="10" aria-label="Mark How does Function Calling work in LLMs? as read"></label><a href="../lessons/m10-l1002-how-does-function-calling-work-in-llms.html">10.2 How does Function Calling work in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1003" data-module="10" aria-label="Mark What is an AI Agent Loop? as read"></label><a href="../lessons/m10-l1003-what-is-an-ai-agent-loop.html">10.3 What is an AI Agent Loop?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1004" data-module="10" aria-label="Mark What is a ReAct Agent? How It Thinks and Acts, Explained as read"></label><a href="../lessons/m10-l1004-what-is-a-react-agent-how-it-thinks-and-acts-explained.html">10.4 What is a ReAct Agent? How It Thinks and Acts, Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1005" data-module="10" aria-label="Mark What is a Plan-and-Execute Agent and How Does It Work? as read"></label><a href="../lessons/m10-l1005-what-is-a-plan-and-execute-agent-and-how-does-it-work.html">10.5 What is a Plan-and-Execute Agent and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1006" data-module="10" aria-label="Mark What is a Reflection Agent? How It Generates, Critiques, and Revises as read"></label><a href="../lessons/m10-l1006-what-is-a-reflection-agent-how-it-generates-critiques-and-revises.html">10.6 What is a Reflection Agent? How It Generates, Critiques, and Revises</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1007" data-module="10" aria-label="Mark How Does AI Agent Memory Work? The Memory Stack Explained as read"></label><a href="../lessons/m10-l1007-how-does-ai-agent-memory-work-the-memory-stack-explained.html">10.7 How Does AI Agent Memory Work? The Memory Stack Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1008" data-module="10" aria-label="Mark How does ChatGPT remember you? as read"></label><a href="../lessons/m10-l1008-how-does-chatgpt-remember-you.html">10.8 How does ChatGPT remember you?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1009" data-module="10" aria-label="Mark What is MCP (Model Context Protocol)? as read"></label><a href="../lessons/m10-l1009-what-is-mcp-model-context-protocol.html">10.9 What is MCP (Model Context Protocol)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1010" data-module="10" aria-label="Mark What are Agent Skills? as read"></label><a href="../lessons/m10-l1010-what-are-agent-skills.html">10.10 What are Agent Skills?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1011" data-module="10" aria-label="Mark What is OKF (Open Knowledge Format)? as read"></label><a href="../lessons/m10-l1011-what-is-okf-open-knowledge-format.html">10.11 What is OKF (Open Knowledge Format)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1012" data-module="10" aria-label="Mark What are Multi-Agent Systems and When Should We Use Them? as read"></label><a href="../lessons/m10-l1012-what-are-multi-agent-systems-and-when-should-we-use-them.html">10.12 What are Multi-Agent Systems and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1013" data-module="10" aria-label="Mark What are AI SubAgents? Why We Need Them and How They Work as read"></label><a href="../lessons/m10-l1013-what-are-ai-subagents-why-we-need-them-and-how-they-work.html">10.13 What are AI SubAgents? Why We Need Them and How They Work</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1014" data-module="10" aria-label="Mark How AI Agents Communicate as read"></label><a href="../lessons/m10-l1014-how-ai-agents-communicate.html">10.14 How AI Agents Communicate</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1015" data-module="10" aria-label="Mark What is AI Orchestration? How It Works and the Common Patterns as read"></label><a href="../lessons/m10-l1015-what-is-ai-orchestration-how-it-works-and-the-common-patterns.html">10.15 What is AI Orchestration? How It Works and the Common Patterns</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1016" data-module="10" aria-label="Mark What is Sakana Fugu? The Technical Report Explained as read"></label><a href="../lessons/m10-l1016-what-is-sakana-fugu-the-technical-report-explained.html">10.16 What is Sakana Fugu? The Technical Report Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1017" data-module="10" aria-label="Mark How do Computer-Use Agents work? as read"></label><a href="../lessons/m10-l1017-how-do-computer-use-agents-work.html">10.17 How do Computer-Use Agents work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1018" data-module="10" aria-label="Mark How do Browser Agents work? as read"></label><a href="../lessons/m10-l1018-how-do-browser-agents-work.html">10.18 How do Browser Agents work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="11" open>
+<summary><span class="nav-module-title">11. Agentic Engineering and Agent Frameworks</span><span class="nav-count" data-nav-count="11">0/8</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1101" data-module="11" aria-label="Mark What is Harness Engineering? as read"></label><a href="../lessons/m11-l1101-what-is-harness-engineering.html">11.1 What is Harness Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1102" data-module="11" aria-label="Mark What is Loop Engineering? as read"></label><a href="../lessons/m11-l1102-what-is-loop-engineering.html">11.2 What is Loop Engineering?</a></li>
+<li class="nav-lesson active"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1103" data-module="11" aria-label="Mark What is Graph Engineering? as read"></label><a href="../lessons/m11-l1103-what-is-graph-engineering.html">11.3 What is Graph Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1104" data-module="11" aria-label="Mark AI Is Only as Good as Our Definition of Done as read"></label><a href="../lessons/m11-l1104-ai-is-only-as-good-as-our-definition-of-done.html">11.4 AI Is Only as Good as Our Definition of Done</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1105" data-module="11" aria-label="Mark How does LangChain work? as read"></label><a href="../lessons/m11-l1105-how-does-langchain-work.html">11.5 How does LangChain work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1106" data-module="11" aria-label="Mark How does LangGraph work? as read"></label><a href="../lessons/m11-l1106-how-does-langgraph-work.html">11.6 How does LangGraph work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1107" data-module="11" aria-label="Mark How does Claude Code work? as read"></label><a href="../lessons/m11-l1107-how-does-claude-code-work.html">11.7 How does Claude Code work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1108" data-module="11" aria-label="Mark How does Cursor work? as read"></label><a href="../lessons/m11-l1108-how-does-cursor-work.html">11.8 How does Cursor work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="12">
+<summary><span class="nav-module-title">12. LLM Inference Engineering</span><span class="nav-count" data-nav-count="12">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1201" data-module="12" aria-label="Mark LLM Inference Optimization as read"></label><a href="../lessons/m12-l1201-llm-inference-optimization.html">12.1 LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1202" data-module="12" aria-label="Mark Prefill vs Decode: LLM Inference Optimization as read"></label><a href="../lessons/m12-l1202-prefill-vs-decode-llm-inference-optimization.html">12.2 Prefill vs Decode: LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1203" data-module="12" aria-label="Mark What is Prefill-Decode Disaggregation in LLM Inference? as read"></label><a href="../lessons/m12-l1203-what-is-prefill-decode-disaggregation-in-llm-inference.html">12.3 What is Prefill-Decode Disaggregation in LLM Inference?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1204" data-module="12" aria-label="Mark KV Cache in LLMs as read"></label><a href="../lessons/m12-l1204-kv-cache-in-llms.html">12.4 KV Cache in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1205" data-module="12" aria-label="Mark What is KV Cache Compression? as read"></label><a href="../lessons/m12-l1205-what-is-kv-cache-compression.html">12.5 What is KV Cache Compression?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1206" data-module="12" aria-label="Mark What is Paged Attention in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1206-what-is-paged-attention-in-llms-and-how-does-it-work.html">12.6 What is Paged Attention in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1207" data-module="12" aria-label="Mark What is Continuous Batching in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1207-what-is-continuous-batching-in-llms-and-how-does-it-work.html">12.7 What is Continuous Batching in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1208" data-module="12" aria-label="Mark What is Speculative Decoding and How Does It Make LLMs Faster? as read"></label><a href="../lessons/m12-l1208-what-is-speculative-decoding-and-how-does-it-make-llms-faster.html">12.8 What is Speculative Decoding and How Does It Make LLMs Faster?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1209" data-module="12" aria-label="Mark What is N-gram Speculation in LLMs and How Does It Speed Up Generation? as read"></label><a href="../lessons/m12-l1209-what-is-n-gram-speculation-in-llms-and-how-does-it-speed-up-generation.html">12.9 What is N-gram Speculation in LLMs and How Does It Speed Up Generation?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1210" data-module="12" aria-label="Mark What is Medusa? Multi-Head Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1210-what-is-medusa-multi-head-speculative-decoding-explained.html">12.10 What is Medusa? Multi-Head Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1211" data-module="12" aria-label="Mark What is EAGLE? Feature-Level Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1211-what-is-eagle-feature-level-speculative-decoding-explained.html">12.11 What is EAGLE? Feature-Level Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1212" data-module="12" aria-label="Mark How does Model Quantization work? as read"></label><a href="../lessons/m12-l1212-how-does-model-quantization-work.html">12.12 How does Model Quantization work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1213" data-module="12" aria-label="Mark How does GGUF work? as read"></label><a href="../lessons/m12-l1213-how-does-gguf-work.html">12.13 How does GGUF work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1214" data-module="12" aria-label="Mark How does llama.cpp run LLMs on everyday hardware? as read"></label><a href="../lessons/m12-l1214-how-does-llama-cpp-run-llms-on-everyday-hardware.html">12.14 How does llama.cpp run LLMs on everyday hardware?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1215" data-module="12" aria-label="Mark How does Ollama work? as read"></label><a href="../lessons/m12-l1215-how-does-ollama-work.html">12.15 How does Ollama work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1216" data-module="12" aria-label="Mark How does vLLM work? as read"></label><a href="../lessons/m12-l1216-how-does-vllm-work.html">12.16 How does vLLM work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1217" data-module="12" aria-label="Mark How does SGLang work? as read"></label><a href="../lessons/m12-l1217-how-does-sglang-work.html">12.17 How does SGLang work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1218" data-module="12" aria-label="Mark How does TensorRT-LLM work? as read"></label><a href="../lessons/m12-l1218-how-does-tensorrt-llm-work.html">12.18 How does TensorRT-LLM work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="13">
+<summary><span class="nav-module-title">13. Evaluation and Observability</span><span class="nav-count" data-nav-count="13">0/4</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1301" data-module="13" aria-label="Mark What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained as read"></label><a href="../lessons/m13-l1301-what-is-llm-evaluation-metrics-benchmarks-and-methods-explained.html">13.1 What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1302" data-module="13" aria-label="Mark What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs as read"></label><a href="../lessons/m13-l1302-what-is-llm-as-a-judge-how-to-use-an-llm-to-evaluate-llm-outputs.html">13.2 What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1303" data-module="13" aria-label="Mark How to Evaluate AI Agents? Metrics, Methods, and Best Practices as read"></label><a href="../lessons/m13-l1303-how-to-evaluate-ai-agents-metrics-methods-and-best-practices.html">13.3 How to Evaluate AI Agents? Metrics, Methods, and Best Practices</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1304" data-module="13" aria-label="Mark What is AI Agent Observability? Traces, Spans, and Metrics Explained as read"></label><a href="../lessons/m13-l1304-what-is-ai-agent-observability-traces-spans-and-metrics-explained.html">13.4 What is AI Agent Observability? Traces, Spans, and Metrics Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="14">
+<summary><span class="nav-module-title">14. AI Safety and Security</span><span class="nav-count" data-nav-count="14">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1401" data-module="14" aria-label="Mark How do LLM guardrails work? as read"></label><a href="../lessons/m14-l1401-how-do-llm-guardrails-work.html">14.1 How do LLM guardrails work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1402" data-module="14" aria-label="Mark What is Prompt Injection in LLMs and How Do We Defend Against It? as read"></label><a href="../lessons/m14-l1402-what-is-prompt-injection-in-llms-and-how-do-we-defend-against-it.html">14.2 What is Prompt Injection in LLMs and How Do We Defend Against It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1403" data-module="14" aria-label="Mark How Does LLM Watermarking Work? as read"></label><a href="../lessons/m14-l1403-how-does-llm-watermarking-work.html">14.3 How Does LLM Watermarking Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="15">
+<summary><span class="nav-module-title">15. Multimodal AI and Generative Models</span><span class="nav-count" data-nav-count="15">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1501" data-module="15" aria-label="Mark What is Multimodal AI? How It Works and Where It Is Used as read"></label><a href="../lessons/m15-l1501-what-is-multimodal-ai-how-it-works-and-where-it-is-used.html">15.1 What is Multimodal AI? How It Works and Where It Is Used</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1502" data-module="15" aria-label="Mark What is a Vision Transformer (ViT) and How Does It Work? as read"></label><a href="../lessons/m15-l1502-what-is-a-vision-transformer-vit-and-how-does-it-work.html">15.2 What is a Vision Transformer (ViT) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1503" data-module="15" aria-label="Mark How do Image Embeddings work? as read"></label><a href="../lessons/m15-l1503-how-do-image-embeddings-work.html">15.3 How do Image Embeddings work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1504" data-module="15" aria-label="Mark What are Diffusion Models and How Do They Generate Images? as read"></label><a href="../lessons/m15-l1504-what-are-diffusion-models-and-how-do-they-generate-images.html">15.4 What are Diffusion Models and How Do They Generate Images?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1505" data-module="15" aria-label="Mark What are Generative Adversarial Networks (GANs) and How Do They Work? as read"></label><a href="../lessons/m15-l1505-what-are-generative-adversarial-networks-gans-and-how-do-they-work.html">15.5 What are Generative Adversarial Networks (GANs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1506" data-module="15" aria-label="Mark What are Variational Autoencoders (VAEs) and How Do They Work? as read"></label><a href="../lessons/m15-l1506-what-are-variational-autoencoders-vaes-and-how-do-they-work.html">15.6 What are Variational Autoencoders (VAEs) and How Do They Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="16">
+<summary><span class="nav-module-title">16. AI Infrastructure, Deployment, and System Design</span><span class="nav-count" data-nav-count="16">0/17</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1601" data-module="16" aria-label="Mark How does a GPU work for Deep Learning? as read"></label><a href="../lessons/m16-l1601-how-does-a-gpu-work-for-deep-learning.html">16.1 How does a GPU work for Deep Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1602" data-module="16" aria-label="Mark How do CUDA Kernels work? as read"></label><a href="../lessons/m16-l1602-how-do-cuda-kernels-work.html">16.2 How do CUDA Kernels work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1603" data-module="16" aria-label="Mark How does a Google TPU work? as read"></label><a href="../lessons/m16-l1603-how-does-a-google-tpu-work.html">16.3 How does a Google TPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1604" data-module="16" aria-label="Mark How does an LPU work? as read"></label><a href="../lessons/m16-l1604-how-does-an-lpu-work.html">16.4 How does an LPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1605" data-module="16" aria-label="Mark Cloud vs On-device Model Deployment as read"></label><a href="../lessons/m16-l1605-cloud-vs-on-device-model-deployment.html">16.5 Cloud vs On-device Model Deployment</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1606" data-module="16" aria-label="Mark Android TensorFlow Lite Machine Learning Example as read"></label><a href="../lessons/m16-l1606-android-tensorflow-lite-machine-learning-example.html">16.6 Android TensorFlow Lite Machine Learning Example</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1607" data-module="16" aria-label="Mark What is LLM Routing? How to Send Each Query to the Right LLM as read"></label><a href="../lessons/m16-l1607-what-is-llm-routing-how-to-send-each-query-to-the-right-llm.html">16.7 What is LLM Routing? How to Send Each Query to the Right LLM</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1608" data-module="16" aria-label="Mark Design a Real-Time Voice AI Agent as read"></label><a href="../lessons/m16-l1608-design-a-real-time-voice-ai-agent.html">16.8 Design a Real-Time Voice AI Agent</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1609" data-module="16" aria-label="Mark What is turn-taking in a voice AI agent? as read"></label><a href="../lessons/m16-l1609-what-is-turn-taking-in-a-voice-ai-agent.html">16.9 What is turn-taking in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1610" data-module="16" aria-label="Mark What is barge-in in a voice AI agent? as read"></label><a href="../lessons/m16-l1610-what-is-barge-in-in-a-voice-ai-agent.html">16.10 What is barge-in in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1611" data-module="16" aria-label="Mark Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture? as read"></label><a href="../lessons/m16-l1611-cascaded-vs-speech-to-speech-how-to-choose-the-right-voice-agent-architecture.html">16.11 Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1612" data-module="16" aria-label="Mark How do you build a latency budget for a voice AI agent? as read"></label><a href="../lessons/m16-l1612-how-do-you-build-a-latency-budget-for-a-voice-ai-agent.html">16.12 How do you build a latency budget for a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1613" data-module="16" aria-label="Mark How does the voice-to-voice latency of a voice agent get measured? as read"></label><a href="../lessons/m16-l1613-how-does-the-voice-to-voice-latency-of-a-voice-agent-get-measured.html">16.13 How does the voice-to-voice latency of a voice agent get measured?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1614" data-module="16" aria-label="Mark Why does the time-to-first-audio matter more than total response time? as read"></label><a href="../lessons/m16-l1614-why-does-the-time-to-first-audio-matter-more-than-total-response-time.html">16.14 Why does the time-to-first-audio matter more than total response time?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1615" data-module="16" aria-label="Mark What is System Design? as read"></label><a href="../lessons/m16-l1615-what-is-system-design.html">16.15 What is System Design?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1616" data-module="16" aria-label="Mark HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events as read"></label><a href="../lessons/m16-l1616-http-request-vs-http-long-polling-vs-websocket-vs-server-sent-events.html">16.16 HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1617" data-module="16" aria-label="Mark How do Voice And Video Call Work? as read"></label><a href="../lessons/m16-l1617-how-do-voice-and-video-call-work.html">16.17 How do Voice And Video Call Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="17">
+<summary><span class="nav-module-title">17. Frontier Ideas in AI</span><span class="nav-count" data-nav-count="17">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1701" data-module="17" aria-label="Mark What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work? as read"></label><a href="../lessons/m17-l1701-what-is-joint-embedding-predictive-architecture-jepa-and-how-does-it-work.html">17.1 What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1702" data-module="17" aria-label="Mark How do World Models work? as read"></label><a href="../lessons/m17-l1702-how-do-world-models-work.html">17.2 How do World Models work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1703" data-module="17" aria-label="Mark What is Recursive Self-Improvement (RSI)? as read"></label><a href="../lessons/m17-l1703-what-is-recursive-self-improvement-rsi.html">17.3 What is Recursive Self-Improvement (RSI)?</a></li>
+</ul>
+</details>
+<a class="nav-module-single" href="../modules/m18.html">18. Prepare for AI Engineering Interviews</a>
+</nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="content-wrap">
+    <main class="content" id="content">
+      
+<article>
+  <header class="lesson-header">
+    <p class="breadcrumb">
+      <a href="../index.html">Course</a> /
+      <a href="../modules/m11.html">Module 11</a> /
+      Lesson 11.3
+    </p>
+    <h1>What is Graph Engineering?</h1>
+    <div class="lesson-meta">
+      <span>Lesson 11.3 · ~24 min · Published August 21, 2026</span>
+      <a href="https://outcomeschool.com/blog/what-is-graph-engineering" target="_blank" rel="noopener noreferrer">Original article</a>
+    </div>
+    <div class="lesson-tags"><span class="tag">ai-agent</span> <span class="tag">llm</span> <span class="tag">ai</span> <span class="tag">system-design</span></div>
+    <label class="read-toggle">
+      <input type="checkbox" data-lesson="m11-l1103" data-module="11">
+      Mark as read
+    </label>
+    
+  </header>
+  <details class="toc">
+<summary>On this page</summary>
+<ul>
+<li><a href="#what-is-graph-engineering">What is Graph Engineering?</a>
+</li>
+<li><a href="#graph-nodes-edges">Graph = Nodes + Edges</a>
+</li>
+<li><a href="#why-do-we-need-graph-engineering">Why do we need Graph Engineering?</a>
+<ul>
+<li><a href="#approach-1-one-big-prompt">Approach 1: One big prompt</a></li>
+<li><a href="#approach-2-a-chain-of-steps">Approach 2: A chain of steps</a></li>
+<li><a href="#approach-3-one-loop">Approach 3: One loop</a></li>
+<li><a href="#approach-4-a-graph">Approach 4: A graph</a></li>
+</ul>
+</li>
+<li><a href="#the-three-building-blocks-node-edge-and-state">The three building blocks: Node, Edge, and State</a>
+</li>
+<li><a href="#let-s-build-our-first-graph">Let&#x27;s build our first graph</a>
+</li>
+<li><a href="#conditional-edges-taking-decisions-inside-the-graph">Conditional edges: taking decisions inside the graph</a>
+</li>
+<li><a href="#cycles-doing-the-work-again-when-needed">Cycles: doing the work again when needed</a>
+</li>
+<li><a href="#one-full-run-step-by-step">One full run, step by step</a>
+</li>
+<li><a href="#parallel-branches-doing-many-things-at-the-same-time">Parallel branches: doing many things at the same time</a>
+</li>
+<li><a href="#checkpoints-pause-and-resume-the-graph">Checkpoints: pause and resume the graph</a>
+</li>
+<li><a href="#human-in-the-loop">Human in the loop</a>
+</li>
+<li><a href="#handling-errors-inside-a-graph">Handling errors inside a graph</a>
+</li>
+<li><a href="#graph-engineering-vs-loop-engineering">Graph Engineering vs Loop Engineering</a>
+</li>
+<li><a href="#where-graph-engineering-works-well">Where Graph Engineering works well</a>
+</li>
+<li><a href="#where-graph-engineering-fails">Where Graph Engineering fails</a>
+</li>
+<li><a href="#best-practices-in-graph-engineering">Best practices in Graph Engineering</a>
+</li>
+<li><a href="#conclusion">Conclusion</a>
+</li>
+<li><a href="#frequently-asked-questions">Frequently Asked Questions</a>
+<ul>
+<li><a href="#is-graph-engineering-the-same-as-prompt-chaining">Is Graph Engineering the same as prompt chaining?</a></li>
+<li><a href="#does-the-model-choose-the-next-step-in-graph-engineering">Does the model choose the next step in Graph Engineering?</a></li>
+<li><a href="#does-every-node-in-a-graph-need-to-call-an-ai-model">Does every node in a graph need to call an AI model?</a></li>
+<li><a href="#is-langgraph-the-same-thing-as-graph-engineering">Is LangGraph the same thing as Graph Engineering?</a></li>
+<li><a href="#what-happens-if-two-parallel-nodes-write-to-the-same-state-key">What happens if two parallel nodes write to the same state key?</a></li>
+</ul>
+</li>
+</ul>
+</details>
+  <p><img alt="What is Graph Engineering?" decoding="async" loading="lazy" src="../assets/images/11-11-03-what-is-graph-engineering/what-is-graph-engineering.png"/></p>
+<p>Graph Engineering is the practice of designing an AI system as a graph, where every step of the work is a node, and every path from one step to another is an edge. We break the work into small steps and clearly decide which step runs after which.</p>
+<p>In this blog, we will learn about Graph Engineering, the practice of building an AI system as a graph of small steps connected by clear paths instead of one giant prompt or one endless loop. We will also see why we need it, what nodes and edges actually mean, how the state travels through the graph, how conditional edges take decisions, how cycles let the system do the work again, how parallel branches save time, how checkpoints let us pause and resume, and where it works well and where it fails.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is Graph Engineering?</li>
+<li>Graph = Nodes + Edges</li>
+<li>Why do we need Graph Engineering?</li>
+<li>The three building blocks: Node, Edge, and State</li>
+<li>Let's build our first graph</li>
+<li>Conditional edges: taking decisions inside the graph</li>
+<li>Cycles: doing the work again when needed</li>
+<li>One full run, step by step</li>
+<li>Parallel branches: doing many things at the same time</li>
+<li>Checkpoints: pause and resume the graph</li>
+<li>Human in the loop</li>
+<li>Handling errors inside a graph</li>
+<li>Graph Engineering vs Loop Engineering</li>
+<li>Where Graph Engineering works well</li>
+<li>Where Graph Engineering fails</li>
+<li>Best practices in Graph Engineering</li>
+<li>Conclusion</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="what-is-graph-engineering">What is Graph Engineering? <a aria-hidden="true" class="anchor" href="#what-is-graph-engineering">#</a></h2>
+<p><strong>Graph Engineering is the practice of designing an AI system as a graph, where every step of the work is a node and every path from one step to another step is an edge.</strong></p>
+<p>Graph Engineering = Graph + Engineering.</p>
+<p>In simple words, instead of writing one huge instruction and hoping that the model does everything correctly in one go, we break the work into small steps, and then we clearly decide which step runs after which step.</p>
+<p>Here, whenever we say the model, we mean the AI model that reads text and writes text, and whenever we say a <a href="https://outcomeschool.com/blog/how-does-function-calling-work-in-llms" rel="noopener noreferrer" target="_blank">tool</a>, we mean anything outside the model that our system can call, like a search, a database, or an email service.</p>
+<p>We hear this word mostly around <a href="https://outcomeschool.com/blog/ai-agent" rel="noopener noreferrer" target="_blank">AI agents</a> today, and there is a good reason for that. Real work is never one step. Real work is many steps, with going back, waiting, checking, and approving in between. Graph Engineering is how we give that shape to our system.</p>
+<h2 id="graph-nodes-edges">Graph = Nodes + Edges <a aria-hidden="true" class="anchor" href="#graph-nodes-edges">#</a></h2>
+<p>Before jumping into Graph Engineering, we must know what a graph is.</p>
+<p>A graph is just two things.</p>
+<ul>
+<li><strong>Nodes</strong>: the places where something happens.</li>
+<li><strong>Edges</strong>: the paths that connect one place to another place.</li>
+</ul>
+<p>The best way to learn this is by taking an example.</p>
+<p>Let's say we are looking at the metro map of a city. Every station on that map is a node. Every track between two stations is an edge. A train starts from one station, travels on a track, reaches the next station, and continues like this until it reaches the last station.</p>
+<p>Now, replace the stations with the steps of our work, and replace the tracks with the order of our work. That is exactly the graph we build in Graph Engineering.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Metro map</th>
+<th>Our AI system</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Station</td>
+<td>Node, which means one small step of work</td>
+</tr>
+<tr>
+<td>Track between two stations</td>
+<td>Edge, which means the path to the next step</td>
+</tr>
+<tr>
+<td>Bag that the passenger carries</td>
+<td>State, which means the information that travels along</td>
+</tr>
+<tr>
+<td>First station</td>
+<td>The step where our system starts</td>
+</tr>
+<tr>
+<td>Last station</td>
+<td>The step where our system stops</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, we can see that an edge is simply the answer to one small question. After this step is over, which step runs next?</p>
+<p>Now, we have understood the graph. Now, let's understand why we need Graph Engineering at all.</p>
+<h2 id="why-do-we-need-graph-engineering">Why do we need Graph Engineering? <a aria-hidden="true" class="anchor" href="#why-do-we-need-graph-engineering">#</a></h2>
+<p>Let's say we are building a system that answers questions about a company's internal documents. A user asks a question, and our system must give a correct answer with proper sources.</p>
+<p>We will build this system step by step. At every step we will see the problem, and then we will move to a better approach.</p>
+<h3 id="approach-1-one-big-prompt">Approach 1: One big prompt <a aria-hidden="true" class="anchor" href="#approach-1-one-big-prompt">#</a></h3>
+<p>We write one long instruction and send it to the model.</p>
+<pre><code class="language-text">You are a helpful assistant. Read the user question. Search the company
+documents. Read the results. Write an answer. Check that the answer is
+correct. Add the sources. If something is missing, search again.
+</code></pre>
+<p>The model reads all of this and tries to do everything at once.</p>
+<p><strong>Problem:</strong> The model does some parts and quietly forgets the other parts. Sometimes it writes the answer without searching. Sometimes it searches but never checks the answer. And when the output is wrong, we have no idea which part went wrong, because everything happened inside one single call. We cannot fix what we cannot see.</p>
+<p>The issue with this approach is that there is no structure at all. Let's see how the next approach solve this issue.</p>
+<h3 id="approach-2-a-chain-of-steps">Approach 2: A chain of steps <a aria-hidden="true" class="anchor" href="#approach-2-a-chain-of-steps">#</a></h3>
+<p>Now, we break the work into separate calls, and we run them one after another.</p>
+<pre><code class="language-text">Step 1: understand the question
+Step 2: search the documents
+Step 3: write the answer
+Step 4: send the answer
+</code></pre>
+<p>This is <a href="https://outcomeschool.com/blog/how-does-prompt-chaining-work" rel="noopener noreferrer" target="_blank">prompt chaining</a>, and it is much better. Every step has only one job. When something goes wrong, we know exactly which step failed.</p>
+<p><strong>Problem:</strong> A chain always moves forward in a straight line. It never comes back. But real work needs coming back. What if the search returns nothing useful? What if the answer is wrong and needs to be written again? A straight chain cannot do this. It simply walks forward and delivers a bad answer.</p>
+<p>The issue with this approach is that it cannot go back. Let's see how the next approach solve this issue.</p>
+<h3 id="approach-3-one-loop">Approach 3: One loop <a aria-hidden="true" class="anchor" href="#approach-3-one-loop">#</a></h3>
+<p>Now, we put the whole thing inside an <a href="https://outcomeschool.com/blog/ai-agent-loop" rel="noopener noreferrer" target="_blank">agent loop</a>. The model thinks, calls a tool, looks at the result, and thinks again, again and again, until it decides that the work is done.</p>
+<p>This solves the coming back problem. The model can search again, write again, and correct itself.</p>
+<p><strong>Problem:</strong> Now we have gone to the other extreme. Every decision is taken by the model inside one loop, so we have very less control. The model repeats the same failing search ten times. It skips the checking step because it feels confident. It calls a dangerous tool that we never wanted it to call at that moment. The path is different on every run, so testing becomes very hard.</p>
+<p>The issue with this approach is that the flow is completely in the model's hands. Let's see how the next approach solve this issue.</p>
+<h3 id="approach-4-a-graph">Approach 4: A graph <a aria-hidden="true" class="anchor" href="#approach-4-a-graph">#</a></h3>
+<p>So, here comes Graph Engineering to the rescue.</p>
+<p>We keep the small steps of Approach 2, we keep the coming back ability of Approach 3, and we write down the paths ourselves.</p>
+<pre><code class="language-text">understand  -&gt;  search  -&gt;  write  -&gt;  check
+check       -&gt;  send        (when the answer is good)
+check       -&gt;  search      (when the sources are missing)
+check       -&gt;  write       (when the answer is weak)
+</code></pre>
+<p>Here, we can see that every step is small and visible, the system can go back when it needs to, and the model takes decisions only at the places where we allow it to take decisions.</p>
+<p>The problem is solved. This is Graph Engineering.</p>
+<p>The example we took here, where the system searches, writes, checks, and searches again, is what we call <a href="https://outcomeschool.com/blog/agentic-rag" rel="noopener noreferrer" target="_blank">Agentic RAG</a>, and we have a detailed blog on it that explains this in depth.</p>
+<h2 id="the-three-building-blocks-node-edge-and-state">The three building blocks: Node, Edge, and State <a aria-hidden="true" class="anchor" href="#the-three-building-blocks-node-edge-and-state">#</a></h2>
+<p>Every graph we build has only three parts.</p>
+<p><strong>Node:</strong> A node is one step of the work. It is just a function. It takes the current information, does one small job, and gives the updated information back. A node can call a model, call a tool, hit a database, or run plain code with no model at all.</p>
+<p><strong>Edge:</strong> An edge is a path from one node to another node. It answers only one question. Which node runs next?</p>
+<p><strong>State:</strong> The state is the shared notebook of the graph. Every node reads from this notebook and writes into this notebook. This is how the second node knows what the first node did.</p>
+<p>Let's see the state for our document question system as below:</p>
+<pre><code class="language-python"><span class="n">state</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"question"</span><span class="p">:</span> <span class="s2">"What is our refund policy?"</span><span class="p">,</span>
+    <span class="s2">"intent"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s2">"documents"</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">"answer"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s2">"score"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s2">"attempts"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre>
+<p>Here, we have created a simple notebook with empty values. As the graph runs, the nodes will keep filling these values. The <code>understand</code> node fills <code>intent</code>. The <code>search</code> node fills <code>documents</code>. The <code>write</code> node fills <code>answer</code>. The <code>check</code> node fills <code>score</code> and <code>attempts</code>.</p>
+<p>This state is the most important design decision in Graph Engineering. If the state is clean, the graph stays simple. If the state becomes a dumping ground of random keys, the graph becomes impossible to understand. Whatever a node puts in front of the model also comes out of this state, so keeping it clean is good <a href="https://outcomeschool.com/blog/context-engineering" rel="noopener noreferrer" target="_blank">Context Engineering</a> as well.</p>
+<p>Now that we have learned about the building blocks, it is time to build a real graph.</p>
+<h2 id="let-s-build-our-first-graph">Let's build our first graph <a aria-hidden="true" class="anchor" href="#let-s-build-our-first-graph">#</a></h2>
+<p>First, we will write the nodes. Every node is a plain function.</p>
+<pre><code class="language-python"><span class="k">def</span><span class="w"> </span><span class="nf">understand</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+    <span class="n">state</span><span class="p">[</span><span class="s2">"intent"</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">find_intent</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">"question"</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">state</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+    <span class="n">state</span><span class="p">[</span><span class="s2">"documents"</span><span class="p">]</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">"intent"</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">state</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+    <span class="n">state</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">write_answer</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">"question"</span><span class="p">],</span> <span class="n">state</span><span class="p">[</span><span class="s2">"documents"</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">state</span>
+</code></pre>
+<p>Here, we can notice that each function does exactly one job and returns the updated state. There is no big instruction anywhere. The <code>understand</code> node only finds the intent. The <code>search</code> node only searches. The <code>write</code> node only writes the answer from the documents that the <code>search</code> node found.</p>
+<p>Then, we will connect these nodes with edges.</p>
+<pre><code class="language-python"><span class="n">graph</span> <span class="o">=</span> <span class="n">Graph</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"understand"</span><span class="p">,</span> <span class="n">understand</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"search"</span><span class="p">,</span> <span class="n">search</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"write"</span><span class="p">,</span> <span class="n">write</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"understand"</span><span class="p">,</span> <span class="s2">"search"</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"search"</span><span class="p">,</span> <span class="s2">"write"</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">set_entry</span><span class="p">(</span><span class="s2">"understand"</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">set_finish</span><span class="p">(</span><span class="s2">"write"</span><span class="p">)</span>
+</code></pre>
+<p>Here, we have first added the three nodes to the graph. Then, we have added two edges. The first edge says that after <code>understand</code>, the <code>search</code> node runs. The second edge says that after <code>search</code>, the <code>write</code> node runs. Finally, we have told the graph where to start and where to stop.</p>
+<p>After this, we can run the graph.</p>
+<pre><code class="language-python"><span class="n">final_state</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">final_state</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">])</span>
+</code></pre>
+<p>Here, we are giving the starting notebook to the graph. The graph walks from node to node, each node updates the notebook, and at the end we read the answer from the same notebook.</p>
+<p>It works perfectly. But this graph is still a straight line, exactly like Approach 2. Now, let's give it the power to take decisions.</p>
+<p><strong>Note:</strong> The code in this blog is kept simple just for the sake of understanding. The real libraries built for this work give us the same three ideas of node, edge, and state, only with slightly different names. <a href="https://outcomeschool.com/blog/how-does-langgraph-work" rel="noopener noreferrer" target="_blank">LangGraph</a> is the most popular one of them, and we have a detailed blog on it that explains how it works step by step.</p>
+<h2 id="conditional-edges-taking-decisions-inside-the-graph">Conditional edges: taking decisions inside the graph <a aria-hidden="true" class="anchor" href="#conditional-edges-taking-decisions-inside-the-graph">#</a></h2>
+<p>A normal edge always goes to the same next node. A <strong>conditional edge</strong> looks at the state first and then decides which node runs next.</p>
+<p>Let's add a <code>check</code> node that gives a score to our answer.</p>
+<pre><code class="language-python"><span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+    <span class="n">state</span><span class="p">[</span><span class="s2">"score"</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">rate_answer</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">],</span> <span class="n">state</span><span class="p">[</span><span class="s2">"documents"</span><span class="p">])</span>
+    <span class="n">state</span><span class="p">[</span><span class="s2">"attempts"</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">"attempts"</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">state</span>
+</code></pre>
+<p>Here, we have used the model as a reviewer, which is the <a href="https://outcomeschool.com/blog/llm-as-a-judge" rel="noopener noreferrer" target="_blank">LLM as a Judge</a> pattern. It reads the answer along with the documents, and it gives a score out of ten. We are also counting the attempts, and we will see very soon why this count matters so much.</p>
+<p>Now, we will write the routing function.</p>
+<pre><code class="language-python"><span class="k">def</span><span class="w"> </span><span class="nf">route_after_check</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="s2">"score"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"send"</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">state</span><span class="p">[</span><span class="s2">"documents"</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="s2">"search"</span>
+    <span class="k">return</span> <span class="s2">"write"</span>
+</code></pre>
+<p>Here, we can see that the decision is plain code, and it is fully in our hands. If the score is good, we go to <code>send</code>. If there were no documents at all, we go back to <code>search</code>. In every other case, we go back to <code>write</code> and try again.</p>
+<p>Then, we attach this function as a conditional edge.</p>
+<pre><code class="language-python"><span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"check"</span><span class="p">,</span> <span class="n">check</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"send"</span><span class="p">,</span> <span class="n">send</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"write"</span><span class="p">,</span> <span class="s2">"check"</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_conditional_edge</span><span class="p">(</span><span class="s2">"check"</span><span class="p">,</span> <span class="n">route_after_check</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">set_finish</span><span class="p">(</span><span class="s2">"send"</span><span class="p">)</span>
+</code></pre>
+<p>We have followed the following steps:</p>
+<ul>
+<li>We have added the <code>check</code> node and the <code>send</code> node. The <code>send</code> node is a small node that simply delivers the final answer to the user.</li>
+<li>We have added a normal edge from <code>write</code> to <code>check</code>, so every answer goes for review.</li>
+<li>We have added a conditional edge from <code>check</code>. This edge has three possible destinations, and our routing function picks one of them by reading the state.</li>
+<li>We have moved the finish point from <code>write</code> to <code>send</code>, because <code>send</code> is the last station of our graph now.</li>
+</ul>
+<p><strong>Note:</strong> The model gave the score, but the model did not choose the path. The path was chosen by our own code. This is the heart of Graph Engineering. We let the model do the thinking, and we keep the control of the flow with ourselves.</p>
+<h2 id="cycles-doing-the-work-again-when-needed">Cycles: doing the work again when needed <a aria-hidden="true" class="anchor" href="#cycles-doing-the-work-again-when-needed">#</a></h2>
+<p>In the graph above, <code>check</code> can send us back to <code>write</code>, and <code>write</code> sends us to <code>check</code> again. This going back and forth between two nodes is called a <strong>cycle</strong>.</p>
+<p>A cycle is a very powerful thing, because this is how a system corrects itself. Write, review, write better, review again. This is exactly how a human works, and this is also the idea behind a <a href="https://outcomeschool.com/blog/reflection-agent" rel="noopener noreferrer" target="_blank">Reflection Agent</a>.</p>
+<p>But, here is the catch. A cycle can run forever. If the reviewer never gives a score of eight, our graph will keep writing and checking until our money is over.</p>
+<p>So, every cycle must have a stop condition. This is why we were counting the attempts inside the <code>check</code> node.</p>
+<pre><code class="language-python"><span class="k">def</span><span class="w"> </span><span class="nf">route_after_check</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="s2">"score"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"send"</span>
+    <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="s2">"attempts"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"ask_human"</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">state</span><span class="p">[</span><span class="s2">"documents"</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="s2">"search"</span>
+    <span class="k">return</span> <span class="s2">"write"</span>
+</code></pre>
+<p>Here, we have added two highlighted lines. After three attempts, the graph stops trying on its own and hands the work over to a human through a new <code>ask_human</code> node. We must also add this node to the graph, otherwise the graph will not know where this path goes.</p>
+<pre><code class="language-python"><span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"ask_human"</span><span class="p">,</span> <span class="n">ask_human</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"ask_human"</span><span class="p">,</span> <span class="s2">"send"</span><span class="p">)</span>
+</code></pre>
+<p>Here, we have added the <code>ask_human</code> node and joined it to <code>send</code>, so even this sad path reaches the last station properly.</p>
+<p>Our full graph looks like below now:</p>
+<pre><code class="language-text">understand  -&gt;  search  -&gt;  write  -&gt;  check
+check       -&gt;  send        (the score is good)
+check       -&gt;  ask_human   (three attempts are over)
+check       -&gt;  search      (there are no documents)
+check       -&gt;  write       (the answer is weak)
+ask_human   -&gt;  send
+</code></pre>
+<p>Here, we can see the complete shape of our system on one screen. Every step is a node, every line is an edge, and there is no hidden behaviour anywhere.</p>
+<p>Our system now fails in a safe and predictable way instead of running forever.</p>
+<p><strong>Very important:</strong> Every cycle in our graph must have a hard limit.</p>
+<h2 id="one-full-run-step-by-step">One full run, step by step <a aria-hidden="true" class="anchor" href="#one-full-run-step-by-step">#</a></h2>
+<p>Now, let's walk through one complete run and see what the notebook looks like after every node. This is the best way to feel how a graph really works.</p>
+<p><strong>Step 1:</strong> The user asks a question, so the starting state is:</p>
+<pre><code class="language-text">question: "What is our refund policy?"
+intent: None, documents: [], answer: None, score: None, attempts: 0
+</code></pre>
+<p><strong>Step 2:</strong> The <code>understand</code> node runs and fills the intent:</p>
+<pre><code class="language-text">intent: "refund policy duration and conditions"
+</code></pre>
+<p><strong>Step 3:</strong> The <code>search</code> node runs and fills the documents:</p>
+<pre><code class="language-text">documents: ["policy-v3.pdf", "faq-refunds.md"]
+</code></pre>
+<p><strong>Step 4:</strong> The <code>write</code> node runs and fills the answer:</p>
+<pre><code class="language-text">answer: "Refunds are allowed within 30 days."
+</code></pre>
+<p><strong>Step 5:</strong> The <code>check</code> node runs. The answer has no sources in it, so the reviewer gives a low score:</p>
+<pre><code class="language-text">score: 5, attempts: 1
+</code></pre>
+<p><strong>Step 6:</strong> The conditional edge reads the state. The score is below eight, the documents are present, and the attempts are below three, so the path goes back to <code>write</code>.</p>
+<p><strong>Step 7:</strong> The <code>write</code> node runs again, and this time it writes a better answer with sources:</p>
+<pre><code class="language-text">answer: "Refunds are allowed within 30 days of purchase, as per policy-v3.pdf."
+</code></pre>
+<p><strong>Step 8:</strong> The <code>check</code> node runs again:</p>
+<pre><code class="language-text">score: 9, attempts: 2
+</code></pre>
+<p><strong>Step 9:</strong> The conditional edge reads the state again. The score is eight or more, so the path goes to <code>send</code>, and the graph stops there.</p>
+<p>Here, we can notice one beautiful thing. The system found its own mistake and corrected it, and still it never went out of our control, because we had written every path ourselves.</p>
+<p>This was all about one single run of our graph. Now, let's see how we can make our graph faster.</p>
+<h2 id="parallel-branches-doing-many-things-at-the-same-time">Parallel branches: doing many things at the same time <a aria-hidden="true" class="anchor" href="#parallel-branches-doing-many-things-at-the-same-time">#</a></h2>
+<p>Sometimes two steps have nothing to do with each other. Searching our internal documents and searching the public web are completely independent. Running them one after another only wastes time.</p>
+<p>In a graph, we can send one node to two nodes at the same time.</p>
+<pre><code class="language-python"><span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"understand"</span><span class="p">,</span> <span class="s2">"search_docs"</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"understand"</span><span class="p">,</span> <span class="s2">"search_web"</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"search_docs"</span><span class="p">,</span> <span class="s2">"merge"</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"search_web"</span><span class="p">,</span> <span class="s2">"merge"</span><span class="p">)</span>
+</code></pre>
+<p>Here, we can see two things. First, <code>understand</code> has two outgoing edges, so both the searches start together. This is called fan-out. Second, both the searches point to the same <code>merge</code> node, so the graph waits for both of them to finish and then continues. This is called fan-in.</p>
+<p>The <code>merge</code> node joins the two results.</p>
+<pre><code class="language-python"><span class="k">def</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+    <span class="n">state</span><span class="p">[</span><span class="s2">"documents"</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">"doc_results"</span><span class="p">]</span> <span class="o">+</span> <span class="n">state</span><span class="p">[</span><span class="s2">"web_results"</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">state</span>
+</code></pre>
+<p>Here, we have simply joined both the lists into the <code>documents</code> key, and the rest of our graph does not even need to know that two searches happened.</p>
+<p>Fan-out and fan-in are two of the common patterns that we use to coordinate many steps together. We have a detailed blog on <a href="https://outcomeschool.com/blog/ai-orchestration" rel="noopener noreferrer" target="_blank">AI Orchestration</a> that covers these patterns end to end.</p>
+<p><strong>Note:</strong> When two nodes run at the same time, they must write into different keys of the state. If both write into the same key, one will silently overwrite the other, and we will spend hours finding that bug.</p>
+<h2 id="checkpoints-pause-and-resume-the-graph">Checkpoints: pause and resume the graph <a aria-hidden="true" class="anchor" href="#checkpoints-pause-and-resume-the-graph">#</a></h2>
+<p>A long graph takes time. It calls models, it calls tools, and it waits for slow services. Now, what happens if our server restarts in the middle of a run? In a simple loop, everything is lost, and the user has to start again from zero.</p>
+<p>Here comes <strong>checkpointing</strong> into the picture.</p>
+<p>After every node finishes, the graph saves the state. This saved state is called a checkpoint. If something breaks, we load the last checkpoint and continue from that exact node.</p>
+<pre><code class="language-python"><span class="n">graph</span> <span class="o">=</span> <span class="n">Graph</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">checkpointer</span><span class="o">=</span><span class="n">Database</span><span class="p">())</span>
+<span class="n">final_state</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">thread_id</span><span class="o">=</span><span class="s2">"user-123"</span><span class="p">)</span>
+</code></pre>
+<p>Here, we have given a storage to the graph, and we have given an id to this particular run. After every node, the state is saved against this id. If this run breaks after the <code>search</code> node, we call <code>run</code> again with the same <code>thread_id</code>, and the graph starts from <code>write</code> instead of starting from <code>understand</code>.</p>
+<p>This is possible only because the whole progress of our system lives inside one plain state object. This is one more reason why keeping a clean state is so valuable.</p>
+<p>Till now, we have learned how a graph runs on its own. Now, it's time to learn about the place where a human joins the graph.</p>
+<h2 id="human-in-the-loop">Human in the loop <a aria-hidden="true" class="anchor" href="#human-in-the-loop">#</a></h2>
+<p>Some steps must never happen without a human saying yes. Sending an email to a customer. Issuing a refund. Deleting a record. Pushing code to the live app.</p>
+<p>Because our work is divided into nodes, we can simply stop the graph before such a node.</p>
+<pre><code class="language-python"><span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"send_email"</span><span class="p">,</span> <span class="n">send_email</span><span class="p">,</span> <span class="n">interrupt_before</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre>
+<p>Here, we have marked one node as a stopping point. When the graph reaches <code>send_email</code>, it saves the state and pauses. Nothing is sent yet.</p>
+<p>Now, a human opens the pending work, reads the draft, and takes a call.</p>
+<pre><code class="language-python"><span class="k">if</span> <span class="n">human_says_yes</span><span class="p">:</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">resume</span><span class="p">(</span><span class="n">thread_id</span><span class="o">=</span><span class="s2">"user-123"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">thread_id</span><span class="o">=</span><span class="s2">"user-123"</span><span class="p">,</span> <span class="n">changes</span><span class="o">=</span><span class="p">{</span><span class="s2">"answer"</span><span class="p">:</span> <span class="n">edited_answer</span><span class="p">})</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">resume</span><span class="p">(</span><span class="n">thread_id</span><span class="o">=</span><span class="s2">"user-123"</span><span class="p">)</span>
+</code></pre>
+<p>Here, we can see that the human can either allow the graph to continue, or first correct the answer inside the state and then allow it to continue. The graph does not even know that a human touched it. It just reads the state and moves ahead.</p>
+<p>This is how we get the speed of automation with the safety of human review.</p>
+<h2 id="handling-errors-inside-a-graph">Handling errors inside a graph <a aria-hidden="true" class="anchor" href="#handling-errors-inside-a-graph">#</a></h2>
+<p>Tools fail. Networks fail. Models return broken output. In one big prompt, a failure kills everything. In a graph, a failure is just one node behaving badly, and we can keep it inside the state like any other information.</p>
+<pre><code class="language-python"><span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">"documents"</span><span class="p">]</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">"intent"</span><span class="p">])</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">"error"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">"error"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"search service is down"</span>
+    <span class="k">return</span> <span class="n">state</span>
+</code></pre>
+<p>Here, we have caught the failure and written it into the state instead of letting the whole graph crash.</p>
+<p>Then, we write a routing function that reads that error and decides what to do.</p>
+<pre><code class="language-python"><span class="k">def</span><span class="w"> </span><span class="nf">route_after_search</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="s2">"error"</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="s2">"search_web"</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">state</span><span class="p">[</span><span class="s2">"documents"</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="s2">"ask_human"</span>
+    <span class="k">return</span> <span class="s2">"write"</span>
+</code></pre>
+<p>Then, we replace the normal edge coming out of <code>search</code> with a conditional edge as below:</p>
+<pre><code class="language-python"><span class="n">graph</span><span class="o">.</span><span class="n">add_conditional_edge</span><span class="p">(</span><span class="s2">"search"</span><span class="p">,</span> <span class="n">route_after_search</span><span class="p">)</span>
+</code></pre>
+<p>Here, we can notice that a failure is now just a normal path in our graph. When our own search is down, we fall back to the web search. When there is nothing at all to answer from, we ask a human. Nothing crashes, and the user always gets some response.</p>
+<p>This is how we build a system that keeps working even on a bad day.</p>
+<p>Now that we have learned about the complete graph, it's time to compare it with the other popular way of building AI systems.</p>
+<h2 id="graph-engineering-vs-loop-engineering">Graph Engineering vs Loop Engineering <a aria-hidden="true" class="anchor" href="#graph-engineering-vs-loop-engineering">#</a></h2>
+<p><a href="https://outcomeschool.com/blog/what-is-loop-engineering" rel="noopener noreferrer" target="_blank">Loop Engineering</a> is about one agent thinking in a loop, deciding its own next action, and stopping when it feels that the work is done. Graph Engineering is about many small steps, with the paths between them written down by us.</p>
+<p>Let me tabulate the differences between Loop Engineering and Graph Engineering for your better understanding.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Point</th>
+<th>Loop Engineering</th>
+<th>Graph Engineering</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Who decides the next step</td>
+<td>The model decides</td>
+<td>Our code decides, using the model's output</td>
+</tr>
+<tr>
+<td>Structure</td>
+<td>One loop of think and act</td>
+<td>Many nodes joined by edges</td>
+</tr>
+<tr>
+<td>Path on every run</td>
+<td>Different every time</td>
+<td>Same path for the same situation</td>
+</tr>
+<tr>
+<td>Testing</td>
+<td>Hard, because the path keeps changing</td>
+<td>Easy, we can test one node at a time</td>
+</tr>
+<tr>
+<td>Finding a bug</td>
+<td>We read one long history of everything the model did</td>
+<td>We look at the one node that failed</td>
+</tr>
+<tr>
+<td>Freedom for the model</td>
+<td>Very high</td>
+<td>Only where we allow it</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>Open ended and unknown tasks</td>
+<td>Known work with clear stages</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="where-graph-engineering-works-well">Where Graph Engineering works well <a aria-hidden="true" class="anchor" href="#where-graph-engineering-works-well">#</a></h2>
+<ul>
+<li><strong>Work with clear stages.</strong> Support tickets, refund handling, document review, and report writing all have a natural shape of stages.</li>
+<li><strong>Work that needs approval.</strong> Because we can pause at any node, human review fits in very naturally.</li>
+<li><strong>Work that must be repeatable.</strong> The same input takes the same path, so we can test it and trust it.</li>
+<li><strong>Long running work.</strong> Checkpoints let a graph survive restarts and continue for hours or even days.</li>
+<li><strong>Work with independent parts.</strong> Parallel branches finish many searches or many checks together.</li>
+<li><strong>Work that must be explained.</strong> We can show the exact path that was taken, node by node. In banking, healthcare, and legal work, this matters a lot.</li>
+</ul>
+<h2 id="where-graph-engineering-fails">Where Graph Engineering fails <a aria-hidden="true" class="anchor" href="#where-graph-engineering-fails">#</a></h2>
+<ul>
+<li><strong>Truly open ended work.</strong> If we cannot even name the stages, then drawing a graph is only guesswork. A loop is a better fit there.</li>
+<li><strong>Very simple work.</strong> If one model call answers the question, a graph only adds work with no benefit.</li>
+<li><strong>Graphs that grow without care.</strong> A graph with sixty nodes and edges going everywhere is worse than a big prompt, because now the mess is spread across many files.</li>
+<li><strong>A messy state.</strong> When every node adds a few keys and nobody removes anything, the state becomes a junkyard, and no node can be understood on its own.</li>
+<li><strong>Hidden dependencies.</strong> If a node silently needs a key that only some earlier node writes, then moving the nodes around will break the graph in a way that is very hard to find.</li>
+<li><strong>Cycles without limits.</strong> One missing stop condition, and our graph keeps running in circles all night, and we pay for every round.</li>
+</ul>
+<h2 id="best-practices-in-graph-engineering">Best practices in Graph Engineering <a aria-hidden="true" class="anchor" href="#best-practices-in-graph-engineering">#</a></h2>
+<p><strong>Keep every node small.</strong> One node, one job. If we cannot describe a node in one short sentence, then it must be split into two nodes.</p>
+<p><strong>Design the state first.</strong> Write down every key, what it holds, and which node fills it. Do this before writing a single node.</p>
+<p><strong>Keep the decisions in code, not in prose.</strong> Let the model give the score, the label, or the choice. Let our own code read that value and pick the path. This one habit gives us most of the control.</p>
+<p><strong>Put a limit on every cycle.</strong> Count the attempts inside the state, and always have an exit path for the case when the count is over.</p>
+<p><strong>Always have an exit.</strong> Every path in the graph must reach an end, even the sad paths. A path that goes nowhere is a hung system.</p>
+<p><strong>Turn failures into paths.</strong> Write the error into the state, and route on it. Do not let one bad tool call kill the whole run.</p>
+<p><strong>Draw the graph on paper.</strong> If we cannot draw it, then our teammates and our users will never understand it. A graph that cannot be drawn is too complex.</p>
+<p><strong>Log every node.</strong> Save which node ran, what came in, and what went out. When something goes wrong, this log takes us straight to the guilty node. This is what gives us real <a href="https://outcomeschool.com/blog/ai-agent-observability" rel="noopener noreferrer" target="_blank">observability</a> into our system.</p>
+<p><strong>Test node by node.</strong> Every node is just a function from state to state, so we can test it alone with a fixed state and no model at all. This is a huge advantage over one big prompt.</p>
+<p><strong>Start with a straight line.</strong> Build the simplest working path first. Add branches, cycles, and parallel work only when a real problem asks for them.</p>
+<h2 id="conclusion">Conclusion <a aria-hidden="true" class="anchor" href="#conclusion">#</a></h2>
+<p>Graph Engineering is a simple idea. Break the work into small steps, write down the paths between those steps, and keep all the progress inside one shared state.</p>
+<p>When we do this, our AI system stops being a black box that sometimes works. It becomes a system that we can see, test, pause, resume, correct, and explain to anyone.</p>
+<p>The model still does the thinking. The graph decides where that thinking goes.</p>
+<p>Now we must have understood Graph Engineering, and we can start drawing our own graph for the work that we are building.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions <a aria-hidden="true" class="anchor" href="#frequently-asked-questions">#</a></h2>
+<h3 id="is-graph-engineering-the-same-as-prompt-chaining">Is Graph Engineering the same as prompt chaining? <a aria-hidden="true" class="anchor" href="#is-graph-engineering-the-same-as-prompt-chaining">#</a></h3>
+<p>No. Prompt chaining breaks the work into separate calls that run one after another, but a chain always moves forward in a straight line and never comes back. Graph Engineering keeps those small steps and adds the ability to go back, branch, and take decisions, with the paths between steps written down by us.</p>
+<h3 id="does-the-model-choose-the-next-step-in-graph-engineering">Does the model choose the next step in Graph Engineering? <a aria-hidden="true" class="anchor" href="#does-the-model-choose-the-next-step-in-graph-engineering">#</a></h3>
+<p>No. The model can give a score, a label, or a choice, but our own code reads that value from the state and picks the path. We let the model do the thinking, and we keep the control of the flow with ourselves. This is the heart of Graph Engineering.</p>
+<h3 id="does-every-node-in-a-graph-need-to-call-an-ai-model">Does every node in a graph need to call an AI model? <a aria-hidden="true" class="anchor" href="#does-every-node-in-a-graph-need-to-call-an-ai-model">#</a></h3>
+<p>No. A node is just a function that takes the current state, does one small job, and returns the updated state. A node can call a model, call a tool, hit a database, or run plain code with no model at all. This is also why we can test each node alone.</p>
+<h3 id="is-langgraph-the-same-thing-as-graph-engineering">Is LangGraph the same thing as Graph Engineering? <a aria-hidden="true" class="anchor" href="#is-langgraph-the-same-thing-as-graph-engineering">#</a></h3>
+<p>No. Graph Engineering is the practice of designing an AI system as nodes, edges, and state. LangGraph is the most popular library built for this work. Such libraries give us the same three ideas of node, edge, and state, only with slightly different names.</p>
+<h3 id="what-happens-if-two-parallel-nodes-write-to-the-same-state-key">What happens if two parallel nodes write to the same state key? <a aria-hidden="true" class="anchor" href="#what-happens-if-two-parallel-nodes-write-to-the-same-state-key">#</a></h3>
+<p>One will silently overwrite the other. When two nodes run at the same time in parallel branches, they must write into different keys of the state. A merge node can then join the results, so the rest of the graph does not need to know that two branches ran together.</p>
+
+  <nav class="prev-next" aria-label="Lesson navigation"><a href="m11-l1102-what-is-loop-engineering.html"><span class="label">← Previous lesson</span>11.2 What is Loop Engineering?</a><a class="next" href="m11-l1104-ai-is-only-as-good-as-our-definition-of-done.html"><span class="label">Next lesson →</span>11.4 AI Is Only as Good as Our Definition of Done</a></nav>
+  <footer class="footer">
+    <p>Personal offline study copy · Content © Outcome School / Amit Shekhar ·
+    <a href="../notice.html">usage notice</a>.</p>
+    <p>Source: <a href="https://outcomeschool.com/blog/what-is-graph-engineering" target="_blank" rel="noopener noreferrer">https://outcomeschool.com/blog/what-is-graph-engineering</a></p>
+  </footer>
+</article>
+
+    </main>
+  </div>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

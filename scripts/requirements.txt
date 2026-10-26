@@ -1,0 +1,14 @@
+# Extraction and build dependencies
+#
+# Install with:
+#   python3 -m pip install -r scripts/requirements.txt
+#
+# The generated study/ library only needs a browser to read the HTML.
+# These packages are needed only when re-fetching articles or rebuilding the site.
+
+requests>=2.31
+beautifulsoup4>=4.12
+markdownify>=0.13
+markdown-it-py>=3.0
+Pygments>=2.17
+PyYAML>=6.0

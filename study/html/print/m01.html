@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 1: Machine Learning Foundations</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/print.css">
+</head>
+<body class="print-body">
+<main class="print-document">
+
+<section class="print-cover">
+  <p class="kicker">AI Engineering Course</p>
+  <h1>Module 1</h1>
+  <h2>Machine Learning Foundations</h2>
+  <p class="meta">9 lessons · Personal offline study copy</p>
+  <p class="notice">Personal offline study copy. Content © Outcome School /
+  Amit Shekhar. Not for redistribution. See study/NOTICE.md.</p>
+</section>
+<section class="print-toc">
+<h1>Contents</h1>
+<ul>
+<li class="module-entry"><a href="#module-1">Module 1: Machine Learning Foundations</a>
+<ul class="toc-lessons">
+<li class="lesson-entry"><a href="#lesson-m01-l0101">1.1 What is Machine Learning?</a></li>
+<li class="lesson-entry"><a href="#lesson-m01-l0102">1.2 Supervised vs Unsupervised Learning</a></li>
+<li class="lesson-entry"><a href="#lesson-m01-l0103">1.3 Linear Regression vs Logistic Regression</a></li>
+<li class="lesson-entry"><a href="#lesson-m01-l0104">1.4 What is Feature Engineering in Machine Learning?</a></li>
+<li class="lesson-entry"><a href="#lesson-m01-l0105">1.5 Precision vs Recall</a></li>
+<li class="lesson-entry"><a href="#lesson-m01-l0106">1.6 What Are L1 and L2 Loss Functions?</a></li>
+<li class="lesson-entry"><a href="#lesson-m01-l0107">1.7 What is Regularization in Machine Learning? L1 vs L2 Explained</a></li>
+<li class="lesson-entry"><a href="#lesson-m01-l0108">1.8 What is Reinforcement Learning?</a></li>
+<li class="lesson-entry"><a href="#lesson-m01-l0109">1.9 What is Contrastive Learning? How It Works Step by Step</a></li>
+</ul>
+</li>
+</ul>
+</section>
+<section class="print-module" id="module-1">
+  <section class="print-module-title">
+    <p class="kicker">Module 1</p>
+    <h1>Machine Learning Foundations</h1>
+    <p class="meta">9 lessons · ~1 min overview</p>
+  </section>
+  <div class="print-module-intro"><p>In this module, we will learn what Machine Learning is, the different ways a machine can learn, and the basic terms we will keep using in every later module of this AI Engineering Course.</p>
+<p>By the end of this module, we will know how a model learns from data, how we measure it, and how we stop it from overfitting.</p>
+</div>
+  
+<section class="print-lesson" id="lesson-m01-l0101">
+  <p class="print-lesson-kicker">Lesson 1.1</p>
+  <h1>What is Machine Learning?</h1>
+  <p class="print-lesson-meta">Lesson 1.1 · ~10 min · Published August 2, 2019 · <a href="https://outcomeschool.com/blog/machine-learning">https://outcomeschool.com/blog/machine-learning</a></p>
+  <p><img alt="What is Machine Learning?" src="../assets/images/01-01-01-what-is-machine-learning/machine-learning.png"/></p>
+<p>Machine Learning is a field of computer science that gives computers the ability to learn from data without being explicitly programmed.</p>
+<p>Yet another article on - Introduction To Machine Learning. Believe me, this article is going to be the simplest introduction to the term <strong>Machine Learning</strong>. So, let’s start without wasting our time.</p>
+<p>Let's get started.</p>
+<h2 id="what-is-machine-learning">What is Machine Learning?</h2>
+<p>Let’s go through the Wikipedia definition.</p>
+<blockquote>
+<p><strong>Machine learning</strong> is a field of computer science that gives computers the ability to learn without being explicitly programmed.</p>
+</blockquote>
+<p>It means that there are <strong>generic machine learning algorithms</strong> that can tell you something interesting about a set of data without you having to write any custom code specific to the problem.</p>
+<p>Instead of writing code specific to the problem, you feed data to the <strong>generic machine learning algorithm</strong>, and it finds the <strong>pattern</strong> hidden in the data.</p>
+<p>For example, a classification algorithm is one that groups data into different categories. The same algorithm that recognizes handwritten digits can also classify emails into spam or not-spam. The algorithm remains the same, only the training data changes, so it learns different rules by finding different patterns in the data.</p>
+<p><img alt="machine learning generic algorithm examples" src="../assets/images/01-01-01-what-is-machine-learning/machine-learning-generic-algo-examples.png"/></p>
+<p>But the real question is: how does the machine get the ability to learn, and that too without being explicitly programmed?</p>
+<p>And we all know that whatever a machine does, it does because it has been explicitly programmed to do so.</p>
+<p>The ability to learn without being explicitly programmed is all about finding the <strong>pattern</strong>.</p>
+<p>Let's figure out how it finds the <strong>pattern</strong> by examining the following dataset:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>x1</th>
+<th>x2</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>2</td>
+<td>8</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr>
+<td>0</td>
+<td>5</td>
+<td>10</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+</tr>
+</tbody>
+</table></div>
+<p>Each row in the table is just a triplet: <code>x1</code>, <code>x2</code>, and <code>y</code>. There's a simple pattern hiding inside. For every row, <code>y</code> is tied to the values of <code>x1</code> and <code>x2</code>. Try to spot the pattern yourself before you read ahead.</p>
+<p>In this case, with a bit of pencil-and-paper work, you can figure out that:</p>
+<pre><code class="language-python">y = x1 + 2 × x2
+</code></pre>
+<p>And we can also write it as below:</p>
+<pre><code class="language-python">y = w1 × x1 + w2 × x2
+where w1 = 1 and w2 = 2
+</code></pre>
+<p>We found the <strong>pattern</strong> here. The relationship between <code>y</code>, <code>x1</code>, and <code>x2</code> comes from the constants <code>w1</code> and <code>w2</code>. These constants act as the <strong>weights</strong> in the linear equation that links <code>y</code> with <code>x1</code> and <code>x2</code>.</p>
+<p>What we actually did here is:</p>
+<p>We built a simple <strong>model</strong>: a linear one, because it represents a straight-line relationship between the inputs(<code>x1</code> and <code>x2</code>) and the output(<code>y</code>):</p>
+<pre><code class="language-python">y = w1 × x1 + w2 × x2
+</code></pre>
+<p>Then we learned the <strong>weights</strong> by observing the dataset.</p>
+<p>Learned weights: <strong>w1 = 1 and w2 = 2</strong></p>
+<p>We found the <strong>pattern</strong> and learned the <strong>weights</strong>.</p>
+<p>Once we've learned the weights, <code>w1</code> and <code>w2</code>, we can use them to <strong>predict</strong> <code>y</code> for any new <code>x1</code> and <code>x2</code>, even ones <strong>not</strong> in our original dataset. For example, if <code>x1 = 3</code> and <code>x2 = 4</code>, just plug them into the equation <code>y = x1 + 2 × x2</code>, and you get <code>y = 11</code>.</p>
+<p>We just built a model that can <strong>predict</strong> for any new input.</p>
+<p>But notice, we did all of this ourselves, without using any machines.</p>
+<p>This was a small dataset representing a linear relationship between the inputs(<code>x1</code> and <code>x2</code>) and the output(<code>y</code>), and we were able to find the pattern manually. But imagine a dataset with thousands or millions of rows, and instead of just two inputs (<code>x1</code> and <code>x2</code>), you have hundreds or thousands of inputs. Suddenly, "finding the pattern" is no longer something you can do by hand.</p>
+<p>This is exactly where Machine Learning shines.</p>
+<p>The entire job of a Machine Learning model is:</p>
+<p><strong>Take data → Find the pattern → Learn the weights (w1, w2).</strong></p>
+<p>These weights become the "knowledge" of the model.</p>
+<p>So when we say <em>the machine learns</em>, we simply mean: <strong>It keeps adjusting the weights until the predicted y matches the actual y as closely as possible.</strong></p>
+<ul>
+<li><strong>Actual y</strong> is the real value from your dataset, the ground truth, <strong>represented by y</strong>.</li>
+<li><strong>Predicted y</strong> is the value the model computes using the current weights, <strong>represented by ŷ</strong>.</li>
+</ul>
+<p><strong>But where do these weights come from?</strong></p>
+<p>The learning process works like this:</p>
+<ul>
+<li><strong>Start with random weights</strong>: The model doesn't know anything in the beginning.</li>
+<li><strong>Make a prediction using these weights</strong>: <code>ŷ = w1 × x1 + w2 × x2</code>.</li>
+<li><strong>Compare the prediction with the actual value (y)</strong>: This tells us how wrong the prediction was. <strong>Error = actual y - predicted y = y - ŷ.</strong></li>
+<li><strong>Adjust the weights</strong>: The model tweaks <code>w1</code> and <code>w2</code> slightly so the next prediction becomes a bit better.</li>
+<li><strong>Repeat this process thousands of times</strong>: Each iteration moves the model closer to the true pattern.</li>
+</ul>
+<p>This entire loop is called <strong>training</strong>.</p>
+<p>Let's see, step by step, how this happens.</p>
+<pre><code class="language-python">ŷ = w1 × x1 + w2 × x2
+</code></pre>
+<pre><code class="language-python">Error = actual y - predicted y = y - ŷ
+</code></pre>
+<h3 id="step-1">Step 1</h3>
+<p>Assume initial weights: <strong>w1 = 0, w2 = 0</strong></p>
+<p>Calculate the predicted <code>ŷ</code> with these weights for every row.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>x1</th>
+<th>x2</th>
+<th>actual y</th>
+<th>predicted ŷ</th>
+<th>error (y − ŷ)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>2</td>
+<td>8</td>
+<td>0.0000</td>
+<td>8.0000</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>5</td>
+<td>0.0000</td>
+<td>5.0000</td>
+</tr>
+<tr>
+<td>0</td>
+<td>5</td>
+<td>10</td>
+<td>0.0000</td>
+<td>10.0000</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+<td>0.0000</td>
+<td>4.0000</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="step-2">Step 2</h3>
+<p>Adjusted: <strong>w1 = 0.225000, w2 = 0.400000</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>x1</th>
+<th>x2</th>
+<th>actual y</th>
+<th>predicted ŷ</th>
+<th>error (y − ŷ)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>2</td>
+<td>8</td>
+<td>1.7000</td>
+<td>6.3000</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>5</td>
+<td>1.0250</td>
+<td>3.9750</td>
+</tr>
+<tr>
+<td>0</td>
+<td>5</td>
+<td>10</td>
+<td>2.0000</td>
+<td>8.0000</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+<td>0.8500</td>
+<td>3.1500</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="step-3">Step 3</h3>
+<p>Adjusted: <strong>w1 = 0.402375, w2 = 0.718500</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>x1</th>
+<th>x2</th>
+<th>actual y</th>
+<th>predicted ŷ</th>
+<th>error (y − ŷ)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>2</td>
+<td>8</td>
+<td>3.0465</td>
+<td>4.9535</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>5</td>
+<td>1.8394</td>
+<td>3.1606</td>
+</tr>
+<tr>
+<td>0</td>
+<td>5</td>
+<td>10</td>
+<td>3.5925</td>
+<td>6.4075</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+<td>1.5233</td>
+<td>2.4767</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="section-5">...</h3>
+<h3 id="section-6">...</h3>
+<h3 id="section-7">...</h3>
+<h3 id="step-1000">Step 1000</h3>
+<p>Adjusted: <strong>w1 = 1 and w2 = 2</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>x1</th>
+<th>x2</th>
+<th>actual y</th>
+<th>predicted ŷ</th>
+<th>error (y − ŷ)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>2</td>
+<td>8</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>5</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>5</td>
+<td>10</td>
+<td>10</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+<td>4</td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div>
+<p>We are experimenting with the values of <code>w1</code> and <code>w2</code>. Over many iterations, the errors shrink and the weights move toward the values that explain the data (here exactly <code>w1 = 1</code>, <code>w2 = 2</code>).</p>
+<p>The technique of gradually adjusting the weights is driven by something you will hear everywhere in Machine Learning: <a href="https://outcomeschool.com/blog/math-behind-gradient-descent" rel="noopener noreferrer" target="_blank"><strong>Gradient Descent</strong></a>. This is the algorithm that helps the model move step-by-step towards better weights, so that the error decreases over time. Explaining Gradient Descent in depth is outside the scope of this post, but you now understand why we need it.</p>
+<p>For now, just think of <strong>Gradient Descent</strong> as the mechanism that <strong>guides</strong> the model to find the best weights that match the data.</p>
+<p>We can actually code this entire process ourselves. Every part of the learning loop: predicting, measuring error, adjusting weights, and repeating, can be written in just a few lines of code.</p>
+<p>The following Python code demonstrates how to implement the linear model and learn the weights using gradient descent for 1000 steps. <strong>We have skipped a few parts of the code and asked you to ignore certain details to keep it simple for educational purposes</strong>.</p>
+<pre><code class="language-python"># Linear model example: y = w1*x1 + w2*x2
+import numpy as np
+# Dataset
+X = np.array([[4, 2],
+              [1, 2],
+              [0, 5],
+              [2, 1]], dtype=float)
+y = np.array([8, 5, 10, 4], dtype=float)
+# Initialize weights
+w = np.array([0.0, 0.0])
+learning_rate = 0.01 # Determines the size of each weight update, no need to focus on this detail now
+steps = 1000
+n = X.shape[0]  # number of data points
+# Training loop
+for step in range(steps):
+    # Compute predictions
+    y_pred = np.dot(X, w)
+    # Compute error
+    error = y - y_pred
+    # Update weights using gradient descent
+    gradient = -(2/n) * np.dot(X.T, error) # Computes the direction to adjust weights; no need to dive into the math now
+    w = w - learning_rate * gradient
+    # Optional: print every 10 steps
+    if (step+1) % 10 == 0:
+        print(f"After Step {step+1}: w1 = {w[0]:.6f}, w2 = {w[1]:.6f}")
+# Final weights
+print("\nFinal learned weights:")
+print(f"w1 = {w[0]:.6f}, w2 = {w[1]:.6f}")
+# Predict for a new input
+x_new = np.array([3, 4])
+y_new = np.dot(x_new, w)
+print(f"\nPrediction for x1=3, x2=4: y = {y_new:.2f}")
+</code></pre>
+<p>You can run this code using a Python interpreter on your local machine, or an online editor, and observe how the weights gradually learn the pattern and predictions improve over time.</p>
+<p>As Machine Learning engineers, our workflow looks like this:</p>
+<ul>
+<li>Understand the data.</li>
+<li>Choose the right model: a linear model if the relationship is simple, a tree-based model if the boundaries are complex, or a deep learning model when the patterns are highly nonlinear or the data is large.</li>
+<li>Train the model to learn the weights.</li>
+<li>Evaluate.</li>
+<li><a href="https://outcomeschool.com/blog/cloud-vs-on-device-model-deployment" rel="noopener noreferrer" target="_blank">Deploy it</a> to make predictions on new data.</li>
+</ul>
+<p>Machine Learning = Learning the best weights from data.</p>
+<p>Once the model learns the correct weights, it becomes capable of predicting outputs for new inputs it has never seen before. This is the "magic" of machine learning, but as you can see, there's no magic at all, just math.</p>
+<p>Before closing, it's helpful to understand where Machine Learning sits in the broader world of Artificial Intelligence.</p>
+<p><img alt="AI Landscape" src="../assets/images/01-01-01-what-is-machine-learning/ai-landscape.png"/></p>
+<p>To put everything in context, here’s how different terms in AI relate to each other:</p>
+<ul>
+<li><strong>Artificial Intelligence (AI)</strong>: The broadest field, any system that mimics human-like intelligence.</li>
+<li><strong>Machine Learning (ML)</strong>: A subset of AI that learns patterns from data (like what we just explored).</li>
+<li><strong>Deep Learning (DL)</strong>: A subset of ML that uses <a href="https://outcomeschool.com/blog/neural-network" rel="noopener noreferrer" target="_blank">neural networks</a> with many layers.</li>
+<li><a href="https://outcomeschool.com/blog/what-is-generative-ai" rel="noopener noreferrer" target="_blank"><strong>Generative AI</strong></a>: Deep learning models capable of creating new content: text, image, audio, video.</li>
+<li><strong>LLMs (Large Language Models)</strong>: A specific kind of generative AI specialized in understanding and generating human language.</li>
+</ul>
+<p>That was all about Machine Learning.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="is-machine-learning-the-same-as-artificial-intelligence">Is Machine Learning the same as Artificial Intelligence?</h3>
+<p>No. Artificial Intelligence is the broadest field, covering any system that mimics human-like intelligence. Machine Learning is a subset of AI that learns patterns from data. Deep Learning is a further subset of Machine Learning that uses neural networks with many layers.</p>
+<h3 id="do-we-need-to-write-new-code-for-every-machine-learning-problem">Do we need to write new code for every Machine Learning problem?</h3>
+<p>No. Machine Learning uses generic algorithms, so we feed data to the algorithm and it finds the pattern hidden in the data. The same classification algorithm that recognizes handwritten digits can also classify emails into spam or not-spam. Only the training data changes.</p>
+<h3 id="what-do-the-weights-of-a-model-actually-represent">What do the weights of a model actually represent?</h3>
+<p>The weights are the knowledge of the model. They are the constants that link the inputs to the output, like <code>w1</code> and <code>w2</code> in a linear equation. Once the model learns the correct weights, it can predict outputs for new inputs it has never seen before.</p>
+<h3 id="what-role-does-gradient-descent-play-in-training">What role does Gradient Descent play in training?</h3>
+<p>Gradient Descent is the mechanism that guides the model to find the best weights. It helps the model move step by step towards better weights, so that the error between the predicted value and the actual value decreases over time.</p>
+<h3 id="is-there-any-magic-in-how-a-machine-learns">Is there any magic in how a machine learns?</h3>
+<p>No. There is no magic at all, just math. The model starts with random weights, makes a prediction, compares it with the actual value, and adjusts the weights slightly. It repeats this loop thousands of times until the predicted value matches the actual value as closely as possible.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m01-l0102">
+  <p class="print-lesson-kicker">Lesson 1.2</p>
+  <h1>Supervised vs Unsupervised Learning</h1>
+  <p class="print-lesson-meta">Lesson 1.2 · ~6 min · Published December 9, 2025 · <a href="https://outcomeschool.com/blog/supervised-vs-unsupervised-learning">https://outcomeschool.com/blog/supervised-vs-unsupervised-learning</a></p>
+  <p><img alt="Supervised vs Unsupervised Learning" src="../assets/images/01-01-02-supervised-vs-unsupervised-learning/supervised-vs-unsupervised-learning.png"/></p>
+<p>Supervised Learning learns from data that comes with labels (answers), just like learning with a teacher, whereas Unsupervised Learning finds patterns in data without any labels, just like learning without a teacher.</p>
+<p>In this blog, we will learn about Supervised vs Unsupervised Learning in Machine Learning.</p>
+<p>Let's get started.</p>
+<p>Prerequisite: <a href="https://outcomeschool.com/blog/machine-learning" rel="noopener noreferrer" target="_blank">What is Machine Learning?</a></p>
+<p>As we have learned, machine learning is all about enabling computers to learn patterns from data. But the way they learn depends on whether the data comes with labels (answers) or not. This brings us to two major learning categories:</p>
+<ul>
+<li>Supervised Learning</li>
+<li>Unsupervised Learning</li>
+</ul>
+<p>Both solve completely different kinds of problems, and understanding the difference is essential before you start building any ML model.</p>
+<h2 id="supervised-learning">Supervised Learning</h2>
+<p>Supervised learning is like learning with a teacher.</p>
+<p>You can also think of it this way: You’re solving math problems with the answer key next to you. You learn by comparing your answers to the correct ones.</p>
+<p>You provide the model with:</p>
+<ul>
+<li>Input data</li>
+<li>Correct output labels</li>
+</ul>
+<p>The goal is for the model to learn the mapping between inputs and outputs so that it can make predictions on new, unseen data.</p>
+<p>Let's look at a few examples of supervised learning:</p>
+<ul>
+<li>Predicting house prices</li>
+<li>Classifying emails as spam or not spam</li>
+<li>Recognizing digits from images</li>
+<li>Predicting whether a customer will churn</li>
+</ul>
+<p>How does it work?</p>
+<ul>
+<li>Feed the model data + correct labels (answers).</li>
+<li>Model makes predictions.</li>
+<li>Compare predictions with the correct labels (answers).</li>
+<li>Adjust weights using an optimization algorithm.</li>
+<li>Repeat until error is minimized.</li>
+</ul>
+<p>Types of Supervised Learning</p>
+<ul>
+<li>Classification: Categorizing data into predefined classes (spam detection, image recognition)</li>
+<li>Regression: Predicting continuous numerical values (house prices, stock prices, temperature forecasting)</li>
+</ul>
+<p>Now, let's look at the example dataset for supervised learning.</p>
+<p>A simple example dataset used for house price prediction: This dataset contains features(Area, Bedrooms, Location Score) + label(Price), needed for supervised learning.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Area (sq ft)</th>
+<th>Bedrooms</th>
+<th>Location Score</th>
+<th>Price (₹ Lakhs)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1200</td>
+<td>2</td>
+<td>7.5</td>
+<td>85</td>
+</tr>
+<tr>
+<td>1500</td>
+<td>3</td>
+<td>8.0</td>
+<td>110</td>
+</tr>
+<tr>
+<td>900</td>
+<td>2</td>
+<td>6.8</td>
+<td>70</td>
+</tr>
+<tr>
+<td>1800</td>
+<td>3</td>
+<td>8.5</td>
+<td>130</td>
+</tr>
+<tr>
+<td>1100</td>
+<td>2</td>
+<td>7.0</td>
+<td>78</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, <strong>Price</strong> is the label (the output variable). The model learns to predict price based on the features.</p>
+<p>So, when you provide new unseen input data(area, number of bedrooms, and location score), the model can predict the price.</p>
+<h2 id="unsupervised-learning">Unsupervised Learning</h2>
+<p>Unsupervised learning is like learning without a teacher.</p>
+<p>You can also think of it this way: You’re exploring a new city without a map. You observe patterns, such as busy areas and quiet areas, even though no one tells you which is which.</p>
+<p>Here, the dataset contains <strong>only the input data</strong>, no labels, no predefined outputs.</p>
+<p>The goal is to uncover hidden patterns, structures, or groupings within the data.</p>
+<p>Let's look at a few examples of unsupervised learning:</p>
+<ul>
+<li>Grouping customers into segments</li>
+<li>Finding patterns in website user behavior</li>
+<li>Detecting anomalies (fraud, unusual transactions)</li>
+<li>Reducing dimensions (PCA - Principal Component Analysis)</li>
+</ul>
+<p>How does it work?</p>
+<ul>
+<li>Feed the model only raw data.</li>
+<li>Model analyzes the structure.</li>
+<li>It tries to group, compress, or find relationships without external guidance.</li>
+</ul>
+<p>Types of Unsupervised Learning</p>
+<ul>
+<li>Clustering: Grouping similar data points together (K-Means).</li>
+<li>Dimensionality Reduction: Compressing data while preserving important information (PCA - Principal Component Analysis).</li>
+<li><a href="https://outcomeschool.com/blog/what-is-generative-ai" rel="noopener noreferrer" target="_blank">Generative Modeling</a>: Learning the structure of data to generate brand new samples (<a href="https://outcomeschool.com/blog/variational-autoencoders" rel="noopener noreferrer" target="_blank">Variational Autoencoders</a>).</li>
+</ul>
+<p>Now, let's look at the example dataset for unsupervised learning.</p>
+<p>An example dataset used for fitness app user segmentation: Unlabeled Raw Fitness App User Data</p>
+<p>A fitness app wants to understand user behavior and identify different types of users even though no labels exist.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>User ID</th>
+<th>Daily Steps</th>
+<th>Active Minutes</th>
+<th>Weekly Workouts</th>
+<th>Avg Heart Rate</th>
+<th>Sleep Hours</th>
+<th>Water Intake (L)</th>
+<th>App Engagement Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>12,500</td>
+<td>75</td>
+<td>5</td>
+<td>72</td>
+<td>7.5</td>
+<td>2.8</td>
+<td>88</td>
+</tr>
+<tr>
+<td>2</td>
+<td>9,200</td>
+<td>50</td>
+<td>3</td>
+<td>78</td>
+<td>6.8</td>
+<td>2.1</td>
+<td>75</td>
+</tr>
+<tr>
+<td>3</td>
+<td>4,800</td>
+<td>18</td>
+<td>1</td>
+<td>85</td>
+<td>6.0</td>
+<td>1.5</td>
+<td>52</td>
+</tr>
+<tr>
+<td>4</td>
+<td>15,000</td>
+<td>92</td>
+<td>6</td>
+<td>68</td>
+<td>8.0</td>
+<td>3.2</td>
+<td>93</td>
+</tr>
+<tr>
+<td>5</td>
+<td>8,000</td>
+<td>40</td>
+<td>2</td>
+<td>80</td>
+<td>6.5</td>
+<td>1.9</td>
+<td>67</td>
+</tr>
+<tr>
+<td>6</td>
+<td>13,400</td>
+<td>80</td>
+<td>4</td>
+<td>74</td>
+<td>7.2</td>
+<td>2.6</td>
+<td>85</td>
+</tr>
+<tr>
+<td>7</td>
+<td>5,600</td>
+<td>25</td>
+<td>1</td>
+<td>82</td>
+<td>6.2</td>
+<td>1.7</td>
+<td>58</td>
+</tr>
+<tr>
+<td>8</td>
+<td>10,500</td>
+<td>60</td>
+<td>3</td>
+<td>76</td>
+<td>7.0</td>
+<td>2.3</td>
+<td>78</td>
+</tr>
+</tbody>
+</table></div>
+<p>There is <strong>no label</strong> here. An algorithm like K-Means will try to group customers into clusters based on these features.</p>
+<p>After applying K-Means, the model finds natural patterns that map to real-world fitness personas.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>User ID</th>
+<th>Daily Steps</th>
+<th>Active Minutes</th>
+<th>Weekly Workouts</th>
+<th>Avg Heart Rate</th>
+<th>Sleep Hours</th>
+<th>Water Intake (L)</th>
+<th>App Engagement Score</th>
+<th>Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>12,500</td>
+<td>75</td>
+<td>5</td>
+<td>72</td>
+<td>7.5</td>
+<td>2.8</td>
+<td>88</td>
+<td><strong>Active Lifestyle Enthusiasts</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>9,200</td>
+<td>50</td>
+<td>3</td>
+<td>78</td>
+<td>6.8</td>
+<td>2.1</td>
+<td>75</td>
+<td><strong>Moderate Fitness Users</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>4,800</td>
+<td>18</td>
+<td>1</td>
+<td>85</td>
+<td>6.0</td>
+<td>1.5</td>
+<td>52</td>
+<td><strong>Low Activity Busy Users</strong></td>
+</tr>
+<tr>
+<td>4</td>
+<td>15,000</td>
+<td>92</td>
+<td>6</td>
+<td>68</td>
+<td>8.0</td>
+<td>3.2</td>
+<td>93</td>
+<td><strong>Active Lifestyle Enthusiasts</strong></td>
+</tr>
+<tr>
+<td>5</td>
+<td>8,000</td>
+<td>40</td>
+<td>2</td>
+<td>80</td>
+<td>6.5</td>
+<td>1.9</td>
+<td>67</td>
+<td><strong>Moderate Fitness Users</strong></td>
+</tr>
+<tr>
+<td>6</td>
+<td>13,400</td>
+<td>80</td>
+<td>4</td>
+<td>74</td>
+<td>7.2</td>
+<td>2.6</td>
+<td>85</td>
+<td><strong>Active Lifestyle Enthusiasts</strong></td>
+</tr>
+<tr>
+<td>7</td>
+<td>5,600</td>
+<td>25</td>
+<td>1</td>
+<td>82</td>
+<td>6.2</td>
+<td>1.7</td>
+<td>58</td>
+<td><strong>Low Activity Busy Users</strong></td>
+</tr>
+<tr>
+<td>8</td>
+<td>10,500</td>
+<td>60</td>
+<td>3</td>
+<td>76</td>
+<td>7.0</td>
+<td>2.3</td>
+<td>78</td>
+<td><strong>Moderate Fitness Users</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Without any labels</strong>, the model still identifies meaningful clusters such as Active Lifestyle Enthusiasts, Moderate Fitness Users, and Low Activity Busy Users.</p>
+<h2 id="differences-between-supervised-and-unsupervised-learning">Differences Between Supervised and Unsupervised Learning</h2>
+<p>Let's summarize the differences in a tabular format.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Supervised Learning</th>
+<th>Unsupervised Learning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Labeled Data</td>
+<td>Unlabeled Data</td>
+</tr>
+<tr>
+<td>Predicts output label.</td>
+<td>Discovers hidden patterns, groups similar data, or reduces data dimensionality.</td>
+</tr>
+<tr>
+<td>Types: Classification, Regression</td>
+<td>Types: Clustering, Dimensionality Reduction</td>
+</tr>
+<tr>
+<td>Examples: Spam detection, price prediction</td>
+<td>Examples: Customer segmentation, anomaly detection</td>
+</tr>
+<tr>
+<td>Algorithms: <a href="https://outcomeschool.com/blog/linear-regression-vs-logistic-regression" rel="noopener noreferrer" target="_blank">Linear Regression, Logistic Regression</a>, Decision Trees, Random Forests</td>
+<td>Algorithms: K-Means Clustering, Hierarchical Clustering, Principal Component Analysis (PCA)</td>
+</tr>
+<tr>
+<td>Use it when you know the target variable, you want predictions, and you have labeled data or can generate labels.</td>
+<td>Use it when you want to explore the data, labels are not available, and you need natural groupings or structure.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Both supervised and unsupervised learning are essential parts of machine learning. Supervised learning helps you predict, while unsupervised learning helps you discover.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="is-k-means-supervised-or-unsupervised-learning">Is K-Means supervised or unsupervised learning?</h3>
+<p>K-Means is unsupervised learning. It is a clustering algorithm that groups similar data points together without any labels. For example, it can group fitness app users into segments like Active Lifestyle Enthusiasts, Moderate Fitness Users, and Low Activity Busy Users.</p>
+<h3 id="what-is-the-difference-between-classification-and-regression">What is the difference between classification and regression?</h3>
+<p>Both are types of supervised learning. Classification categorizes data into predefined classes, such as spam detection or image recognition. Regression predicts continuous numerical values, such as house prices, stock prices, or temperature forecasts.</p>
+<h3 id="is-generative-modeling-a-type-of-unsupervised-learning">Is generative modeling a type of unsupervised learning?</h3>
+<p>Yes. Generative modeling is one of the types of unsupervised learning, along with clustering and dimensionality reduction. It learns the structure of the data to generate brand new samples, as Variational Autoencoders do.</p>
+<h3 id="when-should-we-choose-unsupervised-learning-over-supervised-learning">When should we choose unsupervised learning over supervised learning?</h3>
+<p>We should choose unsupervised learning when we want to explore the data, labels are not available, and we need natural groupings or structure. If we know the target variable, want predictions, and have labeled data, supervised learning is the better fit.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m01-l0103">
+  <p class="print-lesson-kicker">Lesson 1.3</p>
+  <h1>Linear Regression vs Logistic Regression</h1>
+  <p class="print-lesson-meta">Lesson 1.3 · ~6 min · Published December 10, 2025 · <a href="https://outcomeschool.com/blog/linear-regression-vs-logistic-regression">https://outcomeschool.com/blog/linear-regression-vs-logistic-regression</a></p>
+  <p><img alt="Linear Regression vs Logistic Regression" src="../assets/images/01-01-03-linear-regression-vs-logistic-regression/linear-regression-vs-logistic-regression.png"/></p>
+<p>Linear Regression predicts a continuous value, like the price of a house, whereas Logistic Regression predicts a category, like whether an email is spam or not.</p>
+<p>In this blog, we will learn about Linear Regression vs Logistic Regression in Machine Learning.</p>
+<p>Let's get started.</p>
+<p>In <a href="https://outcomeschool.com/blog/machine-learning" rel="noopener noreferrer" target="_blank">machine learning</a>, the two fundamental algorithms you will frequently encounter are <strong>Linear Regression</strong> and <strong>Logistic Regression</strong>. Although they sound similar, they are designed for <strong>fundamentally different tasks</strong>. Understanding their differences is crucial for choosing the right one. Let's explore what they are, how they work, and when to use them.</p>
+<p>But before diving into the algorithms, it's important to understand the difference between <strong>regression and classification</strong>.</p>
+<p><strong>Regression</strong></p>
+<p>It predicts a <strong>continuous value</strong>.</p>
+<p>A <strong>continuous value</strong> is numeric and can take any value. These values are measurable such as temperature, height, weight, or house prices.</p>
+<p>Example: Predicting house prices, temperature, or stock prices.</p>
+<p><strong>Classification</strong></p>
+<p>It predicts a <strong>categorical value</strong>.</p>
+<p>A <strong>categorical value</strong>, on the other hand, represents discrete groups or classes. These values are descriptive and usually non-numeric, like "yes/no," "red/blue/green," or "spam/not-spam." Categorical values are used in <strong>classification problems</strong>, where the aim is to assign inputs to a specific category or class.</p>
+<p>Example: Predicting whether an email is spam or not, or whether a patient has a disease or not.</p>
+<p>Once such a classifier is built, its quality is measured using Precision and Recall. We have a detailed blog on <a href="https://outcomeschool.com/blog/precision-vs-recall" rel="noopener noreferrer" target="_blank">Precision vs Recall</a> that explains how both work.</p>
+<p>Now it's time to jump into our main topic: Linear Regression vs Logistic Regression. Let's start with Linear Regression.</p>
+<h2 id="linear-regression">Linear Regression</h2>
+<p><strong>Linear Regression</strong> is one of the most basic algorithms in <a href="https://outcomeschool.com/blog/supervised-vs-unsupervised-learning" rel="noopener noreferrer" target="_blank">supervised learning</a>. It is used to predict a <strong>continuous value</strong> based on one or more input features.</p>
+<p>Most importantly, it predicts a continuous value using a <strong>linear</strong> relationship between inputs and output.</p>
+<p>Linear Regression uses a simple <strong>linear</strong> equation for the input variables <code>(x)</code> and the output variable <code>(y)</code>:</p>
+<pre><code class="language-python">y = w1 × x1 + w2 × x2
+</code></pre>
+<ul>
+<li><code>x1</code>, <code>x2</code> are input features.</li>
+<li><code>w1</code>, <code>w2</code> are weights.</li>
+<li><code>y</code> is the predicted continuous value.</li>
+</ul>
+<p>The algorithm finds the line (or hyperplane in multiple dimensions) that best fits the data by minimizing the <strong>Mean Squared Error (MSE)</strong> between predicted and actual values.</p>
+<p><img alt="Linear Regression Graph" src="../assets/images/01-01-03-linear-regression-vs-logistic-regression/linear-regression-graph.png"/></p>
+<p>Linear Regression fits a straight line to predict a continuous numeric value, with no limits on the output range, it can go below 0 or above 1.</p>
+<p>And finally, as a prediction, we get a <strong>continuous value</strong>.</p>
+<p>Example: Predicting house prices based on size and location.</p>
+<p>This was all about the Linear Regression. Now it's time to learn Logistic Regression.</p>
+<h2 id="logistic-regression">Logistic Regression</h2>
+<p><strong>Logistic Regression</strong>, despite its name, is used for <strong>classification problems</strong> in supervised learning, not regression. It predicts the <strong>probability</strong> that a given input belongs to a particular class.</p>
+<p>It starts with the same linear combination of inputs:</p>
+<pre><code class="language-python">z = w1 × x1 + w2 × x2 // notice we’re using z instead of y
+</code></pre>
+<p>Then applies the <strong>sigmoid (logistic) function</strong>:</p>
+<pre><code class="language-python">y = σ(z) = 1 / (1 + e^(-z))
+</code></pre>
+<p>This converts the raw value <code>z</code> into a probability between <strong>0</strong> and <strong>1</strong>.</p>
+<p>That probability is then converted into a class:</p>
+<ul>
+<li>If probability ≥ 0.5 → Class 1</li>
+<li>If probability &lt; 0.5 → Class 0</li>
+</ul>
+<p>The model is trained using <a href="https://outcomeschool.com/blog/math-behind-cross-entropy-loss" rel="noopener noreferrer" target="_blank"><strong>Cross-Entropy</strong></a> loss function. This loss function is mainly used for classification problems.</p>
+<p><img alt="Logistic Regression Graph" src="../assets/images/01-01-03-linear-regression-vs-logistic-regression/logistic-regression-graph.png"/></p>
+<p>Logistic Regression uses an S-shaped curve (Sigmoid) to predict the probability, which is always restricted to the range [0, 1].</p>
+<p>And finally, as a prediction, we get probabilities, that works well for classification.</p>
+<p>You might be wondering: if the algorithm is used for classification, why is it called Logistic <em>Regression</em>, especially the "Regression" part of the name?</p>
+<p>The name comes from the <strong>way the model is built</strong>, not the task it performs.</p>
+<p>Logistic Regression actually starts by doing something that looks exactly like <strong>linear regression</strong>. It takes the input features and forms a linear combination:</p>
+<pre><code class="language-python">z = w1 × x1 + w2 × x2
+</code></pre>
+<p>This part is literally a <strong>regression-style</strong> calculation, nothing about classification yet.</p>
+<p>Then comes the twist: instead of using <code>z</code> directly, the model passes it through the <strong>logistic (sigmoid) function</strong> to convert it into a probability between 0 and 1:</p>
+<pre><code class="language-python">y = σ(z) = 1 / (1 + e^(-z))
+</code></pre>
+<p>That probability is then used to decide the final class.</p>
+<p>So even though the final outcome is <strong>classification</strong>, the model's internal mechanics are:</p>
+<ul>
+<li>Linear <strong>regression-like</strong> equation</li>
+<li>Followed by a <strong>logistic</strong> transformation using sigmoid function.</li>
+<li>Producing probabilities for classification</li>
+</ul>
+<p>Because the core computation is regression-based, the name <strong>"Logistic Regression"</strong> remained, even though we use it for classification.</p>
+<p>That's why the name is <strong>Logistic Regression</strong>.</p>
+<p>So, this was all about the Logictic Regression.</p>
+<h2 id="differences-between-linear-regression-and-logistic-regression">Differences Between Linear Regression and Logistic Regression</h2>
+<p>Let's summarize the differences in a tabular format.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Linear Regression</th>
+<th>Logistic Regression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Regression: Continuous value</td>
+<td>Classification: Probability (0–1) → Class</td>
+</tr>
+<tr>
+<td>y = w1 × x1 + w2 × x2</td>
+<td>z = w1 × x1 + w2 × x2 → y = sigmoid(z)</td>
+</tr>
+<tr>
+<td>Loss Function: Mean Squared Error</td>
+<td>Loss Function: Cross-Entropy</td>
+</tr>
+<tr>
+<td>Examples: House price, temperature</td>
+<td>Examples: Spam detection, disease prediction</td>
+</tr>
+<tr>
+<td>Use it when the target is continuous</td>
+<td>Use it when the target is categorical</td>
+</tr>
+</tbody>
+</table></div>
+<p>I hope this explanation helped.</p>
+<p>You can find the complete code that contains the implementation of linear regression and logistic regression from scratch. Check <a href="https://github.com/amitshekhariitbhu/build-your-own-x-machine-learning" rel="noopener noreferrer" target="_blank">Build your own X - Machine Learning</a></p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="is-logistic-regression-used-for-regression-or-classification">Is Logistic Regression used for regression or classification?</h3>
+<p>Logistic Regression is used for classification, not regression. It predicts the probability that an input belongs to a particular class. The name comes from the way the model is built, since it starts with a regression-style linear equation before applying the sigmoid function.</p>
+<h3 id="what-is-the-difference-between-regression-and-classification">What is the difference between regression and classification?</h3>
+<p>Regression predicts a continuous value, and classification predicts a categorical value. A continuous value is numeric and measurable, like temperature, height, or house prices. A categorical value represents discrete groups, like spam or not spam, so the aim is to assign each input to a class.</p>
+<h3 id="can-linear-regression-predict-values-below-0-or-above-1">Can Linear Regression predict values below 0 or above 1?</h3>
+<p>Yes. Linear Regression fits a straight line, so its output has no limits on range and can go below 0 or above 1. Logistic Regression is different. It passes the value through the sigmoid function, so the output is always a probability between 0 and 1.</p>
+<h3 id="which-loss-function-does-each-model-use">Which loss function does each model use?</h3>
+<p>Linear Regression uses Mean Squared Error, and Logistic Regression uses Cross-Entropy. Linear Regression finds the line that best fits the data by minimizing the Mean Squared Error between predicted and actual values. Cross-Entropy is mainly used for classification problems, which is why Logistic Regression is trained with it.</p>
+<h3 id="how-does-logistic-regression-turn-a-probability-into-a-class">How does Logistic Regression turn a probability into a class?</h3>
+<p>Logistic Regression uses a threshold of 0.5. If the probability is greater than or equal to 0.5, the input goes to Class 1. If the probability is less than 0.5, the input goes to Class 0.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m01-l0104">
+  <p class="print-lesson-kicker">Lesson 1.4</p>
+  <h1>What is Feature Engineering in Machine Learning?</h1>
+  <p class="print-lesson-meta">Lesson 1.4 · ~5 min · Published August 2, 2019 · <a href="https://outcomeschool.com/blog/feature-engineering">https://outcomeschool.com/blog/feature-engineering</a></p>
+  <p><img alt="Feature Engineering for Machine Learning" src="../assets/images/01-01-04-what-is-feature-engineering-in-machine-learning/feature-engineering.png"/></p>
+<p>Feature Engineering is the process of using domain knowledge of the data to create features that make Machine Learning algorithms work. If it is done correctly, it increases the predictive power of the model.</p>
+<p>In this blog, we will learn about the Feature Engineering for Machine Learning.</p>
+<p>Let's get started.</p>
+<p><strong>Feature Engineering is an art</strong></p>
+<p>Feature engineering is the process of using <strong>domain knowledge</strong> of the data to create features that make <a href="https://outcomeschool.com/blog/machine-learning" rel="noopener noreferrer" target="_blank">machine learning</a> algorithms work. If feature engineering is done correctly, it increases the predictive power of machine learning algorithms by creating features from raw data that help facilitate the machine learning process. Feature Engineering is an art.</p>
+<p><strong>Steps which are involved while solving any problem in machine learning are as follows:</strong></p>
+<ul>
+<li>Gathering data.</li>
+<li>Cleaning data.</li>
+<li><strong>Feature engineering</strong>.</li>
+<li>Defining model.</li>
+<li>Training, testing model and predicting the output.</li>
+</ul>
+<p>Feature engineering is the most important art in machine learning which creates the huge difference between a good model and a bad model. Let's see what feature engineering covers.</p>
+<p>Suppose, we are given a data "flight date time vs status". Then, given the date-time data, we have to predict the status of the flight.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>Date_Time_Combined</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>2018-02-14 20:40</td>
+<td>Delayed</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2018-02-15 10:30</td>
+<td>On Time</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2018-02-14 07:40</td>
+<td>On Time</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2018-02-15 18:10</td>
+<td>Delayed</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2018-02-14 10:20</td>
+<td>On Time</td>
+</tr>
+</tbody>
+</table></div>
+<p>As the status of the flight depends on the hour of the day, not on the date-time. We will create the new feature <code>Hour_Of_Day</code>. Using the <code>Hour_Of_Day</code> feature, the machine will learn better as this feature is directly related to the status of the flight.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>Hour_Of_Day</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>20</td>
+<td>Delayed</td>
+</tr>
+<tr>
+<td>1</td>
+<td>10</td>
+<td>On Time</td>
+</tr>
+<tr>
+<td>2</td>
+<td>7</td>
+<td>On Time</td>
+</tr>
+<tr>
+<td>3</td>
+<td>18</td>
+<td>Delayed</td>
+</tr>
+<tr>
+<td>4</td>
+<td>10</td>
+<td>On Time</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, creating the new feature <code>Hour_Of_Day</code> is the feature engineering.</p>
+<p>Let's see another example. Suppose we are given the latitude, longitude and other data with the given label <code>Price_Of_House</code>. We need to predict the price of the house in that area. The latitude and longitude are not of any use if they are alone. So, here we will use the <strong>crossed column</strong> feature engineering. We will combine the latitude and the longitude to make one feature. Combining into one feature will help the model learn better.</p>
+<p>Here, combining two features to create one useful feature is the feature engineering.</p>
+<p>Sometimes, we use the <strong>bucketized column</strong> feature engineering. Suppose we are given a data in which one column is the age and the output is the classification(X, Y, Z). By seeing the data, we realized that the output(X, Y, Z) is dependent on the age-range like 11-20 years age-range output to X, 21-40 years output to Y, 41-70 years output to Z. Here, we will create 3 buckets for the age-range 11-20, 21-40 and 41-70. We will create the new feature which is the bucketized column <code>Age_Range</code> having the numerical values 1, 2 and 3 where 1 is mapped to the bucket 1, 2 is mapped to the bucket 2 and 3 is mapped to the bucket 3.</p>
+<p>Here, creating <code>Age_Range</code> bucket is the feature engineering.</p>
+<p>Sometimes, removing the unwanted feature is also feature engineering. As the feature which is not related degrade the performance of the model.</p>
+<p><strong>Now, the steps to do feature engineering are as follows:</strong></p>
+<ul>
+<li>Brainstorm features.</li>
+<li>Create features.</li>
+<li>Check how the features work with the model.</li>
+<li>Start again from first until the features work perfectly.</li>
+</ul>
+<p>This is what we do in the feature engineering.</p>
+<p><strong>Some words on feature engineering by the experts</strong></p>
+<blockquote>
+<p>Feature engineering is another topic which doesn’t seem to merit any review papers or books, or even chapters in books, but it is absolutely vital to ML success. Much of the success of machine learning is actually success in engineering features that a learner can understand.</p>
+</blockquote>
+<blockquote>
+<p>Actually the success of all Machine Learning algorithms depends on how you present the data.</p>
+</blockquote>
+<blockquote>
+<p>The algorithms we used are very standard for Kagglers. We spent most of our efforts in feature engineering.</p>
+</blockquote>
+<blockquote>
+<p>Feature engineering is the process of transforming raw data into features that better represent the underlying problem to the predictive models, resulting in improved model accuracy on unseen data.</p>
+</blockquote>
+<blockquote>
+<p>Feature engineering turn your inputs into things the algorithm can understand.</p>
+</blockquote>
+<p>Last but not least, <strong>Automated Feature Engineering</strong> is the current hot topic. But it requires a lot of resources. Few companies have already started working on it.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="is-removing-features-also-part-of-feature-engineering">Is removing features also part of feature engineering?</h3>
+<p>Yes. Removing an unwanted feature is also feature engineering. A feature that is not related to the output can degrade the performance of the model. So, along with creating new features, we should also drop the ones that do not help.</p>
+<h3 id="where-does-feature-engineering-fit-in-a-machine-learning-project">Where does feature engineering fit in a machine learning project?</h3>
+<p>Feature engineering comes after gathering and cleaning the data, and before defining the model. After it, we train and test the model and predict the output. It is the step that creates the huge difference between a good model and a bad model.</p>
+<h3 id="what-is-a-crossed-column-in-feature-engineering">What is a crossed column in feature engineering?</h3>
+<p>A crossed column combines two features into one useful feature. For example, latitude and longitude are not of much use alone when we want to predict the price of a house. Combining them into one feature helps the model learn better.</p>
+<h3 id="can-feature-engineering-be-automated">Can feature engineering be automated?</h3>
+<p>Yes. Automated Feature Engineering is a current hot topic, and a few companies have already started working on it. But it requires a lot of resources.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m01-l0105">
+  <p class="print-lesson-kicker">Lesson 1.5</p>
+  <h1>Precision vs Recall</h1>
+  <p class="print-lesson-meta">Lesson 1.5 · ~10 min · Published August 1, 2026 · <a href="https://outcomeschool.com/blog/precision-vs-recall">https://outcomeschool.com/blog/precision-vs-recall</a></p>
+  <p><img alt="Precision vs Recall" src="../assets/images/01-01-05-precision-vs-recall/precision-vs-recall.png"/></p>
+<p>Precision tells us how many of the items we flagged were actually correct, whereas Recall tells us how many of all the real items we actually managed to catch.</p>
+<p>In this blog, we will learn about Precision vs Recall, the two numbers we use to measure how good a system is at making yes-or-no decisions. We will also see how Precision and Recall differ from each other and when to use which one, what the four possible outcomes of any such decision are, why these two numbers pull against each other, and how the cost of a mistake decides which one we must care about more.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>The problem we are trying to solve</li>
+<li>The four possible outcomes</li>
+<li>What is Precision?</li>
+<li>What is Recall?</li>
+<li>Precision vs Recall</li>
+<li>When to use which one?</li>
+<li>A quick recap of the formulas</li>
+<li>Summary</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="the-problem-we-are-trying-to-solve">The problem we are trying to solve</h2>
+<p>Before jumping into Precision and Recall, we must understand where they are used.</p>
+<p>Let's say we have built a system that answers a simple yes-or-no question. For example, a spam filter that looks at an email and decides, "Is this email spam or not?"</p>
+<p>A yes-or-no system like this is a classification model, and classification comes under supervised learning. We have a detailed blog on <a href="https://outcomeschool.com/blog/supervised-vs-unsupervised-learning" rel="noopener noreferrer" target="_blank">Supervised vs Unsupervised Learning</a> that explains this in depth.</p>
+<p>Now, our system will make some correct decisions and some wrong decisions. We need a way to measure how good our system really is. Just saying "it works fine" is not enough. We need proper numbers.</p>
+<p>This is where Precision and Recall come into the picture. They are two numbers that tell us how good our system is, but they measure two different things.</p>
+<p>The best way to learn this is by taking an example. So, for this whole blog, we will use one simple example: a spam filter that flags spam emails.</p>
+<h2 id="the-four-possible-outcomes">The four possible outcomes</h2>
+<p>Before we understand Precision and Recall, we must first understand the four outcomes. Every decision our spam filter makes falls into one of four boxes.</p>
+<p>Let's say an email comes in. There are two truths: the email is really spam, or it is really not spam. And there are two decisions: our filter flags it as spam, or it does not. When we mix these, we get four outcomes.</p>
+<ul>
+<li><strong>True Positive:</strong> The email was really spam, and our filter correctly flagged it as spam. This is a correct catch.</li>
+<li><strong>False Positive:</strong> The email was not spam, but our filter wrongly flagged it as spam. This is a false alarm. A real email got sent to the spam folder.</li>
+<li><strong>False Negative:</strong> The email was really spam, but our filter missed it and let it into the inbox. This is a miss.</li>
+<li><strong>True Negative:</strong> The email was not spam, and our filter correctly let it into the inbox. This is a correct pass.</li>
+</ul>
+<p>Let's understand these four boxes with a simple table like below:</p>
+<pre><code>                         Really Spam         Really Not Spam
+                   +---------------------+---------------------+
+   Flagged as      |   True Positive     |   False Positive    |
+   spam            |   (correct catch)   |   (false alarm)     |
+                   +---------------------+---------------------+
+   Not flagged     |   False Negative    |   True Negative     |
+   as spam         |   (missed spam)     |   (correct pass)    |
+                   +---------------------+---------------------+
+</code></pre>
+<p>Here, we can see all four outcomes clearly. The True Positive and the True Negative boxes are the correct decisions. The False Positive and the False Negative boxes are the mistakes.</p>
+<p>Now that we know these four boxes, understanding Precision and Recall becomes very easy. Let's start with Precision.</p>
+<h2 id="what-is-precision">What is Precision?</h2>
+<p><strong>Precision answers this question: Out of all the emails we flagged as spam, how many were actually spam?</strong></p>
+<p>In simple words, Precision checks how often our filter was correct when it raised an alarm. It looks only at the emails we flagged, and it asks how many of those were truly spam.</p>
+<p>Let's say our filter flagged 10 emails as spam. Out of these 10, only 8 were really spam, and 2 were actually good emails. So, our Precision is 8 out of 10, which is 80%.</p>
+<p>The formula is simple:</p>
+<pre><code>                       True Positive
+   Precision = ------------------------------
+               True Positive + False Positive
+</code></pre>
+<p>Here, we can see that Precision only cares about the emails we flagged. The bottom part of the formula is all the flagged emails (correct catches plus false alarms). The top part is only the correct catches.</p>
+<p>So, high Precision means that when our filter says "this is spam", we can trust it. Very few good emails get wrongly flagged.</p>
+<p><strong>When Precision is low:</strong> It means our filter is flagging too many good emails as spam. This is annoying, because an important email can get lost in the spam folder.</p>
+<h2 id="what-is-recall">What is Recall?</h2>
+<p>Now that we have learned about Precision, it's time to learn about Recall.</p>
+<p><strong>Recall answers this question: Out of all the emails that were really spam, how many did we actually catch?</strong></p>
+<p>In simple words, Recall checks how many of the real spam emails our filter managed to find. It looks at all the true spam that exists, and it asks how much of it we caught.</p>
+<p>Let's say there were 20 real spam emails in total. Our filter caught 8 of them and missed 12. So, our Recall is 8 out of 20, which is 40%.</p>
+<p>The formula is simple:</p>
+<pre><code>                    True Positive
+   Recall = ------------------------------
+            True Positive + False Negative
+</code></pre>
+<p>Here, we can see that Recall cares about all the real spam. The bottom part of the formula is all the actual spam emails (the ones we caught plus the ones we missed). The top part is only the ones we caught.</p>
+<p>So, high Recall means our filter catches most of the spam. Very little spam slips into the inbox.</p>
+<p><strong>When Recall is low:</strong> It means a lot of spam is getting past our filter and landing in the inbox. Our filter is missing too much.</p>
+<h2 id="precision-vs-recall">Precision vs Recall</h2>
+<p>Now, here is the most interesting part. Precision and Recall usually pull against each other. When we try to increase one, the other often goes down. It is like a tug of war.</p>
+<p>Let's understand why.</p>
+<p>Suppose we make our filter very strict, so it flags an email as spam only when it is 100% sure. Now it will rarely make a false alarm. So, our Precision goes up. But because it is so strict, it will also miss many spam emails that it was not fully sure about. So, our Recall goes down.</p>
+<p>Now, suppose we make our filter very relaxed, so it flags an email as spam even on a small doubt. Now it will catch almost all the spam. So, our Recall goes up. But it will also wrongly flag many good emails. So, our Precision goes down.</p>
+<p>We can picture this tug of war like below:</p>
+<pre><code>   Very strict filter                     Very relaxed filter
+   Flags only when 100% sure              Flags on any small doubt
+          |                                        |
+          v                                        v
+   Precision goes UP                       Recall goes UP
+   Recall goes DOWN                        Precision goes DOWN
+</code></pre>
+<p>Here, we can clearly see the trade-off. We usually cannot get both very high at the same time. So, we must decide which one matters more for our problem.</p>
+<p>Let me tabulate the differences between Precision and Recall for your better understanding.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Point</th>
+<th>Precision</th>
+<th>Recall</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Main question</td>
+<td>Of the ones we flagged, how many were correct?</td>
+<td>Of all the real ones, how many did we catch?</td>
+</tr>
+<tr>
+<td>Focus</td>
+<td>Being correct when we raise an alarm</td>
+<td>Not missing the real ones</td>
+</tr>
+<tr>
+<td>Formula bottom</td>
+<td>True Positive + False Positive</td>
+<td>True Positive + False Negative</td>
+</tr>
+<tr>
+<td>Low value means</td>
+<td>Too many false alarms</td>
+<td>Too many misses</td>
+</tr>
+<tr>
+<td>We care about</td>
+<td>Avoiding false alarms</td>
+<td>Avoiding misses</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="when-to-use-which-one">When to use which one?</h2>
+<p>This is the real question. Whether we care more about Precision or more about Recall depends on the cost of the mistake. Let's understand with two examples.</p>
+<p><strong>When Precision matters more:</strong> Think about our spam filter. Here, wrongly flagging a good email as spam is very costly. An important message from our boss or bank can get lost in the spam folder. So, we want to be very sure before flagging. Here, we care more about Precision. A false alarm is worse than a small miss.</p>
+<p><strong>When Recall matters more:</strong> Now, think about a medical test that checks for a serious disease. Here, missing a sick patient is very dangerous. If we tell a sick person they are healthy, they will not get treatment, and that can cost a life. So, we want to catch every possible case, even if it means a few false alarms. Here, we care more about Recall. A miss is far worse than a false alarm.</p>
+<p>So, the rule is simple:</p>
+<ul>
+<li>If a false alarm is costly, we care more about Precision.</li>
+<li>If a miss is costly, we care more about Recall.</li>
+</ul>
+<p>The same two numbers are how we measure modern AI systems as well. A RAG pipeline, for example, is scored on Context Precision and Context Recall in exactly this way. We have a detailed blog on <a href="https://outcomeschool.com/blog/llm-evaluation" rel="noopener noreferrer" target="_blank">LLM Evaluation</a> that covers this end to end.</p>
+<p><strong>Note:</strong> Sometimes we want a good balance of both. In that case, we use a single combined score called the F1 Score, which mixes Precision and Recall into one number. We can explore that in another blog.</p>
+<h2 id="a-quick-recap-of-the-formulas">A quick recap of the formulas</h2>
+<p>Let's keep both formulas together so that we never forget them.</p>
+<pre><code>                       True Positive
+   Precision = ------------------------------
+               True Positive + False Positive
+                    True Positive
+   Recall = ------------------------------
+            True Positive + False Negative
+</code></pre>
+<p>Here, we can notice one thing. Both formulas have True Positive on the top. The only difference is the bottom part. Precision adds False Positive, and Recall adds False Negative.</p>
+<h2 id="summary">Summary</h2>
+<p>Let's quickly recap what we have learned.</p>
+<ul>
+<li>Every yes-or-no decision falls into four boxes: True Positive, False Positive, False Negative, and True Negative.</li>
+<li>Precision asks: of all the ones we flagged, how many were correct?</li>
+<li>Recall asks: of all the real ones, how many did we catch?</li>
+<li>Precision and Recall usually pull against each other, like a tug of war.</li>
+<li>We care more about Precision when a false alarm is costly.</li>
+<li>We care more about Recall when a miss is costly.</li>
+</ul>
+<p>This is how Precision and Recall help us measure our system in two different ways.</p>
+<p>Now, we must have understood Precision vs Recall.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="can-a-model-have-both-high-precision-and-high-recall">Can a model have both high Precision and high Recall?</h3>
+<p>Usually not at the same time. Precision and Recall pull against each other like a tug of war. A very strict filter raises Precision but lowers Recall, while a very relaxed filter raises Recall but lowers Precision. So, we must decide which one matters more for our problem.</p>
+<h3 id="what-should-we-use-when-we-want-a-balance-of-precision-and-recall">What should we use when we want a balance of Precision and Recall?</h3>
+<p>We use the F1 Score. It is a single combined score that mixes Precision and Recall into one number. It is useful when we do not want to favor one over the other and need a good balance of both.</p>
+<h3 id="do-precision-and-recall-use-true-negatives">Do Precision and Recall use True Negatives?</h3>
+<p>No. Neither formula includes True Negatives. Both formulas have True Positive on the top. The only difference is the bottom part, where Precision adds False Positive and Recall adds False Negative.</p>
+<h3 id="why-does-recall-matter-more-for-a-medical-test">Why does Recall matter more for a medical test?</h3>
+<p>Recall matters more because missing a sick patient is very dangerous. If we tell a sick person they are healthy, they will not get treatment. So, we want to catch every possible case, even if it means a few false alarms.</p>
+<h3 id="are-precision-and-recall-used-to-evaluate-rag-pipelines">Are Precision and Recall used to evaluate RAG pipelines?</h3>
+<p>Yes. The same two ideas are used to measure modern AI systems. A RAG pipeline, for example, is scored on Context Precision and Context Recall in exactly the same way.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m01-l0106">
+  <p class="print-lesson-kicker">Lesson 1.6</p>
+  <h1>What Are L1 and L2 Loss Functions?</h1>
+  <p class="print-lesson-meta">Lesson 1.6 · ~3 min · Published August 2, 2019 · <a href="https://outcomeschool.com/blog/l1-and-l2-loss-functions">https://outcomeschool.com/blog/l1-and-l2-loss-functions</a></p>
+  <p><img alt="What Are L1 and L2 Loss Functions?" src="../assets/images/01-01-06-what-are-l1-and-l2-loss-functions/l1-and-l2-loss-functions.png"/></p>
+<p>L1 and L2 are two loss functions in machine learning used to minimize the error. L1 Loss is the Least Absolute Deviations, and L2 Loss is the Least Square Errors. L2 is preferred in most cases, but L1 works better when there are outliers.</p>
+<p>In this blog, we will learn about the L1 and L2 Loss functions.</p>
+<p>Let's get started.</p>
+<p><strong>L1 vs L2 Loss Function</strong></p>
+<p>L1and L2 are two loss functions in <a href="https://outcomeschool.com/blog/machine-learning" rel="noopener noreferrer" target="_blank">machine learning</a> which are used to minimize the error.</p>
+<p><strong>L1 Loss function</strong> stands for <strong>Least Absolute Deviations</strong>. Also known as <strong>LAD</strong>.</p>
+<p><strong>L2 Loss function</strong> stands for <strong>Least Square Errors</strong>. Also known as <strong>LS</strong>.</p>
+<h2 id="l1-loss-function">L1 Loss Function</h2>
+<p>L1 Loss Function is used to minimize the error which is the sum of the all the <strong>absolute</strong> differences between the true value and the predicted value.</p>
+<p><img alt="l1 loss function" src="../assets/images/01-01-06-what-are-l1-and-l2-loss-functions/l1-loss-function.png"/></p>
+<h2 id="l2-loss-function">L2 Loss Function</h2>
+<p>L2 Loss Function is used to minimize the error which is the sum of the all the <strong>squared</strong> differences between the true value and the predicted value.</p>
+<p><img alt="l2 loss function" src="../assets/images/01-01-06-what-are-l1-and-l2-loss-functions/l2-loss-function.png"/></p>
+<h2 id="how-to-decide-between-l1-and-l2-loss-function">How to decide between L1 and L2 Loss Function?</h2>
+<p>Generally, L2 Loss Function is preferred in most of the cases. But when the outliers are present in the dataset, then the L2 Loss Function does not perform well. The reason behind this bad performance is that if the dataset is having outliers, then because of the consideration of the squared differences, it leads to the much larger error. Hence, L2 Loss Function is not useful here. Prefer L1 Loss Function as it is not affected by the outliers or remove the outliers and then use L2 Loss Function.</p>
+<p>Watch the video format: <a href="https://www.youtube.com/watch?v=ToWgPhPbJ9U" rel="noopener noreferrer" target="_blank">L1 and L2 Loss Functions in Machine Learning</a></p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="what-are-the-other-names-of-l1-and-l2-loss-functions">What are the other names of L1 and L2 Loss Functions?</h3>
+<p>L1 Loss Function stands for Least Absolute Deviations, also known as LAD. L2 Loss Function stands for Least Square Errors, also known as LS. Both are loss functions in machine learning that are used to minimize the error.</p>
+<h3 id="is-l1-loss-function-affected-by-outliers">Is L1 Loss Function affected by outliers?</h3>
+<p>No. L1 Loss Function is not affected by the outliers. This is why we prefer L1 Loss Function when outliers are present in the dataset. L2 Loss Function does not perform well in that case.</p>
+<h3 id="why-do-outliers-hurt-l2-loss-function">Why do outliers hurt L2 Loss Function?</h3>
+<p>L2 Loss Function uses the squared differences between the true value and the predicted value. When the dataset has outliers, squaring their differences leads to a much larger error. This is why L2 Loss Function does not perform well with outliers.</p>
+<h3 id="can-we-still-use-l2-loss-function-if-the-dataset-has-outliers">Can we still use L2 Loss Function if the dataset has outliers?</h3>
+<p>Yes. We can remove the outliers first and then use L2 Loss Function. Removing them avoids the much larger error that their squared differences would cause. The other option is to prefer L1 Loss Function, as it is not affected by the outliers.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m01-l0107">
+  <p class="print-lesson-kicker">Lesson 1.7</p>
+  <h1>What is Regularization in Machine Learning? L1 vs L2 Explained</h1>
+  <p class="print-lesson-meta">Lesson 1.7 · ~3 min · Published August 2, 2019 · <a href="https://outcomeschool.com/blog/regularization-in-machine-learning">https://outcomeschool.com/blog/regularization-in-machine-learning</a></p>
+  <p><img alt="Regularization In Machine Learning" src="../assets/images/01-01-07-what-is-regularization-in-machine-learning-l1-vs-l2-explained/regularization-in-machine-learning.png"/></p>
+<p>Regularization is a technique to reduce overfitting in Machine Learning by adding a penalty to the error function. L1 Regularization (Lasso) adds the sum of the absolute values of the weights, and L2 Regularization (Ridge) adds the sum of the squared values of the weights.</p>
+<p>In this blog, we will learn about the Regularization In Machine Learning.</p>
+<p>Let's get started.</p>
+<p><strong>Regularization</strong> is a technique which is used to solve the overfitting problem of the <a href="https://outcomeschool.com/blog/machine-learning" rel="noopener noreferrer" target="_blank">machine learning</a> models.</p>
+<p><strong>Solving overfitting problem with regularization</strong></p>
+<h2 id="what-is-overfitting">What is overfitting?</h2>
+<p>Overfitting is a phenomenon which occurs when a model learns the detail and noise in the training data to an extent that it negatively impacts the performance of the model on new data.</p>
+<p>So the overfitting is a major problem as it negatively impacts the performance.</p>
+<p>Regularization technique to the rescue.</p>
+<p>Generally, a good model does not give more weight to a particular feature. The weights are evenly distributed. This can be achieved by doing regularization.</p>
+<p><strong>There are two types of regularization as follows:</strong></p>
+<ul>
+<li><strong>L1 Regularization or Lasso Regularization</strong></li>
+<li><strong>L2 Regularization or Ridge Regularization</strong></li>
+</ul>
+<h2 id="l1-regularization-or-lasso-regularization">L1 Regularization or Lasso Regularization</h2>
+<p>L1 Regularization or Lasso Regularization adds a penalty to the error function. The penalty is the sum of the <strong>absolute</strong> values of weights.</p>
+<p><img alt="l1 regularization" src="../assets/images/01-01-07-what-is-regularization-in-machine-learning-l1-vs-l2-explained/l1-regularization.png"/></p>
+<p><code>p</code> is the tuning parameter which decides how much we want to penalize the model.</p>
+<h2 id="l2-regularization-or-ridge-regularization">L2 Regularization or Ridge Regularization</h2>
+<p>L2 Regularization or Ridge Regularization also adds a penalty to the error function. But the penalty here is the sum of the <strong>squared</strong> values of weights.</p>
+<p><img alt="l2 regularization" src="../assets/images/01-01-07-what-is-regularization-in-machine-learning-l1-vs-l2-explained/l2-regularization.png"/></p>
+<p>Similar to L1, in L2 also, <code>p</code> is the tuning parameter which decides how much we want to penalize the model.</p>
+<p>This is <strong>Regularization</strong>.</p>
+<p>Apart from L1 and L2, there are other regularization techniques as well. We have a detailed blog on <a href="https://outcomeschool.com/blog/dropout-in-neural-networks" rel="noopener noreferrer" target="_blank">Dropout in Neural Networks</a> that explains how randomly switching off neurons reduces overfitting in deep neural networks.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="what-is-the-difference-between-l1-and-l2-regularization">What is the difference between L1 and L2 regularization?</h3>
+<p>Both add a penalty to the error function, but the penalty is different. L1, or Lasso, uses the sum of the absolute values of the weights. L2, or Ridge, uses the sum of the squared values of the weights.</p>
+<h3 id="what-does-the-tuning-parameter-p-do-in-regularization">What does the tuning parameter p do in regularization?</h3>
+<p>The tuning parameter <code>p</code> decides how much we want to penalize the model. It plays the same role in both L1 and L2 regularization, controlling the strength of the penalty added to the error function.</p>
+<h3 id="why-does-regularization-help-with-overfitting">Why does regularization help with overfitting?</h3>
+<p>Overfitting happens when a model learns the detail and noise in the training data, which hurts its performance on new data. A good model does not give more weight to a particular feature, and its weights are evenly distributed. Regularization helps achieve this by penalizing the weights.</p>
+<h3 id="are-l1-and-l2-the-only-regularization-techniques">Are L1 and L2 the only regularization techniques?</h3>
+<p>No. Apart from L1 and L2, there are other regularization techniques as well. For example, Dropout reduces overfitting in deep neural networks by randomly switching off neurons.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m01-l0108">
+  <p class="print-lesson-kicker">Lesson 1.8</p>
+  <h1>What is Reinforcement Learning?</h1>
+  <p class="print-lesson-meta">Lesson 1.8 · ~14 min · Published August 2, 2019 · <a href="https://outcomeschool.com/blog/reinforcement-learning">https://outcomeschool.com/blog/reinforcement-learning</a></p>
+  <p><img alt="What is Reinforcement Learning?" src="../assets/images/01-01-08-what-is-reinforcement-learning/reinforcement-learning.png"/></p>
+<p>Reinforcement Learning (RL) is a type of machine learning where an Agent learns to make a sequence of decisions by interacting with an Environment, with the goal of getting the maximum Reward over time.</p>
+<p>In this blog, we will learn about Reinforcement Learning, the branch of machine learning where an agent learns to make decisions by interacting with an environment and getting rewards or penalties for its actions.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>The Big Picture</li>
+<li>What is Reinforcement Learning?</li>
+<li>A Simple Real-World Analogy</li>
+<li>The Building Blocks of RL</li>
+<li>The Reinforcement Learning Loop</li>
+<li>Reinforcement Learning vs Supervised vs Unsupervised Learning</li>
+<li>Episode, Return, and Discount Factor</li>
+<li>Exploration vs Exploitation</li>
+<li>Common Families of RL Algorithms</li>
+<li>Where Is Reinforcement Learning Used?</li>
+<li>Why Reinforcement Learning Is Hard</li>
+<li>Quick Summary</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="the-big-picture">The Big Picture</h2>
+<p>Before we go into the details, let's understand the big picture.</p>
+<p>Reinforcement Learning is how a system learns by doing. It tries something, sees the result, and adjusts. This is the classic <strong>trial and error</strong> style of learning.</p>
+<p>There is no teacher giving the right answer for every single situation. Instead, there is a reward signal that tells the system whether it is doing well or badly, and the system slowly figures out the best way to act.</p>
+<p><strong>In simple words:</strong></p>
+<p><strong>Reinforcement Learning = An Agent + An Environment + A Reward signal that guides the Agent to act better over time.</strong></p>
+<h2 id="what-is-reinforcement-learning">What is Reinforcement Learning?</h2>
+<p>Reinforcement Learning is one of the three main branches of <a href="https://outcomeschool.com/blog/machine-learning" rel="noopener noreferrer" target="_blank">machine learning</a>, along with supervised learning and unsupervised learning.</p>
+<p><strong>Reinforcement Learning, often called RL, is a type of machine learning where an Agent learns to make a sequence of decisions by interacting with an Environment, with the goal of maximizing a Reward over time.</strong></p>
+<p>In simple words, the Agent is the learner, the Environment is the world the Agent acts in, and the Reward is the feedback signal that tells the Agent how well it is doing.</p>
+<p>The Agent is not told which action is correct. It must figure that out by trying actions and observing the results.</p>
+<h2 id="a-simple-real-world-analogy">A Simple Real-World Analogy</h2>
+<p>The best way to learn this is by taking an example.</p>
+<p>Let's say we are training a puppy to sit.</p>
+<ul>
+<li>The puppy is the <strong>Agent</strong>.</li>
+<li>The room and the human are the <strong>Environment</strong>.</li>
+<li>When the puppy sits, we give it a treat. That treat is the <strong>Reward</strong>.</li>
+<li>When the puppy jumps on the sofa, we say "no". That is a negative reward.</li>
+</ul>
+<p>The puppy does not understand our language. But over many tries, it learns:</p>
+<ul>
+<li>"When I sit, good things happen."</li>
+<li>"When I jump on the sofa, good things do not happen."</li>
+</ul>
+<p>That is exactly how Reinforcement Learning works.</p>
+<p>The Agent does not need a teacher who writes down the correct action for every situation. It learns the correct action by trying things and observing the reward.</p>
+<h2 id="the-building-blocks-of-rl">The Building Blocks of RL</h2>
+<p>This was the intuition behind RL using the puppy example. Now, let's name the parts of RL formally so we can use the right vocabulary going forward.</p>
+<p>RL has a few core building blocks. Let's decode each one.</p>
+<p><strong>Agent.</strong> The decision maker. It is the thing that learns. In a game, the Agent is the player. In robotics, the Agent is the robot's brain. In an LLM trained with human feedback, the Agent is the LLM itself.</p>
+<p><strong>Environment.</strong> Everything outside the Agent. The world the Agent acts in. The chess board, the maze, the road in front of the self-driving car, the ongoing conversation.</p>
+<p><strong>State.</strong> A snapshot of the Environment at one moment in time. Where the player is on the board. The position and speed of the robot. The current conversation history.</p>
+<p><strong>Action.</strong> What the Agent decides to do in that state. Move the chess piece. Turn the robot left. Generate the next word.</p>
+<p><strong>Reward.</strong> A number the Environment gives back after the Agent takes an action. Positive means good. Negative means bad. Zero means nothing important happened.</p>
+<p><strong>Policy.</strong> The Agent's strategy. A mapping from states to actions. "When I am in this state, I will take this action." The whole goal of RL is to learn a good Policy.</p>
+<p><strong>Value Function.</strong> An estimate of how much total reward the Agent expects to collect from a given State (or from a given State-Action pair) in the long run. Some RL algorithms use the Value Function to derive the Policy. We will see this in the algorithms section later.</p>
+<h2 id="the-reinforcement-learning-loop">The Reinforcement Learning Loop</h2>
+<p>Now that we know the building blocks, let's see how they interact with each other. The interaction between the Agent and the Environment happens in a loop.</p>
+<pre><code>+-----------------------+
+|        Agent          |
++----------+------------+
+           |
+           |  Action
+           v
++-----------------------+
+|     Environment       |
++----------+------------+
+           |
+           |  New State + Reward
+           v
++-----------------------+
+|        Agent          |
++-----------------------+
+</code></pre>
+<p>Step by step:</p>
+<p><strong>Step 1:</strong> The Agent observes the current <strong>State</strong> of the Environment.</p>
+<p><strong>Step 2:</strong> The Agent picks an <strong>Action</strong> based on its current <strong>Policy</strong>.</p>
+<p><strong>Step 3:</strong> The Environment moves to a new state and gives back a <strong>Reward</strong>.</p>
+<p><strong>Step 4:</strong> The Agent updates its Policy using that reward.</p>
+<p><strong>Step 5:</strong> Repeat.</p>
+<p>This loop runs millions of times. Slowly, the Policy gets better. The Agent learns which actions in which states lead to high reward.</p>
+<p>This is exactly what was happening with the puppy. The puppy observed the State (us holding a treat), picked an Action (sit or jump), got a Reward (treat or no treat), and slowly updated its Policy. Same loop, just at a much smaller scale.</p>
+<p>This is how Reinforcement Learning works at the core.</p>
+<h2 id="reinforcement-learning-vs-supervised-vs-unsupervised-learning">Reinforcement Learning vs Supervised vs Unsupervised Learning</h2>
+<p>This was all about the RL loop. Now, let's compare RL with the other two main branches of machine learning so we can clearly see what makes RL special. This is the most important comparison to understand.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/supervised-vs-unsupervised-learning" rel="noopener noreferrer" target="_blank">Supervised vs Unsupervised Learning</a> that explains the first two in depth. Here, we will quickly compare all three.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>What the data looks like</th>
+<th>What the model learns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Supervised Learning</td>
+<td>Inputs with correct outputs (labels)</td>
+<td>Map each input to the correct output</td>
+</tr>
+<tr>
+<td>Unsupervised Learning</td>
+<td>Inputs only, no labels</td>
+<td>Find hidden patterns, groups, or structure</td>
+</tr>
+<tr>
+<td>Reinforcement Learning</td>
+<td>No labeled data, only reward signals from interaction</td>
+<td>A Policy that maximizes total reward over time</td>
+</tr>
+</tbody>
+</table></div>
+<p>Supervised learning has a teacher who shows the correct answer.</p>
+<p>Unsupervised learning has no teacher and no rewards. It just looks for patterns.</p>
+<p>Reinforcement learning has no teacher either. But it has an Environment that gives feedback in the form of a reward, and that reward is the only thing the Agent has to learn from.</p>
+<p>Visually, the three look like this:</p>
+<pre><code>Supervised Learning:
+   Input  --&gt;  Model  --&gt;  Output
+                 ^
+                 |
+           Correct Output (label)
+Unsupervised Learning:
+   Input  --&gt;  Model  --&gt;  Patterns / Clusters
+Reinforcement Learning:
+                   Action
+        +------------------------+
+        |                        v
+     Agent                 Environment
+        ^                        |
+        |                        |
+        +------------------------+
+              New State + Reward
+</code></pre>
+<p>Here, we can notice that supervised learning has labels guiding the Model, unsupervised learning has nothing but the input data, and reinforcement learning is the only one with a feedback loop between the Agent and the Environment.</p>
+<h2 id="episode-return-and-discount-factor">Episode, Return, and Discount Factor</h2>
+<p>Now that we have understood how RL is different from the other two, let's learn a few more terms that come up everywhere in RL.</p>
+<p><strong>Episode.</strong> One full run from start to end. One game of chess from move 1 to the final move. One round of a maze from start to finish. One conversation from the first message to the last. For our puppy, one episode is one full training round.</p>
+<p><strong>Return.</strong> The total reward collected during an episode. The Agent does not just want a single high reward in one step. It wants the highest total reward over the whole episode.</p>
+<p><strong>Discount Factor (often written as gamma).</strong> A number between 0 and 1 that tells the Agent how much to value future rewards compared to immediate rewards.</p>
+<ul>
+<li>A small gamma makes the Agent greedy for now. It cares mostly about the next reward.</li>
+<li>A large gamma makes the Agent patient. It is willing to give up a small reward now for a bigger reward later.</li>
+</ul>
+<p>In simple words, the Discount Factor is how patient the Agent is.</p>
+<p>Let's put this into perspective with real numbers:</p>
+<pre><code>Step:    t=0     t=1     t=2     t=3     t=4    (end)
+          |       |       |       |       |
+          v       v       v       v       v
+Reward:   0       0      +1       0      +10
+Weight: gamma^0 gamma^1 gamma^2 gamma^3 gamma^4
+Return = (gamma^0 * 0) + (gamma^1 * 0) + (gamma^2 * 1) + (gamma^3 * 0) + (gamma^4 * 10)
+For gamma = 0.9:
+Return = (1 * 0) + (0.9 * 0) + (0.81 * 1) + (0.729 * 0) + (0.6561 * 10)
+       = 0 + 0 + 0.81 + 0 + 6.561
+       = 7.371
+</code></pre>
+<p>Here, we can see that the reward of +10 at the end is worth 6.561 to the Agent at the start, not the full 10. The further away a reward is, the more it is discounted. A smaller gamma would shrink that future reward even more.</p>
+<h2 id="exploration-vs-exploitation">Exploration vs Exploitation</h2>
+<p>This was all about how rewards add up over time. Now, let's understand a key trade-off that every RL Agent has to deal with. This is one of the most important trade-offs in Reinforcement Learning.</p>
+<ul>
+<li><strong>Exploitation</strong> = pick the action that is already known to give a good reward.</li>
+<li><strong>Exploration</strong> = try a new action to see if it gives an even better reward.</li>
+</ul>
+<p>Let's say we are in a new city and we want to find the best restaurant.</p>
+<ul>
+<li>If we only exploit, we go to the first decent restaurant we find and never try anything else. We will never know if there is a better place in town.</li>
+<li>If we only explore, we keep trying random new places forever and never settle on the good one.</li>
+</ul>
+<p>A good RL Agent balances both. It exploits enough to use what it has already learned, and it explores enough to find something even better.</p>
+<h2 id="common-families-of-rl-algorithms">Common Families of RL Algorithms</h2>
+<p>Now that we have understood the trade-off, let's see how actual RL algorithms learn the Policy. There are many RL algorithms. Most of them fall into three families. We do not need to memorize them right now. The goal is to understand the high-level idea behind each family.</p>
+<p><strong>Value-based methods.</strong> The Agent learns the <strong>Value Function</strong> we saw earlier in the building blocks. The Policy is then derived from it: in each State, pick the Action with the highest predicted value. <strong>Q-learning</strong> is the classic example.</p>
+<p><strong>Policy-based methods.</strong> The Agent directly learns the Policy. It adjusts the Policy in the direction that increases reward. <strong>Policy Gradient</strong> methods are the classic example.</p>
+<p><strong>Actor-Critic methods.</strong> A combination of the two. One network, the Actor, learns the Policy. Another network, the Critic, learns the <strong>Value Function</strong>. The Critic guides the Actor.</p>
+<p>This family includes <strong><a href="https://outcomeschool.com/blog/proximal-policy-optimization-ppo" rel="noopener noreferrer" target="_blank">PPO (Proximal Policy Optimization)</a></strong>, which is one of the most commonly used algorithms to <a href="https://outcomeschool.com/blog/how-does-fine-tuning-work" rel="noopener noreferrer" target="_blank">fine-tune</a> large language models with human feedback.</p>
+<p>The key idea is the same across all families. They are different ways of learning a good Policy from reward signals.</p>
+<h2 id="where-is-reinforcement-learning-used">Where Is Reinforcement Learning Used?</h2>
+<p>This was all about how RL works under the hood. Now, let's see where RL is actually used in the real world. RL shows up in many real-world systems.</p>
+<ul>
+<li><strong>Games.</strong> AlphaGo learned to play Go at superhuman level using RL. AlphaZero went further and mastered Go, Chess, and Shogi using the same approach. Many Atari games have also been mastered by RL agents.</li>
+<li><strong>Robotics.</strong> Robots learning to walk, grasp objects, or fly drones use RL.</li>
+<li><strong>Self-driving cars.</strong> Decision making in traffic uses RL ideas.</li>
+<li><strong>Recommendation systems.</strong> Some recommenders use RL to optimize long-term user engagement instead of just the next click.</li>
+<li><strong>Calibrated decision models.</strong> Jev, the first <a href="https://outcomeschool.com/blog/jev-and-system-one-models-explained" rel="noopener noreferrer" target="_blank">System One Model</a>, is trained with RLCD (Reinforcement Learning for Calibrated Decisions), where the reward depends on both picking the right answer and reporting an honest probability.</li>
+<li><strong>Large Language Models.</strong> Modern LLMs like ChatGPT are fine-tuned using <strong><a href="https://outcomeschool.com/blog/reinforcement-learning-from-human-feedback-rlhf" rel="noopener noreferrer" target="_blank">RLHF (Reinforcement Learning from Human Feedback)</a></strong> to make them helpful, honest, and safe.</li>
+</ul>
+<p>This last one is why RL has become so important in the AI world recently. RLHF has been a key reason modern LLMs behave as well as they do today.</p>
+<h2 id="why-reinforcement-learning-is-hard">Why Reinforcement Learning Is Hard</h2>
+<p>Now that we know where RL is used, let's understand why RL is genuinely difficult to do well, so we appreciate the problem.</p>
+<ul>
+<li><strong>Reward signals are sparse.</strong> Often, the Agent only gets a reward at the very end of an episode (win or lose, success or failure). It is hard to figure out which earlier action actually caused the outcome. This is called the <strong>credit assignment problem</strong>. Think back to the puppy. If we only said "good dog" at the very end of a long training session, the puppy would have a hard time figuring out which one of its many actions earned the praise. That is the credit assignment problem in real life.</li>
+<li><strong>The environment is changing.</strong> As the Policy changes, the kinds of states the Agent visits also change. The training data is not fixed, which makes learning unstable.</li>
+<li><strong>Trial and error is expensive.</strong> A simulated game can play a million episodes a day. A real robot cannot fall down a million times to learn how to walk. Real-world RL has to learn from very few tries.</li>
+<li><strong>Reward design is tricky.</strong> A poorly designed reward can lead the Agent to game the system, finding ways to maximize the reward without actually doing what we wanted. This is called <strong>reward hacking</strong>. One way around this is to not write the reward at all and instead <a href="https://outcomeschool.com/blog/decoding-deep-rl-from-human-preferences" rel="noopener noreferrer" target="_blank">learn it from human comparisons</a>.</li>
+</ul>
+<p>These problems are why a lot of modern RL research is about making the learning more stable and learning from fewer attempts.</p>
+<p>One powerful way to learn from fewer real-world attempts is to let the Agent learn inside a learned simulator of the environment instead of the real world. We have a detailed blog on <a href="https://outcomeschool.com/blog/how-do-world-models-work" rel="noopener noreferrer" target="_blank">How do World Models work?</a> that explains this approach step by step.</p>
+<h2 id="quick-summary">Quick Summary</h2>
+<p>Let's recap what we have learned:</p>
+<ul>
+<li><strong>Reinforcement Learning = Agent + Environment + Reward signal.</strong></li>
+<li>The <strong>Agent</strong> learns by interacting with the <strong>Environment</strong> and getting <strong>Rewards</strong> back.</li>
+<li>The <strong>Policy</strong> is the Agent's strategy, mapping each state to an action.</li>
+<li>The <strong>goal</strong> of RL is to learn a Policy that maximizes the total reward over time.</li>
+<li>RL is different from <strong>supervised learning</strong> (no labels) and <strong>unsupervised learning</strong> (no rewards). RL learns purely from reward signals through interaction.</li>
+<li>Key terms to remember: <strong>State, Action, Reward, Policy, Episode, Return, Discount Factor, Exploration vs Exploitation.</strong></li>
+<li>RL algorithms fall into three families: <strong>value-based, policy-based, and actor-critic.</strong></li>
+<li>RL powers game-playing AIs, robots, recommendation systems, and the alignment stage of modern LLMs through <strong>RLHF</strong>.</li>
+</ul>
+<p>Now we have understood Reinforcement Learning end to end.</p>
+<p>In the next blog, we will learn about <strong>RLHF (Reinforcement Learning from Human Feedback)</strong> in detail, which is how RL is used to align large language models like ChatGPT with human preferences.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="does-reinforcement-learning-need-labeled-data">Does Reinforcement Learning need labeled data?</h3>
+<p>No. Reinforcement Learning has no teacher who shows the correct answer, so there are no labels. The Agent learns purely from the reward signal it gets by interacting with the Environment. It figures out the correct action by trying things and observing the reward.</p>
+<h3 id="what-are-the-agent-state-and-action-when-rl-is-used-on-an-llm">What are the Agent, State, and Action when RL is used on an LLM?</h3>
+<p>The Agent is the LLM itself. The State is the current conversation history, and the Action is generating the next word. The reward then tells the LLM whether its response was good or bad, which is how RLHF uses RL to fine-tune models like ChatGPT.</p>
+<h3 id="which-family-of-rl-algorithms-does-ppo-belong-to">Which family of RL algorithms does PPO belong to?</h3>
+<p>PPO belongs to the Actor-Critic family. In this family, one network, the Actor, learns the Policy, and another network, the Critic, learns the Value Function and guides the Actor. PPO is one of the most commonly used algorithms to fine-tune large language models with human feedback.</p>
+<h3 id="what-is-the-credit-assignment-problem-in-rl">What is the credit assignment problem in RL?</h3>
+<p>The credit assignment problem is the difficulty of figuring out which earlier action caused the final outcome. It happens because reward signals are often sparse, and the Agent may only get a reward at the very end of an episode, such as a win or a loss.</p>
+<h3 id="why-is-rl-hard-to-use-on-real-robots">Why is RL hard to use on real robots?</h3>
+<p>Trial and error is expensive in the real world. A simulated game can play a million episodes a day, but a real robot cannot fall down a million times to learn how to walk. One way around this is to let the Agent learn inside a learned simulator of the environment, called a World Model.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m01-l0109">
+  <p class="print-lesson-kicker">Lesson 1.9</p>
+  <h1>What is Contrastive Learning? How It Works Step by Step</h1>
+  <p class="print-lesson-meta">Lesson 1.9 · ~14 min · Published May 20, 2026 · <a href="https://outcomeschool.com/blog/contrastive-learning">https://outcomeschool.com/blog/contrastive-learning</a></p>
+  <p><img alt="Contrastive Learning" src="../assets/images/01-01-09-what-is-contrastive-learning-how-it-works-step-by-step/contrastive-learning.png"/></p>
+<p>Contrastive Learning is a way of teaching a model by comparing things. The model learns to pull similar things close to each other and push different things far apart.</p>
+<p>In this blog, we will learn about Contrastive Learning. We will also see how it works step-by-step and where it is used in the real world.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is Contrastive Learning?</li>
+<li>Why do we need Contrastive Learning?</li>
+<li>The key idea behind Contrastive Learning.</li>
+<li>Positive pairs and Negative pairs.</li>
+<li>How does Contrastive Learning work step-by-step?</li>
+<li>Loss functions used in Contrastive Learning.</li>
+<li>Popular Contrastive Learning methods.</li>
+<li>Real-world use cases of Contrastive Learning.</li>
+</ul>
+<p>Let's get started.</p>
+<h3 id="what-is-contrastive-learning">What is Contrastive Learning?</h3>
+<p><strong>Contrastive Learning</strong> is a way of teaching a model to learn good representations of data by comparing things. The model learns to pull similar things close to each other and push dissimilar things far apart in a representation space.</p>
+<p>In simple words, <strong>Contrastive Learning = Contrast + Learning</strong>. We learn by contrasting one thing with another.</p>
+<p>Let's say we have two photos of the same cat, taken from different angles. These two photos are similar. They should be close to each other in the representation space. Now, consider a photo of a car. This is very different from the cat photos. It should be far away from them.</p>
+<p>This is the core idea of Contrastive Learning.</p>
+<p>Similar things attract each other and stick together. Dissimilar things repel each other and move apart. Contrastive Learning teaches the model to behave like these magnets.</p>
+<h3 id="why-do-we-need-contrastive-learning">Why do we need Contrastive Learning?</h3>
+<p>Before jumping into how it works, we must understand the problem it solves.</p>
+<p>In traditional <a href="https://outcomeschool.com/blog/supervised-vs-unsupervised-learning" rel="noopener noreferrer" target="_blank">supervised learning</a>, we need labeled data. For every image, we need a human to tell us "this is a cat", "this is a dog", and so on. Labeling data is expensive. It is slow. It needs a lot of human effort.</p>
+<p>But, here is the catch. The internet has billions of images, videos, and pieces of text. Only a very small fraction of this data is labeled. We have huge amounts of unlabeled data available, but we cannot use it directly with supervised learning.</p>
+<p>So, here comes Contrastive Learning to the rescue.</p>
+<p>Contrastive Learning does not need any labels from humans. It is a self-supervised learning technique. The model creates its own labels from the data itself. This way, we can train the model on massive amounts of unlabeled data and still learn very useful representations.</p>
+<p>Once these representations are learned, we can reuse them for many downstream tasks like classification, search, clustering, and etc., with very little labeled data.</p>
+<p>This is the beauty of Contrastive Learning.</p>
+<h3 id="the-key-idea-behind-contrastive-learning">The key idea behind Contrastive Learning</h3>
+<p>We want the model to learn a function that maps each input (an image, a sentence, a video, and etc.) to a vector. This vector is called the <strong><a href="https://outcomeschool.com/blog/what-are-embeddings" rel="noopener noreferrer" target="_blank">embedding</a></strong> or the <strong>representation</strong>. The space where all these vectors live is called the <strong>embedding space</strong>.</p>
+<p>In this embedding space:</p>
+<ul>
+<li>Similar inputs should have embeddings that are close to each other.</li>
+<li>Dissimilar inputs should have embeddings that are far apart from each other.</li>
+</ul>
+<p>If the model can do this well, then the embeddings become very useful. We can use them for many tasks like search, classification, recommendation, and etc.</p>
+<p>This is the goal of Contrastive Learning.</p>
+<h3 id="positive-pairs-and-negative-pairs">Positive pairs and Negative pairs</h3>
+<p>Now, the question is: how does the model know which things are similar and which things are different, without any labels?</p>
+<p>The answer is: we create pairs from the data itself.</p>
+<p><strong>Positive pair:</strong> Two samples that are similar and should be close in the embedding space.</p>
+<p><strong>Negative pair:</strong> Two samples that are different and should be far apart in the embedding space.</p>
+<p>Let's see how we create these pairs for images.</p>
+<p>We take an image. We apply some changes to it, such as cropping, rotating, flipping, or changing the colors. These changes are called <strong>data augmentation</strong>. The two augmented versions of the same image form a positive pair, because they come from the same original image.</p>
+<p>Now, we take any other image from the dataset. This image and the first image form a negative pair, because they are different images.</p>
+<p>This way, we get positive pairs and negative pairs without any human labels.</p>
+<p>The choice of augmentation is very important. The augmentations should change the look of the image but not its meaning. For example, a cropped cat is still a cat. A rotated cat is still a cat. So, the model learns that these surface-level changes do not matter, and it focuses on the actual content of the image.</p>
+<p>For text, a positive pair can be two sentences that mean the same thing. For an image-text model, a positive pair can be an image and its caption.</p>
+<p>Search models are trained on the same shape of data, where the query is paired with a passage that answers it as the positive and one that does not as the negative. We have a detailed blog on <a href="https://outcomeschool.com/blog/decoding-colbert" rel="noopener noreferrer" target="_blank">Decoding ColBERT</a> that walks through this training setup with real numbers.</p>
+<h3 id="how-does-contrastive-learning-work-step-by-step">How does Contrastive Learning work step-by-step?</h3>
+<p>The best way to learn this is by taking an example.</p>
+<p>Let's say we have an image of a cat. We will follow these steps:</p>
+<p><strong>Step 1:</strong> We take the cat image and create two different augmented versions of it. Let's call them View 1 and View 2. View 1 and View 2 form a positive pair.</p>
+<p><strong>Step 2:</strong> We take another image from the dataset, let's say an image of a car. This image is a negative sample.</p>
+<p><strong>Step 3:</strong> We pass View 1, View 2, and the car image through a neural network. The neural network gives us three embedding vectors.</p>
+<p><strong>Step 4:</strong> We compute the similarity between every pair of embeddings. A common way to measure similarity is the <strong>cosine similarity</strong>, which tells us how close two vectors are in direction. The cosine similarity gives a value between -1 and 1. A value close to 1 means the two vectors are very similar. A value close to -1 means they are very different.</p>
+<p>For the sake of understanding, let's assume after a fresh start, the model gives these similarity scores:</p>
+<ul>
+<li>Similarity(View 1, View 2) = 0.3</li>
+<li>Similarity(View 1, Car) = 0.6</li>
+<li>Similarity(View 2, Car) = 0.5</li>
+</ul>
+<p>Here, we can see that the model is confused. It thinks the two cat views are less similar to each other than they are to the car. This is wrong. So, the loss will be high, and the model will update its weights.</p>
+<p><strong>Step 5:</strong> We train the model to make the similarity between View 1 and View 2 high, and the similarity between View 1 and the car image low, and the similarity between View 2 and the car image low.</p>
+<p>After training for many rounds, we want the scores to look more like this:</p>
+<ul>
+<li>Similarity(View 1, View 2) = 0.9</li>
+<li>Similarity(View 1, Car) = 0.1</li>
+<li>Similarity(View 2, Car) = 0.1</li>
+</ul>
+<p><strong>Step 6:</strong> We repeat this process for many images, many times, until the model learns good embeddings.</p>
+<p>This is how the model learns without any labels.</p>
+<p>This was all about the high-level process. Now, the next big question is: how exactly do we tell the model that its current similarity scores are wrong, and by how much? This is where the loss function comes into the picture.</p>
+<h3 id="loss-functions-used-in-contrastive-learning">Loss functions used in Contrastive Learning</h3>
+<p>To train the model, we need a loss function. The loss function tells the model how well it is doing. The model updates its weights to reduce the loss.</p>
+<p>There are a few popular loss functions used in Contrastive Learning. Let's see each one.</p>
+<p><strong>Contrastive Loss</strong></p>
+<p>Contrastive Loss works on <strong>2 samples</strong> at a time (a pair).</p>
+<p>This is the simplest one. We give the model a pair of samples and tell it whether they are similar or different.</p>
+<ul>
+<li>If they are similar, the loss is small when their embeddings are close and large when their embeddings are far apart.</li>
+<li>If they are different, the loss is small when their embeddings are far apart (beyond a fixed margin) and large when their embeddings are close.</li>
+</ul>
+<p>For the sake of understanding, let's say the margin is 1.0. If two different images have an embedding distance of 0.2, the loss will be high because they are too close. The model will push them apart. If their distance becomes 1.5, the loss for this pair becomes zero, because they are already far enough apart.</p>
+<p>The model learns to pull similar pairs together and push dissimilar pairs apart by at least the margin.</p>
+<p><strong>Triplet Loss</strong></p>
+<p>Triplet Loss works on <strong>3 samples</strong> at a time (a triplet).</p>
+<p>The three samples are:</p>
+<ul>
+<li><strong>Anchor:</strong> the reference sample.</li>
+<li><strong>Positive:</strong> a sample similar to the anchor.</li>
+<li><strong>Negative:</strong> a sample different from the anchor.</li>
+</ul>
+<p>The loss pushes the anchor closer to the positive than to the negative by at least a fixed margin. In simple words, the distance between the anchor and the positive must be smaller than the distance between the anchor and the negative, by some safety gap.</p>
+<p>For the sake of understanding, let's say the anchor is a photo of person A, the positive is another photo of the same person A, and the negative is a photo of person B. The triplet loss will pull the two photos of person A together and push the photo of person B away from them. This is exactly what we want in face recognition.</p>
+<p><strong>InfoNCE Loss</strong></p>
+<p>InfoNCE Loss works on <strong>1 anchor with 1 positive and many negative samples</strong> at a time.</p>
+<p>This is the most popular one in modern Contrastive Learning. It is used in methods like SimCLR and CLIP.</p>
+<p>The model has to pick the positive sample out of all the samples. It is like a classification problem where the correct answer is the positive sample, and all the others are wrong answers.</p>
+<p>The model learns to give a high similarity score to the positive sample and low similarity scores to the negative samples.</p>
+<p><strong>Note:</strong> InfoNCE also uses a small number called the <strong><a href="https://outcomeschool.com/blog/how-does-temperature-control-llm-output" rel="noopener noreferrer" target="_blank">temperature</a></strong>, which controls how sharp the model's decisions are. A small temperature makes the model very confident, while a large temperature makes it softer. The right temperature is important for good training.</p>
+<h3 id="popular-contrastive-learning-methods">Popular Contrastive Learning methods</h3>
+<p>Now that we have learned the basics, it's time to learn about some popular Contrastive Learning methods.</p>
+<p><strong>SimCLR</strong></p>
+<p><strong>SimCLR</strong> stands for <strong>Simple Framework for Contrastive Learning of Visual Representations</strong>. It was introduced by Google.</p>
+<p>The idea is very simple:</p>
+<ul>
+<li>Take an image, create two augmented versions of it. One version is treated as the <strong>anchor</strong>, and the other as the <strong>positive</strong>.</li>
+<li>Pass both versions through the same neural network to get embeddings.</li>
+<li>The <strong>negative samples</strong> are simply the augmented versions of the other images in the same batch.</li>
+<li>Use the InfoNCE loss to bring the anchor and the positive close together, and push the anchor away from all the negatives.</li>
+</ul>
+<p>SimCLR showed that simple data augmentation is enough to learn very powerful <a href="https://outcomeschool.com/blog/how-do-image-embeddings-work" rel="noopener noreferrer" target="_blank">image representations</a>, without any labels.</p>
+<p><strong>MoCo (Momentum Contrast)</strong></p>
+<p>SimCLR needs a large batch size to have enough negative samples. This is a problem because large batches need a lot of GPU memory.</p>
+<p>So, here comes MoCo to the rescue.</p>
+<p><strong>MoCo</strong> maintains a dynamic dictionary of negative samples as a queue. Every new mini-batch is added to the queue, and the oldest mini-batch is removed. This way, we can have many negative samples without needing a very large batch size. MoCo also uses a slowly updated copy of the model, called the <strong>momentum encoder</strong>, to compute the embeddings for the queue. This keeps the embeddings in the queue fresh and makes the training stable.</p>
+<p><strong>CLIP (Contrastive Language-Image Pre-training)</strong></p>
+<p><strong>CLIP</strong> is from OpenAI. It learns by matching images with their text captions.</p>
+<p>Here, the positive pair is an image and its correct caption. The negative pairs are the image and the captions of other images in the same batch.</p>
+<p>CLIP is trained on millions of image-text pairs from the internet. After training, CLIP can do amazing things. For example, we can give CLIP a new image of a puppy and a list of labels like "a photo of a cat", "a photo of a dog", "a photo of a bird". CLIP will compute the similarity between the image and each label, and pick the one with the highest similarity, which will be "a photo of a dog". CLIP can do this without being trained on that specific task. This is called <strong>zero-shot classification</strong>.</p>
+<p>In 2023, Google introduced <strong>SigLIP</strong>, which replaces CLIP's softmax loss with a simpler pairwise sigmoid loss. This makes training more memory-efficient and allows much larger batch sizes. SigLIP is now the vision encoder of choice in many modern vision-language models.</p>
+<p>CLIP is now used as a building block in many famous models like <a href="https://outcomeschool.com/blog/diffusion-models" rel="noopener noreferrer" target="_blank">Stable Diffusion</a> and DALL-E.</p>
+<p><strong>Non-contrastive methods</strong></p>
+<p>More recent methods like <strong>BYOL</strong>, <strong>SimSiam</strong>, and <strong>DINO</strong> drop negative pairs entirely. They learn good representations using only positive pairs, with the help of architectural tricks (different methods use different combinations of stop-gradient, momentum encoders, predictor heads, and output centering) to avoid collapsing all inputs to the same embedding. These methods are sometimes called <strong>non-contrastive</strong> self-supervised learning. DINO and its successor DINOv2 from Meta are the current go-to choice for self-supervised visual representation learning. A closely related idea is the <a href="https://outcomeschool.com/blog/joint-embedding-predictive-architecture-jepa" rel="noopener noreferrer" target="_blank">Joint Embedding Predictive Architecture (JEPA)</a> from Yann LeCun's team, which drops negative pairs by predicting the summary of a hidden part of the input from the visible part, instead of comparing pairs at all.</p>
+<h3 id="real-world-use-cases-of-contrastive-learning">Real-world use cases of Contrastive Learning</h3>
+<p>Now, let's see where Contrastive Learning is used in the real world.</p>
+<ul>
+<li><strong>Image search:</strong> Finding images that look similar to a given image.</li>
+<li><strong>Face recognition:</strong> Bringing different photos of the same person close together and photos of different people far apart in the embedding space.</li>
+<li><strong>Recommendation systems:</strong> Products that users often buy together are pulled close, and unrelated products are pushed apart. This helps in recommending similar products.</li>
+<li><strong>Text similarity:</strong> Finding sentences or documents with similar meaning, useful in search engines and chatbots.</li>
+<li><strong><a href="https://outcomeschool.com/blog/multimodal-ai" rel="noopener noreferrer" target="_blank">Multimodal models</a>:</strong> CLIP-style models that connect images with text. These are used inside image generation models like Stable Diffusion and DALL-E.</li>
+<li><strong>Medical imaging:</strong> Learning useful representations from large amounts of unlabeled medical images, where labeled data is very hard to get.</li>
+<li><strong>Audio and speech:</strong> Learning representations of sounds and speech without labels.</li>
+</ul>
+<p>In many of these use cases, once the embeddings are learned, the next step is to quickly find the most similar ones in a huge collection. We have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-approximate-nearest-neighbor-ann-search-work" rel="noopener noreferrer" target="_blank">Approximate Nearest Neighbor (ANN) Search</a> that explains how that fast search works.</p>
+<p>This is how Contrastive Learning helps in solving many real-world problems in a very simple way.</p>
+<p>Now, we have understood Contrastive Learning.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="is-contrastive-learning-supervised-or-unsupervised">Is Contrastive Learning supervised or unsupervised?</h3>
+<p>Contrastive Learning is a self-supervised learning technique. It does not need any labels from humans, because the model creates its own labels from the data itself. For example, two augmented versions of the same image form a positive pair, and any other image forms a negative pair.</p>
+<h3 id="do-all-self-supervised-methods-need-negative-pairs">Do all self-supervised methods need negative pairs?</h3>
+<p>No. Methods like BYOL, SimSiam, and DINO drop negative pairs entirely and learn using only positive pairs. They use architectural tricks such as stop-gradient, momentum encoders, predictor heads, and output centering to avoid collapsing all inputs to the same embedding. These are called non-contrastive methods.</p>
+<h3 id="what-is-the-difference-between-simclr-and-moco">What is the difference between SimCLR and MoCo?</h3>
+<p>SimCLR takes its negative samples from the other images in the same batch, so it needs a large batch size and a lot of GPU memory. MoCo keeps a queue of negative samples, adding each new mini-batch and removing the oldest one. It also uses a slowly updated momentum encoder to keep training stable.</p>
+<h3 id="what-is-the-difference-between-contrastive-loss-and-triplet-loss">What is the difference between Contrastive Loss and Triplet Loss?</h3>
+<p>Contrastive Loss works on 2 samples at a time and is told whether the pair is similar or different. Triplet Loss works on 3 samples, an anchor, a positive, and a negative. It pushes the anchor closer to the positive than to the negative by at least a fixed margin.</p>
+<h3 id="how-does-clip-classify-images-it-was-never-trained-on">How does CLIP classify images it was never trained on?</h3>
+<p>CLIP computes the similarity between the new image and each text label, like "a photo of a cat" or "a photo of a dog". It then picks the label with the highest similarity. This is called zero-shot classification, because CLIP was not trained on that specific task.</p>
+
+</section>
+
+</section>
+<p class="print-footer">Personal offline study copy · Content © Outcome School / Amit Shekhar</p>
+</main>
+</body>
+</html>

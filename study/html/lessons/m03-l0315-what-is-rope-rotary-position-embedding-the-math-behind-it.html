@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="What is RoPE (Rotary Position Embedding)? The Math Behind It Module 3 · Lesson 3.15 Source: Outcome School · Published: April 23, 2026 · Reading time: 14 min · Tags: math , llm , a">
+<title>What is RoPE (Rotary Position Embedding)? The Math Behind It · AI Engineering Course</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/pygments.css">
+</head>
+<body class="">
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="topbar">
+  <button id="menu-toggle" class="icon-btn" type="button" aria-label="Toggle navigation">☰</button>
+  <a class="brand" href="../index.html">AI Engineering Course</a>
+  <div class="search-wrap">
+    <input id="search" type="search" placeholder="Search lessons…" autocomplete="off" aria-label="Search lessons">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+  <div class="progress-mini" title="Course progress"><span id="progress-text">0%</span></div>
+  <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle light/dark theme">🌙</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="progress-box">
+      <div class="progress-bar"><span id="progress-fill"></span></div>
+      <div class="progress-label" id="progress-label">0 of 0 lessons read</div>
+    </div>
+    <nav class="course-nav" aria-label="Course modules">
+<a class="nav-home" href="../index.html">Course home</a>
+<a class="nav-module-single" href="../modules/m00.html">0. Must Know</a>
+<details class="nav-module" data-module="1">
+<summary><span class="nav-module-title">1. Machine Learning Foundations</span><span class="nav-count" data-nav-count="1">0/9</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0101" data-module="1" aria-label="Mark What is Machine Learning? as read"></label><a href="../lessons/m01-l0101-what-is-machine-learning.html">1.1 What is Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0102" data-module="1" aria-label="Mark Supervised vs Unsupervised Learning as read"></label><a href="../lessons/m01-l0102-supervised-vs-unsupervised-learning.html">1.2 Supervised vs Unsupervised Learning</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0103" data-module="1" aria-label="Mark Linear Regression vs Logistic Regression as read"></label><a href="../lessons/m01-l0103-linear-regression-vs-logistic-regression.html">1.3 Linear Regression vs Logistic Regression</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0104" data-module="1" aria-label="Mark What is Feature Engineering in Machine Learning? as read"></label><a href="../lessons/m01-l0104-what-is-feature-engineering-in-machine-learning.html">1.4 What is Feature Engineering in Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0105" data-module="1" aria-label="Mark Precision vs Recall as read"></label><a href="../lessons/m01-l0105-precision-vs-recall.html">1.5 Precision vs Recall</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0106" data-module="1" aria-label="Mark What Are L1 and L2 Loss Functions? as read"></label><a href="../lessons/m01-l0106-what-are-l1-and-l2-loss-functions.html">1.6 What Are L1 and L2 Loss Functions?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0107" data-module="1" aria-label="Mark What is Regularization in Machine Learning? L1 vs L2 Explained as read"></label><a href="../lessons/m01-l0107-what-is-regularization-in-machine-learning-l1-vs-l2-explained.html">1.7 What is Regularization in Machine Learning? L1 vs L2 Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0108" data-module="1" aria-label="Mark What is Reinforcement Learning? as read"></label><a href="../lessons/m01-l0108-what-is-reinforcement-learning.html">1.8 What is Reinforcement Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0109" data-module="1" aria-label="Mark What is Contrastive Learning? How It Works Step by Step as read"></label><a href="../lessons/m01-l0109-what-is-contrastive-learning-how-it-works-step-by-step.html">1.9 What is Contrastive Learning? How It Works Step by Step</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="2">
+<summary><span class="nav-module-title">2. Deep Learning and Neural Networks</span><span class="nav-count" data-nav-count="2">0/12</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0201" data-module="2" aria-label="Mark What is a Neural Network and How Does It Work? as read"></label><a href="../lessons/m02-l0201-what-is-a-neural-network-and-how-does-it-work.html">2.1 What is a Neural Network and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0202" data-module="2" aria-label="Mark What is Bias In Artificial Neural Network? as read"></label><a href="../lessons/m02-l0202-what-is-bias-in-artificial-neural-network.html">2.2 What is Bias In Artificial Neural Network?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0203" data-module="2" aria-label="Mark How Does Matrix Multiplication Work in Neural Networks? as read"></label><a href="../lessons/m02-l0203-how-does-matrix-multiplication-work-in-neural-networks.html">2.3 How Does Matrix Multiplication Work in Neural Networks?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0204" data-module="2" aria-label="Mark How Does Gradient Descent Work? as read"></label><a href="../lessons/m02-l0204-how-does-gradient-descent-work.html">2.4 How Does Gradient Descent Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0205" data-module="2" aria-label="Mark How Does Backpropagation Work? The Math Explained Step by Step as read"></label><a href="../lessons/m02-l0205-how-does-backpropagation-work-the-math-explained-step-by-step.html">2.5 How Does Backpropagation Work? The Math Explained Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0206" data-module="2" aria-label="Mark What is Cross-Entropy Loss? as read"></label><a href="../lessons/m02-l0206-what-is-cross-entropy-loss.html">2.6 What is Cross-Entropy Loss?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0207" data-module="2" aria-label="Mark What is Dropout in Neural Networks and How Does It Work? as read"></label><a href="../lessons/m02-l0207-what-is-dropout-in-neural-networks-and-how-does-it-work.html">2.7 What is Dropout in Neural Networks and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0208" data-module="2" aria-label="Mark Batch Normalization vs Layer Normalization as read"></label><a href="../lessons/m02-l0208-batch-normalization-vs-layer-normalization.html">2.8 Batch Normalization vs Layer Normalization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0209" data-module="2" aria-label="Mark What is RMSNorm? Root Mean Square Layer Normalization Explained as read"></label><a href="../lessons/m02-l0209-what-is-rmsnorm-root-mean-square-layer-normalization-explained.html">2.9 What is RMSNorm? Root Mean Square Layer Normalization Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0210" data-module="2" aria-label="Mark What is a Recurrent Neural Network (RNN)? as read"></label><a href="../lessons/m02-l0210-what-is-a-recurrent-neural-network-rnn.html">2.10 What is a Recurrent Neural Network (RNN)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0211" data-module="2" aria-label="Mark How does PyTorch work? as read"></label><a href="../lessons/m02-l0211-how-does-pytorch-work.html">2.11 How does PyTorch work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0212" data-module="2" aria-label="Mark How Does The Machine Learning Library TensorFlow Work? as read"></label><a href="../lessons/m02-l0212-how-does-the-machine-learning-library-tensorflow-work.html">2.12 How Does The Machine Learning Library TensorFlow Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="3" open>
+<summary><span class="nav-module-title">3. Generative AI and the Transformer Architecture</span><span class="nav-count" data-nav-count="3">0/16</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0301" data-module="3" aria-label="Mark What is Generative AI? as read"></label><a href="../lessons/m03-l0301-what-is-generative-ai.html">3.1 What is Generative AI?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0302" data-module="3" aria-label="Mark What are Autoregressive Models? as read"></label><a href="../lessons/m03-l0302-what-are-autoregressive-models.html">3.2 What are Autoregressive Models?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0303" data-module="3" aria-label="Mark Tokenization in LLMs as read"></label><a href="../lessons/m03-l0303-tokenization-in-llms.html">3.3 Tokenization in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0304" data-module="3" aria-label="Mark What is Byte Pair Encoding (BPE) in LLMs? as read"></label><a href="../lessons/m03-l0304-what-is-byte-pair-encoding-bpe-in-llms.html">3.4 What is Byte Pair Encoding (BPE) in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0305" data-module="3" aria-label="Mark What are Embeddings? as read"></label><a href="../lessons/m03-l0305-what-are-embeddings.html">3.5 What are Embeddings?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0306" data-module="3" aria-label="Mark How do RNNs and Transformers differ? as read"></label><a href="../lessons/m03-l0306-how-do-rnns-and-transformers-differ.html">3.6 How do RNNs and Transformers differ?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0307" data-module="3" aria-label="Mark How Does the Transformer Architecture Work? as read"></label><a href="../lessons/m03-l0307-how-does-the-transformer-architecture-work.html">3.7 How Does the Transformer Architecture Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0308" data-module="3" aria-label="Mark Encoder vs Decoder in Transformers as read"></label><a href="../lessons/m03-l0308-encoder-vs-decoder-in-transformers.html">3.8 Encoder vs Decoder in Transformers</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0309" data-module="3" aria-label="Mark What is Self Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0309-what-is-self-attention-in-transformers-and-how-does-it-work.html">3.9 What is Self Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0310" data-module="3" aria-label="Mark How Does Attention Work? The Math Behind Q, K, and V Step by Step as read"></label><a href="../lessons/m03-l0310-how-does-attention-work-the-math-behind-q-k-and-v-step-by-step.html">3.10 How Does Attention Work? The Math Behind Q, K, and V Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0311" data-module="3" aria-label="Mark Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor as read"></label><a href="../lessons/m03-l0311-why-do-we-scale-attention-by-dk-the-math-behind-the-scaling-factor.html">3.11 Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0312" data-module="3" aria-label="Mark What is Causal Masking in Attention and Why Do LLMs Need It? as read"></label><a href="../lessons/m03-l0312-what-is-causal-masking-in-attention-and-why-do-llms-need-it.html">3.12 What is Causal Masking in Attention and Why Do LLMs Need It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0313" data-module="3" aria-label="Mark What is Multi-Head Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0313-what-is-multi-head-attention-in-transformers-and-how-does-it-work.html">3.13 What is Multi-Head Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0314" data-module="3" aria-label="Mark What is Cross Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0314-what-is-cross-attention-in-transformers-and-how-does-it-work.html">3.14 What is Cross Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson active"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0315" data-module="3" aria-label="Mark What is RoPE (Rotary Position Embedding)? The Math Behind It as read"></label><a href="../lessons/m03-l0315-what-is-rope-rotary-position-embedding-the-math-behind-it.html">3.15 What is RoPE (Rotary Position Embedding)? The Math Behind It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0316" data-module="3" aria-label="Mark What is the Feed-Forward Network in LLMs and What Does It Do? as read"></label><a href="../lessons/m03-l0316-what-is-the-feed-forward-network-in-llms-and-what-does-it-do.html">3.16 What is the Feed-Forward Network in LLMs and What Does It Do?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="4">
+<summary><span class="nav-module-title">4. How LLMs Generate Text</span><span class="nav-count" data-nav-count="4">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0401" data-module="4" aria-label="Mark How does Temperature control LLM output? as read"></label><a href="../lessons/m04-l0401-how-does-temperature-control-llm-output.html">4.1 How does Temperature control LLM output?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0402" data-module="4" aria-label="Mark How do Top-k and Top-p Sampling work? as read"></label><a href="../lessons/m04-l0402-how-do-top-k-and-top-p-sampling-work.html">4.2 How do Top-k and Top-p Sampling work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0403" data-module="4" aria-label="Mark Stop Tokens in LLMs as read"></label><a href="../lessons/m04-l0403-stop-tokens-in-llms.html">4.3 Stop Tokens in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0404" data-module="4" aria-label="Mark How does Token Streaming work? as read"></label><a href="../lessons/m04-l0404-how-does-token-streaming-work.html">4.4 How does Token Streaming work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0405" data-module="4" aria-label="Mark What is the Lost in the Middle Problem in LLMs and How to Fix It? as read"></label><a href="../lessons/m04-l0405-what-is-the-lost-in-the-middle-problem-in-llms-and-how-to-fix-it.html">4.5 What is the Lost in the Middle Problem in LLMs and How to Fix It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0406" data-module="4" aria-label="Mark Why Do LLMs Hallucinate? The Token-Level Explanation as read"></label><a href="../lessons/m04-l0406-why-do-llms-hallucinate-the-token-level-explanation.html">4.6 Why Do LLMs Hallucinate? The Token-Level Explanation</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="5">
+<summary><span class="nav-module-title">5. Modern LLM Architecture</span><span class="nav-count" data-nav-count="5">0/7</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0501" data-module="5" aria-label="Mark Evolution of LLM Architecture as read"></label><a href="../lessons/m05-l0501-evolution-of-llm-architecture.html">5.1 Evolution of LLM Architecture</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0502" data-module="5" aria-label="Mark What is Mixture of Experts (MoE) and How Does It Work? as read"></label><a href="../lessons/m05-l0502-what-is-mixture-of-experts-moe-and-how-does-it-work.html">5.2 What is Mixture of Experts (MoE) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0503" data-module="5" aria-label="Mark What is Grouped Query Attention (GQA) and Why Do LLMs Use It? as read"></label><a href="../lessons/m05-l0503-what-is-grouped-query-attention-gqa-and-why-do-llms-use-it.html">5.3 What is Grouped Query Attention (GQA) and Why Do LLMs Use It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0504" data-module="5" aria-label="Mark How does Sliding Window Attention work? as read"></label><a href="../lessons/m05-l0504-how-does-sliding-window-attention-work.html">5.4 How does Sliding Window Attention work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0505" data-module="5" aria-label="Mark How do Attention Sinks work? as read"></label><a href="../lessons/m05-l0505-how-do-attention-sinks-work.html">5.5 How do Attention Sinks work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0506" data-module="5" aria-label="Mark What is Flash Attention and Why Is It So Fast? as read"></label><a href="../lessons/m05-l0506-what-is-flash-attention-and-why-is-it-so-fast.html">5.6 What is Flash Attention and Why Is It So Fast?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0507" data-module="5" aria-label="Mark What is DeepSeek-V4 and How Does It Work? Architecture Explained as read"></label><a href="../lessons/m05-l0507-what-is-deepseek-v4-and-how-does-it-work-architecture-explained.html">5.7 What is DeepSeek-V4 and How Does It Work? Architecture Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="6">
+<summary><span class="nav-module-title">6. Types of Language Models</span><span class="nav-count" data-nav-count="6">0/5</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0601" data-module="6" aria-label="Mark What are Small Language Models (SLMs) and When Should We Use Them? as read"></label><a href="../lessons/m06-l0601-what-are-small-language-models-slms-and-when-should-we-use-them.html">6.1 What are Small Language Models (SLMs) and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0602" data-module="6" aria-label="Mark What are Large Reasoning Models (LRMs) and How Are They Different from LLMs? as read"></label><a href="../lessons/m06-l0602-what-are-large-reasoning-models-lrms-and-how-are-they-different-from-llms.html">6.2 What are Large Reasoning Models (LRMs) and How Are They Different from LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0603" data-module="6" aria-label="Mark What are Recursive Language Models (RLMs) and How Do They Work? as read"></label><a href="../lessons/m06-l0603-what-are-recursive-language-models-rlms-and-how-do-they-work.html">6.3 What are Recursive Language Models (RLMs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0604" data-module="6" aria-label="Mark How do Diffusion Language Models (DLMs) work? as read"></label><a href="../lessons/m06-l0604-how-do-diffusion-language-models-dlms-work.html">6.4 How do Diffusion Language Models (DLMs) work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0605" data-module="6" aria-label="Mark Jev and System One Models Explained as read"></label><a href="../lessons/m06-l0605-jev-and-system-one-models-explained.html">6.5 Jev and System One Models Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="7">
+<summary><span class="nav-module-title">7. Training, Fine-Tuning, and Alignment</span><span class="nav-count" data-nav-count="7">0/11</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0701" data-module="7" aria-label="Mark How does fine-tuning work? as read"></label><a href="../lessons/m07-l0701-how-does-fine-tuning-work.html">7.1 How does fine-tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0702" data-module="7" aria-label="Mark What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs? as read"></label><a href="../lessons/m07-l0702-what-is-lora-low-rank-adaptation-and-how-does-it-fine-tune-llms.html">7.2 What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0703" data-module="7" aria-label="Mark How does Prefix Tuning work? as read"></label><a href="../lessons/m07-l0703-how-does-prefix-tuning-work.html">7.3 How does Prefix Tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0704" data-module="7" aria-label="Mark How does Knowledge Distillation work? as read"></label><a href="../lessons/m07-l0704-how-does-knowledge-distillation-work.html">7.4 How does Knowledge Distillation work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0705" data-module="7" aria-label="Mark What is Continual Learning in LLMs? Solving Catastrophic Forgetting as read"></label><a href="../lessons/m07-l0705-what-is-continual-learning-in-llms-solving-catastrophic-forgetting.html">7.5 What is Continual Learning in LLMs? Solving Catastrophic Forgetting</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0706" data-module="7" aria-label="Mark What is Deep RL from Human Preferences? The Paper That Started RLHF as read"></label><a href="../lessons/m07-l0706-what-is-deep-rl-from-human-preferences-the-paper-that-started-rlhf.html">7.6 What is Deep RL from Human Preferences? The Paper That Started RLHF</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0707" data-module="7" aria-label="Mark What is InstructGPT? How GPT-3 Learned to Follow Instructions as read"></label><a href="../lessons/m07-l0707-what-is-instructgpt-how-gpt-3-learned-to-follow-instructions.html">7.7 What is InstructGPT? How GPT-3 Learned to Follow Instructions</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0708" data-module="7" aria-label="Mark What is RLHF? Reinforcement Learning from Human Feedback Explained as read"></label><a href="../lessons/m07-l0708-what-is-rlhf-reinforcement-learning-from-human-feedback-explained.html">7.8 What is RLHF? Reinforcement Learning from Human Feedback Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0709" data-module="7" aria-label="Mark What is Proximal Policy Optimization (PPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0709-what-is-proximal-policy-optimization-ppo-and-how-does-it-work.html">7.9 What is Proximal Policy Optimization (PPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0710" data-module="7" aria-label="Mark What is Direct Preference Optimization (DPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0710-what-is-direct-preference-optimization-dpo-and-how-does-it-work.html">7.10 What is Direct Preference Optimization (DPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0711" data-module="7" aria-label="Mark What is Group Relative Policy Optimization (GRPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0711-what-is-group-relative-policy-optimization-grpo-and-how-does-it-work.html">7.11 What is Group Relative Policy Optimization (GRPO) and How Does It Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="8">
+<summary><span class="nav-module-title">8. Prompt Engineering and Context Engineering</span><span class="nav-count" data-nav-count="8">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0801" data-module="8" aria-label="Mark How does Chain-of-Thought (CoT) Prompting work? as read"></label><a href="../lessons/m08-l0801-how-does-chain-of-thought-cot-prompting-work.html">8.1 How does Chain-of-Thought (CoT) Prompting work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0802" data-module="8" aria-label="Mark How does Tree of Thoughts work? as read"></label><a href="../lessons/m08-l0802-how-does-tree-of-thoughts-work.html">8.2 How does Tree of Thoughts work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0803" data-module="8" aria-label="Mark How does Prompt Chaining work? as read"></label><a href="../lessons/m08-l0803-how-does-prompt-chaining-work.html">8.3 How does Prompt Chaining work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0804" data-module="8" aria-label="Mark How does Prompt Caching work? as read"></label><a href="../lessons/m08-l0804-how-does-prompt-caching-work.html">8.4 How does Prompt Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0805" data-module="8" aria-label="Mark What is Context Engineering? as read"></label><a href="../lessons/m08-l0805-what-is-context-engineering.html">8.5 What is Context Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0806" data-module="8" aria-label="Mark How does context compaction work? as read"></label><a href="../lessons/m08-l0806-how-does-context-compaction-work.html">8.6 How does context compaction work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="9">
+<summary><span class="nav-module-title">9. Vector Search and Retrieval-Augmented Generation (RAG)</span><span class="nav-count" data-nav-count="9">0/15</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0901" data-module="9" aria-label="Mark How does a Vector Database work? as read"></label><a href="../lessons/m09-l0901-how-does-a-vector-database-work.html">9.1 How does a Vector Database work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0902" data-module="9" aria-label="Mark How does Approximate Nearest Neighbor (ANN) search work? as read"></label><a href="../lessons/m09-l0902-how-does-approximate-nearest-neighbor-ann-search-work.html">9.2 How does Approximate Nearest Neighbor (ANN) search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0903" data-module="9" aria-label="Mark How does Semantic Search work? as read"></label><a href="../lessons/m09-l0903-how-does-semantic-search-work.html">9.3 How does Semantic Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0904" data-module="9" aria-label="Mark How does Hybrid Search work? as read"></label><a href="../lessons/m09-l0904-how-does-hybrid-search-work.html">9.4 How does Hybrid Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0905" data-module="9" aria-label="Mark How does a Reranker work? as read"></label><a href="../lessons/m09-l0905-how-does-a-reranker-work.html">9.5 How does a Reranker work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0906" data-module="9" aria-label="Mark What is ColBERT? Late Interaction Retrieval Explained as read"></label><a href="../lessons/m09-l0906-what-is-colbert-late-interaction-retrieval-explained.html">9.6 What is ColBERT? Late Interaction Retrieval Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0907" data-module="9" aria-label="Mark How to Chunk Documents for RAG? Chunking Strategies Explained as read"></label><a href="../lessons/m09-l0907-how-to-chunk-documents-for-rag-chunking-strategies-explained.html">9.7 How to Chunk Documents for RAG? Chunking Strategies Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0908" data-module="9" aria-label="Mark How does Contextual Retrieval work? as read"></label><a href="../lessons/m09-l0908-how-does-contextual-retrieval-work.html">9.8 How does Contextual Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0909" data-module="9" aria-label="Mark How does HyDE work in RAG? as read"></label><a href="../lessons/m09-l0909-how-does-hyde-work-in-rag.html">9.9 How does HyDE work in RAG?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0910" data-module="9" aria-label="Mark How do Query Rewriting and Multi-Query Retrieval work? as read"></label><a href="../lessons/m09-l0910-how-do-query-rewriting-and-multi-query-retrieval-work.html">9.10 How do Query Rewriting and Multi-Query Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0911" data-module="9" aria-label="Mark How does an Embedding Cache work? as read"></label><a href="../lessons/m09-l0911-how-does-an-embedding-cache-work.html">9.11 How does an Embedding Cache work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0912" data-module="9" aria-label="Mark How does Semantic Caching work? as read"></label><a href="../lessons/m09-l0912-how-does-semantic-caching-work.html">9.12 How does Semantic Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0913" data-module="9" aria-label="Mark What is Agentic RAG? How It Works and When to Use It as read"></label><a href="../lessons/m09-l0913-what-is-agentic-rag-how-it-works-and-when-to-use-it.html">9.13 What is Agentic RAG? How It Works and When to Use It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0914" data-module="9" aria-label="Mark What is GraphRAG? How Knowledge Graphs Improve RAG as read"></label><a href="../lessons/m09-l0914-what-is-graphrag-how-knowledge-graphs-improve-rag.html">9.14 What is GraphRAG? How Knowledge Graphs Improve RAG</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0915" data-module="9" aria-label="Mark What is Vectorless RAG? RAG Without Embeddings or a Vector Database as read"></label><a href="../lessons/m09-l0915-what-is-vectorless-rag-rag-without-embeddings-or-a-vector-database.html">9.15 What is Vectorless RAG? RAG Without Embeddings or a Vector Database</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="10">
+<summary><span class="nav-module-title">10. AI Agents and Agentic Systems</span><span class="nav-count" data-nav-count="10">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1001" data-module="10" aria-label="Mark What is an AI Agent? How It Works as read"></label><a href="../lessons/m10-l1001-what-is-an-ai-agent-how-it-works.html">10.1 What is an AI Agent? How It Works</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1002" data-module="10" aria-label="Mark How does Function Calling work in LLMs? as read"></label><a href="../lessons/m10-l1002-how-does-function-calling-work-in-llms.html">10.2 How does Function Calling work in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1003" data-module="10" aria-label="Mark What is an AI Agent Loop? as read"></label><a href="../lessons/m10-l1003-what-is-an-ai-agent-loop.html">10.3 What is an AI Agent Loop?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1004" data-module="10" aria-label="Mark What is a ReAct Agent? How It Thinks and Acts, Explained as read"></label><a href="../lessons/m10-l1004-what-is-a-react-agent-how-it-thinks-and-acts-explained.html">10.4 What is a ReAct Agent? How It Thinks and Acts, Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1005" data-module="10" aria-label="Mark What is a Plan-and-Execute Agent and How Does It Work? as read"></label><a href="../lessons/m10-l1005-what-is-a-plan-and-execute-agent-and-how-does-it-work.html">10.5 What is a Plan-and-Execute Agent and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1006" data-module="10" aria-label="Mark What is a Reflection Agent? How It Generates, Critiques, and Revises as read"></label><a href="../lessons/m10-l1006-what-is-a-reflection-agent-how-it-generates-critiques-and-revises.html">10.6 What is a Reflection Agent? How It Generates, Critiques, and Revises</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1007" data-module="10" aria-label="Mark How Does AI Agent Memory Work? The Memory Stack Explained as read"></label><a href="../lessons/m10-l1007-how-does-ai-agent-memory-work-the-memory-stack-explained.html">10.7 How Does AI Agent Memory Work? The Memory Stack Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1008" data-module="10" aria-label="Mark How does ChatGPT remember you? as read"></label><a href="../lessons/m10-l1008-how-does-chatgpt-remember-you.html">10.8 How does ChatGPT remember you?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1009" data-module="10" aria-label="Mark What is MCP (Model Context Protocol)? as read"></label><a href="../lessons/m10-l1009-what-is-mcp-model-context-protocol.html">10.9 What is MCP (Model Context Protocol)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1010" data-module="10" aria-label="Mark What are Agent Skills? as read"></label><a href="../lessons/m10-l1010-what-are-agent-skills.html">10.10 What are Agent Skills?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1011" data-module="10" aria-label="Mark What is OKF (Open Knowledge Format)? as read"></label><a href="../lessons/m10-l1011-what-is-okf-open-knowledge-format.html">10.11 What is OKF (Open Knowledge Format)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1012" data-module="10" aria-label="Mark What are Multi-Agent Systems and When Should We Use Them? as read"></label><a href="../lessons/m10-l1012-what-are-multi-agent-systems-and-when-should-we-use-them.html">10.12 What are Multi-Agent Systems and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1013" data-module="10" aria-label="Mark What are AI SubAgents? Why We Need Them and How They Work as read"></label><a href="../lessons/m10-l1013-what-are-ai-subagents-why-we-need-them-and-how-they-work.html">10.13 What are AI SubAgents? Why We Need Them and How They Work</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1014" data-module="10" aria-label="Mark How AI Agents Communicate as read"></label><a href="../lessons/m10-l1014-how-ai-agents-communicate.html">10.14 How AI Agents Communicate</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1015" data-module="10" aria-label="Mark What is AI Orchestration? How It Works and the Common Patterns as read"></label><a href="../lessons/m10-l1015-what-is-ai-orchestration-how-it-works-and-the-common-patterns.html">10.15 What is AI Orchestration? How It Works and the Common Patterns</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1016" data-module="10" aria-label="Mark What is Sakana Fugu? The Technical Report Explained as read"></label><a href="../lessons/m10-l1016-what-is-sakana-fugu-the-technical-report-explained.html">10.16 What is Sakana Fugu? The Technical Report Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1017" data-module="10" aria-label="Mark How do Computer-Use Agents work? as read"></label><a href="../lessons/m10-l1017-how-do-computer-use-agents-work.html">10.17 How do Computer-Use Agents work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1018" data-module="10" aria-label="Mark How do Browser Agents work? as read"></label><a href="../lessons/m10-l1018-how-do-browser-agents-work.html">10.18 How do Browser Agents work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="11">
+<summary><span class="nav-module-title">11. Agentic Engineering and Agent Frameworks</span><span class="nav-count" data-nav-count="11">0/8</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1101" data-module="11" aria-label="Mark What is Harness Engineering? as read"></label><a href="../lessons/m11-l1101-what-is-harness-engineering.html">11.1 What is Harness Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1102" data-module="11" aria-label="Mark What is Loop Engineering? as read"></label><a href="../lessons/m11-l1102-what-is-loop-engineering.html">11.2 What is Loop Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1103" data-module="11" aria-label="Mark What is Graph Engineering? as read"></label><a href="../lessons/m11-l1103-what-is-graph-engineering.html">11.3 What is Graph Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1104" data-module="11" aria-label="Mark AI Is Only as Good as Our Definition of Done as read"></label><a href="../lessons/m11-l1104-ai-is-only-as-good-as-our-definition-of-done.html">11.4 AI Is Only as Good as Our Definition of Done</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1105" data-module="11" aria-label="Mark How does LangChain work? as read"></label><a href="../lessons/m11-l1105-how-does-langchain-work.html">11.5 How does LangChain work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1106" data-module="11" aria-label="Mark How does LangGraph work? as read"></label><a href="../lessons/m11-l1106-how-does-langgraph-work.html">11.6 How does LangGraph work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1107" data-module="11" aria-label="Mark How does Claude Code work? as read"></label><a href="../lessons/m11-l1107-how-does-claude-code-work.html">11.7 How does Claude Code work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1108" data-module="11" aria-label="Mark How does Cursor work? as read"></label><a href="../lessons/m11-l1108-how-does-cursor-work.html">11.8 How does Cursor work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="12">
+<summary><span class="nav-module-title">12. LLM Inference Engineering</span><span class="nav-count" data-nav-count="12">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1201" data-module="12" aria-label="Mark LLM Inference Optimization as read"></label><a href="../lessons/m12-l1201-llm-inference-optimization.html">12.1 LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1202" data-module="12" aria-label="Mark Prefill vs Decode: LLM Inference Optimization as read"></label><a href="../lessons/m12-l1202-prefill-vs-decode-llm-inference-optimization.html">12.2 Prefill vs Decode: LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1203" data-module="12" aria-label="Mark What is Prefill-Decode Disaggregation in LLM Inference? as read"></label><a href="../lessons/m12-l1203-what-is-prefill-decode-disaggregation-in-llm-inference.html">12.3 What is Prefill-Decode Disaggregation in LLM Inference?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1204" data-module="12" aria-label="Mark KV Cache in LLMs as read"></label><a href="../lessons/m12-l1204-kv-cache-in-llms.html">12.4 KV Cache in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1205" data-module="12" aria-label="Mark What is KV Cache Compression? as read"></label><a href="../lessons/m12-l1205-what-is-kv-cache-compression.html">12.5 What is KV Cache Compression?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1206" data-module="12" aria-label="Mark What is Paged Attention in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1206-what-is-paged-attention-in-llms-and-how-does-it-work.html">12.6 What is Paged Attention in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1207" data-module="12" aria-label="Mark What is Continuous Batching in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1207-what-is-continuous-batching-in-llms-and-how-does-it-work.html">12.7 What is Continuous Batching in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1208" data-module="12" aria-label="Mark What is Speculative Decoding and How Does It Make LLMs Faster? as read"></label><a href="../lessons/m12-l1208-what-is-speculative-decoding-and-how-does-it-make-llms-faster.html">12.8 What is Speculative Decoding and How Does It Make LLMs Faster?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1209" data-module="12" aria-label="Mark What is N-gram Speculation in LLMs and How Does It Speed Up Generation? as read"></label><a href="../lessons/m12-l1209-what-is-n-gram-speculation-in-llms-and-how-does-it-speed-up-generation.html">12.9 What is N-gram Speculation in LLMs and How Does It Speed Up Generation?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1210" data-module="12" aria-label="Mark What is Medusa? Multi-Head Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1210-what-is-medusa-multi-head-speculative-decoding-explained.html">12.10 What is Medusa? Multi-Head Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1211" data-module="12" aria-label="Mark What is EAGLE? Feature-Level Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1211-what-is-eagle-feature-level-speculative-decoding-explained.html">12.11 What is EAGLE? Feature-Level Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1212" data-module="12" aria-label="Mark How does Model Quantization work? as read"></label><a href="../lessons/m12-l1212-how-does-model-quantization-work.html">12.12 How does Model Quantization work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1213" data-module="12" aria-label="Mark How does GGUF work? as read"></label><a href="../lessons/m12-l1213-how-does-gguf-work.html">12.13 How does GGUF work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1214" data-module="12" aria-label="Mark How does llama.cpp run LLMs on everyday hardware? as read"></label><a href="../lessons/m12-l1214-how-does-llama-cpp-run-llms-on-everyday-hardware.html">12.14 How does llama.cpp run LLMs on everyday hardware?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1215" data-module="12" aria-label="Mark How does Ollama work? as read"></label><a href="../lessons/m12-l1215-how-does-ollama-work.html">12.15 How does Ollama work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1216" data-module="12" aria-label="Mark How does vLLM work? as read"></label><a href="../lessons/m12-l1216-how-does-vllm-work.html">12.16 How does vLLM work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1217" data-module="12" aria-label="Mark How does SGLang work? as read"></label><a href="../lessons/m12-l1217-how-does-sglang-work.html">12.17 How does SGLang work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1218" data-module="12" aria-label="Mark How does TensorRT-LLM work? as read"></label><a href="../lessons/m12-l1218-how-does-tensorrt-llm-work.html">12.18 How does TensorRT-LLM work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="13">
+<summary><span class="nav-module-title">13. Evaluation and Observability</span><span class="nav-count" data-nav-count="13">0/4</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1301" data-module="13" aria-label="Mark What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained as read"></label><a href="../lessons/m13-l1301-what-is-llm-evaluation-metrics-benchmarks-and-methods-explained.html">13.1 What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1302" data-module="13" aria-label="Mark What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs as read"></label><a href="../lessons/m13-l1302-what-is-llm-as-a-judge-how-to-use-an-llm-to-evaluate-llm-outputs.html">13.2 What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1303" data-module="13" aria-label="Mark How to Evaluate AI Agents? Metrics, Methods, and Best Practices as read"></label><a href="../lessons/m13-l1303-how-to-evaluate-ai-agents-metrics-methods-and-best-practices.html">13.3 How to Evaluate AI Agents? Metrics, Methods, and Best Practices</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1304" data-module="13" aria-label="Mark What is AI Agent Observability? Traces, Spans, and Metrics Explained as read"></label><a href="../lessons/m13-l1304-what-is-ai-agent-observability-traces-spans-and-metrics-explained.html">13.4 What is AI Agent Observability? Traces, Spans, and Metrics Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="14">
+<summary><span class="nav-module-title">14. AI Safety and Security</span><span class="nav-count" data-nav-count="14">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1401" data-module="14" aria-label="Mark How do LLM guardrails work? as read"></label><a href="../lessons/m14-l1401-how-do-llm-guardrails-work.html">14.1 How do LLM guardrails work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1402" data-module="14" aria-label="Mark What is Prompt Injection in LLMs and How Do We Defend Against It? as read"></label><a href="../lessons/m14-l1402-what-is-prompt-injection-in-llms-and-how-do-we-defend-against-it.html">14.2 What is Prompt Injection in LLMs and How Do We Defend Against It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1403" data-module="14" aria-label="Mark How Does LLM Watermarking Work? as read"></label><a href="../lessons/m14-l1403-how-does-llm-watermarking-work.html">14.3 How Does LLM Watermarking Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="15">
+<summary><span class="nav-module-title">15. Multimodal AI and Generative Models</span><span class="nav-count" data-nav-count="15">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1501" data-module="15" aria-label="Mark What is Multimodal AI? How It Works and Where It Is Used as read"></label><a href="../lessons/m15-l1501-what-is-multimodal-ai-how-it-works-and-where-it-is-used.html">15.1 What is Multimodal AI? How It Works and Where It Is Used</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1502" data-module="15" aria-label="Mark What is a Vision Transformer (ViT) and How Does It Work? as read"></label><a href="../lessons/m15-l1502-what-is-a-vision-transformer-vit-and-how-does-it-work.html">15.2 What is a Vision Transformer (ViT) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1503" data-module="15" aria-label="Mark How do Image Embeddings work? as read"></label><a href="../lessons/m15-l1503-how-do-image-embeddings-work.html">15.3 How do Image Embeddings work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1504" data-module="15" aria-label="Mark What are Diffusion Models and How Do They Generate Images? as read"></label><a href="../lessons/m15-l1504-what-are-diffusion-models-and-how-do-they-generate-images.html">15.4 What are Diffusion Models and How Do They Generate Images?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1505" data-module="15" aria-label="Mark What are Generative Adversarial Networks (GANs) and How Do They Work? as read"></label><a href="../lessons/m15-l1505-what-are-generative-adversarial-networks-gans-and-how-do-they-work.html">15.5 What are Generative Adversarial Networks (GANs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1506" data-module="15" aria-label="Mark What are Variational Autoencoders (VAEs) and How Do They Work? as read"></label><a href="../lessons/m15-l1506-what-are-variational-autoencoders-vaes-and-how-do-they-work.html">15.6 What are Variational Autoencoders (VAEs) and How Do They Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="16">
+<summary><span class="nav-module-title">16. AI Infrastructure, Deployment, and System Design</span><span class="nav-count" data-nav-count="16">0/17</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1601" data-module="16" aria-label="Mark How does a GPU work for Deep Learning? as read"></label><a href="../lessons/m16-l1601-how-does-a-gpu-work-for-deep-learning.html">16.1 How does a GPU work for Deep Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1602" data-module="16" aria-label="Mark How do CUDA Kernels work? as read"></label><a href="../lessons/m16-l1602-how-do-cuda-kernels-work.html">16.2 How do CUDA Kernels work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1603" data-module="16" aria-label="Mark How does a Google TPU work? as read"></label><a href="../lessons/m16-l1603-how-does-a-google-tpu-work.html">16.3 How does a Google TPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1604" data-module="16" aria-label="Mark How does an LPU work? as read"></label><a href="../lessons/m16-l1604-how-does-an-lpu-work.html">16.4 How does an LPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1605" data-module="16" aria-label="Mark Cloud vs On-device Model Deployment as read"></label><a href="../lessons/m16-l1605-cloud-vs-on-device-model-deployment.html">16.5 Cloud vs On-device Model Deployment</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1606" data-module="16" aria-label="Mark Android TensorFlow Lite Machine Learning Example as read"></label><a href="../lessons/m16-l1606-android-tensorflow-lite-machine-learning-example.html">16.6 Android TensorFlow Lite Machine Learning Example</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1607" data-module="16" aria-label="Mark What is LLM Routing? How to Send Each Query to the Right LLM as read"></label><a href="../lessons/m16-l1607-what-is-llm-routing-how-to-send-each-query-to-the-right-llm.html">16.7 What is LLM Routing? How to Send Each Query to the Right LLM</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1608" data-module="16" aria-label="Mark Design a Real-Time Voice AI Agent as read"></label><a href="../lessons/m16-l1608-design-a-real-time-voice-ai-agent.html">16.8 Design a Real-Time Voice AI Agent</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1609" data-module="16" aria-label="Mark What is turn-taking in a voice AI agent? as read"></label><a href="../lessons/m16-l1609-what-is-turn-taking-in-a-voice-ai-agent.html">16.9 What is turn-taking in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1610" data-module="16" aria-label="Mark What is barge-in in a voice AI agent? as read"></label><a href="../lessons/m16-l1610-what-is-barge-in-in-a-voice-ai-agent.html">16.10 What is barge-in in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1611" data-module="16" aria-label="Mark Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture? as read"></label><a href="../lessons/m16-l1611-cascaded-vs-speech-to-speech-how-to-choose-the-right-voice-agent-architecture.html">16.11 Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1612" data-module="16" aria-label="Mark How do you build a latency budget for a voice AI agent? as read"></label><a href="../lessons/m16-l1612-how-do-you-build-a-latency-budget-for-a-voice-ai-agent.html">16.12 How do you build a latency budget for a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1613" data-module="16" aria-label="Mark How does the voice-to-voice latency of a voice agent get measured? as read"></label><a href="../lessons/m16-l1613-how-does-the-voice-to-voice-latency-of-a-voice-agent-get-measured.html">16.13 How does the voice-to-voice latency of a voice agent get measured?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1614" data-module="16" aria-label="Mark Why does the time-to-first-audio matter more than total response time? as read"></label><a href="../lessons/m16-l1614-why-does-the-time-to-first-audio-matter-more-than-total-response-time.html">16.14 Why does the time-to-first-audio matter more than total response time?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1615" data-module="16" aria-label="Mark What is System Design? as read"></label><a href="../lessons/m16-l1615-what-is-system-design.html">16.15 What is System Design?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1616" data-module="16" aria-label="Mark HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events as read"></label><a href="../lessons/m16-l1616-http-request-vs-http-long-polling-vs-websocket-vs-server-sent-events.html">16.16 HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1617" data-module="16" aria-label="Mark How do Voice And Video Call Work? as read"></label><a href="../lessons/m16-l1617-how-do-voice-and-video-call-work.html">16.17 How do Voice And Video Call Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="17">
+<summary><span class="nav-module-title">17. Frontier Ideas in AI</span><span class="nav-count" data-nav-count="17">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1701" data-module="17" aria-label="Mark What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work? as read"></label><a href="../lessons/m17-l1701-what-is-joint-embedding-predictive-architecture-jepa-and-how-does-it-work.html">17.1 What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1702" data-module="17" aria-label="Mark How do World Models work? as read"></label><a href="../lessons/m17-l1702-how-do-world-models-work.html">17.2 How do World Models work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1703" data-module="17" aria-label="Mark What is Recursive Self-Improvement (RSI)? as read"></label><a href="../lessons/m17-l1703-what-is-recursive-self-improvement-rsi.html">17.3 What is Recursive Self-Improvement (RSI)?</a></li>
+</ul>
+</details>
+<a class="nav-module-single" href="../modules/m18.html">18. Prepare for AI Engineering Interviews</a>
+</nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="content-wrap">
+    <main class="content" id="content">
+      
+<article>
+  <header class="lesson-header">
+    <p class="breadcrumb">
+      <a href="../index.html">Course</a> /
+      <a href="../modules/m03.html">Module 3</a> /
+      Lesson 3.15
+    </p>
+    <h1>What is RoPE (Rotary Position Embedding)? The Math Behind It</h1>
+    <div class="lesson-meta">
+      <span>Lesson 3.15 · ~14 min · Published April 23, 2026</span>
+      <a href="https://outcomeschool.com/blog/math-behind-rope-rotary-position-embedding" target="_blank" rel="noopener noreferrer">Original article</a>
+    </div>
+    <div class="lesson-tags"><span class="tag">math</span> <span class="tag">llm</span> <span class="tag">ai</span> <span class="tag">machine-learning</span></div>
+    <label class="read-toggle">
+      <input type="checkbox" data-lesson="m03-l0315" data-module="3">
+      Mark as read
+    </label>
+    
+  </header>
+  <details class="toc">
+<summary>On this page</summary>
+<ul>
+<li><a href="#the-big-picture">The Big Picture</a>
+</li>
+<li><a href="#why-a-transformer-needs-position-information">Why a Transformer Needs Position Information</a>
+</li>
+<li><a href="#older-approaches-and-their-problems">Older Approaches and Their Problems</a>
+</li>
+<li><a href="#the-core-idea-behind-rope">The Core Idea Behind RoPE</a>
+</li>
+<li><a href="#the-2d-rotation-math">The 2D Rotation Math</a>
+</li>
+<li><a href="#how-rope-is-applied-to-q-and-k">How RoPE Is Applied to Q and K</a>
+</li>
+<li><a href="#why-the-dot-product-captures-relative-position">Why the Dot Product Captures Relative Position</a>
+</li>
+<li><a href="#a-small-numeric-example">A Small Numeric Example</a>
+</li>
+<li><a href="#real-world-use-cases">Real-World Use Cases</a>
+</li>
+<li><a href="#quick-summary">Quick Summary</a>
+</li>
+<li><a href="#frequently-asked-questions">Frequently Asked Questions</a>
+<ul>
+<li><a href="#is-rope-applied-to-the-value-vector-too">Is RoPE applied to the Value vector too?</a></li>
+<li><a href="#does-rope-add-any-learned-parameters-to-the-model">Does RoPE add any learned parameters to the model?</a></li>
+<li><a href="#can-a-model-with-rope-handle-longer-text-than-it-was-trained-on">Can a model with RoPE handle longer text than it was trained on?</a></li>
+<li><a href="#does-rotating-the-query-and-key-vectors-change-their-length">Does rotating the Query and Key vectors change their length?</a></li>
+<li><a href="#does-it-matter-how-the-vector-is-split-into-pairs">Does it matter how the vector is split into pairs?</a></li>
+</ul>
+</li>
+</ul>
+</details>
+  <p><img alt="Math Behind RoPE (Rotary Position Embedding)" decoding="async" loading="lazy" src="../assets/images/03-03-15-what-is-rope-rotary-position-embedding-the-math-behind-it/math-behind-rope-rotary-position-embedding.png"/></p>
+<p>RoPE (Rotary Position Embedding) is a way to give position information to a Transformer. It rotates the Query (Q) and Key (K) vectors by an angle that depends on the token's position, so that attention depends on the relative distance between tokens.</p>
+<p>In this blog, we will learn about the math behind Rotary Position Embedding (RoPE) and why it is used in modern Large Language Models.</p>
+<p>Today, we will cover the following topics:</p>
+<ul>
+<li>The Big Picture</li>
+<li>Why a Transformer Needs Position Information</li>
+<li>Older Approaches and Their Problems</li>
+<li>The Core Idea Behind RoPE</li>
+<li>The 2D Rotation Math</li>
+<li>How RoPE Is Applied to Q and K</li>
+<li>Why the Dot Product Captures Relative Position</li>
+<li>A Small Numeric Example</li>
+<li>Real-World Use Cases</li>
+<li>Quick Summary</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="the-big-picture">The Big Picture <a aria-hidden="true" class="anchor" href="#the-big-picture">#</a></h2>
+<p>Before we go into the details, let's understand the big picture.</p>
+<p>A Transformer reads all the tokens in a sentence at the same time. It does not know which word came first and which came last. So, we have to give it position information separately. RoPE is a clever way to do that. Instead of adding a position vector, RoPE <strong>rotates</strong> the Query and Key vectors based on their position. After the rotation, the dot product between any two tokens automatically reflects the relative distance between them.</p>
+<p>In simple words:</p>
+<p><strong>RoPE = Rotate the Q and K vectors by an angle that depends on the token's position.</strong></p>
+<p>This makes the attention score depend only on the relative distance between two tokens, which is exactly what we want.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/math-behind-attention-qkv" rel="noopener noreferrer" target="_blank">Math Behind Attention: Q, K, V</a> that explains how Q, K, and V are used inside attention.</p>
+<h2 id="why-a-transformer-needs-position-information">Why a Transformer Needs Position Information <a aria-hidden="true" class="anchor" href="#why-a-transformer-needs-position-information">#</a></h2>
+<p>A Transformer processes all the tokens in a sentence in parallel. It does not read them one by one like we do.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/decoding-transformer-architecture" rel="noopener noreferrer" target="_blank">Transformer Architecture</a> that explains how a Transformer works end to end.</p>
+<p>Let's see why this is a problem.</p>
+<p>Consider these two sentences:</p>
+<ul>
+<li>"The cat chased the dog."</li>
+<li>"The dog chased the cat."</li>
+</ul>
+<p>Both sentences contain the exact same words. The only difference is the order. To us, the meaning is completely different. But, to a raw Transformer, both look the same. It has no idea who chased whom.</p>
+<p>We need to inject position information into the model so that it knows the order of the words.</p>
+<h2 id="older-approaches-and-their-problems">Older Approaches and Their Problems <a aria-hidden="true" class="anchor" href="#older-approaches-and-their-problems">#</a></h2>
+<p>There are two well-known older approaches to add position information.</p>
+<p><strong>Approach 1: Sinusoidal Positional Encoding.</strong> This is the original method from the "Attention Is All You Need" paper. We compute a fixed vector for each position using sine and cosine functions. We add this vector to the token embedding before feeding it into the model.</p>
+<p><strong>Approach 2: Learned Positional Embeddings.</strong> Instead of using a fixed formula, we let the model learn a separate embedding for each position. We add this learned vector to the token embedding.</p>
+<p>Both approaches share two big problems.</p>
+<ul>
+<li><strong>They use addition.</strong> The position vector is added to the token embedding. This mixes position information into the meaning of the word, and the two end up competing inside the same vector.</li>
+<li><strong>They do not encode relative distance.</strong> With absolute positional embeddings, the model has to learn from scratch how every pair of positions relates. There is no built-in structure that says "positions 5 and 10" have the same relationship as "positions 105 and 110".</li>
+<li><strong>They struggle with longer sequences.</strong> If the model was trained on sequences of length 2048 and we suddenly give it 8192 tokens at inference time, learned embeddings have nothing to fall back on. Sinusoidal encoding can technically extrapolate, and the original "Attention Is All You Need" paper actually proposed it partly for this reason. But, later research showed that this property does not hold up well in practice.</li>
+</ul>
+<p>We need a smarter way. We need a method that handles position more cleanly and works at any sequence length.</p>
+<p>So, here comes <strong>RoPE</strong> to the rescue.</p>
+<h2 id="the-core-idea-behind-rope">The Core Idea Behind RoPE <a aria-hidden="true" class="anchor" href="#the-core-idea-behind-rope">#</a></h2>
+<p>The full form of RoPE is <strong>Rotary Position Embedding</strong>.</p>
+<p>Let's decompose the name:</p>
+<p><strong>RoPE = Rotary + Position + Embedding.</strong></p>
+<ul>
+<li><strong>Position</strong> means we are encoding the position of a token.</li>
+<li><strong>Embedding</strong> means we are doing this inside the vector space the model uses. Learn more about Embeddings: <a href="https://www.youtube.com/watch?v=LedXW6xl21s" rel="noopener noreferrer" target="_blank">Embeddings in Machine Learning</a></li>
+<li><strong>Rotary</strong> means we are using <strong>rotation</strong> as the encoding mechanism.</li>
+</ul>
+<p>The idea is simple. Instead of adding a position vector to the token embedding, we <strong>rotate</strong> the Query and Key vectors by an angle that depends on the token's position. The further along a token is in the sequence, the more we rotate its vector.</p>
+<p>The magic is in the dot product. When we compute the attention score <code>Q · K</code>, the rotations combine in a way that the result depends only on the <strong>difference</strong> in positions between the two tokens, not on their absolute positions.</p>
+<p>So, RoPE gives us <strong>relative position information for free</strong> through the dot product.</p>
+<p>Let's take a real-world analogy. Think of each pair of dimensions inside a token's vector as a clock hand. (We will see in a later section that the vector is split into many such pairs, each acting as its own clock at its own speed.) A token at position 1 rotates the hand to "1 o'clock". A token at position 5 rotates it to "5 o'clock". When we compare two tokens, we are not asking "where does each hand point?" - we are asking "how many hours apart are the two hands?". That is exactly the relative-position information attention needs.</p>
+<h2 id="the-2d-rotation-math">The 2D Rotation Math <a aria-hidden="true" class="anchor" href="#the-2d-rotation-math">#</a></h2>
+<p>To understand RoPE, we must first understand how rotation works in 2D.</p>
+<p>Suppose we have a 2D vector <code>v = [x, y]</code>. We want to rotate it by an angle <code>θ</code> (theta). The new vector <code>v'</code> is:</p>
+<pre><code>x' = x * cos(θ) - y * sin(θ)
+y' = x * sin(θ) + y * cos(θ)
+</code></pre>
+<p>This is the standard 2D rotation. We can write it as a matrix multiplication:</p>
+<pre><code>| x' |   | cos(θ)  -sin(θ) |   | x |
+|    | = |                 | * |   |
+| y' |   | sin(θ)   cos(θ) |   | y |
+</code></pre>
+<p>That is the rotation matrix. It rotates any 2D vector by angle <code>θ</code> while keeping its length unchanged.</p>
+<p>Here is a simple ASCII diagram showing the rotation.</p>
+<pre><code>                  y
+                  |
+                  |     v'
+                  |    /
+                  |   /
+                  |  /
+                  | /  θ
+                  |/___________ v
+                  +------------- x
+</code></pre>
+<p>Here, the vector <code>v</code> starts along the x-axis. After rotating by angle <code>θ</code>, it becomes <code>v'</code>. The length of the vector stays the same. Only the direction changes.</p>
+<h2 id="how-rope-is-applied-to-q-and-k">How RoPE Is Applied to Q and K <a aria-hidden="true" class="anchor" href="#how-rope-is-applied-to-q-and-k">#</a></h2>
+<p>Now, let's see how this rotation is used inside attention.</p>
+<p>We have a Query vector <code>Q</code> and a Key vector <code>K</code>. These are not 2D vectors. They have many dimensions, often 64 or 128.</p>
+<p>RoPE works on these high-dimensional vectors by <strong>splitting them into pairs of 2D vectors</strong>. If <code>Q</code> has 64 dimensions, we treat it as 32 pairs of 2D vectors. Each pair gets its own rotation.</p>
+<p>For a token at position <code>m</code>, RoPE rotates each pair by an angle <code>m * θ_i</code>, where <code>θ_i</code> is a fixed frequency that depends on which pair we are looking at.</p>
+<p>Here is a simple ASCII diagram showing how a Q vector with <code>d = 8</code> dimensions is split and rotated.</p>
+<pre><code>Q = [ q_1, q_2 | q_3, q_4 | q_5, q_6 | q_7, q_8 ]
+      \______/   \______/   \______/   \______/
+       pair 1     pair 2     pair 3     pair 4
+         |           |           |           |
+         v           v           v           v
+      rotate      rotate      rotate      rotate
+      by m*θ_1    by m*θ_2    by m*θ_3    by m*θ_4
+      (fastest)                           (slowest)
+</code></pre>
+<p>Here, the 8-dimensional vector is split into 4 pairs. Each pair is rotated by its own angle, and the rotation amount also scales with the token's position <code>m</code>.</p>
+<p>The standard formula for the frequencies is:</p>
+<pre><code>θ_i = 10000^(-2(i-1)/d)    for i = 1, 2, ..., d/2
+</code></pre>
+<p>Here, <code>d</code> is the per-head dimension. For the first pair this gives <code>θ_1 = 1</code> (largest, fastest rotation). For the last pair, with <code>d = 128</code> (a common per-head size), this gives <code>θ_(d/2) ≈ 0.0001</code> (smallest, slowest rotation). So, low-index pairs rotate fast and high-index pairs rotate slowly. This is similar to how sinusoidal positional encoding uses many frequencies, but here the frequencies are applied as <strong>rotations</strong>, not as added vectors.</p>
+<p><strong>Note:</strong> This formula is the exact knob that long-context techniques like <strong>YaRN</strong> and <strong>NTK-aware scaling</strong> tune. They modify these frequencies so a model trained on shorter sequences can handle much longer ones at inference.</p>
+<p>After applying RoPE, the rotated <code>Q</code> for a token at position <code>m</code> is <code>R_m * Q</code>, where <code>R_m</code> is the rotation matrix for position <code>m</code>. Similarly, the <code>K</code> vector at position <code>n</code> gets its own rotation <code>R_n * K</code>.</p>
+<p><strong>Note:</strong> The original RoPE paper presents the splitting as consecutive pairs <code>(q_1, q_2), (q_3, q_4), ...</code> as shown above. In real-world implementations like LLaMA and Mistral, the splitting is done as <code>(q_i, q_(i + d/2))</code> - the first half of the vector paired with the second half. Both schemes are mathematically equivalent. They are just a permutation of dimensions, so the explanation here applies to either.</p>
+<p><strong>Note:</strong> RoPE is applied only to the Query and Key vectors. The Value vector <code>V</code> is left untouched. This is because the relative-position property we want comes from the <code>Q · K</code> dot product. The <code>V</code> vector is just the content being weighted by attention scores, so it does not need any position information.</p>
+<h2 id="why-the-dot-product-captures-relative-position">Why the Dot Product Captures Relative Position <a aria-hidden="true" class="anchor" href="#why-the-dot-product-captures-relative-position">#</a></h2>
+<p>This is where the magic happens.</p>
+<p>When we compute the attention score between a query at position <code>m</code> and a key at position <code>n</code>, we calculate:</p>
+<pre><code>score = (R_m * Q) · (R_n * K)
+</code></pre>
+<p>Because of how rotation matrices work, this expression simplifies to:</p>
+<pre><code>score = Q · (R_(n-m) * K)
+</code></pre>
+<p>This works because rotation matrices are orthogonal, which means <code>R_m^T = R_(-m)</code>. The intuition is simple: rotating by <code>-m</code> undoes a rotation by <code>m</code>. So, rotating by <code>-m</code> and then by <code>n</code> combines into a single rotation by <code>n - m</code>. The full derivation is just one line of matrix algebra:</p>
+<pre><code>(R_m * Q) · (R_n * K) = Q^T * R_m^T * R_n * K
+                      = Q^T * R_(-m) * R_n * K
+                      = Q^T * R_(n-m) * K
+                      = Q · (R_(n-m) * K)
+</code></pre>
+<p>The <code>m</code> rotation on <code>Q</code> effectively cancels, leaving a single net rotation by <code>n - m</code> on <code>K</code>.</p>
+<p>The score depends only on <code>n - m</code>, which is the <strong>relative distance</strong> between the two tokens. The absolute positions <code>m</code> and <code>n</code> disappear from the formula.</p>
+<p>This is the beauty of RoPE. The model does not see "token at position 5" and "token at position 12". Instead, it sees "these two tokens are 7 positions apart". This relative view of position is exactly what attention needs.</p>
+<p>Let's see why this matters with a concrete example. Consider these two sentences:</p>
+<ul>
+<li>"The cat sat on the mat."</li>
+<li>"Yesterday, the cat sat on the mat."</li>
+</ul>
+<p>In sentence 1, "cat" is at position 2 and "mat" is at position 6. The distance between them is 4.</p>
+<p>In sentence 2, "cat" is at position 3 and "mat" is at position 7. The distance is again 4.</p>
+<p>The relationship between "cat" and "mat" is identical in both sentences. They are 4 words apart, and the meaning of how they relate is the same. The fact that the whole sentence shifted by one word does not change anything about how "cat" relates to "mat".</p>
+<p>Now, what if we used absolute positions instead? The model would have to separately learn:</p>
+<ul>
+<li>How (cat at pos 2) relates to (mat at pos 6)</li>
+<li>How (cat at pos 3) relates to (mat at pos 7)</li>
+<li>How (cat at pos 100) relates to (mat at pos 104)</li>
+<li>And so on, for every possible pair</li>
+</ul>
+<p>That is wasteful. All of these are the same relationship - "two specific words, 4 positions apart". RoPE lets the model learn this once, and reuse it everywhere.</p>
+<p>Going back to our clock analogy, when we look at two clock hands, we do not need to know what time each one shows individually. We only care about the angle between them. RoPE gives the model the same view of position.</p>
+<p><strong>Note:</strong> This relative-position property comes out of the math automatically. We did not design the model to learn relative positions. The rotation operation gives it to us for free.</p>
+<h2 id="a-small-numeric-example">A Small Numeric Example <a aria-hidden="true" class="anchor" href="#a-small-numeric-example">#</a></h2>
+<p>Let's put this into perspective with a small example.</p>
+<p>Suppose we have a 2D Query vector <code>Q = [1, 0]</code> for the token at position <code>m = 1</code>. Let <code>θ = π / 4</code> (45 degrees).</p>
+<p>The rotation matrix at position 1 is:</p>
+<pre><code>R_1 = | cos(π/4)  -sin(π/4) |   | 0.707  -0.707 |
+      |                     | = |               |
+      | sin(π/4)   cos(π/4) |   | 0.707   0.707 |
+</code></pre>
+<p>The rotated Query is:</p>
+<pre><code>R_1 * Q = | 0.707  -0.707 |   | 1 |   | 0.707 |
+          |               | * |   | = |       |
+          | 0.707   0.707 |   | 0 |   | 0.707 |
+</code></pre>
+<p>Now, suppose we have a Key vector <code>K = [1, 0]</code> at position <code>n = 2</code>. The rotation angle is <code>2 * π/4 = π/2</code>.</p>
+<pre><code>R_2 = | cos(π/2)  -sin(π/2) |   | 0  -1 |
+      |                     | = |       |
+      | sin(π/2)   cos(π/2) |   | 1   0 |
+</code></pre>
+<p>The rotated Key is:</p>
+<pre><code>R_2 * K = | 0  -1 |   | 1 |   | 0 |
+          |       | * |   | = |   |
+          | 1   0 |   | 0 |   | 1 |
+</code></pre>
+<p>The attention score is the dot product:</p>
+<pre><code>score = (R_1 * Q) · (R_2 * K)
+      = 0.707 * 0 + 0.707 * 1
+      = 0.707
+</code></pre>
+<p>So, the score for two tokens at a relative distance of <code>1</code> is <code>0.707</code>.</p>
+<p>Now, let's verify the relative-position property. Let's pick a different pair with the same relative distance: <code>m = 2, n = 3</code>.</p>
+<p>The rotated Query at position 2 uses the same <code>R_2</code> matrix from before:</p>
+<pre><code>R_2 * Q = | 0  -1 |   | 1 |   | 0 |
+          |       | * |   | = |   |
+          | 1   0 |   | 0 |   | 1 |
+</code></pre>
+<p>The rotated Key at position 3 uses angle <code>3 * π/4</code>:</p>
+<pre><code>R_3 * K = | cos(3π/4)  -sin(3π/4) |   | 1 |   | -0.707 |
+          |                       | * |   | = |        |
+          | sin(3π/4)   cos(3π/4) |   | 0 |   |  0.707 |
+</code></pre>
+<p>The attention score:</p>
+<pre><code>score = (R_2 * Q) · (R_3 * K)
+      = 0 * (-0.707) + 1 * 0.707
+      = 0.707
+</code></pre>
+<p>The score is <code>0.707</code> again. The absolute positions changed from <code>(1, 2)</code> to <code>(2, 3)</code>, but the relative distance stayed at <code>1</code>, so the score stayed at <code>0.707</code>. This is exactly the property RoPE was designed to give us.</p>
+<h2 id="real-world-use-cases">Real-World Use Cases <a aria-hidden="true" class="anchor" href="#real-world-use-cases">#</a></h2>
+<p>RoPE has become the standard for positional encoding in modern Large Language Models. Let's see where RoPE is used in practice.</p>
+<ul>
+<li><strong>LLaMA family.</strong> All LLaMA models from Meta use RoPE.</li>
+<li><strong>Mistral and Mixtral.</strong> Both use RoPE for positional encoding.</li>
+<li><strong>Qwen.</strong> Alibaba's Qwen models use RoPE.</li>
+<li><strong>DeepSeek.</strong> DeepSeek models use RoPE as well.</li>
+<li><strong>Gemma.</strong> Google's open-weight Gemma models use RoPE.</li>
+</ul>
+<p><strong>Note:</strong> RoPE is also the foundation for many long-context techniques. Methods like <strong>YaRN</strong>, <strong>Position Interpolation</strong>, and <strong>NTK-aware scaling</strong> all extend RoPE so that a model trained on, say, 4K tokens can be used on 32K or 128K tokens at inference time. None of this would be possible if we were still using learned positional embeddings.</p>
+<h2 id="quick-summary">Quick Summary <a aria-hidden="true" class="anchor" href="#quick-summary">#</a></h2>
+<p>Let's recap what we have decoded:</p>
+<ul>
+<li><strong>A Transformer reads all tokens in parallel.</strong> It does not naturally know the order of words, so we must inject position information.</li>
+<li><strong>Older methods add a position vector to the token embedding.</strong> Sinusoidal encoding and learned embeddings lack built-in relative-distance structure and struggle with longer sequences.</li>
+<li><strong>RoPE rotates the Q and K vectors instead of adding to them.</strong> The rotation angle depends on the token's position.</li>
+<li><strong>The high-dimensional vector is split into pairs.</strong> Each pair is rotated by its own frequency.</li>
+<li><strong>The dot product of two rotated vectors depends only on relative position.</strong> This gives us relative position information for free.</li>
+<li><strong>No learned parameters.</strong> RoPE itself introduces no additional learned parameters, unlike learned positional embeddings.</li>
+<li><strong>RoPE is the standard in modern LLMs.</strong> LLaMA, Mistral, Qwen, DeepSeek, and Gemma all use it.</li>
+<li><strong>RoPE makes long-context extension possible.</strong> Techniques like YaRN and Position Interpolation rely on RoPE's structure.</li>
+</ul>
+<p>This is how RoPE gives modern Large Language Models a clean, scalable, and elegant way to understand position.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions <a aria-hidden="true" class="anchor" href="#frequently-asked-questions">#</a></h2>
+<h3 id="is-rope-applied-to-the-value-vector-too">Is RoPE applied to the Value vector too? <a aria-hidden="true" class="anchor" href="#is-rope-applied-to-the-value-vector-too">#</a></h3>
+<p>No. RoPE is applied only to the Query and Key vectors, and the Value vector is left untouched. The relative-position property comes from the <code>Q · K</code> dot product. The Value vector is just the content being weighted by the attention scores, so it does not need any position information.</p>
+<h3 id="does-rope-add-any-learned-parameters-to-the-model">Does RoPE add any learned parameters to the model? <a aria-hidden="true" class="anchor" href="#does-rope-add-any-learned-parameters-to-the-model">#</a></h3>
+<p>No. RoPE itself introduces no additional learned parameters. The rotation angles come from a fixed frequency formula and the token's position. This is different from learned positional embeddings, where the model learns a separate embedding for each position.</p>
+<h3 id="can-a-model-with-rope-handle-longer-text-than-it-was-trained-on">Can a model with RoPE handle longer text than it was trained on? <a aria-hidden="true" class="anchor" href="#can-a-model-with-rope-handle-longer-text-than-it-was-trained-on">#</a></h3>
+<p>Yes, with the help of long-context techniques built on top of RoPE. Methods like YaRN, Position Interpolation, and NTK-aware scaling extend RoPE so that a model trained on, say, 4K tokens can be used on 32K or 128K tokens at inference time.</p>
+<h3 id="does-rotating-the-query-and-key-vectors-change-their-length">Does rotating the Query and Key vectors change their length? <a aria-hidden="true" class="anchor" href="#does-rotating-the-query-and-key-vectors-change-their-length">#</a></h3>
+<p>No. A rotation keeps the length of the vector unchanged, and only its direction changes. RoPE uses this rotation as the encoding mechanism, instead of adding a position vector that mixes position into the meaning of the word.</p>
+<h3 id="does-it-matter-how-the-vector-is-split-into-pairs">Does it matter how the vector is split into pairs? <a aria-hidden="true" class="anchor" href="#does-it-matter-how-the-vector-is-split-into-pairs">#</a></h3>
+<p>No. The original RoPE paper splits the vector into consecutive pairs, while implementations like LLaMA and Mistral pair the first half of the vector with the second half. Both schemes are mathematically equivalent, since they are just a permutation of dimensions.</p>
+
+  <nav class="prev-next" aria-label="Lesson navigation"><a href="m03-l0314-what-is-cross-attention-in-transformers-and-how-does-it-work.html"><span class="label">← Previous lesson</span>3.14 What is Cross Attention in Transformers and How Does It Work?</a><a class="next" href="m03-l0316-what-is-the-feed-forward-network-in-llms-and-what-does-it-do.html"><span class="label">Next lesson →</span>3.16 What is the Feed-Forward Network in LLMs and What Does It Do?</a></nav>
+  <footer class="footer">
+    <p>Personal offline study copy · Content © Outcome School / Amit Shekhar ·
+    <a href="../notice.html">usage notice</a>.</p>
+    <p>Source: <a href="https://outcomeschool.com/blog/math-behind-rope-rotary-position-embedding" target="_blank" rel="noopener noreferrer">https://outcomeschool.com/blog/math-behind-rope-rotary-position-embedding</a></p>
+  </footer>
+</article>
+
+    </main>
+  </div>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

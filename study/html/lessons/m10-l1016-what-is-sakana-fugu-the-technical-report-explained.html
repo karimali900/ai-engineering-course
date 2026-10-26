@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="What is Sakana Fugu? The Technical Report Explained Module 10 · Lesson 10.16 Source: Outcome School · Published: June 22, 2026 · Reading time: 32 min · Tags: ai agent , llm , ai , ">
+<title>What is Sakana Fugu? The Technical Report Explained · AI Engineering Course</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/pygments.css">
+</head>
+<body class="">
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="topbar">
+  <button id="menu-toggle" class="icon-btn" type="button" aria-label="Toggle navigation">☰</button>
+  <a class="brand" href="../index.html">AI Engineering Course</a>
+  <div class="search-wrap">
+    <input id="search" type="search" placeholder="Search lessons…" autocomplete="off" aria-label="Search lessons">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+  <div class="progress-mini" title="Course progress"><span id="progress-text">0%</span></div>
+  <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle light/dark theme">🌙</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="progress-box">
+      <div class="progress-bar"><span id="progress-fill"></span></div>
+      <div class="progress-label" id="progress-label">0 of 0 lessons read</div>
+    </div>
+    <nav class="course-nav" aria-label="Course modules">
+<a class="nav-home" href="../index.html">Course home</a>
+<a class="nav-module-single" href="../modules/m00.html">0. Must Know</a>
+<details class="nav-module" data-module="1">
+<summary><span class="nav-module-title">1. Machine Learning Foundations</span><span class="nav-count" data-nav-count="1">0/9</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0101" data-module="1" aria-label="Mark What is Machine Learning? as read"></label><a href="../lessons/m01-l0101-what-is-machine-learning.html">1.1 What is Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0102" data-module="1" aria-label="Mark Supervised vs Unsupervised Learning as read"></label><a href="../lessons/m01-l0102-supervised-vs-unsupervised-learning.html">1.2 Supervised vs Unsupervised Learning</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0103" data-module="1" aria-label="Mark Linear Regression vs Logistic Regression as read"></label><a href="../lessons/m01-l0103-linear-regression-vs-logistic-regression.html">1.3 Linear Regression vs Logistic Regression</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0104" data-module="1" aria-label="Mark What is Feature Engineering in Machine Learning? as read"></label><a href="../lessons/m01-l0104-what-is-feature-engineering-in-machine-learning.html">1.4 What is Feature Engineering in Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0105" data-module="1" aria-label="Mark Precision vs Recall as read"></label><a href="../lessons/m01-l0105-precision-vs-recall.html">1.5 Precision vs Recall</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0106" data-module="1" aria-label="Mark What Are L1 and L2 Loss Functions? as read"></label><a href="../lessons/m01-l0106-what-are-l1-and-l2-loss-functions.html">1.6 What Are L1 and L2 Loss Functions?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0107" data-module="1" aria-label="Mark What is Regularization in Machine Learning? L1 vs L2 Explained as read"></label><a href="../lessons/m01-l0107-what-is-regularization-in-machine-learning-l1-vs-l2-explained.html">1.7 What is Regularization in Machine Learning? L1 vs L2 Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0108" data-module="1" aria-label="Mark What is Reinforcement Learning? as read"></label><a href="../lessons/m01-l0108-what-is-reinforcement-learning.html">1.8 What is Reinforcement Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0109" data-module="1" aria-label="Mark What is Contrastive Learning? How It Works Step by Step as read"></label><a href="../lessons/m01-l0109-what-is-contrastive-learning-how-it-works-step-by-step.html">1.9 What is Contrastive Learning? How It Works Step by Step</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="2">
+<summary><span class="nav-module-title">2. Deep Learning and Neural Networks</span><span class="nav-count" data-nav-count="2">0/12</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0201" data-module="2" aria-label="Mark What is a Neural Network and How Does It Work? as read"></label><a href="../lessons/m02-l0201-what-is-a-neural-network-and-how-does-it-work.html">2.1 What is a Neural Network and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0202" data-module="2" aria-label="Mark What is Bias In Artificial Neural Network? as read"></label><a href="../lessons/m02-l0202-what-is-bias-in-artificial-neural-network.html">2.2 What is Bias In Artificial Neural Network?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0203" data-module="2" aria-label="Mark How Does Matrix Multiplication Work in Neural Networks? as read"></label><a href="../lessons/m02-l0203-how-does-matrix-multiplication-work-in-neural-networks.html">2.3 How Does Matrix Multiplication Work in Neural Networks?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0204" data-module="2" aria-label="Mark How Does Gradient Descent Work? as read"></label><a href="../lessons/m02-l0204-how-does-gradient-descent-work.html">2.4 How Does Gradient Descent Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0205" data-module="2" aria-label="Mark How Does Backpropagation Work? The Math Explained Step by Step as read"></label><a href="../lessons/m02-l0205-how-does-backpropagation-work-the-math-explained-step-by-step.html">2.5 How Does Backpropagation Work? The Math Explained Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0206" data-module="2" aria-label="Mark What is Cross-Entropy Loss? as read"></label><a href="../lessons/m02-l0206-what-is-cross-entropy-loss.html">2.6 What is Cross-Entropy Loss?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0207" data-module="2" aria-label="Mark What is Dropout in Neural Networks and How Does It Work? as read"></label><a href="../lessons/m02-l0207-what-is-dropout-in-neural-networks-and-how-does-it-work.html">2.7 What is Dropout in Neural Networks and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0208" data-module="2" aria-label="Mark Batch Normalization vs Layer Normalization as read"></label><a href="../lessons/m02-l0208-batch-normalization-vs-layer-normalization.html">2.8 Batch Normalization vs Layer Normalization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0209" data-module="2" aria-label="Mark What is RMSNorm? Root Mean Square Layer Normalization Explained as read"></label><a href="../lessons/m02-l0209-what-is-rmsnorm-root-mean-square-layer-normalization-explained.html">2.9 What is RMSNorm? Root Mean Square Layer Normalization Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0210" data-module="2" aria-label="Mark What is a Recurrent Neural Network (RNN)? as read"></label><a href="../lessons/m02-l0210-what-is-a-recurrent-neural-network-rnn.html">2.10 What is a Recurrent Neural Network (RNN)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0211" data-module="2" aria-label="Mark How does PyTorch work? as read"></label><a href="../lessons/m02-l0211-how-does-pytorch-work.html">2.11 How does PyTorch work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0212" data-module="2" aria-label="Mark How Does The Machine Learning Library TensorFlow Work? as read"></label><a href="../lessons/m02-l0212-how-does-the-machine-learning-library-tensorflow-work.html">2.12 How Does The Machine Learning Library TensorFlow Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="3">
+<summary><span class="nav-module-title">3. Generative AI and the Transformer Architecture</span><span class="nav-count" data-nav-count="3">0/16</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0301" data-module="3" aria-label="Mark What is Generative AI? as read"></label><a href="../lessons/m03-l0301-what-is-generative-ai.html">3.1 What is Generative AI?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0302" data-module="3" aria-label="Mark What are Autoregressive Models? as read"></label><a href="../lessons/m03-l0302-what-are-autoregressive-models.html">3.2 What are Autoregressive Models?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0303" data-module="3" aria-label="Mark Tokenization in LLMs as read"></label><a href="../lessons/m03-l0303-tokenization-in-llms.html">3.3 Tokenization in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0304" data-module="3" aria-label="Mark What is Byte Pair Encoding (BPE) in LLMs? as read"></label><a href="../lessons/m03-l0304-what-is-byte-pair-encoding-bpe-in-llms.html">3.4 What is Byte Pair Encoding (BPE) in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0305" data-module="3" aria-label="Mark What are Embeddings? as read"></label><a href="../lessons/m03-l0305-what-are-embeddings.html">3.5 What are Embeddings?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0306" data-module="3" aria-label="Mark How do RNNs and Transformers differ? as read"></label><a href="../lessons/m03-l0306-how-do-rnns-and-transformers-differ.html">3.6 How do RNNs and Transformers differ?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0307" data-module="3" aria-label="Mark How Does the Transformer Architecture Work? as read"></label><a href="../lessons/m03-l0307-how-does-the-transformer-architecture-work.html">3.7 How Does the Transformer Architecture Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0308" data-module="3" aria-label="Mark Encoder vs Decoder in Transformers as read"></label><a href="../lessons/m03-l0308-encoder-vs-decoder-in-transformers.html">3.8 Encoder vs Decoder in Transformers</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0309" data-module="3" aria-label="Mark What is Self Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0309-what-is-self-attention-in-transformers-and-how-does-it-work.html">3.9 What is Self Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0310" data-module="3" aria-label="Mark How Does Attention Work? The Math Behind Q, K, and V Step by Step as read"></label><a href="../lessons/m03-l0310-how-does-attention-work-the-math-behind-q-k-and-v-step-by-step.html">3.10 How Does Attention Work? The Math Behind Q, K, and V Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0311" data-module="3" aria-label="Mark Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor as read"></label><a href="../lessons/m03-l0311-why-do-we-scale-attention-by-dk-the-math-behind-the-scaling-factor.html">3.11 Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0312" data-module="3" aria-label="Mark What is Causal Masking in Attention and Why Do LLMs Need It? as read"></label><a href="../lessons/m03-l0312-what-is-causal-masking-in-attention-and-why-do-llms-need-it.html">3.12 What is Causal Masking in Attention and Why Do LLMs Need It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0313" data-module="3" aria-label="Mark What is Multi-Head Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0313-what-is-multi-head-attention-in-transformers-and-how-does-it-work.html">3.13 What is Multi-Head Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0314" data-module="3" aria-label="Mark What is Cross Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0314-what-is-cross-attention-in-transformers-and-how-does-it-work.html">3.14 What is Cross Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0315" data-module="3" aria-label="Mark What is RoPE (Rotary Position Embedding)? The Math Behind It as read"></label><a href="../lessons/m03-l0315-what-is-rope-rotary-position-embedding-the-math-behind-it.html">3.15 What is RoPE (Rotary Position Embedding)? The Math Behind It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0316" data-module="3" aria-label="Mark What is the Feed-Forward Network in LLMs and What Does It Do? as read"></label><a href="../lessons/m03-l0316-what-is-the-feed-forward-network-in-llms-and-what-does-it-do.html">3.16 What is the Feed-Forward Network in LLMs and What Does It Do?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="4">
+<summary><span class="nav-module-title">4. How LLMs Generate Text</span><span class="nav-count" data-nav-count="4">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0401" data-module="4" aria-label="Mark How does Temperature control LLM output? as read"></label><a href="../lessons/m04-l0401-how-does-temperature-control-llm-output.html">4.1 How does Temperature control LLM output?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0402" data-module="4" aria-label="Mark How do Top-k and Top-p Sampling work? as read"></label><a href="../lessons/m04-l0402-how-do-top-k-and-top-p-sampling-work.html">4.2 How do Top-k and Top-p Sampling work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0403" data-module="4" aria-label="Mark Stop Tokens in LLMs as read"></label><a href="../lessons/m04-l0403-stop-tokens-in-llms.html">4.3 Stop Tokens in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0404" data-module="4" aria-label="Mark How does Token Streaming work? as read"></label><a href="../lessons/m04-l0404-how-does-token-streaming-work.html">4.4 How does Token Streaming work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0405" data-module="4" aria-label="Mark What is the Lost in the Middle Problem in LLMs and How to Fix It? as read"></label><a href="../lessons/m04-l0405-what-is-the-lost-in-the-middle-problem-in-llms-and-how-to-fix-it.html">4.5 What is the Lost in the Middle Problem in LLMs and How to Fix It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0406" data-module="4" aria-label="Mark Why Do LLMs Hallucinate? The Token-Level Explanation as read"></label><a href="../lessons/m04-l0406-why-do-llms-hallucinate-the-token-level-explanation.html">4.6 Why Do LLMs Hallucinate? The Token-Level Explanation</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="5">
+<summary><span class="nav-module-title">5. Modern LLM Architecture</span><span class="nav-count" data-nav-count="5">0/7</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0501" data-module="5" aria-label="Mark Evolution of LLM Architecture as read"></label><a href="../lessons/m05-l0501-evolution-of-llm-architecture.html">5.1 Evolution of LLM Architecture</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0502" data-module="5" aria-label="Mark What is Mixture of Experts (MoE) and How Does It Work? as read"></label><a href="../lessons/m05-l0502-what-is-mixture-of-experts-moe-and-how-does-it-work.html">5.2 What is Mixture of Experts (MoE) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0503" data-module="5" aria-label="Mark What is Grouped Query Attention (GQA) and Why Do LLMs Use It? as read"></label><a href="../lessons/m05-l0503-what-is-grouped-query-attention-gqa-and-why-do-llms-use-it.html">5.3 What is Grouped Query Attention (GQA) and Why Do LLMs Use It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0504" data-module="5" aria-label="Mark How does Sliding Window Attention work? as read"></label><a href="../lessons/m05-l0504-how-does-sliding-window-attention-work.html">5.4 How does Sliding Window Attention work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0505" data-module="5" aria-label="Mark How do Attention Sinks work? as read"></label><a href="../lessons/m05-l0505-how-do-attention-sinks-work.html">5.5 How do Attention Sinks work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0506" data-module="5" aria-label="Mark What is Flash Attention and Why Is It So Fast? as read"></label><a href="../lessons/m05-l0506-what-is-flash-attention-and-why-is-it-so-fast.html">5.6 What is Flash Attention and Why Is It So Fast?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0507" data-module="5" aria-label="Mark What is DeepSeek-V4 and How Does It Work? Architecture Explained as read"></label><a href="../lessons/m05-l0507-what-is-deepseek-v4-and-how-does-it-work-architecture-explained.html">5.7 What is DeepSeek-V4 and How Does It Work? Architecture Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="6">
+<summary><span class="nav-module-title">6. Types of Language Models</span><span class="nav-count" data-nav-count="6">0/5</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0601" data-module="6" aria-label="Mark What are Small Language Models (SLMs) and When Should We Use Them? as read"></label><a href="../lessons/m06-l0601-what-are-small-language-models-slms-and-when-should-we-use-them.html">6.1 What are Small Language Models (SLMs) and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0602" data-module="6" aria-label="Mark What are Large Reasoning Models (LRMs) and How Are They Different from LLMs? as read"></label><a href="../lessons/m06-l0602-what-are-large-reasoning-models-lrms-and-how-are-they-different-from-llms.html">6.2 What are Large Reasoning Models (LRMs) and How Are They Different from LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0603" data-module="6" aria-label="Mark What are Recursive Language Models (RLMs) and How Do They Work? as read"></label><a href="../lessons/m06-l0603-what-are-recursive-language-models-rlms-and-how-do-they-work.html">6.3 What are Recursive Language Models (RLMs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0604" data-module="6" aria-label="Mark How do Diffusion Language Models (DLMs) work? as read"></label><a href="../lessons/m06-l0604-how-do-diffusion-language-models-dlms-work.html">6.4 How do Diffusion Language Models (DLMs) work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0605" data-module="6" aria-label="Mark Jev and System One Models Explained as read"></label><a href="../lessons/m06-l0605-jev-and-system-one-models-explained.html">6.5 Jev and System One Models Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="7">
+<summary><span class="nav-module-title">7. Training, Fine-Tuning, and Alignment</span><span class="nav-count" data-nav-count="7">0/11</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0701" data-module="7" aria-label="Mark How does fine-tuning work? as read"></label><a href="../lessons/m07-l0701-how-does-fine-tuning-work.html">7.1 How does fine-tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0702" data-module="7" aria-label="Mark What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs? as read"></label><a href="../lessons/m07-l0702-what-is-lora-low-rank-adaptation-and-how-does-it-fine-tune-llms.html">7.2 What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0703" data-module="7" aria-label="Mark How does Prefix Tuning work? as read"></label><a href="../lessons/m07-l0703-how-does-prefix-tuning-work.html">7.3 How does Prefix Tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0704" data-module="7" aria-label="Mark How does Knowledge Distillation work? as read"></label><a href="../lessons/m07-l0704-how-does-knowledge-distillation-work.html">7.4 How does Knowledge Distillation work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0705" data-module="7" aria-label="Mark What is Continual Learning in LLMs? Solving Catastrophic Forgetting as read"></label><a href="../lessons/m07-l0705-what-is-continual-learning-in-llms-solving-catastrophic-forgetting.html">7.5 What is Continual Learning in LLMs? Solving Catastrophic Forgetting</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0706" data-module="7" aria-label="Mark What is Deep RL from Human Preferences? The Paper That Started RLHF as read"></label><a href="../lessons/m07-l0706-what-is-deep-rl-from-human-preferences-the-paper-that-started-rlhf.html">7.6 What is Deep RL from Human Preferences? The Paper That Started RLHF</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0707" data-module="7" aria-label="Mark What is InstructGPT? How GPT-3 Learned to Follow Instructions as read"></label><a href="../lessons/m07-l0707-what-is-instructgpt-how-gpt-3-learned-to-follow-instructions.html">7.7 What is InstructGPT? How GPT-3 Learned to Follow Instructions</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0708" data-module="7" aria-label="Mark What is RLHF? Reinforcement Learning from Human Feedback Explained as read"></label><a href="../lessons/m07-l0708-what-is-rlhf-reinforcement-learning-from-human-feedback-explained.html">7.8 What is RLHF? Reinforcement Learning from Human Feedback Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0709" data-module="7" aria-label="Mark What is Proximal Policy Optimization (PPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0709-what-is-proximal-policy-optimization-ppo-and-how-does-it-work.html">7.9 What is Proximal Policy Optimization (PPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0710" data-module="7" aria-label="Mark What is Direct Preference Optimization (DPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0710-what-is-direct-preference-optimization-dpo-and-how-does-it-work.html">7.10 What is Direct Preference Optimization (DPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0711" data-module="7" aria-label="Mark What is Group Relative Policy Optimization (GRPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0711-what-is-group-relative-policy-optimization-grpo-and-how-does-it-work.html">7.11 What is Group Relative Policy Optimization (GRPO) and How Does It Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="8">
+<summary><span class="nav-module-title">8. Prompt Engineering and Context Engineering</span><span class="nav-count" data-nav-count="8">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0801" data-module="8" aria-label="Mark How does Chain-of-Thought (CoT) Prompting work? as read"></label><a href="../lessons/m08-l0801-how-does-chain-of-thought-cot-prompting-work.html">8.1 How does Chain-of-Thought (CoT) Prompting work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0802" data-module="8" aria-label="Mark How does Tree of Thoughts work? as read"></label><a href="../lessons/m08-l0802-how-does-tree-of-thoughts-work.html">8.2 How does Tree of Thoughts work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0803" data-module="8" aria-label="Mark How does Prompt Chaining work? as read"></label><a href="../lessons/m08-l0803-how-does-prompt-chaining-work.html">8.3 How does Prompt Chaining work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0804" data-module="8" aria-label="Mark How does Prompt Caching work? as read"></label><a href="../lessons/m08-l0804-how-does-prompt-caching-work.html">8.4 How does Prompt Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0805" data-module="8" aria-label="Mark What is Context Engineering? as read"></label><a href="../lessons/m08-l0805-what-is-context-engineering.html">8.5 What is Context Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0806" data-module="8" aria-label="Mark How does context compaction work? as read"></label><a href="../lessons/m08-l0806-how-does-context-compaction-work.html">8.6 How does context compaction work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="9">
+<summary><span class="nav-module-title">9. Vector Search and Retrieval-Augmented Generation (RAG)</span><span class="nav-count" data-nav-count="9">0/15</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0901" data-module="9" aria-label="Mark How does a Vector Database work? as read"></label><a href="../lessons/m09-l0901-how-does-a-vector-database-work.html">9.1 How does a Vector Database work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0902" data-module="9" aria-label="Mark How does Approximate Nearest Neighbor (ANN) search work? as read"></label><a href="../lessons/m09-l0902-how-does-approximate-nearest-neighbor-ann-search-work.html">9.2 How does Approximate Nearest Neighbor (ANN) search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0903" data-module="9" aria-label="Mark How does Semantic Search work? as read"></label><a href="../lessons/m09-l0903-how-does-semantic-search-work.html">9.3 How does Semantic Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0904" data-module="9" aria-label="Mark How does Hybrid Search work? as read"></label><a href="../lessons/m09-l0904-how-does-hybrid-search-work.html">9.4 How does Hybrid Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0905" data-module="9" aria-label="Mark How does a Reranker work? as read"></label><a href="../lessons/m09-l0905-how-does-a-reranker-work.html">9.5 How does a Reranker work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0906" data-module="9" aria-label="Mark What is ColBERT? Late Interaction Retrieval Explained as read"></label><a href="../lessons/m09-l0906-what-is-colbert-late-interaction-retrieval-explained.html">9.6 What is ColBERT? Late Interaction Retrieval Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0907" data-module="9" aria-label="Mark How to Chunk Documents for RAG? Chunking Strategies Explained as read"></label><a href="../lessons/m09-l0907-how-to-chunk-documents-for-rag-chunking-strategies-explained.html">9.7 How to Chunk Documents for RAG? Chunking Strategies Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0908" data-module="9" aria-label="Mark How does Contextual Retrieval work? as read"></label><a href="../lessons/m09-l0908-how-does-contextual-retrieval-work.html">9.8 How does Contextual Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0909" data-module="9" aria-label="Mark How does HyDE work in RAG? as read"></label><a href="../lessons/m09-l0909-how-does-hyde-work-in-rag.html">9.9 How does HyDE work in RAG?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0910" data-module="9" aria-label="Mark How do Query Rewriting and Multi-Query Retrieval work? as read"></label><a href="../lessons/m09-l0910-how-do-query-rewriting-and-multi-query-retrieval-work.html">9.10 How do Query Rewriting and Multi-Query Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0911" data-module="9" aria-label="Mark How does an Embedding Cache work? as read"></label><a href="../lessons/m09-l0911-how-does-an-embedding-cache-work.html">9.11 How does an Embedding Cache work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0912" data-module="9" aria-label="Mark How does Semantic Caching work? as read"></label><a href="../lessons/m09-l0912-how-does-semantic-caching-work.html">9.12 How does Semantic Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0913" data-module="9" aria-label="Mark What is Agentic RAG? How It Works and When to Use It as read"></label><a href="../lessons/m09-l0913-what-is-agentic-rag-how-it-works-and-when-to-use-it.html">9.13 What is Agentic RAG? How It Works and When to Use It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0914" data-module="9" aria-label="Mark What is GraphRAG? How Knowledge Graphs Improve RAG as read"></label><a href="../lessons/m09-l0914-what-is-graphrag-how-knowledge-graphs-improve-rag.html">9.14 What is GraphRAG? How Knowledge Graphs Improve RAG</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0915" data-module="9" aria-label="Mark What is Vectorless RAG? RAG Without Embeddings or a Vector Database as read"></label><a href="../lessons/m09-l0915-what-is-vectorless-rag-rag-without-embeddings-or-a-vector-database.html">9.15 What is Vectorless RAG? RAG Without Embeddings or a Vector Database</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="10" open>
+<summary><span class="nav-module-title">10. AI Agents and Agentic Systems</span><span class="nav-count" data-nav-count="10">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1001" data-module="10" aria-label="Mark What is an AI Agent? How It Works as read"></label><a href="../lessons/m10-l1001-what-is-an-ai-agent-how-it-works.html">10.1 What is an AI Agent? How It Works</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1002" data-module="10" aria-label="Mark How does Function Calling work in LLMs? as read"></label><a href="../lessons/m10-l1002-how-does-function-calling-work-in-llms.html">10.2 How does Function Calling work in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1003" data-module="10" aria-label="Mark What is an AI Agent Loop? as read"></label><a href="../lessons/m10-l1003-what-is-an-ai-agent-loop.html">10.3 What is an AI Agent Loop?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1004" data-module="10" aria-label="Mark What is a ReAct Agent? How It Thinks and Acts, Explained as read"></label><a href="../lessons/m10-l1004-what-is-a-react-agent-how-it-thinks-and-acts-explained.html">10.4 What is a ReAct Agent? How It Thinks and Acts, Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1005" data-module="10" aria-label="Mark What is a Plan-and-Execute Agent and How Does It Work? as read"></label><a href="../lessons/m10-l1005-what-is-a-plan-and-execute-agent-and-how-does-it-work.html">10.5 What is a Plan-and-Execute Agent and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1006" data-module="10" aria-label="Mark What is a Reflection Agent? How It Generates, Critiques, and Revises as read"></label><a href="../lessons/m10-l1006-what-is-a-reflection-agent-how-it-generates-critiques-and-revises.html">10.6 What is a Reflection Agent? How It Generates, Critiques, and Revises</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1007" data-module="10" aria-label="Mark How Does AI Agent Memory Work? The Memory Stack Explained as read"></label><a href="../lessons/m10-l1007-how-does-ai-agent-memory-work-the-memory-stack-explained.html">10.7 How Does AI Agent Memory Work? The Memory Stack Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1008" data-module="10" aria-label="Mark How does ChatGPT remember you? as read"></label><a href="../lessons/m10-l1008-how-does-chatgpt-remember-you.html">10.8 How does ChatGPT remember you?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1009" data-module="10" aria-label="Mark What is MCP (Model Context Protocol)? as read"></label><a href="../lessons/m10-l1009-what-is-mcp-model-context-protocol.html">10.9 What is MCP (Model Context Protocol)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1010" data-module="10" aria-label="Mark What are Agent Skills? as read"></label><a href="../lessons/m10-l1010-what-are-agent-skills.html">10.10 What are Agent Skills?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1011" data-module="10" aria-label="Mark What is OKF (Open Knowledge Format)? as read"></label><a href="../lessons/m10-l1011-what-is-okf-open-knowledge-format.html">10.11 What is OKF (Open Knowledge Format)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1012" data-module="10" aria-label="Mark What are Multi-Agent Systems and When Should We Use Them? as read"></label><a href="../lessons/m10-l1012-what-are-multi-agent-systems-and-when-should-we-use-them.html">10.12 What are Multi-Agent Systems and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1013" data-module="10" aria-label="Mark What are AI SubAgents? Why We Need Them and How They Work as read"></label><a href="../lessons/m10-l1013-what-are-ai-subagents-why-we-need-them-and-how-they-work.html">10.13 What are AI SubAgents? Why We Need Them and How They Work</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1014" data-module="10" aria-label="Mark How AI Agents Communicate as read"></label><a href="../lessons/m10-l1014-how-ai-agents-communicate.html">10.14 How AI Agents Communicate</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1015" data-module="10" aria-label="Mark What is AI Orchestration? How It Works and the Common Patterns as read"></label><a href="../lessons/m10-l1015-what-is-ai-orchestration-how-it-works-and-the-common-patterns.html">10.15 What is AI Orchestration? How It Works and the Common Patterns</a></li>
+<li class="nav-lesson active"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1016" data-module="10" aria-label="Mark What is Sakana Fugu? The Technical Report Explained as read"></label><a href="../lessons/m10-l1016-what-is-sakana-fugu-the-technical-report-explained.html">10.16 What is Sakana Fugu? The Technical Report Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1017" data-module="10" aria-label="Mark How do Computer-Use Agents work? as read"></label><a href="../lessons/m10-l1017-how-do-computer-use-agents-work.html">10.17 How do Computer-Use Agents work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1018" data-module="10" aria-label="Mark How do Browser Agents work? as read"></label><a href="../lessons/m10-l1018-how-do-browser-agents-work.html">10.18 How do Browser Agents work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="11">
+<summary><span class="nav-module-title">11. Agentic Engineering and Agent Frameworks</span><span class="nav-count" data-nav-count="11">0/8</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1101" data-module="11" aria-label="Mark What is Harness Engineering? as read"></label><a href="../lessons/m11-l1101-what-is-harness-engineering.html">11.1 What is Harness Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1102" data-module="11" aria-label="Mark What is Loop Engineering? as read"></label><a href="../lessons/m11-l1102-what-is-loop-engineering.html">11.2 What is Loop Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1103" data-module="11" aria-label="Mark What is Graph Engineering? as read"></label><a href="../lessons/m11-l1103-what-is-graph-engineering.html">11.3 What is Graph Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1104" data-module="11" aria-label="Mark AI Is Only as Good as Our Definition of Done as read"></label><a href="../lessons/m11-l1104-ai-is-only-as-good-as-our-definition-of-done.html">11.4 AI Is Only as Good as Our Definition of Done</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1105" data-module="11" aria-label="Mark How does LangChain work? as read"></label><a href="../lessons/m11-l1105-how-does-langchain-work.html">11.5 How does LangChain work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1106" data-module="11" aria-label="Mark How does LangGraph work? as read"></label><a href="../lessons/m11-l1106-how-does-langgraph-work.html">11.6 How does LangGraph work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1107" data-module="11" aria-label="Mark How does Claude Code work? as read"></label><a href="../lessons/m11-l1107-how-does-claude-code-work.html">11.7 How does Claude Code work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1108" data-module="11" aria-label="Mark How does Cursor work? as read"></label><a href="../lessons/m11-l1108-how-does-cursor-work.html">11.8 How does Cursor work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="12">
+<summary><span class="nav-module-title">12. LLM Inference Engineering</span><span class="nav-count" data-nav-count="12">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1201" data-module="12" aria-label="Mark LLM Inference Optimization as read"></label><a href="../lessons/m12-l1201-llm-inference-optimization.html">12.1 LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1202" data-module="12" aria-label="Mark Prefill vs Decode: LLM Inference Optimization as read"></label><a href="../lessons/m12-l1202-prefill-vs-decode-llm-inference-optimization.html">12.2 Prefill vs Decode: LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1203" data-module="12" aria-label="Mark What is Prefill-Decode Disaggregation in LLM Inference? as read"></label><a href="../lessons/m12-l1203-what-is-prefill-decode-disaggregation-in-llm-inference.html">12.3 What is Prefill-Decode Disaggregation in LLM Inference?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1204" data-module="12" aria-label="Mark KV Cache in LLMs as read"></label><a href="../lessons/m12-l1204-kv-cache-in-llms.html">12.4 KV Cache in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1205" data-module="12" aria-label="Mark What is KV Cache Compression? as read"></label><a href="../lessons/m12-l1205-what-is-kv-cache-compression.html">12.5 What is KV Cache Compression?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1206" data-module="12" aria-label="Mark What is Paged Attention in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1206-what-is-paged-attention-in-llms-and-how-does-it-work.html">12.6 What is Paged Attention in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1207" data-module="12" aria-label="Mark What is Continuous Batching in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1207-what-is-continuous-batching-in-llms-and-how-does-it-work.html">12.7 What is Continuous Batching in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1208" data-module="12" aria-label="Mark What is Speculative Decoding and How Does It Make LLMs Faster? as read"></label><a href="../lessons/m12-l1208-what-is-speculative-decoding-and-how-does-it-make-llms-faster.html">12.8 What is Speculative Decoding and How Does It Make LLMs Faster?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1209" data-module="12" aria-label="Mark What is N-gram Speculation in LLMs and How Does It Speed Up Generation? as read"></label><a href="../lessons/m12-l1209-what-is-n-gram-speculation-in-llms-and-how-does-it-speed-up-generation.html">12.9 What is N-gram Speculation in LLMs and How Does It Speed Up Generation?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1210" data-module="12" aria-label="Mark What is Medusa? Multi-Head Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1210-what-is-medusa-multi-head-speculative-decoding-explained.html">12.10 What is Medusa? Multi-Head Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1211" data-module="12" aria-label="Mark What is EAGLE? Feature-Level Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1211-what-is-eagle-feature-level-speculative-decoding-explained.html">12.11 What is EAGLE? Feature-Level Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1212" data-module="12" aria-label="Mark How does Model Quantization work? as read"></label><a href="../lessons/m12-l1212-how-does-model-quantization-work.html">12.12 How does Model Quantization work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1213" data-module="12" aria-label="Mark How does GGUF work? as read"></label><a href="../lessons/m12-l1213-how-does-gguf-work.html">12.13 How does GGUF work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1214" data-module="12" aria-label="Mark How does llama.cpp run LLMs on everyday hardware? as read"></label><a href="../lessons/m12-l1214-how-does-llama-cpp-run-llms-on-everyday-hardware.html">12.14 How does llama.cpp run LLMs on everyday hardware?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1215" data-module="12" aria-label="Mark How does Ollama work? as read"></label><a href="../lessons/m12-l1215-how-does-ollama-work.html">12.15 How does Ollama work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1216" data-module="12" aria-label="Mark How does vLLM work? as read"></label><a href="../lessons/m12-l1216-how-does-vllm-work.html">12.16 How does vLLM work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1217" data-module="12" aria-label="Mark How does SGLang work? as read"></label><a href="../lessons/m12-l1217-how-does-sglang-work.html">12.17 How does SGLang work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1218" data-module="12" aria-label="Mark How does TensorRT-LLM work? as read"></label><a href="../lessons/m12-l1218-how-does-tensorrt-llm-work.html">12.18 How does TensorRT-LLM work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="13">
+<summary><span class="nav-module-title">13. Evaluation and Observability</span><span class="nav-count" data-nav-count="13">0/4</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1301" data-module="13" aria-label="Mark What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained as read"></label><a href="../lessons/m13-l1301-what-is-llm-evaluation-metrics-benchmarks-and-methods-explained.html">13.1 What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1302" data-module="13" aria-label="Mark What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs as read"></label><a href="../lessons/m13-l1302-what-is-llm-as-a-judge-how-to-use-an-llm-to-evaluate-llm-outputs.html">13.2 What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1303" data-module="13" aria-label="Mark How to Evaluate AI Agents? Metrics, Methods, and Best Practices as read"></label><a href="../lessons/m13-l1303-how-to-evaluate-ai-agents-metrics-methods-and-best-practices.html">13.3 How to Evaluate AI Agents? Metrics, Methods, and Best Practices</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1304" data-module="13" aria-label="Mark What is AI Agent Observability? Traces, Spans, and Metrics Explained as read"></label><a href="../lessons/m13-l1304-what-is-ai-agent-observability-traces-spans-and-metrics-explained.html">13.4 What is AI Agent Observability? Traces, Spans, and Metrics Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="14">
+<summary><span class="nav-module-title">14. AI Safety and Security</span><span class="nav-count" data-nav-count="14">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1401" data-module="14" aria-label="Mark How do LLM guardrails work? as read"></label><a href="../lessons/m14-l1401-how-do-llm-guardrails-work.html">14.1 How do LLM guardrails work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1402" data-module="14" aria-label="Mark What is Prompt Injection in LLMs and How Do We Defend Against It? as read"></label><a href="../lessons/m14-l1402-what-is-prompt-injection-in-llms-and-how-do-we-defend-against-it.html">14.2 What is Prompt Injection in LLMs and How Do We Defend Against It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1403" data-module="14" aria-label="Mark How Does LLM Watermarking Work? as read"></label><a href="../lessons/m14-l1403-how-does-llm-watermarking-work.html">14.3 How Does LLM Watermarking Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="15">
+<summary><span class="nav-module-title">15. Multimodal AI and Generative Models</span><span class="nav-count" data-nav-count="15">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1501" data-module="15" aria-label="Mark What is Multimodal AI? How It Works and Where It Is Used as read"></label><a href="../lessons/m15-l1501-what-is-multimodal-ai-how-it-works-and-where-it-is-used.html">15.1 What is Multimodal AI? How It Works and Where It Is Used</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1502" data-module="15" aria-label="Mark What is a Vision Transformer (ViT) and How Does It Work? as read"></label><a href="../lessons/m15-l1502-what-is-a-vision-transformer-vit-and-how-does-it-work.html">15.2 What is a Vision Transformer (ViT) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1503" data-module="15" aria-label="Mark How do Image Embeddings work? as read"></label><a href="../lessons/m15-l1503-how-do-image-embeddings-work.html">15.3 How do Image Embeddings work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1504" data-module="15" aria-label="Mark What are Diffusion Models and How Do They Generate Images? as read"></label><a href="../lessons/m15-l1504-what-are-diffusion-models-and-how-do-they-generate-images.html">15.4 What are Diffusion Models and How Do They Generate Images?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1505" data-module="15" aria-label="Mark What are Generative Adversarial Networks (GANs) and How Do They Work? as read"></label><a href="../lessons/m15-l1505-what-are-generative-adversarial-networks-gans-and-how-do-they-work.html">15.5 What are Generative Adversarial Networks (GANs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1506" data-module="15" aria-label="Mark What are Variational Autoencoders (VAEs) and How Do They Work? as read"></label><a href="../lessons/m15-l1506-what-are-variational-autoencoders-vaes-and-how-do-they-work.html">15.6 What are Variational Autoencoders (VAEs) and How Do They Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="16">
+<summary><span class="nav-module-title">16. AI Infrastructure, Deployment, and System Design</span><span class="nav-count" data-nav-count="16">0/17</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1601" data-module="16" aria-label="Mark How does a GPU work for Deep Learning? as read"></label><a href="../lessons/m16-l1601-how-does-a-gpu-work-for-deep-learning.html">16.1 How does a GPU work for Deep Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1602" data-module="16" aria-label="Mark How do CUDA Kernels work? as read"></label><a href="../lessons/m16-l1602-how-do-cuda-kernels-work.html">16.2 How do CUDA Kernels work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1603" data-module="16" aria-label="Mark How does a Google TPU work? as read"></label><a href="../lessons/m16-l1603-how-does-a-google-tpu-work.html">16.3 How does a Google TPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1604" data-module="16" aria-label="Mark How does an LPU work? as read"></label><a href="../lessons/m16-l1604-how-does-an-lpu-work.html">16.4 How does an LPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1605" data-module="16" aria-label="Mark Cloud vs On-device Model Deployment as read"></label><a href="../lessons/m16-l1605-cloud-vs-on-device-model-deployment.html">16.5 Cloud vs On-device Model Deployment</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1606" data-module="16" aria-label="Mark Android TensorFlow Lite Machine Learning Example as read"></label><a href="../lessons/m16-l1606-android-tensorflow-lite-machine-learning-example.html">16.6 Android TensorFlow Lite Machine Learning Example</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1607" data-module="16" aria-label="Mark What is LLM Routing? How to Send Each Query to the Right LLM as read"></label><a href="../lessons/m16-l1607-what-is-llm-routing-how-to-send-each-query-to-the-right-llm.html">16.7 What is LLM Routing? How to Send Each Query to the Right LLM</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1608" data-module="16" aria-label="Mark Design a Real-Time Voice AI Agent as read"></label><a href="../lessons/m16-l1608-design-a-real-time-voice-ai-agent.html">16.8 Design a Real-Time Voice AI Agent</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1609" data-module="16" aria-label="Mark What is turn-taking in a voice AI agent? as read"></label><a href="../lessons/m16-l1609-what-is-turn-taking-in-a-voice-ai-agent.html">16.9 What is turn-taking in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1610" data-module="16" aria-label="Mark What is barge-in in a voice AI agent? as read"></label><a href="../lessons/m16-l1610-what-is-barge-in-in-a-voice-ai-agent.html">16.10 What is barge-in in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1611" data-module="16" aria-label="Mark Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture? as read"></label><a href="../lessons/m16-l1611-cascaded-vs-speech-to-speech-how-to-choose-the-right-voice-agent-architecture.html">16.11 Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1612" data-module="16" aria-label="Mark How do you build a latency budget for a voice AI agent? as read"></label><a href="../lessons/m16-l1612-how-do-you-build-a-latency-budget-for-a-voice-ai-agent.html">16.12 How do you build a latency budget for a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1613" data-module="16" aria-label="Mark How does the voice-to-voice latency of a voice agent get measured? as read"></label><a href="../lessons/m16-l1613-how-does-the-voice-to-voice-latency-of-a-voice-agent-get-measured.html">16.13 How does the voice-to-voice latency of a voice agent get measured?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1614" data-module="16" aria-label="Mark Why does the time-to-first-audio matter more than total response time? as read"></label><a href="../lessons/m16-l1614-why-does-the-time-to-first-audio-matter-more-than-total-response-time.html">16.14 Why does the time-to-first-audio matter more than total response time?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1615" data-module="16" aria-label="Mark What is System Design? as read"></label><a href="../lessons/m16-l1615-what-is-system-design.html">16.15 What is System Design?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1616" data-module="16" aria-label="Mark HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events as read"></label><a href="../lessons/m16-l1616-http-request-vs-http-long-polling-vs-websocket-vs-server-sent-events.html">16.16 HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1617" data-module="16" aria-label="Mark How do Voice And Video Call Work? as read"></label><a href="../lessons/m16-l1617-how-do-voice-and-video-call-work.html">16.17 How do Voice And Video Call Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="17">
+<summary><span class="nav-module-title">17. Frontier Ideas in AI</span><span class="nav-count" data-nav-count="17">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1701" data-module="17" aria-label="Mark What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work? as read"></label><a href="../lessons/m17-l1701-what-is-joint-embedding-predictive-architecture-jepa-and-how-does-it-work.html">17.1 What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1702" data-module="17" aria-label="Mark How do World Models work? as read"></label><a href="../lessons/m17-l1702-how-do-world-models-work.html">17.2 How do World Models work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1703" data-module="17" aria-label="Mark What is Recursive Self-Improvement (RSI)? as read"></label><a href="../lessons/m17-l1703-what-is-recursive-self-improvement-rsi.html">17.3 What is Recursive Self-Improvement (RSI)?</a></li>
+</ul>
+</details>
+<a class="nav-module-single" href="../modules/m18.html">18. Prepare for AI Engineering Interviews</a>
+</nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="content-wrap">
+    <main class="content" id="content">
+      
+<article>
+  <header class="lesson-header">
+    <p class="breadcrumb">
+      <a href="../index.html">Course</a> /
+      <a href="../modules/m10.html">Module 10</a> /
+      Lesson 10.16
+    </p>
+    <h1>What is Sakana Fugu? The Technical Report Explained</h1>
+    <div class="lesson-meta">
+      <span>Lesson 10.16 · ~32 min · Published June 22, 2026</span>
+      <a href="https://outcomeschool.com/blog/decoding-sakana-fugu" target="_blank" rel="noopener noreferrer">Original article</a>
+    </div>
+    <div class="lesson-tags"><span class="tag">ai-agent</span> <span class="tag">llm</span> <span class="tag">ai</span> <span class="tag">machine-learning</span></div>
+    <label class="read-toggle">
+      <input type="checkbox" data-lesson="m10-l1016" data-module="10">
+      Mark as read
+    </label>
+    
+  </header>
+  <details class="toc">
+<summary>On this page</summary>
+<ul>
+<li><a href="#what-is-sakana-fugu">What is Sakana Fugu?</a>
+</li>
+<li><a href="#why-fugu-was-needed">Why Fugu was needed</a>
+</li>
+<li><a href="#the-big-picture-what-fugu-does">The big picture: what Fugu does</a>
+</li>
+<li><a href="#collective-intelligence">Collective Intelligence</a>
+</li>
+<li><a href="#the-two-fugus-fugu-and-fugu-ultra">The two Fugus - Fugu and Fugu-Ultra</a>
+</li>
+<li><a href="#how-fugu-picks-the-right-model-the-lightweight-selection-head">How Fugu picks the right model - the lightweight selection head</a>
+</li>
+<li><a href="#teaching-fugu-who-is-best-supervised-fine-tuning">Teaching Fugu who is best - supervised fine-tuning</a>
+</li>
+<li><a href="#polishing-fugu-on-real-tasks-evolutionary-strategies">Polishing Fugu on real tasks - evolutionary strategies</a>
+</li>
+<li><a href="#how-fugu-ultra-conducts-an-orchestra-the-conductor">How Fugu-Ultra conducts an orchestra - the Conductor</a>
+</li>
+<li><a href="#teaching-fugu-ultra-to-conduct-grpo">Teaching Fugu-Ultra to conduct - GRPO</a>
+</li>
+<li><a href="#stopping-the-agents-from-copying-each-other">Stopping the agents from copying each other</a>
+</li>
+<li><a href="#how-well-does-fugu-perform">How well does Fugu perform?</a>
+</li>
+<li><a href="#the-clever-strategies-fugu-discovered-on-its-own">The clever strategies Fugu discovered on its own</a>
+</li>
+<li><a href="#quick-summary">Quick Summary</a>
+</li>
+<li><a href="#frequently-asked-questions">Frequently Asked Questions</a>
+<ul>
+<li><a href="#does-sakana-fugu-answer-questions-by-itself">Does Sakana Fugu answer questions by itself?</a></li>
+<li><a href="#is-sakana-fugu-just-an-llm-router">Is Sakana Fugu just an LLM router?</a></li>
+<li><a href="#do-we-need-to-retrain-fugu-when-a-new-model-is-released">Do we need to retrain Fugu when a new model is released?</a></li>
+<li><a href="#can-a-team-of-models-beat-the-best-single-model">Can a team of models beat the best single model?</a></li>
+<li><a href="#what-happens-if-a-model-in-the-fugu-pool-becomes-unavailable">What happens if a model in the Fugu pool becomes unavailable?</a></li>
+</ul>
+</li>
+</ul>
+</details>
+  <p><img alt="Decoding Sakana Fugu" decoding="async" loading="lazy" src="../assets/images/10-10-16-what-is-sakana-fugu-the-technical-report-explained/decoding-sakana-fugu.png"/></p>
+<p>Sakana Fugu is a family of AI models that work like a conductor for a team of other AI models. A Fugu model reads our question, decides which powerful AI models should work on it, and combines their answers into one.</p>
+<p>In this blog, we are going to learn about Sakana Fugu, a family of AI models that work like a conductor for a team of other AI models.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is Sakana Fugu?</li>
+<li>Why Fugu was needed</li>
+<li>The big picture: what Fugu does</li>
+<li>Collective Intelligence</li>
+<li>The two Fugus - Fugu and Fugu-Ultra</li>
+<li>How Fugu picks the right model - the lightweight selection head</li>
+<li>Teaching Fugu who is best - supervised fine-tuning</li>
+<li>Polishing Fugu on real tasks - evolutionary strategies</li>
+<li>How Fugu-Ultra conducts an orchestra - the Conductor</li>
+<li>Teaching Fugu-Ultra to conduct - GRPO</li>
+<li>Stopping the agents from copying each other</li>
+<li>How well does Fugu perform?</li>
+<li>The clever strategies Fugu discovered on its own</li>
+<li>Quick Summary</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="what-is-sakana-fugu">What is Sakana Fugu? <a aria-hidden="true" class="anchor" href="#what-is-sakana-fugu">#</a></h2>
+<p><strong>Sakana Fugu is a family of AI models. A Fugu model does not answer your question by itself. Instead, it reads your question and decides which other powerful AI models should work on it, how they should work together, and how to combine their answers into one final reply.</strong></p>
+<p>In simple words, Fugu is a conductor. A conductor does not play any instrument. The conductor reads the music, decides which musician should play, when, and how loud, and turns many players into one beautiful performance. Fugu does the same thing with AI models.</p>
+<p>Fugu comes from Sakana AI, and the team describes it in the "Sakana Fugu Technical Report". Sakana AI is a research lab in Tokyo. One of its founders, Llion Jones, is a co-author of the original "Attention Is All You Need" paper, the paper that introduced the <a href="https://outcomeschool.com/blog/decoding-transformer-architecture" rel="noopener noreferrer" target="_blank">Transformer</a>.</p>
+<p>The paper calls models like Fugu <strong>orchestrator models</strong>. An <a href="https://outcomeschool.com/blog/ai-orchestration" rel="noopener noreferrer" target="_blank">orchestrator</a> is the one who arranges many parts so that they work together as one. So, the whole goal of Fugu is to take a team of strong AI models and make them act as a single, smarter system.</p>
+<h2 id="why-fugu-was-needed">Why Fugu was needed <a aria-hidden="true" class="anchor" href="#why-fugu-was-needed">#</a></h2>
+<p>The best way to learn this is by taking an example.</p>
+<p>Today we have many powerful AI models, often called <strong>frontier models</strong>. Frontier just means they are at the leading edge, the most powerful and latest models available. We have GPT-5.5 from OpenAI, Claude Opus 4.8 from Anthropic, and Gemini 3.1 Pro from Google. Each one is very strong. But, here is the catch. No single model is the best at everything.</p>
+<p>The paper observed clear specializations:</p>
+<ul>
+<li>GPT models are very strong at math and at planning and combining ideas.</li>
+<li>Claude Opus models are very strong at software engineering and at finding security bugs, which means debugging.</li>
+<li>Gemini models are very strong at directly implementing known algorithms and at science like chemistry and biology.</li>
+</ul>
+<p>So, if we use only one model, we get its strengths, but we are also stuck with its weaknesses.</p>
+<p>Now, the question is: how do we get the strengths of all of them at the same time? Let's build up the answer step by step.</p>
+<p><strong>Approach 1: Use one model for everything.</strong> This is the simplest approach. The issue with this approach is that we are stuck with one model's weak areas. Let's see how the next approach tries to solve this.</p>
+<p><strong>Approach 2: Build a fixed team by hand.</strong> We could write a fixed plan ourselves, for example, "Model X always writes the code, then Model Y always reviews it." The issue with this approach is that it is rigid. We have to design and tune it ourselves, and the same fixed plan is used for every question, even when it does not fit the question. Let's see how the next approach tries to solve this.</p>
+<p><strong>Approach 3: A simple router.</strong> We could train a small <a href="https://outcomeschool.com/blog/llm-routing" rel="noopener noreferrer" target="_blank">router</a> that looks at the question and sends it to one model. This is better, but it is still single-step. It picks one model once, it cannot change its mind partway through the task, and it cannot make two models work together. The issue with this approach is that it is too limited. Let's see how Fugu solves this.</p>
+<p>So, here comes Sakana Fugu to the rescue. Fugu is a <strong>learned orchestrator</strong>. It reads the question and builds a plan for that specific question - which models to involve, how they should talk to each other, and when to combine their answers. The plan is not fixed. It changes based on the question.</p>
+<h2 id="the-big-picture-what-fugu-does">The big picture: what Fugu does <a aria-hidden="true" class="anchor" href="#the-big-picture-what-fugu-does">#</a></h2>
+<p>Before going into the details, let's see the simple input-to-output view.</p>
+<p>You give Fugu a question. Fugu reads it, picks the right model or the right team of models from its pool, lets them work, and gives you back one final answer. From the outside, it feels like you are talking to a single model.</p>
+<pre><code>                  +-----------------------+
+   "Write me      |    Fugu Orchestrator  |
+    binary    --&gt; |  (reads the question, | --&gt; picks the right worker(s)
+    search"       |    builds a plan)     |
+                  +-----------------------+
+                       |       |       |
+                       v       v       v
+                   +------+ +------+ +------+
+                   | GPT  | | Opus | |Gemini|   &lt;- pool of frontier workers
+                   +------+ +------+ +------+
+                       |       |       |
+                       +-------+-------+
+                               |
+                               v
+                          Final Answer
+</code></pre>
+<p>Here, we can see that Fugu sits in the middle. The user talks only to Fugu. Behind the scenes, Fugu uses a pool of frontier models as workers and combines their work into one answer.</p>
+<p>Now, let's decode each piece one by one. The paper itself says that the complexity does not come from any single piece being hard. It comes from how the pieces are stacked together. So, if we understand each piece on its own, the whole system becomes simple.</p>
+<h2 id="collective-intelligence">Collective Intelligence <a aria-hidden="true" class="anchor" href="#collective-intelligence">#</a></h2>
+<p><strong>Collective intelligence is when a group of limited individuals, by working together, produces behavior that is smarter than any single member could be alone.</strong></p>
+<p>We see this everywhere. A single ant is simple, but an ant colony builds complex nests. A single person knows a little, but a good team solves big problems. Fugu brings this idea to AI models. Each frontier model is one expert. Fugu turns them into a team.</p>
+<p>The paper makes a bigger point here. It treats orchestration as a <strong>new scaling axis</strong>. Until now, we made AI better mostly by training one bigger and more expensive model. Fugu says there is another way to get better: make many existing models cooperate well.</p>
+<p>This brings real benefits:</p>
+<ul>
+<li>When a new model is released, we just add it to the pool. We do not retrain anything.</li>
+<li>We can remove a model, or favor one provider, or block a model for privacy or policy reasons, without retraining.</li>
+</ul>
+<p>This flexibility matters in the real world too. A model can become unavailable for many reasons, such as access restrictions, outages, or price changes. Because Fugu's pool of models is swappable, it can simply route around any model that becomes unavailable. The team keeps working even if one member leaves.</p>
+<h2 id="the-two-fugus-fugu-and-fugu-ultra">The two Fugus - Fugu and Fugu-Ultra <a aria-hidden="true" class="anchor" href="#the-two-fugus-fugu-and-fugu-ultra">#</a></h2>
+<p>The paper releases two versions, built for two different needs. The trade-off is between <strong>quality</strong> and <strong>latency</strong>. Latency means the time you wait for an answer.</p>
+<ul>
+<li><strong>Fugu</strong> balances quality with speed. For each input, it picks a single best worker model. So it is about as fast as just calling one model. It is meant for everyday use, like coding and chat.</li>
+<li><strong>Fugu-Ultra</strong> aims for the highest quality on the hardest problems. It builds a plan that uses multiple models per input. This is slower, but it gives better answers. It is meant for the most complex tasks.</li>
+</ul>
+<p>Let me tabulate the differences between Fugu and Fugu-Ultra for your better understanding so that you can decide which one to use based on your use case.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Point</th>
+<th>Fugu</th>
+<th>Fugu-Ultra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Goal</td>
+<td>balance speed and quality</td>
+<td>maximum quality</td>
+</tr>
+<tr>
+<td>Models per input</td>
+<td>one worker</td>
+<td>many workers in a plan</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>fast, like one model</td>
+<td>slower</td>
+</tr>
+<tr>
+<td>Built on</td>
+<td>Trinity</td>
+<td>Conductor</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>everyday coding and chat</td>
+<td>hardest multi-step problems</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, <strong>Trinity</strong> and <strong>Conductor</strong> are two earlier research papers from Sakana AI. Fugu builds on Trinity, and Fugu-Ultra builds on Conductor. We will understand both as we decode each variant.</p>
+<h2 id="how-fugu-picks-the-right-model-the-lightweight-selection-head">How Fugu picks the right model - the lightweight selection head <a aria-hidden="true" class="anchor" href="#how-fugu-picks-the-right-model-the-lightweight-selection-head">#</a></h2>
+<p>Let's first understand the fast variant, Fugu.</p>
+<p>Fugu uses a normal <strong>language model</strong> as its backbone, which means its brain. A language model is an AI that reads text and predicts what comes next, word by word. It is <strong>pre-trained</strong>, which means it has already learned from a huge amount of text before we use it. When you type a question, the language model reads it and forms a <strong>hidden state</strong>, which is simply a list of numbers that captures the meaning of what the model has read. We call it <code>h</code>.</p>
+<p>Normally, a language model has an <strong>LM head</strong> that turns the hidden state into the next word. Fugu adds a second small head right next to it, called the <strong>lightweight selection head</strong>. This head takes the hidden state <code>h</code> and outputs <code>L</code> numbers called <strong>logits</strong>, one score for each worker model in the pool. The model with the highest score is selected.</p>
+<pre><code>  Question --&gt; [ Language Model backbone ] --&gt; hidden state h
+                                                  |
+                            +---------------------+---------------------+
+                            |                                           |
+                       [ LM Head ]                        [ Lightweight Selection Head ]
+                    (writes normal text)                              |
+                                                          L scores, one per worker model
+                                                                      |
+                                                          pick the highest -&gt; dispatch
+</code></pre>
+<p>Here, we can see two heads reading the same hidden state. The LM head is the normal one that writes text. The selection head is the new one that scores the worker models.</p>
+<p>Let's define the symbols:</p>
+<ul>
+<li><code>h</code> is the hidden state, the list of numbers that captures the meaning of the question.</li>
+<li><code>L</code> is the number of worker models in the pool.</li>
+<li><code>logits</code> are the raw scores, one per model, before turning them into probabilities.</li>
+</ul>
+<p>Now, here is the key trick that makes Fugu fast. Fugu uses the logits, not generated text. It does not need to write out a full answer to make its decision. It computes the hidden state at an early position, applies the selection head, reads the scores, picks the highest, and immediately sends your question to the chosen worker. Because it skips the slow word-by-word writing, the decision is very fast. This is why Fugu has low latency.</p>
+<p>This is also where Fugu differs from <strong>Trinity</strong>, the earlier Sakana model it builds on. Trinity also assigned a role to the chosen model, like Thinker, Worker, or Verifier. Fugu drops the roles and always uses the chosen model as a worker. Fewer choices means a smaller and faster decision, which is exactly what we want for everyday use.</p>
+<p>One more thing to notice. To adapt its brain cheaply, Fugu does not retrain the whole model. Think of the model as having millions of tiny dials. Instead of changing all of them, Fugu changes only a small set of adjustment dials and leaves the rest fixed. This keeps training small and fast. The math trick that picks which small set of dials to turn is called SVD, which means Singular Value Decomposition, and it comes from an earlier Sakana paper called Transformer-squared. We do not need to understand the trick itself. We just need to remember that it lets Fugu adjust a few dials instead of all of them. The selection head itself is also kept small and simple.</p>
+<h2 id="teaching-fugu-who-is-best-supervised-fine-tuning">Teaching Fugu who is best - supervised fine-tuning <a aria-hidden="true" class="anchor" href="#teaching-fugu-who-is-best-supervised-fine-tuning">#</a></h2>
+<p>Now, Fugu must learn which model is best for which kind of question. The paper trains it in two stages. The first stage is <strong><a href="https://outcomeschool.com/blog/how-does-fine-tuning-work" rel="noopener noreferrer" target="_blank">supervised fine-tuning</a></strong>, often called SFT.</p>
+<p>To train Fugu in this stage, the Fugu team collects a big set of questions where the correct answer is already known. For each question, they run every worker model several times and check how well each one did. They give each model a <strong>reward</strong>, a score for how well it solved the question.</p>
+<p>The best way to learn this is by taking an example.</p>
+<p>Suppose we have a pool of 3 worker models. Call them GPT, Opus, and Gemini. We give them a math question. We run each one a few times and average the scores. The reward is between 0 and 1, where 1 means it solved the question perfectly. Say we get:</p>
+<ul>
+<li>GPT: average reward 0.9</li>
+<li>Opus: average reward 0.6</li>
+<li>Gemini: average reward 0.3</li>
+</ul>
+<p>So our score vector is <code>s = (0.9, 0.6, 0.3)</code>.</p>
+<p>Now, the simple approach would be to just say "GPT is the best, so the label is GPT." But this throws away useful information. It hides the fact that Opus was also quite good, and that Gemini was weak. So instead, the paper turns these scores into a <strong>soft target distribution</strong> using the softmax function. Softmax is a simple function that takes any list of scores and turns them into probabilities, which are all positive, all add up to 1, and keep the bigger scores bigger. Do not worry, we will compute it with real numbers.</p>
+<p>The formula is:</p>
+<pre><code>p(j) = exp(r_j / T) / sum over all j' of exp(r_j' / T)
+</code></pre>
+<p>Where:</p>
+<ul>
+<li><code>p(j)</code> is the target probability for model <code>j</code>.</li>
+<li><code>r_j</code> is the average reward of model <code>j</code>.</li>
+<li><code>T</code> is the <a href="https://outcomeschool.com/blog/how-does-temperature-control-llm-output" rel="noopener noreferrer" target="_blank">temperature</a>, a knob that controls how sharp or how flat the result is.</li>
+<li><code>exp(x)</code> means <code>e</code> raised to the power <code>x</code>.</li>
+<li><code>sum over all j'</code> means we add up the term for every model.</li>
+</ul>
+<p>Do not worry if this formula looks complex. We will break it down step by step with actual numbers. Let us use temperature <code>T = 1</code>, because dividing by 1 changes nothing.</p>
+<p>Here, <code>e</code> is just a fixed number, about 2.718, that shows up everywhere in math. So <code>exp(0.9)</code> simply means 2.718 raised to the power 0.9. You do not need to compute this by hand. A calculator gives the value. What matters is the pattern: a bigger score gives a bigger <code>exp</code> value.</p>
+<p><strong>Step 1:</strong> Compute <code>exp(x)</code> for each score.</p>
+<ul>
+<li><code>exp(0.9) = 2.460</code></li>
+<li><code>exp(0.6) = 1.822</code></li>
+<li><code>exp(0.3) = 1.350</code></li>
+</ul>
+<p><strong>Step 2:</strong> Add them up.</p>
+<ul>
+<li>Sum = <code>2.460 + 1.822 + 1.350 = 5.632</code></li>
+</ul>
+<p><strong>Step 3:</strong> Divide each by the sum.</p>
+<ul>
+<li><code>p(GPT) = 2.460 / 5.632 = 0.437</code></li>
+<li><code>p(Opus) = 1.822 / 5.632 = 0.324</code></li>
+<li><code>p(Gemini) = 1.350 / 5.632 = 0.240</code></li>
+</ul>
+<p>So the soft target is <code>(0.437, 0.324, 0.240)</code>. This is a <strong>probability distribution</strong>, which is just a set of numbers that say how likely each option is and that add up to 1, like all probabilities should.</p>
+<p>Let's read this in plain words. The target says GPT is the best choice about 44% of the time, Opus about 32%, and Gemini about 24%. Notice that it did not say "always GPT." It kept the fact that Opus is also a strong backup. That is the richer signal that helps Fugu make robust choices when several models are similarly good.</p>
+<p>What does the temperature <code>T</code> do? A smaller <code>T</code> makes the distribution sharper, putting more weight on the best model. A larger <code>T</code> makes it flatter, making the models more equal. It lets us control how strongly Fugu favors the top model.</p>
+<p>Now Fugu is trained to predict this target. Just like we turned the rewards into probabilities, Fugu's own selection head scores are also passed through softmax, so Fugu also outputs a set of numbers that add up to 1, one for each model. We call this Fugu's predicted distribution. Fugu's predicted distribution is then compared to the soft target using <strong>KL divergence</strong>, which measures how far apart two probability distributions are.</p>
+<p>The training loss is:</p>
+<pre><code>L_SFT = average over all questions of D_KL( p( . ) || pi( . | q ) )
+</code></pre>
+<p>Where:</p>
+<ul>
+<li><code>pi( . | q )</code> is Fugu's own predicted distribution over the models for question <code>q</code>.</li>
+<li><code>p( . )</code> is the soft target we just computed.</li>
+<li>The dot inside <code>p( . )</code> just means the whole set of numbers, one for every model.</li>
+<li><code>D_KL</code> is the KL divergence, the gap between the two distributions. The double bar <code>||</code> just separates the two distributions we are comparing, so <code>D_KL( p || pi )</code> reads as the gap between distribution <code>p</code> and distribution <code>pi</code>.</li>
+<li>We average over all questions in the training set.</li>
+</ul>
+<p>Let's see KL divergence with numbers. Suppose right now Fugu predicts <code>(0.5, 0.3, 0.2)</code> for our question, while the target is <code>(0.437, 0.324, 0.240)</code>. The KL divergence is computed as:</p>
+<pre><code>D_KL = sum over all j of p(j) * ln( p(j) / pi(j) )
+</code></pre>
+<p>Here, <code>p(j)</code> is the target probability for model <code>j</code>, and <code>pi(j)</code> is the single probability Fugu gives to model <code>j</code>. This <code>pi</code> is just a name for Fugu's prediction, not the number 3.14.</p>
+<ul>
+<li>GPT term: <code>0.437 * ln(0.437 / 0.5) = 0.437 * ln(0.874) = 0.437 * (-0.135) = -0.059</code></li>
+<li>Opus term: <code>0.324 * ln(0.324 / 0.3) = 0.324 * ln(1.080) = 0.324 * 0.077 = 0.025</code></li>
+<li>Gemini term: <code>0.240 * ln(0.240 / 0.2) = 0.240 * ln(1.200) = 0.240 * 0.182 = 0.044</code></li>
+</ul>
+<p>Add them: <code>-0.059 + 0.025 + 0.044 = 0.010</code></p>
+<p>So the KL divergence is about <code>0.010</code>, a small positive number. It is small because Fugu's guess is already close to the target. Training nudges Fugu's prediction toward <code>(0.437, 0.324, 0.240)</code>, which pushes the KL divergence toward 0. When the two distributions match exactly, the KL divergence is 0.</p>
+<p>Here, <code>ln</code> is a standard math function on any calculator. You do not need to compute it by hand. We just plug the numbers in. The one thing to notice is that when the two numbers being compared are equal, <code>ln</code> of their ratio is 0, which is why a perfect match gives a KL divergence of 0. Remember, these are small numbers just for the sake of understanding. Real training uses a huge set of questions and many worker models.</p>
+<h2 id="polishing-fugu-on-real-tasks-evolutionary-strategies">Polishing Fugu on real tasks - evolutionary strategies <a aria-hidden="true" class="anchor" href="#polishing-fugu-on-real-tasks-evolutionary-strategies">#</a></h2>
+<p>Stage 1 taught Fugu using single-step questions, where we can cleanly score each model. But real work is not single-step. Real coding happens over many turns - reading a code repository, editing files, running tools, reading the errors, and trying again. So Stage 2 trains Fugu on full, end-to-end tasks.</p>
+<p>Here is the problem. Normally, AI models learn using a method called <strong><a href="https://outcomeschool.com/blog/math-behind-gradient-descent" rel="noopener noreferrer" target="_blank">gradient training</a></strong>. It needs a clear math signal at every small step that tells the model exactly which way to adjust itself. But in an end-to-end task, we only find out at the very end whether the task was completed. We get a single reward, 1 if done and 0 if not done. There is no clear step-by-step signal to follow through a long chain of tool calls and model handoffs. So normal gradient training does not fit well here.</p>
+<p>So, here comes <strong>evolutionary strategies</strong> to the rescue. The paper uses a method called <strong>sep-CMA-ES</strong>. The idea is simple, and it copies how nature improves through evolution: try many small variations, keep the ones that perform best, and move toward them. No gradients are needed. We only need to measure how well each variation does.</p>
+<p>Let me explain the idea with a tiny example. Imagine Fugu's trained values are just a single number <code>theta</code>. In reality it is a long list of numbers, but one number is enough to see the idea.</p>
+<p><strong>Setup:</strong></p>
+<ul>
+<li>Current value, the parent: <code>theta = 0.0</code></li>
+<li>Step size: <code>sigma = 1.0</code>, which controls how far we explore</li>
+<li>We will try <code>4</code> variations, called the population</li>
+</ul>
+<p><strong>Step 1:</strong> Create variations. We add small random nudges <code>z</code> to the parent.</p>
+<ul>
+<li><code>z1 = 0.5</code>, so candidate <code>theta1 = 0.0 + 1.0 * 0.5 = 0.5</code></li>
+<li><code>z2 = -0.3</code>, so candidate <code>theta2 = -0.3</code></li>
+<li><code>z3 = 1.0</code>, so candidate <code>theta3 = 1.0</code></li>
+<li><code>z4 = -0.8</code>, so candidate <code>theta4 = -0.8</code></li>
+</ul>
+<p><strong>Step 2:</strong> Measure fitness. We run each candidate on the end-to-end tasks and record the fraction of tasks it completed. This is the fitness.</p>
+<ul>
+<li><code>theta1 = 0.5</code> gives fitness <code>0.8</code></li>
+<li><code>theta2 = -0.3</code> gives fitness <code>0.5</code></li>
+<li><code>theta3 = 1.0</code> gives fitness <code>0.9</code></li>
+<li><code>theta4 = -0.8</code> gives fitness <code>0.2</code></li>
+</ul>
+<p><strong>Step 3:</strong> Keep the best. We rank them and keep the top 2 winners: <code>theta3</code> with <code>0.9</code> and <code>theta1</code> with <code>0.8</code>. Their nudges were <code>z3 = 1.0</code> and <code>z1 = 0.5</code>.</p>
+<p><strong>Step 4:</strong> Move the parent toward the winners. We combine the winning nudges using weights that favor the better one. Say the weights are <code>0.7</code> for the best and <code>0.3</code> for the second best.</p>
+<ul>
+<li>New <code>theta = 0.0 + 1.0 * (0.7 * 1.0 + 0.3 * 0.5) = 0.7 + 0.15 = 0.85</code></li>
+</ul>
+<p>So the parent moved from <code>0.0</code> to <code>0.85</code>, toward the region that completed more tasks. This loop repeats for many generations, and Fugu slowly gets better at choosing models for real, multi-turn work.</p>
+<p>The actual formulas from the paper are:</p>
+<pre><code>theta_k   = theta_t + sigma_t * D_t * z_k,   with z_k drawn from a normal distribution
+theta_next = theta_t + sigma_t * D_t * sum over j of ( w_j * z_j )
+</code></pre>
+<p>Where:</p>
+<ul>
+<li><code>theta_t</code> is the current parent at step <code>t</code>.</li>
+<li><code>sigma_t</code> is the step size.</li>
+<li><code>D_t</code> is a diagonal matrix that scales each direction on its own.</li>
+<li><code>z_k</code> is a random nudge. It is drawn from a normal distribution, which just means the nudges are usually small and only rarely large.</li>
+<li><code>w_j</code> are the weights for combining the best candidates.</li>
+<li><code>z_j</code> is the nudge of the <code>j</code>-th best candidate.</li>
+</ul>
+<p>Do not worry about the diagonal matrix <code>D_t</code>. It is just a way of letting each dial be explored by a different amount. The core idea is exactly the tiny example above: try variations, keep the best, and move toward them.</p>
+<p>What does "sep" mean in sep-CMA-ES? It means "separable." It tunes each value on its own, by keeping only the diagonal <code>D_t</code>, instead of tracking how every pair of values relates to each other. This makes it much cheaper and lets it handle a large number of values. This is the same evolutionary method used to train Trinity, the earlier model that Fugu's fast variant builds on.</p>
+<h2 id="how-fugu-ultra-conducts-an-orchestra-the-conductor">How Fugu-Ultra conducts an orchestra - the Conductor <a aria-hidden="true" class="anchor" href="#how-fugu-ultra-conducts-an-orchestra-the-conductor">#</a></h2>
+<p>Now, let's move to Fugu-Ultra. It is built on the <strong>Conductor</strong> framework, another research paper from Sakana AI.</p>
+<p>While Fugu picks one model per step, Fugu-Ultra goes further. It writes a full plan, called an <strong>agentic workflow</strong>, that puts several models to work together on one question. When a model is set loose to take actions on its own, like reading files, running code, and reacting to the results, we call it an <strong><a href="https://outcomeschool.com/blog/ai-agent" rel="noopener noreferrer" target="_blank">agent</a></strong>. Agentic just means it works in this active way.</p>
+<p>What is an agentic workflow? It is a sequence of steps. Each step has three parts:</p>
+<ul>
+<li>A <strong>subtask</strong>, which is a plain-language instruction, written by Fugu-Ultra, telling a worker what to do.</li>
+<li>A <strong>worker id</strong>, which says which model should do that subtask.</li>
+<li>An <strong>access list</strong>, which says which earlier results this worker is allowed to see.</li>
+</ul>
+<p>So, Fugu-Ultra is not just choosing models. It is writing the instructions for each model, choosing who does what, and wiring up who can see whose work. Because it controls the access list, it can build many shapes of teamwork:</p>
+<ul>
+<li>A simple chain, where one model works after another.</li>
+<li>Best-of-N, where several models try the same thing and then one picks the best.</li>
+<li>A tree, where several models work in parallel and then one combines their results.</li>
+</ul>
+<p>Let's see a tree with an example.</p>
+<pre><code>        Subtask: "answer this hard question"
+                   /              \
+            (leaf)                  (leaf)
+        Gemini attempt           GPT attempt
+                   \              /
+                    v            v
+                Gemini aggregator
+            (reads both through the access list,
+             keeps the correct parts of each)
+                        |
+                        v
+                   Final Answer
+</code></pre>
+<p>Here, we can see two models attempt the question on their own at the leaves, and then a third model, the aggregator, combines their work into one answer.</p>
+<p>This is a real example from the paper. For a hard trivia question, Fugu-Ultra built exactly this tree. It asked Gemini and GPT to each attempt the question on their own, then asked a second Gemini to read both attempts through the access list and combine them into one correct answer. Both leaf attempts were partly wrong, but the Gemini aggregator spotted the correct parts of each and produced a fully correct answer.</p>
+<p>And here is the clever part. Fugu-Ultra chooses which model acts as the aggregator, based on the question. For the trivia question it used Gemini as the aggregator, because Gemini is strong at niche facts. For a hard math question it instead used GPT as the aggregator, because GPT is strong at math. Most older systems are forced to always use the same model as the final combiner, so they get stuck when that model is not the best one for the task. Fugu-Ultra avoids this by adapting on every question.</p>
+<h2 id="teaching-fugu-ultra-to-conduct-grpo">Teaching Fugu-Ultra to conduct - GRPO <a aria-hidden="true" class="anchor" href="#teaching-fugu-ultra-to-conduct-grpo">#</a></h2>
+<p>How is Fugu-Ultra trained? With <strong>reinforcement learning</strong>. <a href="https://outcomeschool.com/blog/reinforcement-learning" rel="noopener noreferrer" target="_blank">Reinforcement learning</a> is a way of teaching by reward. The model tries something, gets a score for how well it did, and learns to do more of what earned a high score. The specific recipe used here is called <strong>GRPO</strong>, which means <a href="https://outcomeschool.com/blog/group-relative-policy-optimization-grpo" rel="noopener noreferrer" target="_blank">Group Relative Policy Optimization</a>. It comes from the DeepSeekMath paper.</p>
+<p>First, let's understand the reward. For each workflow Fugu-Ultra writes, it gets a reward <code>r</code>:</p>
+<ul>
+<li><code>r = 0</code> if the workflow is malformed and cannot be read, which means the lists of subtasks, workers, and access lists are written in a broken format that the system cannot make sense of.</li>
+<li><code>r = 1</code> if the workflow runs and the final answer is correct.</li>
+<li><code>r = 0.5</code> if the workflow runs but the final answer is wrong.</li>
+</ul>
+<p>So Fugu-Ultra is rewarded both for writing a valid plan and for getting the right answer.</p>
+<p>Now, the GRPO idea. For one question, Fugu-Ultra writes a group of <code>G</code> different workflows. Each one is scored, then judged relative to the group. A workflow that is better than the group average gets pushed up. A workflow that is worse than the group average gets pushed down. There is no need for a separate "judge" network, which makes training simpler and cheaper.</p>
+<p>The key formula is the <strong>advantage</strong>:</p>
+<pre><code>A_i = ( r_i - mean(r_1, ..., r_G) ) / std(r_1, ..., r_G)
+</code></pre>
+<p>Where:</p>
+<ul>
+<li><code>A_i</code> is the advantage of workflow <code>i</code>, which is how much better or worse it is than the group.</li>
+<li><code>r_i</code> is the reward of workflow <code>i</code>.</li>
+<li><code>mean</code> is the average reward of the group.</li>
+<li><code>std</code> is the standard deviation, which measures how spread out the rewards are.</li>
+</ul>
+<p>Let me explain with numbers. Suppose for one question Fugu-Ultra writes <code>G = 4</code> workflows with these rewards:</p>
+<ul>
+<li>Workflow 1: <code>r1 = 1.0</code>, valid and correct.</li>
+<li>Workflow 2: <code>r2 = 0.5</code>, valid but wrong.</li>
+<li>Workflow 3: <code>r3 = 0.5</code>, valid but wrong.</li>
+<li>Workflow 4: <code>r4 = 0.0</code>, malformed.</li>
+</ul>
+<p><strong>Step 1:</strong> Compute the mean.</p>
+<ul>
+<li>mean = <code>(1.0 + 0.5 + 0.5 + 0.0) / 4 = 2.0 / 4 = 0.5</code></li>
+</ul>
+<p><strong>Step 2:</strong> Compute the standard deviation. Standard deviation is just a way to measure how spread out a set of numbers is. We find how far each reward is from the average, square those gaps so they are all positive, average them, and take the square root. A bigger result means the rewards are more spread out.</p>
+<ul>
+<li>Differences from the mean: <code>0.5, 0, 0, -0.5</code></li>
+<li>Square them: <code>0.25, 0, 0, 0.25</code></li>
+<li>Average of the squares: <code>(0.25 + 0 + 0 + 0.25) / 4 = 0.5 / 4 = 0.125</code></li>
+<li>Standard deviation = <code>sqrt(0.125) = 0.354</code></li>
+</ul>
+<p><strong>Step 3:</strong> Compute the advantage of each.</p>
+<ul>
+<li><code>A1 = (1.0 - 0.5) / 0.354 = 0.5 / 0.354 = +1.41</code></li>
+<li><code>A2 = (0.5 - 0.5) / 0.354 = 0</code></li>
+<li><code>A3 = (0.5 - 0.5) / 0.354 = 0</code></li>
+<li><code>A4 = (0.0 - 0.5) / 0.354 = -1.41</code></li>
+</ul>
+<p>We divide by the standard deviation so that the advantages are on a fair scale, no matter how spread out this particular group of rewards happened to be.</p>
+<p>So workflow 1, which was correct, gets a positive advantage and is reinforced. Workflow 4, which was malformed, gets a negative advantage and is discouraged. The two middling ones are neutral. Over many questions, Fugu-Ultra learns to write workflows that look like the ones that worked.</p>
+<p>Here, <code>sqrt</code> means square root. The full GRPO objective also has two more pieces: a clip that stops the update from changing the model too much in a single step, which is a safety limit, and a KL term that keeps the new model close to the original. The paper trained Fugu-Ultra without the KL term. These tiny numbers are just for the sake of understanding.</p>
+<h2 id="stopping-the-agents-from-copying-each-other">Stopping the agents from copying each other <a aria-hidden="true" class="anchor" href="#stopping-the-agents-from-copying-each-other">#</a></h2>
+<p>When several models act as agents and can call <strong><a href="https://outcomeschool.com/blog/how-does-function-calling-work-in-llms" rel="noopener noreferrer" target="_blank">tools</a></strong>, which are outside helpers like running code, searching the web, or reading a file, at any time, two problems appear. The paper solves both.</p>
+<p><strong>Problem 1: Orchestration collapse.</strong> If every agent can see the full history of what the first agent did, then the first agent's path becomes everyone's path. The later agents just follow along and repeat the same work, instead of bringing their own fresh ideas. The team collapses into one opinion.</p>
+<p><strong>Solution: Intra-workflow isolation.</strong> Inside one workflow, each agent only sees other agents' work through the access list that Fugu-Ultra set. Otherwise, an agent sees only its own past actions. This gives each agent the freedom to solve its subtask in its own way.</p>
+<p><strong>Problem 2: Forgetting everything.</strong> But complete isolation is also bad. Over a long, multi-turn conversation, agents should remember what tools were already called, so they do not repeat the same calls and rediscover the same facts again and again.</p>
+<p><strong>Solution: Persistent shared memory.</strong> Across workflows, agents share a <a href="https://outcomeschool.com/blog/ai-agent-memory" rel="noopener noreferrer" target="_blank">memory</a> of past tool calls. So, within a single workflow they stay independent, but across the whole conversation they share useful background.</p>
+<pre><code>   Workflow (one question)
+   +-------------------------------------------+
+   |  Agent A lane   Agent B lane   Agent C lane |
+   |     |              |              |          |
+   |  isolated      isolated      isolated        |   &lt;- inside a workflow:
+   |  (see others only via the access list)       |      stay independent
+   +-------------------------------------------+
+                        |
+                        v
+            +---------------------------+
+            |  Persistent shared memory  |   &lt;- across the conversation:
+            |  (past tool calls, facts)  |      share useful background
+            +---------------------------+
+</code></pre>
+<p>Here, we can see the balance. Inside a single workflow, the agents work in separate lanes so they do not copy each other. Across the conversation, they share one memory so they do not redo work that was already done. This balance is what keeps the team both diverse and efficient.</p>
+<h2 id="how-well-does-fugu-perform">How well does Fugu perform? <a aria-hidden="true" class="anchor" href="#how-well-does-fugu-perform">#</a></h2>
+<p>Now, let's see the results. Both Fugu and Fugu-Ultra reach state-of-the-art performance, which means the best scores anyone has achieved so far, across a wide range of hard tests. These standard tests used to compare AI models are called benchmarks. In many cases, the Fugu models beat the very models that sit inside their own pool.</p>
+<p>Here are a few rows from the paper's results, with the best score in each row in bold.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>Fugu-Ultra</th>
+<th>Fugu</th>
+<th>Claude Opus 4.8</th>
+<th>Gemini 3.1</th>
+<th>GPT-5.5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SWE Bench Pro (fixing real software bugs)</td>
+<td><strong>73.7</strong></td>
+<td>59.0</td>
+<td>69.2</td>
+<td>54.2</td>
+<td>58.6</td>
+</tr>
+<tr>
+<td>Terminal Bench 2.1 (using the terminal)</td>
+<td><strong>82.1</strong></td>
+<td>80.2</td>
+<td>74.6</td>
+<td>70.3</td>
+<td>78.2</td>
+</tr>
+<tr>
+<td>GPQA Diamond (hard science)</td>
+<td><strong>95.5</strong></td>
+<td>95.5</td>
+<td>92.0</td>
+<td>94.3</td>
+<td>93.6</td>
+</tr>
+<tr>
+<td>Humanity's Last Exam (very hard reasoning)</td>
+<td><strong>50.0</strong></td>
+<td>47.2</td>
+<td>49.8</td>
+<td>44.4</td>
+<td>41.4</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, we can notice the most striking part. On many of these hard tests, Fugu-Ultra beats every model it uses. By combining them well, the team can be stronger than any single member. For example, on SWE Bench Pro, which is about fixing real software bugs, Fugu-Ultra scores 73.7, higher than Claude Opus 4.8 at 69.2, GPT-5.5 at 58.6, and Gemini 3.1 at 54.2.</p>
+<p>It even beats some models that are not in its pool and are not publicly available. This supports the paper's main claim: orchestration is a real way to gain capability, on top of just training bigger models.</p>
+<p>The paper also tested Fugu on fun, hard tasks beyond standard benchmarks:</p>
+<ul>
+<li><strong>Rubik's cube solver.</strong> Each model had to write code that solves a cube. Fugu models wrote code that solved all 300 test cubes. Fugu-Ultra found the shortest solutions, with a mean of 19.72 moves, where the proven best possible is 20. Two of the three frontier models wrote code that crashed before solving even one cube.</li>
+<li><strong>Blindfold chess.</strong> With no board shown, only moves given in text, the model had to track the whole game in its head. Fugu won all four games, including one against a strong chess engine, and made no blunders.</li>
+<li><strong>Online stock trading.</strong> Over a 50-week simulation starting at 10,000 dollars, Fugu-Ultra grew it to 11,943 dollars, a gain of 19.43%, better than each individual model.</li>
+</ul>
+<p>Fugu also did well on <a href="https://outcomeschool.com/blog/what-is-recursive-self-improvement-rsi" rel="noopener noreferrer" target="_blank">autonomous AI research</a>, on reading the order of classical Japanese handwritten letters, and on generating a working mechanical part in CAD. In each case, the orchestrated team did better than any single model alone.</p>
+<h2 id="the-clever-strategies-fugu-discovered-on-its-own">The clever strategies Fugu discovered on its own <a aria-hidden="true" class="anchor" href="#the-clever-strategies-fugu-discovered-on-its-own">#</a></h2>
+<p>The interesting part is that these strategies were not programmed. They emerged on their own during training. The paper observed three of them.</p>
+<p><strong>Debate and aggregation.</strong> Fugu-Ultra builds a tree, has models attempt the problem independently, then has a chosen model combine the best parts. We saw this earlier when we decoded the Conductor.</p>
+<p><strong>Build and debug.</strong> In coding tasks, Fugu-Ultra often uses GPT as the builder, and then brings in Opus at key moments to find bugs and security holes, because Opus is strong at debugging. Then it hands the findings back. For example, while building a small package server, Opus caught several concrete risks that GPT had missed, and relaying those findings back let GPT finish the job correctly.</p>
+<p><strong>Bringing in a specialist.</strong> Fugu-Ultra pulls in a specific model only when a special skill is needed. For example, in a cryptanalysis task, it used Opus, which is strong at security, to start the attack, and then used GPT, which is strong at math, to re-derive the exact math the attack needed.</p>
+<p>The lesson here is simple. Fugu learned the fine-grained strengths of each model and how to combine them, like a good manager who knows exactly which team member to call for which part of a job.</p>
+<h2 id="quick-summary">Quick Summary <a aria-hidden="true" class="anchor" href="#quick-summary">#</a></h2>
+<p>Let's recap what we have decoded, piece by piece:</p>
+<ul>
+<li>Sakana Fugu is a family of orchestrator models that direct a team of frontier AI models instead of answering alone.</li>
+<li>Fugu was needed because no single model is best at everything, and older fixed teams and simple routers were too rigid.</li>
+<li>Collective intelligence means a well-coordinated team beats any single member, and orchestration is a new way to scale AI.</li>
+<li>There are two variants: Fugu, which is fast and picks one worker per step, and Fugu-Ultra, which is high quality and uses many workers per question.</li>
+<li>Fugu uses a lightweight selection head that reads a hidden state and scores each model, deciding without writing text, which makes it fast.</li>
+<li>Fugu first learns who is best with supervised fine-tuning on a soft, softmax-based target, trained with KL divergence.</li>
+<li>Fugu is then polished on real end-to-end tasks with evolutionary strategies, sep-CMA-ES, which need no gradients.</li>
+<li>Fugu-Ultra writes full agentic workflows, with subtasks, worker ids, and access lists, built on the Conductor framework.</li>
+<li>Fugu-Ultra is trained with GRPO, judging a group of workflows relative to each other, with a reward for valid and correct plans.</li>
+<li>It keeps agents independent inside a workflow through isolation, while sharing memory across the whole conversation.</li>
+<li>On many hard benchmarks, Fugu-Ultra beats every model in its own pool, and even some models outside it.</li>
+<li>It discovered its own strategies: debate and aggregation, build and debug, and bringing in a specialist.</li>
+</ul>
+<p>Now, we have decoded Sakana Fugu piece by piece and understood how a model can orchestrate a team of other models to achieve more than any single one of them alone.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions <a aria-hidden="true" class="anchor" href="#frequently-asked-questions">#</a></h2>
+<h3 id="does-sakana-fugu-answer-questions-by-itself">Does Sakana Fugu answer questions by itself? <a aria-hidden="true" class="anchor" href="#does-sakana-fugu-answer-questions-by-itself">#</a></h3>
+<p>No. A Fugu model does not answer our question by itself. It reads the question and decides which other powerful AI models should work on it, how they should work together, and how to combine their answers into one final reply. From the outside, it feels like we are talking to a single model.</p>
+<h3 id="is-sakana-fugu-just-an-llm-router">Is Sakana Fugu just an LLM router? <a aria-hidden="true" class="anchor" href="#is-sakana-fugu-just-an-llm-router">#</a></h3>
+<p>No. A simple router picks one model once, cannot change its mind partway through the task, and cannot make two models work together. Fugu is a learned orchestrator that builds a plan for each specific question. Fugu-Ultra goes further and writes full agentic workflows that put several models to work together.</p>
+<h3 id="do-we-need-to-retrain-fugu-when-a-new-model-is-released">Do we need to retrain Fugu when a new model is released? <a aria-hidden="true" class="anchor" href="#do-we-need-to-retrain-fugu-when-a-new-model-is-released">#</a></h3>
+<p>No. When a new model is released, we just add it to the pool. We can also remove a model, favor one provider, or block a model for privacy or policy reasons without retraining. This is one of the real benefits of treating orchestration as a new scaling axis.</p>
+<h3 id="can-a-team-of-models-beat-the-best-single-model">Can a team of models beat the best single model? <a aria-hidden="true" class="anchor" href="#can-a-team-of-models-beat-the-best-single-model">#</a></h3>
+<p>Yes. On many hard benchmarks, Fugu-Ultra beats every model it uses. For example, on SWE Bench Pro, Fugu-Ultra scores 73.7, higher than Claude Opus 4.8 at 69.2, GPT-5.5 at 58.6, and Gemini 3.1 at 54.2. By combining them well, the team becomes stronger than any single member.</p>
+<h3 id="what-happens-if-a-model-in-the-fugu-pool-becomes-unavailable">What happens if a model in the Fugu pool becomes unavailable? <a aria-hidden="true" class="anchor" href="#what-happens-if-a-model-in-the-fugu-pool-becomes-unavailable">#</a></h3>
+<p>Fugu can simply route around it. A model can become unavailable for many reasons, such as access restrictions, outages, or price changes. Because the pool of models is swappable, the team keeps working even if one member leaves.</p>
+
+  <nav class="prev-next" aria-label="Lesson navigation"><a href="m10-l1015-what-is-ai-orchestration-how-it-works-and-the-common-patterns.html"><span class="label">← Previous lesson</span>10.15 What is AI Orchestration? How It Works and the Common Patterns</a><a class="next" href="m10-l1017-how-do-computer-use-agents-work.html"><span class="label">Next lesson →</span>10.17 How do Computer-Use Agents work?</a></nav>
+  <footer class="footer">
+    <p>Personal offline study copy · Content © Outcome School / Amit Shekhar ·
+    <a href="../notice.html">usage notice</a>.</p>
+    <p>Source: <a href="https://outcomeschool.com/blog/decoding-sakana-fugu" target="_blank" rel="noopener noreferrer">https://outcomeschool.com/blog/decoding-sakana-fugu</a></p>
+  </footer>
+</article>
+
+    </main>
+  </div>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Prefill vs Decode: LLM Inference Optimization Module 12 · Lesson 12.2 Source: Outcome School · Published: July 5, 2026 · Reading time: 34 min · Tags: llm , ai , system design Video">
+<title>Prefill vs Decode: LLM Inference Optimization · AI Engineering Course</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/pygments.css">
+</head>
+<body class="">
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="topbar">
+  <button id="menu-toggle" class="icon-btn" type="button" aria-label="Toggle navigation">☰</button>
+  <a class="brand" href="../index.html">AI Engineering Course</a>
+  <div class="search-wrap">
+    <input id="search" type="search" placeholder="Search lessons…" autocomplete="off" aria-label="Search lessons">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+  <div class="progress-mini" title="Course progress"><span id="progress-text">0%</span></div>
+  <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle light/dark theme">🌙</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="progress-box">
+      <div class="progress-bar"><span id="progress-fill"></span></div>
+      <div class="progress-label" id="progress-label">0 of 0 lessons read</div>
+    </div>
+    <nav class="course-nav" aria-label="Course modules">
+<a class="nav-home" href="../index.html">Course home</a>
+<a class="nav-module-single" href="../modules/m00.html">0. Must Know</a>
+<details class="nav-module" data-module="1">
+<summary><span class="nav-module-title">1. Machine Learning Foundations</span><span class="nav-count" data-nav-count="1">0/9</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0101" data-module="1" aria-label="Mark What is Machine Learning? as read"></label><a href="../lessons/m01-l0101-what-is-machine-learning.html">1.1 What is Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0102" data-module="1" aria-label="Mark Supervised vs Unsupervised Learning as read"></label><a href="../lessons/m01-l0102-supervised-vs-unsupervised-learning.html">1.2 Supervised vs Unsupervised Learning</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0103" data-module="1" aria-label="Mark Linear Regression vs Logistic Regression as read"></label><a href="../lessons/m01-l0103-linear-regression-vs-logistic-regression.html">1.3 Linear Regression vs Logistic Regression</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0104" data-module="1" aria-label="Mark What is Feature Engineering in Machine Learning? as read"></label><a href="../lessons/m01-l0104-what-is-feature-engineering-in-machine-learning.html">1.4 What is Feature Engineering in Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0105" data-module="1" aria-label="Mark Precision vs Recall as read"></label><a href="../lessons/m01-l0105-precision-vs-recall.html">1.5 Precision vs Recall</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0106" data-module="1" aria-label="Mark What Are L1 and L2 Loss Functions? as read"></label><a href="../lessons/m01-l0106-what-are-l1-and-l2-loss-functions.html">1.6 What Are L1 and L2 Loss Functions?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0107" data-module="1" aria-label="Mark What is Regularization in Machine Learning? L1 vs L2 Explained as read"></label><a href="../lessons/m01-l0107-what-is-regularization-in-machine-learning-l1-vs-l2-explained.html">1.7 What is Regularization in Machine Learning? L1 vs L2 Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0108" data-module="1" aria-label="Mark What is Reinforcement Learning? as read"></label><a href="../lessons/m01-l0108-what-is-reinforcement-learning.html">1.8 What is Reinforcement Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0109" data-module="1" aria-label="Mark What is Contrastive Learning? How It Works Step by Step as read"></label><a href="../lessons/m01-l0109-what-is-contrastive-learning-how-it-works-step-by-step.html">1.9 What is Contrastive Learning? How It Works Step by Step</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="2">
+<summary><span class="nav-module-title">2. Deep Learning and Neural Networks</span><span class="nav-count" data-nav-count="2">0/12</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0201" data-module="2" aria-label="Mark What is a Neural Network and How Does It Work? as read"></label><a href="../lessons/m02-l0201-what-is-a-neural-network-and-how-does-it-work.html">2.1 What is a Neural Network and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0202" data-module="2" aria-label="Mark What is Bias In Artificial Neural Network? as read"></label><a href="../lessons/m02-l0202-what-is-bias-in-artificial-neural-network.html">2.2 What is Bias In Artificial Neural Network?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0203" data-module="2" aria-label="Mark How Does Matrix Multiplication Work in Neural Networks? as read"></label><a href="../lessons/m02-l0203-how-does-matrix-multiplication-work-in-neural-networks.html">2.3 How Does Matrix Multiplication Work in Neural Networks?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0204" data-module="2" aria-label="Mark How Does Gradient Descent Work? as read"></label><a href="../lessons/m02-l0204-how-does-gradient-descent-work.html">2.4 How Does Gradient Descent Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0205" data-module="2" aria-label="Mark How Does Backpropagation Work? The Math Explained Step by Step as read"></label><a href="../lessons/m02-l0205-how-does-backpropagation-work-the-math-explained-step-by-step.html">2.5 How Does Backpropagation Work? The Math Explained Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0206" data-module="2" aria-label="Mark What is Cross-Entropy Loss? as read"></label><a href="../lessons/m02-l0206-what-is-cross-entropy-loss.html">2.6 What is Cross-Entropy Loss?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0207" data-module="2" aria-label="Mark What is Dropout in Neural Networks and How Does It Work? as read"></label><a href="../lessons/m02-l0207-what-is-dropout-in-neural-networks-and-how-does-it-work.html">2.7 What is Dropout in Neural Networks and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0208" data-module="2" aria-label="Mark Batch Normalization vs Layer Normalization as read"></label><a href="../lessons/m02-l0208-batch-normalization-vs-layer-normalization.html">2.8 Batch Normalization vs Layer Normalization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0209" data-module="2" aria-label="Mark What is RMSNorm? Root Mean Square Layer Normalization Explained as read"></label><a href="../lessons/m02-l0209-what-is-rmsnorm-root-mean-square-layer-normalization-explained.html">2.9 What is RMSNorm? Root Mean Square Layer Normalization Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0210" data-module="2" aria-label="Mark What is a Recurrent Neural Network (RNN)? as read"></label><a href="../lessons/m02-l0210-what-is-a-recurrent-neural-network-rnn.html">2.10 What is a Recurrent Neural Network (RNN)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0211" data-module="2" aria-label="Mark How does PyTorch work? as read"></label><a href="../lessons/m02-l0211-how-does-pytorch-work.html">2.11 How does PyTorch work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0212" data-module="2" aria-label="Mark How Does The Machine Learning Library TensorFlow Work? as read"></label><a href="../lessons/m02-l0212-how-does-the-machine-learning-library-tensorflow-work.html">2.12 How Does The Machine Learning Library TensorFlow Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="3">
+<summary><span class="nav-module-title">3. Generative AI and the Transformer Architecture</span><span class="nav-count" data-nav-count="3">0/16</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0301" data-module="3" aria-label="Mark What is Generative AI? as read"></label><a href="../lessons/m03-l0301-what-is-generative-ai.html">3.1 What is Generative AI?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0302" data-module="3" aria-label="Mark What are Autoregressive Models? as read"></label><a href="../lessons/m03-l0302-what-are-autoregressive-models.html">3.2 What are Autoregressive Models?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0303" data-module="3" aria-label="Mark Tokenization in LLMs as read"></label><a href="../lessons/m03-l0303-tokenization-in-llms.html">3.3 Tokenization in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0304" data-module="3" aria-label="Mark What is Byte Pair Encoding (BPE) in LLMs? as read"></label><a href="../lessons/m03-l0304-what-is-byte-pair-encoding-bpe-in-llms.html">3.4 What is Byte Pair Encoding (BPE) in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0305" data-module="3" aria-label="Mark What are Embeddings? as read"></label><a href="../lessons/m03-l0305-what-are-embeddings.html">3.5 What are Embeddings?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0306" data-module="3" aria-label="Mark How do RNNs and Transformers differ? as read"></label><a href="../lessons/m03-l0306-how-do-rnns-and-transformers-differ.html">3.6 How do RNNs and Transformers differ?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0307" data-module="3" aria-label="Mark How Does the Transformer Architecture Work? as read"></label><a href="../lessons/m03-l0307-how-does-the-transformer-architecture-work.html">3.7 How Does the Transformer Architecture Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0308" data-module="3" aria-label="Mark Encoder vs Decoder in Transformers as read"></label><a href="../lessons/m03-l0308-encoder-vs-decoder-in-transformers.html">3.8 Encoder vs Decoder in Transformers</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0309" data-module="3" aria-label="Mark What is Self Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0309-what-is-self-attention-in-transformers-and-how-does-it-work.html">3.9 What is Self Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0310" data-module="3" aria-label="Mark How Does Attention Work? The Math Behind Q, K, and V Step by Step as read"></label><a href="../lessons/m03-l0310-how-does-attention-work-the-math-behind-q-k-and-v-step-by-step.html">3.10 How Does Attention Work? The Math Behind Q, K, and V Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0311" data-module="3" aria-label="Mark Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor as read"></label><a href="../lessons/m03-l0311-why-do-we-scale-attention-by-dk-the-math-behind-the-scaling-factor.html">3.11 Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0312" data-module="3" aria-label="Mark What is Causal Masking in Attention and Why Do LLMs Need It? as read"></label><a href="../lessons/m03-l0312-what-is-causal-masking-in-attention-and-why-do-llms-need-it.html">3.12 What is Causal Masking in Attention and Why Do LLMs Need It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0313" data-module="3" aria-label="Mark What is Multi-Head Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0313-what-is-multi-head-attention-in-transformers-and-how-does-it-work.html">3.13 What is Multi-Head Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0314" data-module="3" aria-label="Mark What is Cross Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0314-what-is-cross-attention-in-transformers-and-how-does-it-work.html">3.14 What is Cross Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0315" data-module="3" aria-label="Mark What is RoPE (Rotary Position Embedding)? The Math Behind It as read"></label><a href="../lessons/m03-l0315-what-is-rope-rotary-position-embedding-the-math-behind-it.html">3.15 What is RoPE (Rotary Position Embedding)? The Math Behind It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0316" data-module="3" aria-label="Mark What is the Feed-Forward Network in LLMs and What Does It Do? as read"></label><a href="../lessons/m03-l0316-what-is-the-feed-forward-network-in-llms-and-what-does-it-do.html">3.16 What is the Feed-Forward Network in LLMs and What Does It Do?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="4">
+<summary><span class="nav-module-title">4. How LLMs Generate Text</span><span class="nav-count" data-nav-count="4">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0401" data-module="4" aria-label="Mark How does Temperature control LLM output? as read"></label><a href="../lessons/m04-l0401-how-does-temperature-control-llm-output.html">4.1 How does Temperature control LLM output?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0402" data-module="4" aria-label="Mark How do Top-k and Top-p Sampling work? as read"></label><a href="../lessons/m04-l0402-how-do-top-k-and-top-p-sampling-work.html">4.2 How do Top-k and Top-p Sampling work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0403" data-module="4" aria-label="Mark Stop Tokens in LLMs as read"></label><a href="../lessons/m04-l0403-stop-tokens-in-llms.html">4.3 Stop Tokens in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0404" data-module="4" aria-label="Mark How does Token Streaming work? as read"></label><a href="../lessons/m04-l0404-how-does-token-streaming-work.html">4.4 How does Token Streaming work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0405" data-module="4" aria-label="Mark What is the Lost in the Middle Problem in LLMs and How to Fix It? as read"></label><a href="../lessons/m04-l0405-what-is-the-lost-in-the-middle-problem-in-llms-and-how-to-fix-it.html">4.5 What is the Lost in the Middle Problem in LLMs and How to Fix It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0406" data-module="4" aria-label="Mark Why Do LLMs Hallucinate? The Token-Level Explanation as read"></label><a href="../lessons/m04-l0406-why-do-llms-hallucinate-the-token-level-explanation.html">4.6 Why Do LLMs Hallucinate? The Token-Level Explanation</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="5">
+<summary><span class="nav-module-title">5. Modern LLM Architecture</span><span class="nav-count" data-nav-count="5">0/7</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0501" data-module="5" aria-label="Mark Evolution of LLM Architecture as read"></label><a href="../lessons/m05-l0501-evolution-of-llm-architecture.html">5.1 Evolution of LLM Architecture</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0502" data-module="5" aria-label="Mark What is Mixture of Experts (MoE) and How Does It Work? as read"></label><a href="../lessons/m05-l0502-what-is-mixture-of-experts-moe-and-how-does-it-work.html">5.2 What is Mixture of Experts (MoE) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0503" data-module="5" aria-label="Mark What is Grouped Query Attention (GQA) and Why Do LLMs Use It? as read"></label><a href="../lessons/m05-l0503-what-is-grouped-query-attention-gqa-and-why-do-llms-use-it.html">5.3 What is Grouped Query Attention (GQA) and Why Do LLMs Use It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0504" data-module="5" aria-label="Mark How does Sliding Window Attention work? as read"></label><a href="../lessons/m05-l0504-how-does-sliding-window-attention-work.html">5.4 How does Sliding Window Attention work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0505" data-module="5" aria-label="Mark How do Attention Sinks work? as read"></label><a href="../lessons/m05-l0505-how-do-attention-sinks-work.html">5.5 How do Attention Sinks work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0506" data-module="5" aria-label="Mark What is Flash Attention and Why Is It So Fast? as read"></label><a href="../lessons/m05-l0506-what-is-flash-attention-and-why-is-it-so-fast.html">5.6 What is Flash Attention and Why Is It So Fast?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0507" data-module="5" aria-label="Mark What is DeepSeek-V4 and How Does It Work? Architecture Explained as read"></label><a href="../lessons/m05-l0507-what-is-deepseek-v4-and-how-does-it-work-architecture-explained.html">5.7 What is DeepSeek-V4 and How Does It Work? Architecture Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="6">
+<summary><span class="nav-module-title">6. Types of Language Models</span><span class="nav-count" data-nav-count="6">0/5</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0601" data-module="6" aria-label="Mark What are Small Language Models (SLMs) and When Should We Use Them? as read"></label><a href="../lessons/m06-l0601-what-are-small-language-models-slms-and-when-should-we-use-them.html">6.1 What are Small Language Models (SLMs) and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0602" data-module="6" aria-label="Mark What are Large Reasoning Models (LRMs) and How Are They Different from LLMs? as read"></label><a href="../lessons/m06-l0602-what-are-large-reasoning-models-lrms-and-how-are-they-different-from-llms.html">6.2 What are Large Reasoning Models (LRMs) and How Are They Different from LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0603" data-module="6" aria-label="Mark What are Recursive Language Models (RLMs) and How Do They Work? as read"></label><a href="../lessons/m06-l0603-what-are-recursive-language-models-rlms-and-how-do-they-work.html">6.3 What are Recursive Language Models (RLMs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0604" data-module="6" aria-label="Mark How do Diffusion Language Models (DLMs) work? as read"></label><a href="../lessons/m06-l0604-how-do-diffusion-language-models-dlms-work.html">6.4 How do Diffusion Language Models (DLMs) work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0605" data-module="6" aria-label="Mark Jev and System One Models Explained as read"></label><a href="../lessons/m06-l0605-jev-and-system-one-models-explained.html">6.5 Jev and System One Models Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="7">
+<summary><span class="nav-module-title">7. Training, Fine-Tuning, and Alignment</span><span class="nav-count" data-nav-count="7">0/11</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0701" data-module="7" aria-label="Mark How does fine-tuning work? as read"></label><a href="../lessons/m07-l0701-how-does-fine-tuning-work.html">7.1 How does fine-tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0702" data-module="7" aria-label="Mark What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs? as read"></label><a href="../lessons/m07-l0702-what-is-lora-low-rank-adaptation-and-how-does-it-fine-tune-llms.html">7.2 What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0703" data-module="7" aria-label="Mark How does Prefix Tuning work? as read"></label><a href="../lessons/m07-l0703-how-does-prefix-tuning-work.html">7.3 How does Prefix Tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0704" data-module="7" aria-label="Mark How does Knowledge Distillation work? as read"></label><a href="../lessons/m07-l0704-how-does-knowledge-distillation-work.html">7.4 How does Knowledge Distillation work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0705" data-module="7" aria-label="Mark What is Continual Learning in LLMs? Solving Catastrophic Forgetting as read"></label><a href="../lessons/m07-l0705-what-is-continual-learning-in-llms-solving-catastrophic-forgetting.html">7.5 What is Continual Learning in LLMs? Solving Catastrophic Forgetting</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0706" data-module="7" aria-label="Mark What is Deep RL from Human Preferences? The Paper That Started RLHF as read"></label><a href="../lessons/m07-l0706-what-is-deep-rl-from-human-preferences-the-paper-that-started-rlhf.html">7.6 What is Deep RL from Human Preferences? The Paper That Started RLHF</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0707" data-module="7" aria-label="Mark What is InstructGPT? How GPT-3 Learned to Follow Instructions as read"></label><a href="../lessons/m07-l0707-what-is-instructgpt-how-gpt-3-learned-to-follow-instructions.html">7.7 What is InstructGPT? How GPT-3 Learned to Follow Instructions</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0708" data-module="7" aria-label="Mark What is RLHF? Reinforcement Learning from Human Feedback Explained as read"></label><a href="../lessons/m07-l0708-what-is-rlhf-reinforcement-learning-from-human-feedback-explained.html">7.8 What is RLHF? Reinforcement Learning from Human Feedback Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0709" data-module="7" aria-label="Mark What is Proximal Policy Optimization (PPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0709-what-is-proximal-policy-optimization-ppo-and-how-does-it-work.html">7.9 What is Proximal Policy Optimization (PPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0710" data-module="7" aria-label="Mark What is Direct Preference Optimization (DPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0710-what-is-direct-preference-optimization-dpo-and-how-does-it-work.html">7.10 What is Direct Preference Optimization (DPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0711" data-module="7" aria-label="Mark What is Group Relative Policy Optimization (GRPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0711-what-is-group-relative-policy-optimization-grpo-and-how-does-it-work.html">7.11 What is Group Relative Policy Optimization (GRPO) and How Does It Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="8">
+<summary><span class="nav-module-title">8. Prompt Engineering and Context Engineering</span><span class="nav-count" data-nav-count="8">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0801" data-module="8" aria-label="Mark How does Chain-of-Thought (CoT) Prompting work? as read"></label><a href="../lessons/m08-l0801-how-does-chain-of-thought-cot-prompting-work.html">8.1 How does Chain-of-Thought (CoT) Prompting work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0802" data-module="8" aria-label="Mark How does Tree of Thoughts work? as read"></label><a href="../lessons/m08-l0802-how-does-tree-of-thoughts-work.html">8.2 How does Tree of Thoughts work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0803" data-module="8" aria-label="Mark How does Prompt Chaining work? as read"></label><a href="../lessons/m08-l0803-how-does-prompt-chaining-work.html">8.3 How does Prompt Chaining work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0804" data-module="8" aria-label="Mark How does Prompt Caching work? as read"></label><a href="../lessons/m08-l0804-how-does-prompt-caching-work.html">8.4 How does Prompt Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0805" data-module="8" aria-label="Mark What is Context Engineering? as read"></label><a href="../lessons/m08-l0805-what-is-context-engineering.html">8.5 What is Context Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0806" data-module="8" aria-label="Mark How does context compaction work? as read"></label><a href="../lessons/m08-l0806-how-does-context-compaction-work.html">8.6 How does context compaction work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="9">
+<summary><span class="nav-module-title">9. Vector Search and Retrieval-Augmented Generation (RAG)</span><span class="nav-count" data-nav-count="9">0/15</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0901" data-module="9" aria-label="Mark How does a Vector Database work? as read"></label><a href="../lessons/m09-l0901-how-does-a-vector-database-work.html">9.1 How does a Vector Database work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0902" data-module="9" aria-label="Mark How does Approximate Nearest Neighbor (ANN) search work? as read"></label><a href="../lessons/m09-l0902-how-does-approximate-nearest-neighbor-ann-search-work.html">9.2 How does Approximate Nearest Neighbor (ANN) search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0903" data-module="9" aria-label="Mark How does Semantic Search work? as read"></label><a href="../lessons/m09-l0903-how-does-semantic-search-work.html">9.3 How does Semantic Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0904" data-module="9" aria-label="Mark How does Hybrid Search work? as read"></label><a href="../lessons/m09-l0904-how-does-hybrid-search-work.html">9.4 How does Hybrid Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0905" data-module="9" aria-label="Mark How does a Reranker work? as read"></label><a href="../lessons/m09-l0905-how-does-a-reranker-work.html">9.5 How does a Reranker work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0906" data-module="9" aria-label="Mark What is ColBERT? Late Interaction Retrieval Explained as read"></label><a href="../lessons/m09-l0906-what-is-colbert-late-interaction-retrieval-explained.html">9.6 What is ColBERT? Late Interaction Retrieval Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0907" data-module="9" aria-label="Mark How to Chunk Documents for RAG? Chunking Strategies Explained as read"></label><a href="../lessons/m09-l0907-how-to-chunk-documents-for-rag-chunking-strategies-explained.html">9.7 How to Chunk Documents for RAG? Chunking Strategies Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0908" data-module="9" aria-label="Mark How does Contextual Retrieval work? as read"></label><a href="../lessons/m09-l0908-how-does-contextual-retrieval-work.html">9.8 How does Contextual Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0909" data-module="9" aria-label="Mark How does HyDE work in RAG? as read"></label><a href="../lessons/m09-l0909-how-does-hyde-work-in-rag.html">9.9 How does HyDE work in RAG?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0910" data-module="9" aria-label="Mark How do Query Rewriting and Multi-Query Retrieval work? as read"></label><a href="../lessons/m09-l0910-how-do-query-rewriting-and-multi-query-retrieval-work.html">9.10 How do Query Rewriting and Multi-Query Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0911" data-module="9" aria-label="Mark How does an Embedding Cache work? as read"></label><a href="../lessons/m09-l0911-how-does-an-embedding-cache-work.html">9.11 How does an Embedding Cache work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0912" data-module="9" aria-label="Mark How does Semantic Caching work? as read"></label><a href="../lessons/m09-l0912-how-does-semantic-caching-work.html">9.12 How does Semantic Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0913" data-module="9" aria-label="Mark What is Agentic RAG? How It Works and When to Use It as read"></label><a href="../lessons/m09-l0913-what-is-agentic-rag-how-it-works-and-when-to-use-it.html">9.13 What is Agentic RAG? How It Works and When to Use It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0914" data-module="9" aria-label="Mark What is GraphRAG? How Knowledge Graphs Improve RAG as read"></label><a href="../lessons/m09-l0914-what-is-graphrag-how-knowledge-graphs-improve-rag.html">9.14 What is GraphRAG? How Knowledge Graphs Improve RAG</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0915" data-module="9" aria-label="Mark What is Vectorless RAG? RAG Without Embeddings or a Vector Database as read"></label><a href="../lessons/m09-l0915-what-is-vectorless-rag-rag-without-embeddings-or-a-vector-database.html">9.15 What is Vectorless RAG? RAG Without Embeddings or a Vector Database</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="10">
+<summary><span class="nav-module-title">10. AI Agents and Agentic Systems</span><span class="nav-count" data-nav-count="10">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1001" data-module="10" aria-label="Mark What is an AI Agent? How It Works as read"></label><a href="../lessons/m10-l1001-what-is-an-ai-agent-how-it-works.html">10.1 What is an AI Agent? How It Works</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1002" data-module="10" aria-label="Mark How does Function Calling work in LLMs? as read"></label><a href="../lessons/m10-l1002-how-does-function-calling-work-in-llms.html">10.2 How does Function Calling work in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1003" data-module="10" aria-label="Mark What is an AI Agent Loop? as read"></label><a href="../lessons/m10-l1003-what-is-an-ai-agent-loop.html">10.3 What is an AI Agent Loop?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1004" data-module="10" aria-label="Mark What is a ReAct Agent? How It Thinks and Acts, Explained as read"></label><a href="../lessons/m10-l1004-what-is-a-react-agent-how-it-thinks-and-acts-explained.html">10.4 What is a ReAct Agent? How It Thinks and Acts, Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1005" data-module="10" aria-label="Mark What is a Plan-and-Execute Agent and How Does It Work? as read"></label><a href="../lessons/m10-l1005-what-is-a-plan-and-execute-agent-and-how-does-it-work.html">10.5 What is a Plan-and-Execute Agent and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1006" data-module="10" aria-label="Mark What is a Reflection Agent? How It Generates, Critiques, and Revises as read"></label><a href="../lessons/m10-l1006-what-is-a-reflection-agent-how-it-generates-critiques-and-revises.html">10.6 What is a Reflection Agent? How It Generates, Critiques, and Revises</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1007" data-module="10" aria-label="Mark How Does AI Agent Memory Work? The Memory Stack Explained as read"></label><a href="../lessons/m10-l1007-how-does-ai-agent-memory-work-the-memory-stack-explained.html">10.7 How Does AI Agent Memory Work? The Memory Stack Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1008" data-module="10" aria-label="Mark How does ChatGPT remember you? as read"></label><a href="../lessons/m10-l1008-how-does-chatgpt-remember-you.html">10.8 How does ChatGPT remember you?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1009" data-module="10" aria-label="Mark What is MCP (Model Context Protocol)? as read"></label><a href="../lessons/m10-l1009-what-is-mcp-model-context-protocol.html">10.9 What is MCP (Model Context Protocol)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1010" data-module="10" aria-label="Mark What are Agent Skills? as read"></label><a href="../lessons/m10-l1010-what-are-agent-skills.html">10.10 What are Agent Skills?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1011" data-module="10" aria-label="Mark What is OKF (Open Knowledge Format)? as read"></label><a href="../lessons/m10-l1011-what-is-okf-open-knowledge-format.html">10.11 What is OKF (Open Knowledge Format)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1012" data-module="10" aria-label="Mark What are Multi-Agent Systems and When Should We Use Them? as read"></label><a href="../lessons/m10-l1012-what-are-multi-agent-systems-and-when-should-we-use-them.html">10.12 What are Multi-Agent Systems and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1013" data-module="10" aria-label="Mark What are AI SubAgents? Why We Need Them and How They Work as read"></label><a href="../lessons/m10-l1013-what-are-ai-subagents-why-we-need-them-and-how-they-work.html">10.13 What are AI SubAgents? Why We Need Them and How They Work</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1014" data-module="10" aria-label="Mark How AI Agents Communicate as read"></label><a href="../lessons/m10-l1014-how-ai-agents-communicate.html">10.14 How AI Agents Communicate</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1015" data-module="10" aria-label="Mark What is AI Orchestration? How It Works and the Common Patterns as read"></label><a href="../lessons/m10-l1015-what-is-ai-orchestration-how-it-works-and-the-common-patterns.html">10.15 What is AI Orchestration? How It Works and the Common Patterns</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1016" data-module="10" aria-label="Mark What is Sakana Fugu? The Technical Report Explained as read"></label><a href="../lessons/m10-l1016-what-is-sakana-fugu-the-technical-report-explained.html">10.16 What is Sakana Fugu? The Technical Report Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1017" data-module="10" aria-label="Mark How do Computer-Use Agents work? as read"></label><a href="../lessons/m10-l1017-how-do-computer-use-agents-work.html">10.17 How do Computer-Use Agents work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1018" data-module="10" aria-label="Mark How do Browser Agents work? as read"></label><a href="../lessons/m10-l1018-how-do-browser-agents-work.html">10.18 How do Browser Agents work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="11">
+<summary><span class="nav-module-title">11. Agentic Engineering and Agent Frameworks</span><span class="nav-count" data-nav-count="11">0/8</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1101" data-module="11" aria-label="Mark What is Harness Engineering? as read"></label><a href="../lessons/m11-l1101-what-is-harness-engineering.html">11.1 What is Harness Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1102" data-module="11" aria-label="Mark What is Loop Engineering? as read"></label><a href="../lessons/m11-l1102-what-is-loop-engineering.html">11.2 What is Loop Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1103" data-module="11" aria-label="Mark What is Graph Engineering? as read"></label><a href="../lessons/m11-l1103-what-is-graph-engineering.html">11.3 What is Graph Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1104" data-module="11" aria-label="Mark AI Is Only as Good as Our Definition of Done as read"></label><a href="../lessons/m11-l1104-ai-is-only-as-good-as-our-definition-of-done.html">11.4 AI Is Only as Good as Our Definition of Done</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1105" data-module="11" aria-label="Mark How does LangChain work? as read"></label><a href="../lessons/m11-l1105-how-does-langchain-work.html">11.5 How does LangChain work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1106" data-module="11" aria-label="Mark How does LangGraph work? as read"></label><a href="../lessons/m11-l1106-how-does-langgraph-work.html">11.6 How does LangGraph work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1107" data-module="11" aria-label="Mark How does Claude Code work? as read"></label><a href="../lessons/m11-l1107-how-does-claude-code-work.html">11.7 How does Claude Code work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1108" data-module="11" aria-label="Mark How does Cursor work? as read"></label><a href="../lessons/m11-l1108-how-does-cursor-work.html">11.8 How does Cursor work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="12" open>
+<summary><span class="nav-module-title">12. LLM Inference Engineering</span><span class="nav-count" data-nav-count="12">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1201" data-module="12" aria-label="Mark LLM Inference Optimization as read"></label><a href="../lessons/m12-l1201-llm-inference-optimization.html">12.1 LLM Inference Optimization</a></li>
+<li class="nav-lesson active"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1202" data-module="12" aria-label="Mark Prefill vs Decode: LLM Inference Optimization as read"></label><a href="../lessons/m12-l1202-prefill-vs-decode-llm-inference-optimization.html">12.2 Prefill vs Decode: LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1203" data-module="12" aria-label="Mark What is Prefill-Decode Disaggregation in LLM Inference? as read"></label><a href="../lessons/m12-l1203-what-is-prefill-decode-disaggregation-in-llm-inference.html">12.3 What is Prefill-Decode Disaggregation in LLM Inference?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1204" data-module="12" aria-label="Mark KV Cache in LLMs as read"></label><a href="../lessons/m12-l1204-kv-cache-in-llms.html">12.4 KV Cache in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1205" data-module="12" aria-label="Mark What is KV Cache Compression? as read"></label><a href="../lessons/m12-l1205-what-is-kv-cache-compression.html">12.5 What is KV Cache Compression?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1206" data-module="12" aria-label="Mark What is Paged Attention in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1206-what-is-paged-attention-in-llms-and-how-does-it-work.html">12.6 What is Paged Attention in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1207" data-module="12" aria-label="Mark What is Continuous Batching in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1207-what-is-continuous-batching-in-llms-and-how-does-it-work.html">12.7 What is Continuous Batching in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1208" data-module="12" aria-label="Mark What is Speculative Decoding and How Does It Make LLMs Faster? as read"></label><a href="../lessons/m12-l1208-what-is-speculative-decoding-and-how-does-it-make-llms-faster.html">12.8 What is Speculative Decoding and How Does It Make LLMs Faster?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1209" data-module="12" aria-label="Mark What is N-gram Speculation in LLMs and How Does It Speed Up Generation? as read"></label><a href="../lessons/m12-l1209-what-is-n-gram-speculation-in-llms-and-how-does-it-speed-up-generation.html">12.9 What is N-gram Speculation in LLMs and How Does It Speed Up Generation?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1210" data-module="12" aria-label="Mark What is Medusa? Multi-Head Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1210-what-is-medusa-multi-head-speculative-decoding-explained.html">12.10 What is Medusa? Multi-Head Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1211" data-module="12" aria-label="Mark What is EAGLE? Feature-Level Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1211-what-is-eagle-feature-level-speculative-decoding-explained.html">12.11 What is EAGLE? Feature-Level Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1212" data-module="12" aria-label="Mark How does Model Quantization work? as read"></label><a href="../lessons/m12-l1212-how-does-model-quantization-work.html">12.12 How does Model Quantization work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1213" data-module="12" aria-label="Mark How does GGUF work? as read"></label><a href="../lessons/m12-l1213-how-does-gguf-work.html">12.13 How does GGUF work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1214" data-module="12" aria-label="Mark How does llama.cpp run LLMs on everyday hardware? as read"></label><a href="../lessons/m12-l1214-how-does-llama-cpp-run-llms-on-everyday-hardware.html">12.14 How does llama.cpp run LLMs on everyday hardware?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1215" data-module="12" aria-label="Mark How does Ollama work? as read"></label><a href="../lessons/m12-l1215-how-does-ollama-work.html">12.15 How does Ollama work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1216" data-module="12" aria-label="Mark How does vLLM work? as read"></label><a href="../lessons/m12-l1216-how-does-vllm-work.html">12.16 How does vLLM work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1217" data-module="12" aria-label="Mark How does SGLang work? as read"></label><a href="../lessons/m12-l1217-how-does-sglang-work.html">12.17 How does SGLang work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1218" data-module="12" aria-label="Mark How does TensorRT-LLM work? as read"></label><a href="../lessons/m12-l1218-how-does-tensorrt-llm-work.html">12.18 How does TensorRT-LLM work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="13">
+<summary><span class="nav-module-title">13. Evaluation and Observability</span><span class="nav-count" data-nav-count="13">0/4</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1301" data-module="13" aria-label="Mark What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained as read"></label><a href="../lessons/m13-l1301-what-is-llm-evaluation-metrics-benchmarks-and-methods-explained.html">13.1 What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1302" data-module="13" aria-label="Mark What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs as read"></label><a href="../lessons/m13-l1302-what-is-llm-as-a-judge-how-to-use-an-llm-to-evaluate-llm-outputs.html">13.2 What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1303" data-module="13" aria-label="Mark How to Evaluate AI Agents? Metrics, Methods, and Best Practices as read"></label><a href="../lessons/m13-l1303-how-to-evaluate-ai-agents-metrics-methods-and-best-practices.html">13.3 How to Evaluate AI Agents? Metrics, Methods, and Best Practices</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1304" data-module="13" aria-label="Mark What is AI Agent Observability? Traces, Spans, and Metrics Explained as read"></label><a href="../lessons/m13-l1304-what-is-ai-agent-observability-traces-spans-and-metrics-explained.html">13.4 What is AI Agent Observability? Traces, Spans, and Metrics Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="14">
+<summary><span class="nav-module-title">14. AI Safety and Security</span><span class="nav-count" data-nav-count="14">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1401" data-module="14" aria-label="Mark How do LLM guardrails work? as read"></label><a href="../lessons/m14-l1401-how-do-llm-guardrails-work.html">14.1 How do LLM guardrails work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1402" data-module="14" aria-label="Mark What is Prompt Injection in LLMs and How Do We Defend Against It? as read"></label><a href="../lessons/m14-l1402-what-is-prompt-injection-in-llms-and-how-do-we-defend-against-it.html">14.2 What is Prompt Injection in LLMs and How Do We Defend Against It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1403" data-module="14" aria-label="Mark How Does LLM Watermarking Work? as read"></label><a href="../lessons/m14-l1403-how-does-llm-watermarking-work.html">14.3 How Does LLM Watermarking Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="15">
+<summary><span class="nav-module-title">15. Multimodal AI and Generative Models</span><span class="nav-count" data-nav-count="15">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1501" data-module="15" aria-label="Mark What is Multimodal AI? How It Works and Where It Is Used as read"></label><a href="../lessons/m15-l1501-what-is-multimodal-ai-how-it-works-and-where-it-is-used.html">15.1 What is Multimodal AI? How It Works and Where It Is Used</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1502" data-module="15" aria-label="Mark What is a Vision Transformer (ViT) and How Does It Work? as read"></label><a href="../lessons/m15-l1502-what-is-a-vision-transformer-vit-and-how-does-it-work.html">15.2 What is a Vision Transformer (ViT) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1503" data-module="15" aria-label="Mark How do Image Embeddings work? as read"></label><a href="../lessons/m15-l1503-how-do-image-embeddings-work.html">15.3 How do Image Embeddings work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1504" data-module="15" aria-label="Mark What are Diffusion Models and How Do They Generate Images? as read"></label><a href="../lessons/m15-l1504-what-are-diffusion-models-and-how-do-they-generate-images.html">15.4 What are Diffusion Models and How Do They Generate Images?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1505" data-module="15" aria-label="Mark What are Generative Adversarial Networks (GANs) and How Do They Work? as read"></label><a href="../lessons/m15-l1505-what-are-generative-adversarial-networks-gans-and-how-do-they-work.html">15.5 What are Generative Adversarial Networks (GANs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1506" data-module="15" aria-label="Mark What are Variational Autoencoders (VAEs) and How Do They Work? as read"></label><a href="../lessons/m15-l1506-what-are-variational-autoencoders-vaes-and-how-do-they-work.html">15.6 What are Variational Autoencoders (VAEs) and How Do They Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="16">
+<summary><span class="nav-module-title">16. AI Infrastructure, Deployment, and System Design</span><span class="nav-count" data-nav-count="16">0/17</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1601" data-module="16" aria-label="Mark How does a GPU work for Deep Learning? as read"></label><a href="../lessons/m16-l1601-how-does-a-gpu-work-for-deep-learning.html">16.1 How does a GPU work for Deep Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1602" data-module="16" aria-label="Mark How do CUDA Kernels work? as read"></label><a href="../lessons/m16-l1602-how-do-cuda-kernels-work.html">16.2 How do CUDA Kernels work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1603" data-module="16" aria-label="Mark How does a Google TPU work? as read"></label><a href="../lessons/m16-l1603-how-does-a-google-tpu-work.html">16.3 How does a Google TPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1604" data-module="16" aria-label="Mark How does an LPU work? as read"></label><a href="../lessons/m16-l1604-how-does-an-lpu-work.html">16.4 How does an LPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1605" data-module="16" aria-label="Mark Cloud vs On-device Model Deployment as read"></label><a href="../lessons/m16-l1605-cloud-vs-on-device-model-deployment.html">16.5 Cloud vs On-device Model Deployment</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1606" data-module="16" aria-label="Mark Android TensorFlow Lite Machine Learning Example as read"></label><a href="../lessons/m16-l1606-android-tensorflow-lite-machine-learning-example.html">16.6 Android TensorFlow Lite Machine Learning Example</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1607" data-module="16" aria-label="Mark What is LLM Routing? How to Send Each Query to the Right LLM as read"></label><a href="../lessons/m16-l1607-what-is-llm-routing-how-to-send-each-query-to-the-right-llm.html">16.7 What is LLM Routing? How to Send Each Query to the Right LLM</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1608" data-module="16" aria-label="Mark Design a Real-Time Voice AI Agent as read"></label><a href="../lessons/m16-l1608-design-a-real-time-voice-ai-agent.html">16.8 Design a Real-Time Voice AI Agent</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1609" data-module="16" aria-label="Mark What is turn-taking in a voice AI agent? as read"></label><a href="../lessons/m16-l1609-what-is-turn-taking-in-a-voice-ai-agent.html">16.9 What is turn-taking in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1610" data-module="16" aria-label="Mark What is barge-in in a voice AI agent? as read"></label><a href="../lessons/m16-l1610-what-is-barge-in-in-a-voice-ai-agent.html">16.10 What is barge-in in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1611" data-module="16" aria-label="Mark Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture? as read"></label><a href="../lessons/m16-l1611-cascaded-vs-speech-to-speech-how-to-choose-the-right-voice-agent-architecture.html">16.11 Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1612" data-module="16" aria-label="Mark How do you build a latency budget for a voice AI agent? as read"></label><a href="../lessons/m16-l1612-how-do-you-build-a-latency-budget-for-a-voice-ai-agent.html">16.12 How do you build a latency budget for a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1613" data-module="16" aria-label="Mark How does the voice-to-voice latency of a voice agent get measured? as read"></label><a href="../lessons/m16-l1613-how-does-the-voice-to-voice-latency-of-a-voice-agent-get-measured.html">16.13 How does the voice-to-voice latency of a voice agent get measured?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1614" data-module="16" aria-label="Mark Why does the time-to-first-audio matter more than total response time? as read"></label><a href="../lessons/m16-l1614-why-does-the-time-to-first-audio-matter-more-than-total-response-time.html">16.14 Why does the time-to-first-audio matter more than total response time?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1615" data-module="16" aria-label="Mark What is System Design? as read"></label><a href="../lessons/m16-l1615-what-is-system-design.html">16.15 What is System Design?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1616" data-module="16" aria-label="Mark HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events as read"></label><a href="../lessons/m16-l1616-http-request-vs-http-long-polling-vs-websocket-vs-server-sent-events.html">16.16 HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1617" data-module="16" aria-label="Mark How do Voice And Video Call Work? as read"></label><a href="../lessons/m16-l1617-how-do-voice-and-video-call-work.html">16.17 How do Voice And Video Call Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="17">
+<summary><span class="nav-module-title">17. Frontier Ideas in AI</span><span class="nav-count" data-nav-count="17">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1701" data-module="17" aria-label="Mark What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work? as read"></label><a href="../lessons/m17-l1701-what-is-joint-embedding-predictive-architecture-jepa-and-how-does-it-work.html">17.1 What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1702" data-module="17" aria-label="Mark How do World Models work? as read"></label><a href="../lessons/m17-l1702-how-do-world-models-work.html">17.2 How do World Models work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1703" data-module="17" aria-label="Mark What is Recursive Self-Improvement (RSI)? as read"></label><a href="../lessons/m17-l1703-what-is-recursive-self-improvement-rsi.html">17.3 What is Recursive Self-Improvement (RSI)?</a></li>
+</ul>
+</details>
+<a class="nav-module-single" href="../modules/m18.html">18. Prepare for AI Engineering Interviews</a>
+</nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="content-wrap">
+    <main class="content" id="content">
+      
+<article>
+  <header class="lesson-header">
+    <p class="breadcrumb">
+      <a href="../index.html">Course</a> /
+      <a href="../modules/m12.html">Module 12</a> /
+      Lesson 12.2
+    </p>
+    <h1>Prefill vs Decode: LLM Inference Optimization</h1>
+    <div class="lesson-meta">
+      <span>Lesson 12.2 · ~34 min · Published July 5, 2026</span>
+      <a href="https://outcomeschool.com/blog/prefill-vs-decode-llm-inference-optimization" target="_blank" rel="noopener noreferrer">Original article</a>
+    </div>
+    <div class="lesson-tags"><span class="tag">llm</span> <span class="tag">ai</span> <span class="tag">system-design</span></div>
+    <label class="read-toggle">
+      <input type="checkbox" data-lesson="m12-l1202" data-module="12">
+      Mark as read
+    </label>
+    <div class="video-links"><strong>Videos:</strong> <a href="https://www.youtube.com/watch?v=XD8DD4cEHu0" target="_blank" rel="noopener noreferrer">The First-Token Latency Problem in LLMs</a></div>
+  </header>
+  <details class="toc">
+<summary>On this page</summary>
+<ul>
+<li><a href="#what-is-llm-inference">What is LLM inference?</a>
+</li>
+<li><a href="#the-two-phases-prefill-and-decode">The two phases: Prefill and Decode</a>
+</li>
+<li><a href="#prefill-explained-in-simple-words">Prefill explained in simple words</a>
+</li>
+<li><a href="#decode-explained-in-simple-words">Decode explained in simple words</a>
+</li>
+<li><a href="#a-diagram-of-the-two-phases-and-the-kv-cache-flow">A diagram of the two phases and the KV cache flow</a>
+</li>
+<li><a href="#the-kv-cache-as-the-bridge-between-the-two-phases">The KV cache as the bridge between the two phases</a>
+</li>
+<li><a href="#prefill-vs-decode-comparison-table">Prefill vs Decode comparison table</a>
+</li>
+<li><a href="#why-this-split-matters-compute-bound-vs-memory-bound">Why this split matters: compute-bound vs memory-bound</a>
+</li>
+<li><a href="#the-key-metrics-ttft-tpot-throughput-and-end-to-end-latency">The key metrics: TTFT, TPOT, throughput, and end-to-end latency</a>
+</li>
+<li><a href="#optimization-techniques-mapped-to-each-phase">Optimization techniques mapped to each phase</a>
+<ul>
+<li><a href="#kv-cache-the-foundation-targets-decode">KV cache (the foundation, targets decode)</a></li>
+<li><a href="#continuous-batching-targets-throughput">Continuous batching (targets throughput)</a></li>
+<li><a href="#chunked-prefill-targets-smooth-streaming-for-other-users">Chunked prefill (targets smooth streaming for other users)</a></li>
+<li><a href="#prefix-caching-also-called-prompt-caching-targets-prefill-and-ttft">Prefix caching, also called prompt caching (targets prefill and TTFT)</a></li>
+<li><a href="#disaggregated-serving-also-called-prefill-decode-separation-targets-both-ttft-an">Disaggregated serving, also called prefill-decode separation (targets both TTFT and TPOT)</a></li>
+<li><a href="#speculative-decoding-targets-decode-and-tpot">Speculative decoding (targets decode and TPOT)</a></li>
+<li><a href="#pagedattention-targets-kv-cache-memory-efficiency">PagedAttention (targets KV cache memory efficiency)</a></li>
+<li><a href="#a-quick-map-of-which-technique-helps-which-phase">A quick map of which technique helps which phase</a></li>
+</ul>
+</li>
+<li><a href="#conclusion">Conclusion</a>
+</li>
+<li><a href="#frequently-asked-questions">Frequently Asked Questions</a>
+<ul>
+<li><a href="#do-prefill-and-decode-use-different-models">Do prefill and decode use different models?</a></li>
+<li><a href="#why-does-decode-take-most-of-the-total-response-time">Why does decode take most of the total response time?</a></li>
+<li><a href="#does-the-kv-cache-store-the-queries-too">Does the KV cache store the Queries too?</a></li>
+<li><a href="#does-speculative-decoding-reduce-the-quality-of-the-output">Does speculative decoding reduce the quality of the output?</a></li>
+<li><a href="#does-chunked-prefill-make-prefill-faster">Does chunked prefill make prefill faster?</a></li>
+</ul>
+</li>
+</ul>
+</details>
+  <p><img alt="Prefill vs Decode: LLM Inference Optimization" decoding="async" loading="lazy" src="../assets/images/12-12-02-prefill-vs-decode-llm-inference-optimization/prefill-vs-decode-llm-inference-optimization.png"/></p>
+<p>Prefill and Decode are the two phases of LLM inference. Prefill reads the entire prompt in one single pass and produces the first token, whereas Decode generates the rest of the tokens one at a time, reusing the KV cache that prefill prepared.</p>
+<p>In this blog, we will learn about Prefill vs Decode, the two phases of LLM inference, and how understanding them helps us optimize the speed of an LLM. We will also see how the prefill and decode phases work, how the KV cache connects them, how they differ and when to use which one based on our use case, and how we optimize each phase to make an LLM faster.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is LLM inference?</li>
+<li>The two phases: Prefill and Decode</li>
+<li>Prefill explained in simple words</li>
+<li>Decode explained in simple words</li>
+<li>A diagram of the two phases and the KV cache flow</li>
+<li>The KV cache as the bridge between the two phases</li>
+<li>A step-by-step walkthrough of a few decode steps</li>
+<li>Prefill vs Decode comparison table</li>
+<li>Why this split matters: compute-bound vs memory-bound</li>
+<li>The key metrics: TTFT, TPOT, throughput, and end-to-end latency</li>
+<li>Optimization techniques mapped to each phase</li>
+<li>Conclusion</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="what-is-llm-inference">What is LLM inference? <a aria-hidden="true" class="anchor" href="#what-is-llm-inference">#</a></h2>
+<p>Before we learn about prefill and decode, we must understand what LLM inference means.</p>
+<p>An <strong>LLM</strong> is a Large Language Model. It is the model that powers chat assistants like the ones we use every day.</p>
+<p><strong>Inference</strong> is the act of using a trained model to produce an answer. In simple words, inference is the model actually doing its job, which means reading your question and writing back a reply.</p>
+<p>Here is the most important thing to understand. An LLM does not write out the whole answer at once. It writes the answer one small piece at a time. Each small piece is called a <strong>token</strong>. A token is a small chunk of text, like a word or a part of a word.</p>
+<p>So, the model generates one token, then the next token, then the next, until the full answer is complete. This is why, when you use a chat assistant, you can see the words appear one after another like someone typing. This live, token-by-token appearance is called <a href="https://outcomeschool.com/blog/how-does-token-streaming-work" rel="noopener noreferrer" target="_blank"><strong>streaming</strong></a>.</p>
+<p>To get a feel for scale, a short sentence is roughly 15 to 20 tokens. So, a 1,000 token prompt is about a page of text, and a 200 token answer is a few sentences.</p>
+<p>A <strong>request</strong> is simply one user's question sent to the model. When we say the server handles many requests, we mean it answers many users' questions.</p>
+<p>Now, we have understood what LLM inference is. It is the model generating text token by token.</p>
+<h2 id="the-two-phases-prefill-and-decode">The two phases: Prefill and Decode <a aria-hidden="true" class="anchor" href="#the-two-phases-prefill-and-decode">#</a></h2>
+<p>Every time an LLM answers a request, it goes through two distinct phases.</p>
+<ul>
+<li><strong>Prefill</strong> is the first phase. It reads and processes the whole input prompt that you sent.</li>
+<li><strong>Decode</strong> is the second phase. It generates the output tokens one at a time.</li>
+</ul>
+<p>In simple words, prefill is the model reading your question, and decode is the model writing the answer.</p>
+<p>Both phases use the exact same model. They do not use different models or different weights. The <strong>weights</strong> are the millions of numbers the model learned during training. They are what the model "knows", and there are so many of them that they take up a large part of the GPU's memory. We will use this fact soon. Only the way the two phases work is different, and that small difference changes everything, as we will see.</p>
+<p>Let's understand each phase deeply.</p>
+<h2 id="prefill-explained-in-simple-words">Prefill explained in simple words <a aria-hidden="true" class="anchor" href="#prefill-explained-in-simple-words">#</a></h2>
+<p><strong>Prefill is the phase where the model reads and processes your entire input prompt in one single pass and produces the very first output token.</strong></p>
+<p>The best way to learn this is by taking an example.</p>
+<p>Suppose you paste a question that is 1,000 tokens long. In the prefill phase, the model does not read these 1,000 tokens one by one. It reads all 1,000 tokens together, at the same time.</p>
+<p>Let's say a student walks into an exam hall. Before writing anything, the student silently reads the entire question paper. The student scans every question at once and jots down quick notes about what matters. This reading-the-whole-paper part is prefill.</p>
+<p>Because the whole prompt is already known up front, there is no need to wait. The model can process every input token at the same time. This is called <strong>parallel processing</strong>. Means, many things happen together instead of one after another.</p>
+<p>While reading the prompt, the model also prepares some notes for later. For every input token, it computes and stores two special pieces of data, called the <strong>Key (K)</strong> and the <strong>Value (V)</strong>. All of these stored Keys and Values together form the <a href="https://outcomeschool.com/blog/kv-cache-in-llms" rel="noopener noreferrer" target="_blank"><strong>KV cache</strong></a>. Do not worry about what exactly Key and Value mean right now. For now, just understand that the KV cache is the model's memory of your prompt. We will learn about it in detail soon.</p>
+<p>So, prefill fills up this KV cache with the model's notes about every input token. And at the end of prefill, the model produces the very first output token.</p>
+<p>Here is a very important point. <strong>Prefill produces only the first output token, not the whole answer.</strong> All the remaining tokens come later, in the decode phase.</p>
+<p><strong>Prefill is compute-bound.</strong> The compute-bound means the speed is held back by the math, nothing else. A <a href="https://outcomeschool.com/blog/how-does-a-gpu-work-for-deep-learning" rel="noopener noreferrer" target="_blank"><strong>GPU</strong></a> is the powerful chip that runs the model. Inside the GPU there are <strong>math units</strong>, which are the parts that actually do the multiplication. During prefill, these math units are kept very busy doing heavy math. On a high-end GPU, the math units can stay highly used during prefill, often approaching 90 percent or more on large prompts. The GPU is well used.</p>
+<p>Why is prefill so heavy on math? Because when many tokens are processed together, the work becomes very large multiplication of big tables of numbers. A big table of numbers like this is called a matrix, and multiplying two big tables together is exactly what GPUs are built for. So, the GPU runs near its full power.</p>
+<p>There is one more thing to know. Longer prompts mean longer prefill. A short question feels almost instant. But if we paste a huge document in front of the model, prefill takes longer, and we wait longer before the first word appears.</p>
+<p>In fact, part of the prefill work grows even faster than the prompt length. Inside the model there is a step, called <a href="https://outcomeschool.com/blog/self-attention-in-transformers" rel="noopener noreferrer" target="_blank"><strong>attention</strong></a>, where every token must look at every other token to understand the context. So, doubling the prompt roughly quadruples this part of the work. For a concrete number, doubling the prompt from 100 to 200 tokens makes this part of the work about 4 times bigger, not 2 times. Means, very long prompts can feel slow before the first word appears. Here is a simple picture. In a room of 10 people, everyone shaking hands with everyone is manageable. But in a room of 100 people, the number of handshakes explodes. The bigger the room, which means the longer the prompt, the much faster the work piles up.</p>
+<p>This wait before the first word is so important that it has its own name, which we will learn in the metrics section. For now, remember this simple line.</p>
+<blockquote>
+<p>Faster prefill means sooner you see the first token.</p>
+</blockquote>
+<p>Now, we have understood prefill. Let's move to decode.</p>
+<h2 id="decode-explained-in-simple-words">Decode explained in simple words <a aria-hidden="true" class="anchor" href="#decode-explained-in-simple-words">#</a></h2>
+<p><strong>Decode is the phase where the model generates the output tokens one at a time, reusing the KV cache that prefill prepared.</strong></p>
+<p>Let's continue our exam example. Reading the question paper was prefill. Now the student starts writing the answer, word by word. The student writes one word, thinks about it, then writes the next word, and so on. This slow, word-by-word writing is decode.</p>
+<p>In decode, the model generates only one new token per step. Then it feeds that token back into itself to help produce the next token. Because each new token depends on the token just produced, the tokens must come strictly one after another. This is called <a href="https://outcomeschool.com/blog/autoregressive-models" rel="noopener noreferrer" target="_blank"><strong>autoregressive</strong></a> generation. In simple words, the model keeps feeding its own output back as new input.</p>
+<p>So, decode is sequential. It cannot process all the output tokens at once the way prefill processes all the input tokens at once. Each token must wait for the one before it.</p>
+<p>Now, here is the clever part. At each decode step, the model does not re-read and re-process your whole prompt again. That would be very slow and wasteful. Instead, it reads the KV cache, which is the memory that prefill already prepared. It computes the Key and Value for just the one new token, reads all the older Keys and Values from the cache, produces the next token, and then appends the new token's Key and Value to the cache.</p>
+<p>So, at each decode step, the cache grows by exactly one entry.</p>
+<p><strong>Decode is memory-bandwidth-bound.</strong> This is the opposite of prefill. The speed of decode is held back by how fast data can be moved from the GPU's memory into its math units, not by the math itself.</p>
+<p>Let's understand why, one small step at a time.</p>
+<p>In decode, only one token is processed per step. So, instead of multiplying two big tables together like prefill does, decode multiplies the big table by a single thin row of numbers, which is the one new token. A single thin row like this is called a vector. So, the math for one token is tiny.</p>
+<p>But to produce even that one token, the GPU must still read the entire model's weights and the whole growing KV cache from its memory. Remember, the weights are huge, so this is a lot of data to move. <strong>Memory bandwidth</strong> is the speed at which data can be moved out of the GPU's memory. Here is the key fact to hold on to. Inside a GPU, doing the math is very fast, but fetching a large amount of data from its memory is comparatively slow.</p>
+<p>So, the GPU spends most of its time waiting for data to arrive, and its math units sit mostly idle. During decode, the math units of a high-end GPU can sit only around 20 to 40 percent busy for a single request.</p>
+<p>Here is a simple analogy. Think of a chef who must walk into a giant pantry, grab one ingredient, walk back, chop it, and repeat, one ingredient per trip. The walking back and forth (moving data from memory) takes far longer than the chopping (the tiny math). The knives (the GPU's math units) sit unused most of the time.</p>
+<p>So, prefill keeps the GPU busy with math, but decode keeps the GPU waiting on memory.</p>
+<p>Here is one more interesting point. For a typical request, prefill often finishes in a fraction of a second, but decode can run for several seconds, because it produces many tokens one after another. So, decode usually takes most of the total time, even though it uses only a small part of the GPU's math power. This is exactly why so many optimizations focus on the decode phase.</p>
+<p>Remember this simple line.</p>
+<blockquote>
+<p>Faster decode means faster you see the rest of the answer.</p>
+</blockquote>
+<p>Now, we have understood both prefill and decode. Let's visualize them together.</p>
+<h2 id="a-diagram-of-the-two-phases-and-the-kv-cache-flow">A diagram of the two phases and the KV cache flow <a aria-hidden="true" class="anchor" href="#a-diagram-of-the-two-phases-and-the-kv-cache-flow">#</a></h2>
+<p>Let's see a clean diagram of how a request flows through prefill and then decode.</p>
+<pre><code>INPUT PROMPT (for example, 1,000 tokens)
+        |
+        v
++-----------------------------+
+|   PREFILL  (one big step)   |
+|  - reads ALL input tokens   |
+|    in parallel              |
+|  - writes the KV cache      |
+|  - GPU compute very busy    |
++-----------------------------+
+        |
+        | produces the FIRST output token
+        v
++-----------------------------+        +------------------+
+|   DECODE  (many small steps)| &lt;----&gt; |     KV CACHE     |
+|  - one token per step       |  read  |  (the memory of  |
+|  - reads the KV cache       |  and   |   all tokens so  |
+|  - appends one new entry    |  grow  |   far)           |
+|  - GPU mostly waits on      |        +------------------+
+|    memory                   |
++-----------------------------+
+        |
+        | token 2, token 3, token 4, ... token N
+        v
+   FULL ANSWER
+</code></pre>
+<p>Here, we can see the timeline clearly. There is exactly one prefill pass, and then there are many decode steps. If your answer is 200 tokens long, that is 1 prefill pass plus 200 sequential decode steps. The KV cache is written once by prefill, and then it is read and extended by every single decode step.</p>
+<p>This is how the two phases work together.</p>
+<h2 id="the-kv-cache-as-the-bridge-between-the-two-phases">The KV cache as the bridge between the two phases <a aria-hidden="true" class="anchor" href="#the-kv-cache-as-the-bridge-between-the-two-phases">#</a></h2>
+<p>The KV cache is the bridge that connects prefill and decode. So, we must understand it well.</p>
+<p>Let's understand the problem it solves first.</p>
+<p>Inside the model, to produce the next token, the model must look back at every previous token. For every token, the model computes three things: a <a href="https://outcomeschool.com/blog/math-behind-attention-qkv" rel="noopener noreferrer" target="_blank"><strong>Query (Q)</strong>, a <strong>Key (K)</strong>, and a <strong>Value (V)</strong></a>. The new token compares its Query against the Keys of all previous tokens, and then it mixes their Values to decide what to say next.</p>
+<p>Here is the key observation. A past token's Key and Value never change once they are computed. They do not depend on tokens that come after. So, instead of computing them again and again at every step, we can compute them once and store them. This store of Keys and Values is the KV cache.</p>
+<p><strong>The KV cache stores only the Keys and the Values of past tokens. It does not store the Queries.</strong> The Query is freshly computed for the current token at every step, so there is no need to store it.</p>
+<p>Now, let's see why this matters so much with a small numeric walkthrough. For the sake of understanding, think of one entry in the cache as one token's stored Key and Value.</p>
+<p>Suppose prefill has already processed a 3-token prompt. So, the KV cache already has 3 entries. Now decode begins.</p>
+<p><strong>Step 1:</strong> The model takes the first output token's input, computes its Key and Value, and reads the 3 cached entries to look back. It produces token 4. Then it appends token 4's Key and Value to the cache. The cache now has 4 entries.</p>
+<p><strong>Step 2:</strong> The model takes token 4, computes its Key and Value, and reads the 4 cached entries to look back. It produces token 5. Then it appends token 5's Key and Value to the cache. The cache now has 5 entries.</p>
+<p><strong>Step 3:</strong> The model takes token 5, computes its Key and Value, and reads the 5 cached entries to look back. It produces token 6. Then it appends token 6's Key and Value to the cache. The cache now has 6 entries.</p>
+<p>Let's visualize how the cache grows across these steps.</p>
+<pre><code>After prefill   |P1|P2|P3|           -&gt;  cache has 3 entries
+Decode step 1   |P1|P2|P3|T4|        -&gt;  append T4, now 4 entries
+Decode step 2   |P1|P2|P3|T4|T5|     -&gt;  append T5, now 5 entries
+Decode step 3   |P1|P2|P3|T4|T5|T6|  -&gt;  append T6, now 6 entries
+</code></pre>
+<p>Here, the boxes P1, P2, and P3 are the prompt tokens written by prefill, and T4, T5, and T6 are appended by decode, one box per step.</p>
+<p>Here, we can notice the pattern. At every step, the model computes the Key and Value for only one new token. It reads all the older Keys and Values from the cache instead of computing them again. And the cache grows by exactly one entry per step.</p>
+<p><strong>Note:</strong> Without the KV cache, every decode step would recompute the Keys and Values of all previous tokens from scratch. Since step N redoes the work for all N earlier tokens, the total work summed over the whole answer grows roughly with the square of the length, which is very slow. The KV cache reduces this so that each token's Key and Value is computed exactly once. This is why the KV cache is not just a small optimization. Without it, decode would be much slower.</p>
+<p>But there is a catch. The KV cache keeps growing. It starts at the size of the prompt after prefill, and it grows by one entry for every generated token. It also grows with the number of users being served together, because each user needs their own cache. In extreme cases, such as very long contexts combined with many concurrent users, the total KV cache can even exceed the size of the model weights and fill up the GPU's memory. This growing cache is the reason many of the optimizations we will see later exist. It is also why a whole family of <a href="https://outcomeschool.com/blog/kv-cache-compression" rel="noopener noreferrer" target="_blank">KV Cache Compression</a> techniques exists to shrink the cache itself.</p>
+<p>This is how the KV cache works as the bridge between prefill and decode.</p>
+<h2 id="prefill-vs-decode-comparison-table">Prefill vs Decode comparison table <a aria-hidden="true" class="anchor" href="#prefill-vs-decode-comparison-table">#</a></h2>
+<p>Let me tabulate the differences between Prefill and Decode for your better understanding.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Prefill</th>
+<th>Decode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What it does</td>
+<td>Processes the whole input prompt</td>
+<td>Generates output tokens one by one</td>
+</tr>
+<tr>
+<td>Parallelism</td>
+<td>Parallel (all prompt tokens at once)</td>
+<td>Sequential (one token at a time)</td>
+</tr>
+<tr>
+<td>Steps</td>
+<td>One big step</td>
+<td>Many small steps (N of them)</td>
+</tr>
+<tr>
+<td>Math shape</td>
+<td>Big table times big table</td>
+<td>Big table times a thin vector</td>
+</tr>
+<tr>
+<td>Bottleneck</td>
+<td>Compute-bound (limited by math speed)</td>
+<td>Memory-bandwidth-bound (limited by data movement)</td>
+</tr>
+<tr>
+<td>GPU utilization</td>
+<td>High (math units busy, can approach 90 percent or more)</td>
+<td>Low (math units mostly idle, around 20 to 40 percent)</td>
+</tr>
+<tr>
+<td>KV cache action</td>
+<td>Writes the cache</td>
+<td>Reads and extends the cache</td>
+</tr>
+<tr>
+<td>Latency metric</td>
+<td>Time To First Token (TTFT)</td>
+<td>Time Per Output Token (TPOT)</td>
+</tr>
+<tr>
+<td>Cost driver</td>
+<td>Grows with prompt length</td>
+<td>Streams full weights plus KV cache every step</td>
+</tr>
+</tbody>
+</table></div>
+<p>This table sums up the whole story. Prefill and decode are mirror images of each other.</p>
+<h2 id="why-this-split-matters-compute-bound-vs-memory-bound">Why this split matters: compute-bound vs memory-bound <a aria-hidden="true" class="anchor" href="#why-this-split-matters-compute-bound-vs-memory-bound">#</a></h2>
+<p>Now, the question is: why do we care so much about this split into two phases?</p>
+<p>The answer is that the two phases have opposite bottlenecks, and almost every optimization comes from this single fact. A <strong>bottleneck</strong> is the one slow part that holds back the whole process, like the narrow neck of a bottle that limits how fast water pours out.</p>
+<p><strong>Prefill is compute-bound.</strong> It does heavy math on many tokens at once, so it keeps the GPU's math units very busy. The work becomes large table-times-table multiplication, which GPUs love.</p>
+<p><strong>Decode is memory-bandwidth-bound.</strong> It does tiny math on one token, but it must stream the whole model plus the growing KV cache from memory at every step. So, the GPU spends most of its time waiting on memory, and the math units sit idle.</p>
+<p>Here is a simple way to remember the difference. Prefill is like a chef chopping a whole pile of vegetables at once, where the hands are fully busy. Decode is like plating one finished dish at a time while walking to the fridge for every single dish, where the trips to the fridge are the slow part, not the plating.</p>
+<p>Let's put the two phases side by side.</p>
+<pre><code>PREFILL (compute-bound)           DECODE (memory-bound)
+many tokens processed at once     one token processed at a time
+GPU math units: [#########-]      GPU math units: [##--------]
+  about 90% busy                    about 20 to 40% busy
+held back by: doing the MATH      held back by: MOVING DATA
+                                  (model weights + KV cache)
+</code></pre>
+<p>Here, we can see the mirror image clearly. Prefill keeps the math units almost full, while decode leaves them mostly idle and waits on memory instead.</p>
+<p>This single difference explains two big things.</p>
+<p>First, it explains why long prompts make us wait longer before the answer starts. Long prompts mean more prefill math.</p>
+<p>Second, it explains why we can serve many users at the same time during decode without much extra cost. Since one decode step barely uses the GPU's math, we can run many users' decode steps together. We will see this idea, called batching, in the optimization section.</p>
+<p>Because the two phases want different things from the hardware, some serving systems even run prefill and decode on separate GPUs. We will cover that too.</p>
+<h2 id="the-key-metrics-ttft-tpot-throughput-and-end-to-end-latency">The key metrics: TTFT, TPOT, throughput, and end-to-end latency <a aria-hidden="true" class="anchor" href="#the-key-metrics-ttft-tpot-throughput-and-end-to-end-latency">#</a></h2>
+<p>To optimize anything, we must first measure it. There are a few key metrics, and each one maps cleanly to a phase. So, this section ties everything together.</p>
+<p><strong>TTFT (Time To First Token)</strong> is the time from sending your request until the very first output token appears. It is set mainly by prefill, because prefill must finish before the first token can be produced. Roughly, TTFT is the prefill time plus one decode step. So, longer prompts mean larger TTFT. In simple words, TTFT is how fast the answer starts appearing.</p>
+<p><strong>TPOT (Time Per Output Token)</strong> is the average time to produce each token after the first one. It is also called <strong>ITL (Inter-Token Latency)</strong>, which means the time gap between two tokens. TPOT is set by decode, because decode produces these tokens one at a time. In simple words, TPOT is the typing speed of the answer once it has started. For intuition, a TPOT of 50 milliseconds means 20 tokens per second, and a TPOT of 25 milliseconds means 40 tokens per second. So, halving the TPOT doubles the streaming speed each user feels.</p>
+<p><strong>Note:</strong> For a single request, you can treat TPOT and ITL as the same idea, which is the per-token gap. Across many requests they are measured slightly differently, but for understanding they mean the same thing.</p>
+<p><strong>Throughput</strong> is the total number of tokens generated per second across all users being served at the same time. This is a system-wide metric, not a single-user metric. In simple words, throughput is how many users the server can serve together. Batching, which means running many requests through the GPU together, raises throughput. The group of requests run together is called a <strong>batch</strong>, and the number of requests in it is the <strong>batch size</strong>.</p>
+<p><strong>End-to-end latency</strong> is the total time from sending the request to receiving the final token. We can build an intuition for it with a simple formula:</p>
+<pre><code>End-to-end latency = TTFT + (number of output tokens - 1) x TPOT
+</code></pre>
+<p>Here, we have the first token already counted inside TTFT, which is why we use the number of output tokens minus one. First the prompt is processed (TTFT), then each remaining output token adds one TPOT.</p>
+<p>Let's do a quick worked example. Suppose TTFT is 400 milliseconds, the answer is 200 tokens long, and TPOT is 25 milliseconds per token. The answer is 200 tokens, but the first token is already counted in the TTFT, so 199 tokens remain, each taking 25 milliseconds. Then the end-to-end latency is roughly 400 milliseconds plus 199 multiplied by 25 milliseconds, which is about 5.4 seconds.</p>
+<p>Let's visualize this timeline.</p>
+<pre><code>request
+  sent
+    |
+    v
+    |&lt;------ TTFT -----&gt;|  TPOT  |  TPOT  |  TPOT  |  ...  |  TPOT  |
+    | prefill + token 1 | token 2| token 3| token 4|  ...  | token N|
+End-to-end latency  =  TTFT  +  (N - 1) x TPOT
+</code></pre>
+<p>Here, we can see that TTFT covers everything up to the first token, and then each later token arrives one TPOT apart. So, the answer starts after TTFT and then streams at the speed of TPOT.</p>
+<p>Also, we must understand one core trade-off. TTFT and TPOT are per-user latencies, where smaller is better. Throughput is a system metric, where bigger is better. They pull against each other. Bigger batches push more tokens per second through the GPU (higher throughput) but make each user wait longer (worse TTFT and TPOT). Smaller batches feel snappier but waste GPU capacity. We tune the batch size based on our use case. A chatbot wants low TTFT and low TPOT, while a bulk document-summarization job wants high throughput.</p>
+<p>Now, we know which metric each phase owns. Prefill owns TTFT. Decode owns TPOT and throughput. So, when we optimize, we always ask which metric we are trying to improve.</p>
+<h2 id="optimization-techniques-mapped-to-each-phase">Optimization techniques mapped to each phase <a aria-hidden="true" class="anchor" href="#optimization-techniques-mapped-to-each-phase">#</a></h2>
+<p>Now, it's time to learn about the main optimization techniques. The beautiful thing is that each one targets a specific phase. So, we will say in plain words what each technique does and which phase or metric it helps.</p>
+<h3 id="kv-cache-the-foundation-targets-decode">KV cache (the foundation, targets decode) <a aria-hidden="true" class="anchor" href="#kv-cache-the-foundation-targets-decode">#</a></h3>
+<p>We have already learned this one. The KV cache stores the Keys and Values of all past tokens so that each decode step only does work for the one new token. This is what makes decode fast in the first place. But the cache grows with every token and fills GPU memory, which is exactly why all the other techniques below exist to manage it.</p>
+<h3 id="continuous-batching-targets-throughput">Continuous batching (targets throughput) <a aria-hidden="true" class="anchor" href="#continuous-batching-targets-throughput">#</a></h3>
+<p>Let's first see the old approach and its problem.</p>
+<p>In the old approach, called static batching, the server groups several requests together and then waits for the slowest one in the group to finish before starting the next group. The issue with this approach is that short requests finish early and their slots sit empty, wasting the GPU. Let's see how the next approach solves this issue.</p>
+<p><a href="https://outcomeschool.com/blog/continuous-batching-in-llms" rel="noopener noreferrer" target="_blank"><strong>Continuous batching</strong></a> makes the batching decision every single decode step instead of once per group. The moment one request finishes, its slot is freed, and a waiting request joins the batch on the very next step. So, the batch stays full and the GPU stays busy.</p>
+<p>Let's visualize the difference.</p>
+<pre><code>STATIC BATCHING  (finished slots sit empty -&gt; GPU wasted)
+  slot 1: R1=====                  (idle, wasted) .........
+  slot 2: R2==========================
+  slot 3: R3==========       (idle, wasted) ...............
+          |------- whole batch waits for the slowest -------|
+CONTINUOUS BATCHING  (a finished slot is refilled at once -&gt; GPU busy)
+  slot 1: R1=====R4====================
+  slot 2: R2==========================
+  slot 3: R3==========R5================
+          (R4 enters the moment R1 ends, R5 enters when R3 ends)
+</code></pre>
+<p>Here, we can see that static batching leaves empty slots when short requests finish early, while continuous batching fills those slots right away.</p>
+<p>Here is a simple analogy. It is like a shared taxi that, the moment one passenger gets out, immediately picks up the next person waiting at the curb, instead of driving around empty until everyone's trip is over. The taxi never runs with empty seats.</p>
+<p>Continuous batching typically gives a large jump in throughput compared to the old static approach.</p>
+<h3 id="chunked-prefill-targets-smooth-streaming-for-other-users">Chunked prefill (targets smooth streaming for other users) <a aria-hidden="true" class="anchor" href="#chunked-prefill-targets-smooth-streaming-for-other-users">#</a></h3>
+<p>Let's see the problem first. A very long prompt's prefill runs as one giant step. While that giant step runs, it hogs the GPU and freezes the token streaming of other users who are already in their decode phase. So, their answers stutter.</p>
+<p><strong>Chunked prefill</strong> splits one long prompt's prefill into several smaller chunks instead of one giant step. The model then slips small decode steps in between the chunks. So, no single long prefill blocks everyone else. This protects the token streaming of the other users so their answers do not stutter. As a bonus, mixing compute-heavy prefill with memory-heavy decode in one batch uses the hardware better.</p>
+<p>Let's visualize this.</p>
+<pre><code>WITHOUT chunked prefill:
+  long prompt: [============= ONE BIG PREFILL =============]
+  other users: tok ....... (frozen, stuttering) ....... tok
+WITH chunked prefill:
+  long prompt: [chunk 1][chunk 2][chunk 3][chunk 4][chunk 5]
+  other users: tok   tok   tok   tok   tok   tok
+                  ^ a decode step slips in between the chunks
+</code></pre>
+<p>Here, we can see that one giant prefill freezes the other users, while chunked prefill lets their tokens keep flowing between the chunks.</p>
+<p>Here is a simple analogy. It is like a chef with one stove. If a customer orders a huge banquet, cooking it all at once freezes every other table's food. Instead, the chef cooks the banquet in small batches, slipping in the quick single dishes between them, so nobody's plate goes cold.</p>
+<p><strong>Note:</strong> Chunked prefill mainly protects ongoing answers from stalling. It does not change the total math, so it does not by itself make prefill faster.</p>
+<h3 id="prefix-caching-also-called-prompt-caching-targets-prefill-and-ttft">Prefix caching, also called prompt caching (targets prefill and TTFT) <a aria-hidden="true" class="anchor" href="#prefix-caching-also-called-prompt-caching-targets-prefill-and-ttft">#</a></h3>
+<p>Many requests start with the same long beginning. For example, the same fixed system instructions, the same document for a question, or the same earlier turns of a chat. This shared beginning is called a <strong>prefix</strong>.</p>
+<p><a href="https://outcomeschool.com/blog/how-does-prompt-caching-work" rel="noopener noreferrer" target="_blank"><strong>Prefix caching</strong></a> reuses the KV cache for this shared prefix across requests. The prefill for that shared part is computed once and then reused, instead of being recomputed for every request. So, it skips redundant work and shrinks TTFT.</p>
+<p>Here is a simple analogy. It is like a teacher who writes the same long instructions on the board at the start of every class. Instead of rewriting them each time, the teacher keeps a photo of the board and reuses it, spending the saved time only on each student's new question.</p>
+<p>In production, this can give very high cache hit rates and large cost savings on repeated prompts. A high cache hit rate means most requests found their shared beginning already stored and ready, so that work was skipped. <strong>Note:</strong> Prefix caching only helps when requests actually share a common beginning. If there is no shared prefix, it falls back to a full prefill.</p>
+<h3 id="disaggregated-serving-also-called-prefill-decode-separation-targets-both-ttft-an">Disaggregated serving, also called prefill-decode separation (targets both TTFT and TPOT) <a aria-hidden="true" class="anchor" href="#disaggregated-serving-also-called-prefill-decode-separation-targets-both-ttft-an">#</a></h3>
+<p>We learned that prefill is compute-bound and decode is memory-bandwidth-bound. When one GPU does both, a heavy prefill burst stalls the ongoing decodes of other users, and we cannot tune each phase separately.</p>
+<p><a href="https://outcomeschool.com/blog/prefill-decode-disaggregation" rel="noopener noreferrer" target="_blank"><strong>Disaggregated serving</strong></a> runs prefill on one pool of GPUs and decode on another pool of GPUs. A pool just means a group of GPUs working together. The KV cache produced by the prefill GPU is transferred over a fast link to the decode GPU. Now each pool is set up for its own bottleneck, and each can meet its own latency target independently.</p>
+<p>Let's visualize the two pools.</p>
+<pre><code>           PREFILL POOL                             DECODE POOL
+   +-------------------------+              +-------------------------+
+   | GPUs tuned for heavy    |              | GPUs tuned for fast     |
+   | math (compute-bound)    |   KV cache   | memory (memory-bound)   |
+   |                         |  ========&gt;   |                         |
+   | reads prompt, writes    |  fast link   | reads cache, streams    |
+   | the KV cache, makes     |              | the answer token by     |
+   | the first token         |              | token                   |
+   +-------------------------+              +-------------------------+
+</code></pre>
+<p>Here, we can see that the prefill pool builds the KV cache and passes it over a fast link to the decode pool, and each pool is tuned for its own bottleneck.</p>
+<p>Here is a simple analogy. It is like a restaurant that puts the heavy prep kitchen in one room and the steady plating-and-serving line in another. Each room is staffed and equipped for its own kind of work, and the prepped food (the KV cache) is passed between them, so neither slows the other down.</p>
+<p><strong>Note:</strong> Disaggregation is not free. It adds the cost of moving the KV cache over the network, and it duplicates the model across pools. It pays off mainly at large scale when we must hit strict TTFT and TPOT targets at the same time. For smaller setups, continuous batching plus chunked prefill on a single GPU is often enough.</p>
+<p>The SGLang serving system supports this prefill-decode disaggregation, along with chunked prefill and prefix caching. We have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-sglang-work" rel="noopener noreferrer" target="_blank">how SGLang works</a> that covers these in depth. <a href="https://outcomeschool.com/blog/how-does-tensorrt-llm-work" rel="noopener noreferrer" target="_blank">TensorRT-LLM</a> supports chunked prefill too, slicing a long prompt so it never blocks the decode steps of the other users.</p>
+<h3 id="speculative-decoding-targets-decode-and-tpot">Speculative decoding (targets decode and TPOT) <a aria-hidden="true" class="anchor" href="#speculative-decoding-targets-decode-and-tpot">#</a></h3>
+<p>This one is clever, and it works because decode is memory-bound.</p>
+<p><a href="https://outcomeschool.com/blog/speculative-decoding" rel="noopener noreferrer" target="_blank"><strong>Speculative decoding</strong></a> uses a small fast model, called the draft model, to guess the next several tokens cheaply. Then the big model, called the target model, checks all of those guesses in one single parallel pass. The correct guesses are kept. The first wrong guess and everything after it is thrown away and corrected by the big model.</p>
+<p>Why does this help? Because decode is memory-bound, the big model's weights must be read from memory anyway. Checking 5 guessed tokens at once moves almost the same amount of data from memory as producing 1 token. So, every correct guess is almost free. This turns a slow one-at-a-time process into a faster parallel one.</p>
+<p>Let's visualize one round of speculative decoding.</p>
+<pre><code>Draft model (small, fast) proposes 5 tokens in one cheap pass:
+        g1   g2   g3   g4   g5
+Target model (big) verifies ALL of them in ONE parallel pass:
+        ok   ok   ok   X    -
+                       ^
+                       first wrong guess: corrected by the big model,
+                       g5 is thrown away
+Result: 3 guesses accepted + 1 fix, for about the cost of 1 normal step
+</code></pre>
+<p>Here, we can see that the big model accepts the correct guesses and fixes the first wrong one in a single pass, so several tokens are produced for about the cost of one.</p>
+<p>Here is a simple analogy. A fast junior assistant guesses the next few words of the boss's sentence, and the boss reads the whole guess in one glance, then either nods at the correct part or fixes the first mistake. Checking a guess is far quicker than composing from scratch.</p>
+<p><strong>Very important:</strong> Speculative decoding is designed to preserve the model's output quality, and it only changes the speed. When the model picks the single most likely token every time, the tokens are exactly what the big model would have produced on its own. When the model <a href="https://outcomeschool.com/blog/how-does-temperature-control-llm-output" rel="noopener noreferrer" target="_blank">picks tokens with some randomness</a>, the output is drawn from the very same set of probabilities the big model uses, so the quality is preserved even though the exact wording can differ run to run. Typical speedups are around 2 to 3 times for decode, depending on how often the small model's guesses are accepted.</p>
+<p>The draft model is not the only way to make those guesses. We have a detailed blog on <a href="https://outcomeschool.com/blog/decoding-medusa" rel="noopener noreferrer" target="_blank">Medusa</a> that explains how extra heads on the big model itself guess the next few tokens, one on <a href="https://outcomeschool.com/blog/decoding-eagle" rel="noopener noreferrer" target="_blank">EAGLE</a> that drafts at the model's internal feature level to get more of those guesses accepted, and one on <a href="https://outcomeschool.com/blog/n-gram-speculation-in-llms" rel="noopener noreferrer" target="_blank">N-gram Speculation</a> that needs no model for drafting at all and simply copies the guesses from the prompt.</p>
+<h3 id="pagedattention-targets-kv-cache-memory-efficiency">PagedAttention (targets KV cache memory efficiency) <a aria-hidden="true" class="anchor" href="#pagedattention-targets-kv-cache-memory-efficiency">#</a></h3>
+<p>Let's see the problem first. In a naive system, the KV cache for each request is stored as one big continuous block of memory, sized for the longest possible answer. The issue with this approach is that most of that reserved space stays empty and is wasted. This waste can be very large.</p>
+<p><a href="https://outcomeschool.com/blog/paged-attention-in-llms" rel="noopener noreferrer" target="_blank"><strong>PagedAttention</strong></a> stores the KV cache in small fixed-size blocks, typically 16 tokens each, that can live anywhere in GPU memory, instead of one big continuous chunk per request. A small table, called the block table, remembers which scattered blocks belong to which request. A new block is added only when the sequence actually grows.</p>
+<p>Let's visualize the difference.</p>
+<pre><code>WITHOUT paging (one big contiguous block reserved up front):
+  Request A: [used][used][used][------ reserved but empty ------]
+  Request B: [used][used][--------- reserved but empty ---------]
+             wasted empty space sits unused inside each block
+WITH paging (small fixed-size blocks, given only when needed):
+  Request A -&gt; block 7, block 2, block 9     (scattered anywhere)
+  Request B -&gt; block 4, block 1
+  a block table remembers which blocks belong to which request
+  shared prefix? two requests can point to the SAME block
+</code></pre>
+<p>Here, we can see that the contiguous approach reserves a big block and wastes the empty part, while paging hands out small blocks only as the sequence grows.</p>
+<p>This borrows an old, proven computer trick, called paging, where memory is handed out in small equal pieces only when they are actually needed.</p>
+<p>Here is a simple analogy. Instead of demanding one big empty parking lot for each car's luggage, the valet uses many small numbered lockers scattered around the building and keeps a slip saying which lockers belong to whom. No space is wasted on empty reserved lots. And if two people have identical luggage (a shared prefix), they can simply share the same locker.</p>
+<p>PagedAttention nearly removes the wasted memory, lets us fit bigger batches, and raises throughput. It is also the foundation that makes prefix caching possible, because shared prefix blocks can simply point to the same physical block.</p>
+<p><strong>Note:</strong> PagedAttention is the memory layout that prevents waste, while prefix caching is the reuse of already-computed KV across requests. They are distinct ideas, but PagedAttention is what makes prefix caching's block sharing possible.</p>
+<p>PagedAttention was introduced by the vLLM serving system. We have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-vllm-work" rel="noopener noreferrer" target="_blank">how vLLM works</a> that covers this end to end.</p>
+<h3 id="a-quick-map-of-which-technique-helps-which-phase">A quick map of which technique helps which phase <a aria-hidden="true" class="anchor" href="#a-quick-map-of-which-technique-helps-which-phase">#</a></h3>
+<p>Let me tabulate these techniques and the phase or metric they target for your better understanding.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Main target</th>
+<th>What it improves</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KV cache</td>
+<td>Decode</td>
+<td>Makes decode fast by avoiding recomputation</td>
+</tr>
+<tr>
+<td>Continuous batching</td>
+<td>Both phases</td>
+<td>Throughput (more users served together)</td>
+</tr>
+<tr>
+<td>Chunked prefill</td>
+<td>Serving smoothness for other users</td>
+<td>Prevents long prefills from stalling ongoing token streaming (protects others' ITL)</td>
+</tr>
+<tr>
+<td>Prefix caching</td>
+<td>Prefill</td>
+<td>TTFT (skips redundant prompt processing)</td>
+</tr>
+<tr>
+<td>Disaggregated serving</td>
+<td>Both phases</td>
+<td>TTFT and TPOT independently, at scale</td>
+</tr>
+<tr>
+<td>Speculative decoding</td>
+<td>Decode</td>
+<td>TPOT (faster token generation)</td>
+</tr>
+<tr>
+<td>PagedAttention</td>
+<td>KV cache memory</td>
+<td>Throughput (bigger batches, less waste)</td>
+</tr>
+</tbody>
+</table></div>
+<p>This table is a handy mental map. When we want a faster first word, we look at the prefill side. When we want faster streaming or more users at once, we look at the decode side.</p>
+<h2 id="conclusion">Conclusion <a aria-hidden="true" class="anchor" href="#conclusion">#</a></h2>
+<p>Now, let's recap everything in a simple timeline.</p>
+<p>An LLM answers in two phases. <strong>Prefill</strong> reads your whole prompt in one parallel pass, fills the KV cache, and produces the first token. It is compute-bound, and it sets TTFT, which is how fast the answer starts. <strong>Decode</strong> then generates the rest of the answer one token at a time, reading and extending the KV cache at each step. It is memory-bandwidth-bound, and it sets TPOT, which is how fast the answer streams.</p>
+<p>The <strong>KV cache</strong> is the bridge between the two phases. Prefill writes it, and decode reads and grows it. It saves us from recomputing the past at every step, but it grows with every token and fills GPU memory.</p>
+<p>Because the two phases have opposite bottlenecks, each optimization targets one of them. Continuous batching and PagedAttention raise throughput. Prefix caching and chunked prefill help prefill and smooth streaming. Speculative decoding speeds up decode. Disaggregated serving splits the two phases so each can hit its own target.</p>
+<p>Each of these optimization techniques has its own dedicated deep-dive, collected in our <a href="https://outcomeschool.com/blog/llm-inference-optimization" rel="noopener noreferrer" target="_blank">LLM Inference Optimization</a> blog.</p>
+<p>This was all about Prefill vs Decode.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions <a aria-hidden="true" class="anchor" href="#frequently-asked-questions">#</a></h2>
+<h3 id="do-prefill-and-decode-use-different-models">Do prefill and decode use different models? <a aria-hidden="true" class="anchor" href="#do-prefill-and-decode-use-different-models">#</a></h3>
+<p>No. Both phases use the exact same model with the same weights. Only the way the two phases work is different. Prefill reads the whole prompt in one parallel pass, while decode writes the answer one token at a time, and that small difference changes everything about their bottlenecks.</p>
+<h3 id="why-does-decode-take-most-of-the-total-response-time">Why does decode take most of the total response time? <a aria-hidden="true" class="anchor" href="#why-does-decode-take-most-of-the-total-response-time">#</a></h3>
+<p>Decode takes most of the time because it produces many tokens one after another. For a typical request, prefill often finishes in a fraction of a second, but decode can run for several seconds. This is why so many optimizations focus on the decode phase, even though decode uses only a small part of the GPU's math power.</p>
+<h3 id="does-the-kv-cache-store-the-queries-too">Does the KV cache store the Queries too? <a aria-hidden="true" class="anchor" href="#does-the-kv-cache-store-the-queries-too">#</a></h3>
+<p>No. The KV cache stores only the Keys and the Values of past tokens. The Query is freshly computed for the current token at every step, so there is no need to store it. A past token's Key and Value never change once computed, which is why they can be stored and reused.</p>
+<h3 id="does-speculative-decoding-reduce-the-quality-of-the-output">Does speculative decoding reduce the quality of the output? <a aria-hidden="true" class="anchor" href="#does-speculative-decoding-reduce-the-quality-of-the-output">#</a></h3>
+<p>No. Speculative decoding is designed to preserve the model's output quality and only changes the speed. When the model picks the single most likely token every time, the tokens are exactly what the big model would produce on its own. With some randomness, the output is drawn from the same probabilities, so quality is preserved even if the wording differs.</p>
+<h3 id="does-chunked-prefill-make-prefill-faster">Does chunked prefill make prefill faster? <a aria-hidden="true" class="anchor" href="#does-chunked-prefill-make-prefill-faster">#</a></h3>
+<p>No. Chunked prefill does not change the total math, so it does not by itself make prefill faster. It mainly protects ongoing answers from stalling. It splits a long prefill into smaller chunks and slips decode steps in between, so the token streaming of other users does not stutter.</p>
+
+  <nav class="prev-next" aria-label="Lesson navigation"><a href="m12-l1201-llm-inference-optimization.html"><span class="label">← Previous lesson</span>12.1 LLM Inference Optimization</a><a class="next" href="m12-l1203-what-is-prefill-decode-disaggregation-in-llm-inference.html"><span class="label">Next lesson →</span>12.3 What is Prefill-Decode Disaggregation in LLM Inference?</a></nav>
+  <footer class="footer">
+    <p>Personal offline study copy · Content © Outcome School / Amit Shekhar ·
+    <a href="../notice.html">usage notice</a>.</p>
+    <p>Source: <a href="https://outcomeschool.com/blog/prefill-vs-decode-llm-inference-optimization" target="_blank" rel="noopener noreferrer">https://outcomeschool.com/blog/prefill-vs-decode-llm-inference-optimization</a></p>
+  </footer>
+</article>
+
+    </main>
+  </div>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

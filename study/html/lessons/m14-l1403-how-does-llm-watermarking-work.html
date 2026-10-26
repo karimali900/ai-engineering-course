@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="How Does LLM Watermarking Work? Module 14 · Lesson 14.3 Source: Outcome School · Published: August 18, 2026 · Reading time: 23 min · Tags: llm , ai , system design LLM watermarking">
+<title>How Does LLM Watermarking Work? · AI Engineering Course</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/pygments.css">
+</head>
+<body class="">
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="topbar">
+  <button id="menu-toggle" class="icon-btn" type="button" aria-label="Toggle navigation">☰</button>
+  <a class="brand" href="../index.html">AI Engineering Course</a>
+  <div class="search-wrap">
+    <input id="search" type="search" placeholder="Search lessons…" autocomplete="off" aria-label="Search lessons">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+  <div class="progress-mini" title="Course progress"><span id="progress-text">0%</span></div>
+  <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle light/dark theme">🌙</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="progress-box">
+      <div class="progress-bar"><span id="progress-fill"></span></div>
+      <div class="progress-label" id="progress-label">0 of 0 lessons read</div>
+    </div>
+    <nav class="course-nav" aria-label="Course modules">
+<a class="nav-home" href="../index.html">Course home</a>
+<a class="nav-module-single" href="../modules/m00.html">0. Must Know</a>
+<details class="nav-module" data-module="1">
+<summary><span class="nav-module-title">1. Machine Learning Foundations</span><span class="nav-count" data-nav-count="1">0/9</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0101" data-module="1" aria-label="Mark What is Machine Learning? as read"></label><a href="../lessons/m01-l0101-what-is-machine-learning.html">1.1 What is Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0102" data-module="1" aria-label="Mark Supervised vs Unsupervised Learning as read"></label><a href="../lessons/m01-l0102-supervised-vs-unsupervised-learning.html">1.2 Supervised vs Unsupervised Learning</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0103" data-module="1" aria-label="Mark Linear Regression vs Logistic Regression as read"></label><a href="../lessons/m01-l0103-linear-regression-vs-logistic-regression.html">1.3 Linear Regression vs Logistic Regression</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0104" data-module="1" aria-label="Mark What is Feature Engineering in Machine Learning? as read"></label><a href="../lessons/m01-l0104-what-is-feature-engineering-in-machine-learning.html">1.4 What is Feature Engineering in Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0105" data-module="1" aria-label="Mark Precision vs Recall as read"></label><a href="../lessons/m01-l0105-precision-vs-recall.html">1.5 Precision vs Recall</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0106" data-module="1" aria-label="Mark What Are L1 and L2 Loss Functions? as read"></label><a href="../lessons/m01-l0106-what-are-l1-and-l2-loss-functions.html">1.6 What Are L1 and L2 Loss Functions?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0107" data-module="1" aria-label="Mark What is Regularization in Machine Learning? L1 vs L2 Explained as read"></label><a href="../lessons/m01-l0107-what-is-regularization-in-machine-learning-l1-vs-l2-explained.html">1.7 What is Regularization in Machine Learning? L1 vs L2 Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0108" data-module="1" aria-label="Mark What is Reinforcement Learning? as read"></label><a href="../lessons/m01-l0108-what-is-reinforcement-learning.html">1.8 What is Reinforcement Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0109" data-module="1" aria-label="Mark What is Contrastive Learning? How It Works Step by Step as read"></label><a href="../lessons/m01-l0109-what-is-contrastive-learning-how-it-works-step-by-step.html">1.9 What is Contrastive Learning? How It Works Step by Step</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="2">
+<summary><span class="nav-module-title">2. Deep Learning and Neural Networks</span><span class="nav-count" data-nav-count="2">0/12</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0201" data-module="2" aria-label="Mark What is a Neural Network and How Does It Work? as read"></label><a href="../lessons/m02-l0201-what-is-a-neural-network-and-how-does-it-work.html">2.1 What is a Neural Network and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0202" data-module="2" aria-label="Mark What is Bias In Artificial Neural Network? as read"></label><a href="../lessons/m02-l0202-what-is-bias-in-artificial-neural-network.html">2.2 What is Bias In Artificial Neural Network?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0203" data-module="2" aria-label="Mark How Does Matrix Multiplication Work in Neural Networks? as read"></label><a href="../lessons/m02-l0203-how-does-matrix-multiplication-work-in-neural-networks.html">2.3 How Does Matrix Multiplication Work in Neural Networks?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0204" data-module="2" aria-label="Mark How Does Gradient Descent Work? as read"></label><a href="../lessons/m02-l0204-how-does-gradient-descent-work.html">2.4 How Does Gradient Descent Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0205" data-module="2" aria-label="Mark How Does Backpropagation Work? The Math Explained Step by Step as read"></label><a href="../lessons/m02-l0205-how-does-backpropagation-work-the-math-explained-step-by-step.html">2.5 How Does Backpropagation Work? The Math Explained Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0206" data-module="2" aria-label="Mark What is Cross-Entropy Loss? as read"></label><a href="../lessons/m02-l0206-what-is-cross-entropy-loss.html">2.6 What is Cross-Entropy Loss?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0207" data-module="2" aria-label="Mark What is Dropout in Neural Networks and How Does It Work? as read"></label><a href="../lessons/m02-l0207-what-is-dropout-in-neural-networks-and-how-does-it-work.html">2.7 What is Dropout in Neural Networks and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0208" data-module="2" aria-label="Mark Batch Normalization vs Layer Normalization as read"></label><a href="../lessons/m02-l0208-batch-normalization-vs-layer-normalization.html">2.8 Batch Normalization vs Layer Normalization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0209" data-module="2" aria-label="Mark What is RMSNorm? Root Mean Square Layer Normalization Explained as read"></label><a href="../lessons/m02-l0209-what-is-rmsnorm-root-mean-square-layer-normalization-explained.html">2.9 What is RMSNorm? Root Mean Square Layer Normalization Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0210" data-module="2" aria-label="Mark What is a Recurrent Neural Network (RNN)? as read"></label><a href="../lessons/m02-l0210-what-is-a-recurrent-neural-network-rnn.html">2.10 What is a Recurrent Neural Network (RNN)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0211" data-module="2" aria-label="Mark How does PyTorch work? as read"></label><a href="../lessons/m02-l0211-how-does-pytorch-work.html">2.11 How does PyTorch work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0212" data-module="2" aria-label="Mark How Does The Machine Learning Library TensorFlow Work? as read"></label><a href="../lessons/m02-l0212-how-does-the-machine-learning-library-tensorflow-work.html">2.12 How Does The Machine Learning Library TensorFlow Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="3">
+<summary><span class="nav-module-title">3. Generative AI and the Transformer Architecture</span><span class="nav-count" data-nav-count="3">0/16</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0301" data-module="3" aria-label="Mark What is Generative AI? as read"></label><a href="../lessons/m03-l0301-what-is-generative-ai.html">3.1 What is Generative AI?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0302" data-module="3" aria-label="Mark What are Autoregressive Models? as read"></label><a href="../lessons/m03-l0302-what-are-autoregressive-models.html">3.2 What are Autoregressive Models?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0303" data-module="3" aria-label="Mark Tokenization in LLMs as read"></label><a href="../lessons/m03-l0303-tokenization-in-llms.html">3.3 Tokenization in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0304" data-module="3" aria-label="Mark What is Byte Pair Encoding (BPE) in LLMs? as read"></label><a href="../lessons/m03-l0304-what-is-byte-pair-encoding-bpe-in-llms.html">3.4 What is Byte Pair Encoding (BPE) in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0305" data-module="3" aria-label="Mark What are Embeddings? as read"></label><a href="../lessons/m03-l0305-what-are-embeddings.html">3.5 What are Embeddings?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0306" data-module="3" aria-label="Mark How do RNNs and Transformers differ? as read"></label><a href="../lessons/m03-l0306-how-do-rnns-and-transformers-differ.html">3.6 How do RNNs and Transformers differ?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0307" data-module="3" aria-label="Mark How Does the Transformer Architecture Work? as read"></label><a href="../lessons/m03-l0307-how-does-the-transformer-architecture-work.html">3.7 How Does the Transformer Architecture Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0308" data-module="3" aria-label="Mark Encoder vs Decoder in Transformers as read"></label><a href="../lessons/m03-l0308-encoder-vs-decoder-in-transformers.html">3.8 Encoder vs Decoder in Transformers</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0309" data-module="3" aria-label="Mark What is Self Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0309-what-is-self-attention-in-transformers-and-how-does-it-work.html">3.9 What is Self Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0310" data-module="3" aria-label="Mark How Does Attention Work? The Math Behind Q, K, and V Step by Step as read"></label><a href="../lessons/m03-l0310-how-does-attention-work-the-math-behind-q-k-and-v-step-by-step.html">3.10 How Does Attention Work? The Math Behind Q, K, and V Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0311" data-module="3" aria-label="Mark Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor as read"></label><a href="../lessons/m03-l0311-why-do-we-scale-attention-by-dk-the-math-behind-the-scaling-factor.html">3.11 Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0312" data-module="3" aria-label="Mark What is Causal Masking in Attention and Why Do LLMs Need It? as read"></label><a href="../lessons/m03-l0312-what-is-causal-masking-in-attention-and-why-do-llms-need-it.html">3.12 What is Causal Masking in Attention and Why Do LLMs Need It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0313" data-module="3" aria-label="Mark What is Multi-Head Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0313-what-is-multi-head-attention-in-transformers-and-how-does-it-work.html">3.13 What is Multi-Head Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0314" data-module="3" aria-label="Mark What is Cross Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0314-what-is-cross-attention-in-transformers-and-how-does-it-work.html">3.14 What is Cross Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0315" data-module="3" aria-label="Mark What is RoPE (Rotary Position Embedding)? The Math Behind It as read"></label><a href="../lessons/m03-l0315-what-is-rope-rotary-position-embedding-the-math-behind-it.html">3.15 What is RoPE (Rotary Position Embedding)? The Math Behind It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0316" data-module="3" aria-label="Mark What is the Feed-Forward Network in LLMs and What Does It Do? as read"></label><a href="../lessons/m03-l0316-what-is-the-feed-forward-network-in-llms-and-what-does-it-do.html">3.16 What is the Feed-Forward Network in LLMs and What Does It Do?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="4">
+<summary><span class="nav-module-title">4. How LLMs Generate Text</span><span class="nav-count" data-nav-count="4">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0401" data-module="4" aria-label="Mark How does Temperature control LLM output? as read"></label><a href="../lessons/m04-l0401-how-does-temperature-control-llm-output.html">4.1 How does Temperature control LLM output?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0402" data-module="4" aria-label="Mark How do Top-k and Top-p Sampling work? as read"></label><a href="../lessons/m04-l0402-how-do-top-k-and-top-p-sampling-work.html">4.2 How do Top-k and Top-p Sampling work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0403" data-module="4" aria-label="Mark Stop Tokens in LLMs as read"></label><a href="../lessons/m04-l0403-stop-tokens-in-llms.html">4.3 Stop Tokens in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0404" data-module="4" aria-label="Mark How does Token Streaming work? as read"></label><a href="../lessons/m04-l0404-how-does-token-streaming-work.html">4.4 How does Token Streaming work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0405" data-module="4" aria-label="Mark What is the Lost in the Middle Problem in LLMs and How to Fix It? as read"></label><a href="../lessons/m04-l0405-what-is-the-lost-in-the-middle-problem-in-llms-and-how-to-fix-it.html">4.5 What is the Lost in the Middle Problem in LLMs and How to Fix It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0406" data-module="4" aria-label="Mark Why Do LLMs Hallucinate? The Token-Level Explanation as read"></label><a href="../lessons/m04-l0406-why-do-llms-hallucinate-the-token-level-explanation.html">4.6 Why Do LLMs Hallucinate? The Token-Level Explanation</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="5">
+<summary><span class="nav-module-title">5. Modern LLM Architecture</span><span class="nav-count" data-nav-count="5">0/7</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0501" data-module="5" aria-label="Mark Evolution of LLM Architecture as read"></label><a href="../lessons/m05-l0501-evolution-of-llm-architecture.html">5.1 Evolution of LLM Architecture</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0502" data-module="5" aria-label="Mark What is Mixture of Experts (MoE) and How Does It Work? as read"></label><a href="../lessons/m05-l0502-what-is-mixture-of-experts-moe-and-how-does-it-work.html">5.2 What is Mixture of Experts (MoE) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0503" data-module="5" aria-label="Mark What is Grouped Query Attention (GQA) and Why Do LLMs Use It? as read"></label><a href="../lessons/m05-l0503-what-is-grouped-query-attention-gqa-and-why-do-llms-use-it.html">5.3 What is Grouped Query Attention (GQA) and Why Do LLMs Use It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0504" data-module="5" aria-label="Mark How does Sliding Window Attention work? as read"></label><a href="../lessons/m05-l0504-how-does-sliding-window-attention-work.html">5.4 How does Sliding Window Attention work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0505" data-module="5" aria-label="Mark How do Attention Sinks work? as read"></label><a href="../lessons/m05-l0505-how-do-attention-sinks-work.html">5.5 How do Attention Sinks work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0506" data-module="5" aria-label="Mark What is Flash Attention and Why Is It So Fast? as read"></label><a href="../lessons/m05-l0506-what-is-flash-attention-and-why-is-it-so-fast.html">5.6 What is Flash Attention and Why Is It So Fast?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0507" data-module="5" aria-label="Mark What is DeepSeek-V4 and How Does It Work? Architecture Explained as read"></label><a href="../lessons/m05-l0507-what-is-deepseek-v4-and-how-does-it-work-architecture-explained.html">5.7 What is DeepSeek-V4 and How Does It Work? Architecture Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="6">
+<summary><span class="nav-module-title">6. Types of Language Models</span><span class="nav-count" data-nav-count="6">0/5</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0601" data-module="6" aria-label="Mark What are Small Language Models (SLMs) and When Should We Use Them? as read"></label><a href="../lessons/m06-l0601-what-are-small-language-models-slms-and-when-should-we-use-them.html">6.1 What are Small Language Models (SLMs) and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0602" data-module="6" aria-label="Mark What are Large Reasoning Models (LRMs) and How Are They Different from LLMs? as read"></label><a href="../lessons/m06-l0602-what-are-large-reasoning-models-lrms-and-how-are-they-different-from-llms.html">6.2 What are Large Reasoning Models (LRMs) and How Are They Different from LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0603" data-module="6" aria-label="Mark What are Recursive Language Models (RLMs) and How Do They Work? as read"></label><a href="../lessons/m06-l0603-what-are-recursive-language-models-rlms-and-how-do-they-work.html">6.3 What are Recursive Language Models (RLMs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0604" data-module="6" aria-label="Mark How do Diffusion Language Models (DLMs) work? as read"></label><a href="../lessons/m06-l0604-how-do-diffusion-language-models-dlms-work.html">6.4 How do Diffusion Language Models (DLMs) work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0605" data-module="6" aria-label="Mark Jev and System One Models Explained as read"></label><a href="../lessons/m06-l0605-jev-and-system-one-models-explained.html">6.5 Jev and System One Models Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="7">
+<summary><span class="nav-module-title">7. Training, Fine-Tuning, and Alignment</span><span class="nav-count" data-nav-count="7">0/11</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0701" data-module="7" aria-label="Mark How does fine-tuning work? as read"></label><a href="../lessons/m07-l0701-how-does-fine-tuning-work.html">7.1 How does fine-tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0702" data-module="7" aria-label="Mark What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs? as read"></label><a href="../lessons/m07-l0702-what-is-lora-low-rank-adaptation-and-how-does-it-fine-tune-llms.html">7.2 What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0703" data-module="7" aria-label="Mark How does Prefix Tuning work? as read"></label><a href="../lessons/m07-l0703-how-does-prefix-tuning-work.html">7.3 How does Prefix Tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0704" data-module="7" aria-label="Mark How does Knowledge Distillation work? as read"></label><a href="../lessons/m07-l0704-how-does-knowledge-distillation-work.html">7.4 How does Knowledge Distillation work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0705" data-module="7" aria-label="Mark What is Continual Learning in LLMs? Solving Catastrophic Forgetting as read"></label><a href="../lessons/m07-l0705-what-is-continual-learning-in-llms-solving-catastrophic-forgetting.html">7.5 What is Continual Learning in LLMs? Solving Catastrophic Forgetting</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0706" data-module="7" aria-label="Mark What is Deep RL from Human Preferences? The Paper That Started RLHF as read"></label><a href="../lessons/m07-l0706-what-is-deep-rl-from-human-preferences-the-paper-that-started-rlhf.html">7.6 What is Deep RL from Human Preferences? The Paper That Started RLHF</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0707" data-module="7" aria-label="Mark What is InstructGPT? How GPT-3 Learned to Follow Instructions as read"></label><a href="../lessons/m07-l0707-what-is-instructgpt-how-gpt-3-learned-to-follow-instructions.html">7.7 What is InstructGPT? How GPT-3 Learned to Follow Instructions</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0708" data-module="7" aria-label="Mark What is RLHF? Reinforcement Learning from Human Feedback Explained as read"></label><a href="../lessons/m07-l0708-what-is-rlhf-reinforcement-learning-from-human-feedback-explained.html">7.8 What is RLHF? Reinforcement Learning from Human Feedback Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0709" data-module="7" aria-label="Mark What is Proximal Policy Optimization (PPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0709-what-is-proximal-policy-optimization-ppo-and-how-does-it-work.html">7.9 What is Proximal Policy Optimization (PPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0710" data-module="7" aria-label="Mark What is Direct Preference Optimization (DPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0710-what-is-direct-preference-optimization-dpo-and-how-does-it-work.html">7.10 What is Direct Preference Optimization (DPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0711" data-module="7" aria-label="Mark What is Group Relative Policy Optimization (GRPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0711-what-is-group-relative-policy-optimization-grpo-and-how-does-it-work.html">7.11 What is Group Relative Policy Optimization (GRPO) and How Does It Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="8">
+<summary><span class="nav-module-title">8. Prompt Engineering and Context Engineering</span><span class="nav-count" data-nav-count="8">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0801" data-module="8" aria-label="Mark How does Chain-of-Thought (CoT) Prompting work? as read"></label><a href="../lessons/m08-l0801-how-does-chain-of-thought-cot-prompting-work.html">8.1 How does Chain-of-Thought (CoT) Prompting work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0802" data-module="8" aria-label="Mark How does Tree of Thoughts work? as read"></label><a href="../lessons/m08-l0802-how-does-tree-of-thoughts-work.html">8.2 How does Tree of Thoughts work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0803" data-module="8" aria-label="Mark How does Prompt Chaining work? as read"></label><a href="../lessons/m08-l0803-how-does-prompt-chaining-work.html">8.3 How does Prompt Chaining work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0804" data-module="8" aria-label="Mark How does Prompt Caching work? as read"></label><a href="../lessons/m08-l0804-how-does-prompt-caching-work.html">8.4 How does Prompt Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0805" data-module="8" aria-label="Mark What is Context Engineering? as read"></label><a href="../lessons/m08-l0805-what-is-context-engineering.html">8.5 What is Context Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0806" data-module="8" aria-label="Mark How does context compaction work? as read"></label><a href="../lessons/m08-l0806-how-does-context-compaction-work.html">8.6 How does context compaction work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="9">
+<summary><span class="nav-module-title">9. Vector Search and Retrieval-Augmented Generation (RAG)</span><span class="nav-count" data-nav-count="9">0/15</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0901" data-module="9" aria-label="Mark How does a Vector Database work? as read"></label><a href="../lessons/m09-l0901-how-does-a-vector-database-work.html">9.1 How does a Vector Database work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0902" data-module="9" aria-label="Mark How does Approximate Nearest Neighbor (ANN) search work? as read"></label><a href="../lessons/m09-l0902-how-does-approximate-nearest-neighbor-ann-search-work.html">9.2 How does Approximate Nearest Neighbor (ANN) search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0903" data-module="9" aria-label="Mark How does Semantic Search work? as read"></label><a href="../lessons/m09-l0903-how-does-semantic-search-work.html">9.3 How does Semantic Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0904" data-module="9" aria-label="Mark How does Hybrid Search work? as read"></label><a href="../lessons/m09-l0904-how-does-hybrid-search-work.html">9.4 How does Hybrid Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0905" data-module="9" aria-label="Mark How does a Reranker work? as read"></label><a href="../lessons/m09-l0905-how-does-a-reranker-work.html">9.5 How does a Reranker work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0906" data-module="9" aria-label="Mark What is ColBERT? Late Interaction Retrieval Explained as read"></label><a href="../lessons/m09-l0906-what-is-colbert-late-interaction-retrieval-explained.html">9.6 What is ColBERT? Late Interaction Retrieval Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0907" data-module="9" aria-label="Mark How to Chunk Documents for RAG? Chunking Strategies Explained as read"></label><a href="../lessons/m09-l0907-how-to-chunk-documents-for-rag-chunking-strategies-explained.html">9.7 How to Chunk Documents for RAG? Chunking Strategies Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0908" data-module="9" aria-label="Mark How does Contextual Retrieval work? as read"></label><a href="../lessons/m09-l0908-how-does-contextual-retrieval-work.html">9.8 How does Contextual Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0909" data-module="9" aria-label="Mark How does HyDE work in RAG? as read"></label><a href="../lessons/m09-l0909-how-does-hyde-work-in-rag.html">9.9 How does HyDE work in RAG?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0910" data-module="9" aria-label="Mark How do Query Rewriting and Multi-Query Retrieval work? as read"></label><a href="../lessons/m09-l0910-how-do-query-rewriting-and-multi-query-retrieval-work.html">9.10 How do Query Rewriting and Multi-Query Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0911" data-module="9" aria-label="Mark How does an Embedding Cache work? as read"></label><a href="../lessons/m09-l0911-how-does-an-embedding-cache-work.html">9.11 How does an Embedding Cache work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0912" data-module="9" aria-label="Mark How does Semantic Caching work? as read"></label><a href="../lessons/m09-l0912-how-does-semantic-caching-work.html">9.12 How does Semantic Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0913" data-module="9" aria-label="Mark What is Agentic RAG? How It Works and When to Use It as read"></label><a href="../lessons/m09-l0913-what-is-agentic-rag-how-it-works-and-when-to-use-it.html">9.13 What is Agentic RAG? How It Works and When to Use It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0914" data-module="9" aria-label="Mark What is GraphRAG? How Knowledge Graphs Improve RAG as read"></label><a href="../lessons/m09-l0914-what-is-graphrag-how-knowledge-graphs-improve-rag.html">9.14 What is GraphRAG? How Knowledge Graphs Improve RAG</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0915" data-module="9" aria-label="Mark What is Vectorless RAG? RAG Without Embeddings or a Vector Database as read"></label><a href="../lessons/m09-l0915-what-is-vectorless-rag-rag-without-embeddings-or-a-vector-database.html">9.15 What is Vectorless RAG? RAG Without Embeddings or a Vector Database</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="10">
+<summary><span class="nav-module-title">10. AI Agents and Agentic Systems</span><span class="nav-count" data-nav-count="10">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1001" data-module="10" aria-label="Mark What is an AI Agent? How It Works as read"></label><a href="../lessons/m10-l1001-what-is-an-ai-agent-how-it-works.html">10.1 What is an AI Agent? How It Works</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1002" data-module="10" aria-label="Mark How does Function Calling work in LLMs? as read"></label><a href="../lessons/m10-l1002-how-does-function-calling-work-in-llms.html">10.2 How does Function Calling work in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1003" data-module="10" aria-label="Mark What is an AI Agent Loop? as read"></label><a href="../lessons/m10-l1003-what-is-an-ai-agent-loop.html">10.3 What is an AI Agent Loop?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1004" data-module="10" aria-label="Mark What is a ReAct Agent? How It Thinks and Acts, Explained as read"></label><a href="../lessons/m10-l1004-what-is-a-react-agent-how-it-thinks-and-acts-explained.html">10.4 What is a ReAct Agent? How It Thinks and Acts, Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1005" data-module="10" aria-label="Mark What is a Plan-and-Execute Agent and How Does It Work? as read"></label><a href="../lessons/m10-l1005-what-is-a-plan-and-execute-agent-and-how-does-it-work.html">10.5 What is a Plan-and-Execute Agent and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1006" data-module="10" aria-label="Mark What is a Reflection Agent? How It Generates, Critiques, and Revises as read"></label><a href="../lessons/m10-l1006-what-is-a-reflection-agent-how-it-generates-critiques-and-revises.html">10.6 What is a Reflection Agent? How It Generates, Critiques, and Revises</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1007" data-module="10" aria-label="Mark How Does AI Agent Memory Work? The Memory Stack Explained as read"></label><a href="../lessons/m10-l1007-how-does-ai-agent-memory-work-the-memory-stack-explained.html">10.7 How Does AI Agent Memory Work? The Memory Stack Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1008" data-module="10" aria-label="Mark How does ChatGPT remember you? as read"></label><a href="../lessons/m10-l1008-how-does-chatgpt-remember-you.html">10.8 How does ChatGPT remember you?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1009" data-module="10" aria-label="Mark What is MCP (Model Context Protocol)? as read"></label><a href="../lessons/m10-l1009-what-is-mcp-model-context-protocol.html">10.9 What is MCP (Model Context Protocol)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1010" data-module="10" aria-label="Mark What are Agent Skills? as read"></label><a href="../lessons/m10-l1010-what-are-agent-skills.html">10.10 What are Agent Skills?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1011" data-module="10" aria-label="Mark What is OKF (Open Knowledge Format)? as read"></label><a href="../lessons/m10-l1011-what-is-okf-open-knowledge-format.html">10.11 What is OKF (Open Knowledge Format)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1012" data-module="10" aria-label="Mark What are Multi-Agent Systems and When Should We Use Them? as read"></label><a href="../lessons/m10-l1012-what-are-multi-agent-systems-and-when-should-we-use-them.html">10.12 What are Multi-Agent Systems and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1013" data-module="10" aria-label="Mark What are AI SubAgents? Why We Need Them and How They Work as read"></label><a href="../lessons/m10-l1013-what-are-ai-subagents-why-we-need-them-and-how-they-work.html">10.13 What are AI SubAgents? Why We Need Them and How They Work</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1014" data-module="10" aria-label="Mark How AI Agents Communicate as read"></label><a href="../lessons/m10-l1014-how-ai-agents-communicate.html">10.14 How AI Agents Communicate</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1015" data-module="10" aria-label="Mark What is AI Orchestration? How It Works and the Common Patterns as read"></label><a href="../lessons/m10-l1015-what-is-ai-orchestration-how-it-works-and-the-common-patterns.html">10.15 What is AI Orchestration? How It Works and the Common Patterns</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1016" data-module="10" aria-label="Mark What is Sakana Fugu? The Technical Report Explained as read"></label><a href="../lessons/m10-l1016-what-is-sakana-fugu-the-technical-report-explained.html">10.16 What is Sakana Fugu? The Technical Report Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1017" data-module="10" aria-label="Mark How do Computer-Use Agents work? as read"></label><a href="../lessons/m10-l1017-how-do-computer-use-agents-work.html">10.17 How do Computer-Use Agents work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1018" data-module="10" aria-label="Mark How do Browser Agents work? as read"></label><a href="../lessons/m10-l1018-how-do-browser-agents-work.html">10.18 How do Browser Agents work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="11">
+<summary><span class="nav-module-title">11. Agentic Engineering and Agent Frameworks</span><span class="nav-count" data-nav-count="11">0/8</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1101" data-module="11" aria-label="Mark What is Harness Engineering? as read"></label><a href="../lessons/m11-l1101-what-is-harness-engineering.html">11.1 What is Harness Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1102" data-module="11" aria-label="Mark What is Loop Engineering? as read"></label><a href="../lessons/m11-l1102-what-is-loop-engineering.html">11.2 What is Loop Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1103" data-module="11" aria-label="Mark What is Graph Engineering? as read"></label><a href="../lessons/m11-l1103-what-is-graph-engineering.html">11.3 What is Graph Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1104" data-module="11" aria-label="Mark AI Is Only as Good as Our Definition of Done as read"></label><a href="../lessons/m11-l1104-ai-is-only-as-good-as-our-definition-of-done.html">11.4 AI Is Only as Good as Our Definition of Done</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1105" data-module="11" aria-label="Mark How does LangChain work? as read"></label><a href="../lessons/m11-l1105-how-does-langchain-work.html">11.5 How does LangChain work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1106" data-module="11" aria-label="Mark How does LangGraph work? as read"></label><a href="../lessons/m11-l1106-how-does-langgraph-work.html">11.6 How does LangGraph work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1107" data-module="11" aria-label="Mark How does Claude Code work? as read"></label><a href="../lessons/m11-l1107-how-does-claude-code-work.html">11.7 How does Claude Code work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1108" data-module="11" aria-label="Mark How does Cursor work? as read"></label><a href="../lessons/m11-l1108-how-does-cursor-work.html">11.8 How does Cursor work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="12">
+<summary><span class="nav-module-title">12. LLM Inference Engineering</span><span class="nav-count" data-nav-count="12">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1201" data-module="12" aria-label="Mark LLM Inference Optimization as read"></label><a href="../lessons/m12-l1201-llm-inference-optimization.html">12.1 LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1202" data-module="12" aria-label="Mark Prefill vs Decode: LLM Inference Optimization as read"></label><a href="../lessons/m12-l1202-prefill-vs-decode-llm-inference-optimization.html">12.2 Prefill vs Decode: LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1203" data-module="12" aria-label="Mark What is Prefill-Decode Disaggregation in LLM Inference? as read"></label><a href="../lessons/m12-l1203-what-is-prefill-decode-disaggregation-in-llm-inference.html">12.3 What is Prefill-Decode Disaggregation in LLM Inference?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1204" data-module="12" aria-label="Mark KV Cache in LLMs as read"></label><a href="../lessons/m12-l1204-kv-cache-in-llms.html">12.4 KV Cache in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1205" data-module="12" aria-label="Mark What is KV Cache Compression? as read"></label><a href="../lessons/m12-l1205-what-is-kv-cache-compression.html">12.5 What is KV Cache Compression?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1206" data-module="12" aria-label="Mark What is Paged Attention in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1206-what-is-paged-attention-in-llms-and-how-does-it-work.html">12.6 What is Paged Attention in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1207" data-module="12" aria-label="Mark What is Continuous Batching in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1207-what-is-continuous-batching-in-llms-and-how-does-it-work.html">12.7 What is Continuous Batching in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1208" data-module="12" aria-label="Mark What is Speculative Decoding and How Does It Make LLMs Faster? as read"></label><a href="../lessons/m12-l1208-what-is-speculative-decoding-and-how-does-it-make-llms-faster.html">12.8 What is Speculative Decoding and How Does It Make LLMs Faster?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1209" data-module="12" aria-label="Mark What is N-gram Speculation in LLMs and How Does It Speed Up Generation? as read"></label><a href="../lessons/m12-l1209-what-is-n-gram-speculation-in-llms-and-how-does-it-speed-up-generation.html">12.9 What is N-gram Speculation in LLMs and How Does It Speed Up Generation?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1210" data-module="12" aria-label="Mark What is Medusa? Multi-Head Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1210-what-is-medusa-multi-head-speculative-decoding-explained.html">12.10 What is Medusa? Multi-Head Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1211" data-module="12" aria-label="Mark What is EAGLE? Feature-Level Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1211-what-is-eagle-feature-level-speculative-decoding-explained.html">12.11 What is EAGLE? Feature-Level Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1212" data-module="12" aria-label="Mark How does Model Quantization work? as read"></label><a href="../lessons/m12-l1212-how-does-model-quantization-work.html">12.12 How does Model Quantization work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1213" data-module="12" aria-label="Mark How does GGUF work? as read"></label><a href="../lessons/m12-l1213-how-does-gguf-work.html">12.13 How does GGUF work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1214" data-module="12" aria-label="Mark How does llama.cpp run LLMs on everyday hardware? as read"></label><a href="../lessons/m12-l1214-how-does-llama-cpp-run-llms-on-everyday-hardware.html">12.14 How does llama.cpp run LLMs on everyday hardware?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1215" data-module="12" aria-label="Mark How does Ollama work? as read"></label><a href="../lessons/m12-l1215-how-does-ollama-work.html">12.15 How does Ollama work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1216" data-module="12" aria-label="Mark How does vLLM work? as read"></label><a href="../lessons/m12-l1216-how-does-vllm-work.html">12.16 How does vLLM work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1217" data-module="12" aria-label="Mark How does SGLang work? as read"></label><a href="../lessons/m12-l1217-how-does-sglang-work.html">12.17 How does SGLang work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1218" data-module="12" aria-label="Mark How does TensorRT-LLM work? as read"></label><a href="../lessons/m12-l1218-how-does-tensorrt-llm-work.html">12.18 How does TensorRT-LLM work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="13">
+<summary><span class="nav-module-title">13. Evaluation and Observability</span><span class="nav-count" data-nav-count="13">0/4</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1301" data-module="13" aria-label="Mark What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained as read"></label><a href="../lessons/m13-l1301-what-is-llm-evaluation-metrics-benchmarks-and-methods-explained.html">13.1 What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1302" data-module="13" aria-label="Mark What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs as read"></label><a href="../lessons/m13-l1302-what-is-llm-as-a-judge-how-to-use-an-llm-to-evaluate-llm-outputs.html">13.2 What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1303" data-module="13" aria-label="Mark How to Evaluate AI Agents? Metrics, Methods, and Best Practices as read"></label><a href="../lessons/m13-l1303-how-to-evaluate-ai-agents-metrics-methods-and-best-practices.html">13.3 How to Evaluate AI Agents? Metrics, Methods, and Best Practices</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1304" data-module="13" aria-label="Mark What is AI Agent Observability? Traces, Spans, and Metrics Explained as read"></label><a href="../lessons/m13-l1304-what-is-ai-agent-observability-traces-spans-and-metrics-explained.html">13.4 What is AI Agent Observability? Traces, Spans, and Metrics Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="14" open>
+<summary><span class="nav-module-title">14. AI Safety and Security</span><span class="nav-count" data-nav-count="14">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1401" data-module="14" aria-label="Mark How do LLM guardrails work? as read"></label><a href="../lessons/m14-l1401-how-do-llm-guardrails-work.html">14.1 How do LLM guardrails work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1402" data-module="14" aria-label="Mark What is Prompt Injection in LLMs and How Do We Defend Against It? as read"></label><a href="../lessons/m14-l1402-what-is-prompt-injection-in-llms-and-how-do-we-defend-against-it.html">14.2 What is Prompt Injection in LLMs and How Do We Defend Against It?</a></li>
+<li class="nav-lesson active"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1403" data-module="14" aria-label="Mark How Does LLM Watermarking Work? as read"></label><a href="../lessons/m14-l1403-how-does-llm-watermarking-work.html">14.3 How Does LLM Watermarking Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="15">
+<summary><span class="nav-module-title">15. Multimodal AI and Generative Models</span><span class="nav-count" data-nav-count="15">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1501" data-module="15" aria-label="Mark What is Multimodal AI? How It Works and Where It Is Used as read"></label><a href="../lessons/m15-l1501-what-is-multimodal-ai-how-it-works-and-where-it-is-used.html">15.1 What is Multimodal AI? How It Works and Where It Is Used</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1502" data-module="15" aria-label="Mark What is a Vision Transformer (ViT) and How Does It Work? as read"></label><a href="../lessons/m15-l1502-what-is-a-vision-transformer-vit-and-how-does-it-work.html">15.2 What is a Vision Transformer (ViT) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1503" data-module="15" aria-label="Mark How do Image Embeddings work? as read"></label><a href="../lessons/m15-l1503-how-do-image-embeddings-work.html">15.3 How do Image Embeddings work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1504" data-module="15" aria-label="Mark What are Diffusion Models and How Do They Generate Images? as read"></label><a href="../lessons/m15-l1504-what-are-diffusion-models-and-how-do-they-generate-images.html">15.4 What are Diffusion Models and How Do They Generate Images?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1505" data-module="15" aria-label="Mark What are Generative Adversarial Networks (GANs) and How Do They Work? as read"></label><a href="../lessons/m15-l1505-what-are-generative-adversarial-networks-gans-and-how-do-they-work.html">15.5 What are Generative Adversarial Networks (GANs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1506" data-module="15" aria-label="Mark What are Variational Autoencoders (VAEs) and How Do They Work? as read"></label><a href="../lessons/m15-l1506-what-are-variational-autoencoders-vaes-and-how-do-they-work.html">15.6 What are Variational Autoencoders (VAEs) and How Do They Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="16">
+<summary><span class="nav-module-title">16. AI Infrastructure, Deployment, and System Design</span><span class="nav-count" data-nav-count="16">0/17</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1601" data-module="16" aria-label="Mark How does a GPU work for Deep Learning? as read"></label><a href="../lessons/m16-l1601-how-does-a-gpu-work-for-deep-learning.html">16.1 How does a GPU work for Deep Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1602" data-module="16" aria-label="Mark How do CUDA Kernels work? as read"></label><a href="../lessons/m16-l1602-how-do-cuda-kernels-work.html">16.2 How do CUDA Kernels work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1603" data-module="16" aria-label="Mark How does a Google TPU work? as read"></label><a href="../lessons/m16-l1603-how-does-a-google-tpu-work.html">16.3 How does a Google TPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1604" data-module="16" aria-label="Mark How does an LPU work? as read"></label><a href="../lessons/m16-l1604-how-does-an-lpu-work.html">16.4 How does an LPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1605" data-module="16" aria-label="Mark Cloud vs On-device Model Deployment as read"></label><a href="../lessons/m16-l1605-cloud-vs-on-device-model-deployment.html">16.5 Cloud vs On-device Model Deployment</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1606" data-module="16" aria-label="Mark Android TensorFlow Lite Machine Learning Example as read"></label><a href="../lessons/m16-l1606-android-tensorflow-lite-machine-learning-example.html">16.6 Android TensorFlow Lite Machine Learning Example</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1607" data-module="16" aria-label="Mark What is LLM Routing? How to Send Each Query to the Right LLM as read"></label><a href="../lessons/m16-l1607-what-is-llm-routing-how-to-send-each-query-to-the-right-llm.html">16.7 What is LLM Routing? How to Send Each Query to the Right LLM</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1608" data-module="16" aria-label="Mark Design a Real-Time Voice AI Agent as read"></label><a href="../lessons/m16-l1608-design-a-real-time-voice-ai-agent.html">16.8 Design a Real-Time Voice AI Agent</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1609" data-module="16" aria-label="Mark What is turn-taking in a voice AI agent? as read"></label><a href="../lessons/m16-l1609-what-is-turn-taking-in-a-voice-ai-agent.html">16.9 What is turn-taking in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1610" data-module="16" aria-label="Mark What is barge-in in a voice AI agent? as read"></label><a href="../lessons/m16-l1610-what-is-barge-in-in-a-voice-ai-agent.html">16.10 What is barge-in in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1611" data-module="16" aria-label="Mark Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture? as read"></label><a href="../lessons/m16-l1611-cascaded-vs-speech-to-speech-how-to-choose-the-right-voice-agent-architecture.html">16.11 Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1612" data-module="16" aria-label="Mark How do you build a latency budget for a voice AI agent? as read"></label><a href="../lessons/m16-l1612-how-do-you-build-a-latency-budget-for-a-voice-ai-agent.html">16.12 How do you build a latency budget for a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1613" data-module="16" aria-label="Mark How does the voice-to-voice latency of a voice agent get measured? as read"></label><a href="../lessons/m16-l1613-how-does-the-voice-to-voice-latency-of-a-voice-agent-get-measured.html">16.13 How does the voice-to-voice latency of a voice agent get measured?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1614" data-module="16" aria-label="Mark Why does the time-to-first-audio matter more than total response time? as read"></label><a href="../lessons/m16-l1614-why-does-the-time-to-first-audio-matter-more-than-total-response-time.html">16.14 Why does the time-to-first-audio matter more than total response time?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1615" data-module="16" aria-label="Mark What is System Design? as read"></label><a href="../lessons/m16-l1615-what-is-system-design.html">16.15 What is System Design?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1616" data-module="16" aria-label="Mark HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events as read"></label><a href="../lessons/m16-l1616-http-request-vs-http-long-polling-vs-websocket-vs-server-sent-events.html">16.16 HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1617" data-module="16" aria-label="Mark How do Voice And Video Call Work? as read"></label><a href="../lessons/m16-l1617-how-do-voice-and-video-call-work.html">16.17 How do Voice And Video Call Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="17">
+<summary><span class="nav-module-title">17. Frontier Ideas in AI</span><span class="nav-count" data-nav-count="17">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1701" data-module="17" aria-label="Mark What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work? as read"></label><a href="../lessons/m17-l1701-what-is-joint-embedding-predictive-architecture-jepa-and-how-does-it-work.html">17.1 What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1702" data-module="17" aria-label="Mark How do World Models work? as read"></label><a href="../lessons/m17-l1702-how-do-world-models-work.html">17.2 How do World Models work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1703" data-module="17" aria-label="Mark What is Recursive Self-Improvement (RSI)? as read"></label><a href="../lessons/m17-l1703-what-is-recursive-self-improvement-rsi.html">17.3 What is Recursive Self-Improvement (RSI)?</a></li>
+</ul>
+</details>
+<a class="nav-module-single" href="../modules/m18.html">18. Prepare for AI Engineering Interviews</a>
+</nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="content-wrap">
+    <main class="content" id="content">
+      
+<article>
+  <header class="lesson-header">
+    <p class="breadcrumb">
+      <a href="../index.html">Course</a> /
+      <a href="../modules/m14.html">Module 14</a> /
+      Lesson 14.3
+    </p>
+    <h1>How Does LLM Watermarking Work?</h1>
+    <div class="lesson-meta">
+      <span>Lesson 14.3 · ~23 min · Published August 18, 2026</span>
+      <a href="https://outcomeschool.com/blog/how-does-llm-watermarking-work" target="_blank" rel="noopener noreferrer">Original article</a>
+    </div>
+    <div class="lesson-tags"><span class="tag">llm</span> <span class="tag">ai</span> <span class="tag">system-design</span></div>
+    <label class="read-toggle">
+      <input type="checkbox" data-lesson="m14-l1403" data-module="14">
+      Mark as read
+    </label>
+    
+  </header>
+  <details class="toc">
+<summary>On this page</summary>
+<ul>
+<li><a href="#what-is-a-watermark">What is a watermark?</a></li>
+<li><a href="#why-do-we-need-a-watermark-in-llm-generated-text">Why do we need a watermark in LLM-generated text?</a></li>
+<li><a href="#how-does-an-llm-write-text">How does an LLM write text?</a></li>
+<li><a href="#how-does-an-llm-choose-the-next-word">How does an LLM choose the next word?</a></li>
+<li><a href="#the-hidden-freedom-that-makes-watermarking-possible">The hidden freedom that makes watermarking possible</a></li>
+<li><a href="#here-comes-the-secret-key-into-the-picture">Here comes the secret key into the picture</a></li>
+<li><a href="#preferred-tokens-and-other-tokens">Preferred tokens and other tokens</a></li>
+<li><a href="#slightly-changing-the-probabilities">Slightly changing the probabilities</a></li>
+<li><a href="#why-the-preferred-set-keeps-changing">Why the preferred set keeps changing</a></li>
+<li><a href="#one-token-vs-thousands-of-tokens">One token vs thousands of tokens</a></li>
+<li><a href="#how-does-the-detection-work">How does the detection work?</a></li>
+<li><a href="#how-is-this-different-from-an-ai-text-detector">How is this different from an AI text detector?</a></li>
+<li><a href="#why-the-quality-of-the-text-does-not-break">Why the quality of the text does not break</a></li>
+<li><a href="#what-happens-when-someone-edits-the-text">What happens when someone edits the text?</a></li>
+<li><a href="#where-is-llm-watermarking-used-in-the-real-world">Where is LLM watermarking used in the real world?</a></li>
+<li><a href="#advantages-and-disadvantages-of-llm-watermarking">Advantages and disadvantages of LLM watermarking</a></li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#frequently-asked-questions">Frequently Asked Questions</a>
+<ul>
+<li><a href="#can-anyone-check-whether-a-text-has-an-llm-watermark">Can anyone check whether a text has an LLM watermark?</a></li>
+<li><a href="#does-the-watermark-detector-need-the-original-prompt-or-a-saved-copy-of-the-text">Does the watermark detector need the original prompt or a saved copy of the text?</a></li>
+<li><a href="#can-llm-watermarking-catch-text-from-any-ai-model">Can LLM watermarking catch text from any AI model?</a></li>
+<li><a href="#can-a-watermark-detector-find-ai-written-parts-inside-a-mixed-text">Can a watermark detector find AI-written parts inside a mixed text?</a></li>
+<li><a href="#is-an-llm-watermark-a-final-proof-that-ai-wrote-the-text">Is an LLM watermark a final proof that AI wrote the text?</a></li>
+</ul>
+</li>
+</ul>
+</details>
+  <p><img alt="How Does LLM Watermarking Work?" decoding="async" loading="lazy" src="../assets/images/14-14-03-how-does-llm-watermarking-work/how-does-llm-watermarking-work.png"/></p>
+<p>LLM watermarking is a hidden signal that a model quietly leaves inside the text it writes. A secret key slightly nudges which words the model picks, without changing the meaning, and a detector with the same key can find this pattern later.</p>
+<p>In this blog, we will learn about how LLM watermarking works, the hidden signal that a model quietly leaves inside the text it writes. We will also see why we need it, how an LLM picks one token at a time, how a secret key silently changes those choices without touching the meaning, how a detector finds that hidden pattern later, why the quality of the text does not break, how it is different from an AI text detector, and where it works well and where it fails.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is a watermark?</li>
+<li>Why do we need a watermark in LLM-generated text?</li>
+<li>How does an LLM write text?</li>
+<li>How does an LLM choose the next word?</li>
+<li>The hidden freedom that makes watermarking possible</li>
+<li>Here comes the secret key into the picture</li>
+<li>Preferred tokens and other tokens</li>
+<li>Slightly changing the probabilities</li>
+<li>Why the preferred set keeps changing</li>
+<li>One token vs thousands of tokens</li>
+<li>How does the detection work?</li>
+<li>How is this different from an AI text detector?</li>
+<li>Why the quality of the text does not break</li>
+<li>What happens when someone edits the text?</li>
+<li>Where is LLM watermarking used in the real world?</li>
+<li>Advantages and disadvantages of LLM watermarking</li>
+</ul>
+<p>Let's get started.</p>
+<h3 id="what-is-a-watermark">What is a watermark? <a aria-hidden="true" class="anchor" href="#what-is-a-watermark">#</a></h3>
+<p>Let's start with something we have all seen.</p>
+<p>Take a currency note in our hand and hold it against the light. We will see a hidden design inside the paper. That hidden design is called a <strong>watermark</strong>.</p>
+<p>Here, we can notice two things.</p>
+<p>First, the watermark is not printed on top of the note like normal ink. It is created inside the paper itself.</p>
+<p>Second, we do not see it while using the note in our daily life. It shows up only when we hold the note against the light and look for it.</p>
+<p>So, a watermark is a hidden mark that stays quiet until someone checks for it. It answers one simple question: who created this?</p>
+<p>Now, LLM watermarking does the same job for text.</p>
+<p><strong>LLM Watermarking = LLM + Watermarking</strong></p>
+<p>In simple words, it means putting a hidden mark inside the text that an LLM writes.</p>
+<p>But here is the catch. Text has no paper and no light. We cannot hide a design inside a sentence. So, the watermark has to be hidden somewhere else.</p>
+<p><strong>In LLM watermarking, the mark is hidden inside the choice of words.</strong></p>
+<p>Do not worry, we will understand exactly how this happens, step by step.</p>
+<h3 id="why-do-we-need-a-watermark-in-llm-generated-text">Why do we need a watermark in LLM-generated text? <a aria-hidden="true" class="anchor" href="#why-do-we-need-a-watermark-in-llm-generated-text">#</a></h3>
+<p>Today, an LLM can write an essay, an email, an answer, a news article, or a review. And the text looks exactly like human writing.</p>
+<p>So, the following question arises.</p>
+<p>If someone shows us a piece of text, how do we know whether a human wrote it or a machine wrote it?</p>
+<p>Let's see a few real situations.</p>
+<p>A student submits a homework assignment. The teacher wants to know whether the student wrote it.</p>
+<p>A website receives thousands of product reviews. The company wants to know whether real customers wrote them.</p>
+<p>A news article spreads on social media. People want to know whether a human reporter wrote it.</p>
+<p>In all these cases, we need a way to check the source of the text.</p>
+<p>We cannot solve this by just reading the text, because good LLM writing looks completely normal. We needed a solution for that, and here comes LLM watermarking to the rescue.</p>
+<p>The idea is simple. While the LLM is writing the text, it quietly leaves a hidden signal inside the text. Later, anyone who has the secret key can check that signal.</p>
+<p>Now, to understand how this signal is hidden, we must first understand how an LLM writes text.</p>
+<h3 id="how-does-an-llm-write-text">How does an LLM write text? <a aria-hidden="true" class="anchor" href="#how-does-an-llm-write-text">#</a></h3>
+<p>Before jumping into watermarking, we must know one very important thing.</p>
+<p><strong>An LLM generates one token at a time.</strong></p>
+<p>Now, the question is, what is a token?</p>
+<p>A token is a small piece of text. Most of the time, a token is a word or a part of a word. For the sake of understanding, we can think of a token as a word.</p>
+<p>The LLM does not write the full answer in one shot. It writes one token, then looks at everything written so far, then writes the next token, and it keeps doing this again and again until the answer is complete.</p>
+<p>This way of writing is called autoregressive generation. We have a detailed blog on <a href="https://outcomeschool.com/blog/autoregressive-models" rel="noopener noreferrer" target="_blank">Autoregressive Models</a> that explains it in depth.</p>
+<p>So, writing a paragraph of a few hundred words means the LLM made a few hundred separate decisions.</p>
+<p>This is very important for us. Every one of those decisions is a chance to hide a signal.</p>
+<h3 id="how-does-an-llm-choose-the-next-word">How does an LLM choose the next word? <a aria-hidden="true" class="anchor" href="#how-does-an-llm-choose-the-next-word">#</a></h3>
+<p>The best way to learn this is by taking an example.</p>
+<p>Suppose the text written so far is:</p>
+<pre><code>I am going to the ___
+</code></pre>
+<p>Now, the LLM has to pick the next token.</p>
+<p>Here, we must understand that the LLM does not directly give us one word. First, the LLM gives a probability to every possible next token.</p>
+<p>For our example, it can look like below:</p>
+<pre><code>office → 0.31
+park   → 0.29
+market → 0.22
+gym    → 0.18
+</code></pre>
+<p>Here, we can see that the LLM is telling us how likely each token is.</p>
+<p>The number <code>0.31</code> for <code>office</code> means the model thinks there is a 31 percent chance that <code>office</code> is the right next token. The number <code>0.29</code> for <code>park</code> means a 29 percent chance, and so on.</p>
+<p>After this, the model <a href="https://outcomeschool.com/blog/how-do-top-k-and-top-p-sampling-work" rel="noopener noreferrer" target="_blank">picks one token from this list</a>.</p>
+<p>Without any watermark, the model picks the strongest option here.</p>
+<pre><code>Without watermark → office
+</code></pre>
+<p>So, the sentence becomes "I am going to the office".</p>
+<p><strong>Note:</strong> The model does not always pick the token with the highest number. Sometimes it picks a lower one on purpose, so that the writing does not feel repetitive. But the higher the number, the higher the chance of getting picked. That part stays true always, and this is the only part we need for this blog.</p>
+<h3 id="the-hidden-freedom-that-makes-watermarking-possible">The hidden freedom that makes watermarking possible <a aria-hidden="true" class="anchor" href="#the-hidden-freedom-that-makes-watermarking-possible">#</a></h3>
+<p>Now, let's look at those numbers once again.</p>
+<pre><code>office → 0.31
+park   → 0.29
+market → 0.22
+gym    → 0.18
+</code></pre>
+<p>Here, we can notice something very interesting.</p>
+<p>The gap between <code>office</code> at <code>0.31</code> and <code>park</code> at <code>0.29</code> is very small.</p>
+<p>And more importantly, all four sentences are perfectly correct.</p>
+<pre><code>I am going to the office
+I am going to the park
+I am going to the market
+I am going to the gym
+</code></pre>
+<p>If we read any one of these, nothing feels wrong. No grammar mistake. No strange meaning. Nobody would notice anything.</p>
+<p><strong>This small freedom is exactly where the watermark lives.</strong></p>
+<p>Means, at most of the steps, the LLM has many good options and no single option is the only correct one. So, we can gently push the model towards some of those good options without damaging the text.</p>
+<p>Now, the next big question is: which options should we push?</p>
+<p>If we always push the same words, people would notice a strange repeated style. So, the choice must look random. But at the same time, we must be able to reproduce the same choice later during the check, otherwise we can never detect the watermark.</p>
+<p>So, how can we get something that looks random but can be reproduced? The answer is the secret key.</p>
+<h3 id="here-comes-the-secret-key-into-the-picture">Here comes the secret key into the picture <a aria-hidden="true" class="anchor" href="#here-comes-the-secret-key-into-the-picture">#</a></h3>
+<p><strong>The secret key is used as a seed to create a random-looking but reproducible selection of tokens.</strong></p>
+<p>Let's understand the word <strong>seed</strong> with a simple example.</p>
+<p>Suppose we have a deck of cards and a shuffling machine. We give the machine a number, and the machine shuffles the deck based on that number.</p>
+<p>If we give the number <code>7</code>, the machine produces a particular order of cards. The order looks completely shuffled to us.</p>
+<p>Now, if we give the number <code>7</code> again to a second machine with a fresh deck, we get exactly the same order again.</p>
+<p>So, the number <code>7</code> is the seed. Here, we have got two things at the same time.</p>
+<ul>
+<li>The result looks random to anyone who does not know the seed.</li>
+<li>The result can be produced again by anyone who knows the seed.</li>
+</ul>
+<p>This is exactly what the secret key does in LLM watermarking. The company that owns the model keeps this key private.</p>
+<h3 id="preferred-tokens-and-other-tokens">Preferred tokens and other tokens <a aria-hidden="true" class="anchor" href="#preferred-tokens-and-other-tokens">#</a></h3>
+<p>Before jumping into this part, we must know one more word: <strong>vocabulary</strong>.</p>
+<p>The vocabulary is the full list of every token the model is allowed to write. Think of it as the dictionary of the model. A real model has around fifty thousand to a few hundred thousand tokens in its vocabulary.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/bpe-in-llms" rel="noopener noreferrer" target="_blank">Byte Pair Encoding in LLMs</a> that explains how this vocabulary is built in the first place.</p>
+<p>Now, let's come back to our example.</p>
+<p>The model is about to pick the next token after "I am going to the". At this exact step, the algorithm uses the secret key and splits the whole vocabulary into two groups.</p>
+<p>For this particular step, the algorithm divides the vocabulary into two groups like below:</p>
+<pre><code>Preferred tokens: park, market, school...
+Other tokens:     office, gym, house...
+</code></pre>
+<p><strong>Note:</strong> This split has nothing to do with meaning or quality. It is not that <code>park</code> is a better word than <code>office</code>. It is more like a coin toss for every word in the vocabulary, and the secret key decides the result of every toss. The words simply landed on different sides.</p>
+<p>In research papers, these two groups are called the green list and the red list. The name does not matter. The idea is the same. One group gets a small push, and the other group does not.</p>
+<h3 id="slightly-changing-the-probabilities">Slightly changing the probabilities <a aria-hidden="true" class="anchor" href="#slightly-changing-the-probabilities">#</a></h3>
+<p>Now, we have the original probabilities from the LLM, and we have the two groups.</p>
+<p>The LLM's original probabilities are then slightly modified. The preferred tokens get a small boost, and the other tokens go down a little.</p>
+<p>For example:</p>
+<pre><code>office → 0.31 → 0.25
+park   → 0.29 → 0.36
+market → 0.22 → 0.25
+gym    → 0.18 → 0.14
+</code></pre>
+<p>Here, we can see what happened.</p>
+<p><code>park</code> and <code>market</code> are preferred tokens, so their numbers went up.</p>
+<p><code>office</code> and <code>gym</code> are other tokens, so their numbers went down.</p>
+<p>And the order changed. Earlier <code>office</code> was on top with <code>0.31</code>. Now <code>park</code> is on top with <code>0.36</code>.</p>
+<p>One more thing to notice. In both the lists, the four numbers add up to 1. The boost did not create anything extra. It only moved a little probability from the other tokens to the preferred tokens.</p>
+<p>Now the model picks <code>park</code>.</p>
+<p>So, the sentence becomes "I am going to the park".</p>
+<p>And this sentence is completely normal. A reader has no way to feel that anything special happened here. The text reads exactly like ordinary writing.</p>
+<p>Here, we must also know that the size of the push is a setting we can control.</p>
+<p>A bigger push makes the watermark easier to detect, but it pulls the model away from its best words more often, so the quality drops. A smaller push keeps the writing better, but then we need a longer text before the pattern becomes clear.</p>
+<p>So, there is a trade-off here, and we choose the value based on our use case.</p>
+<h3 id="why-the-preferred-set-keeps-changing">Why the preferred set keeps changing <a aria-hidden="true" class="anchor" href="#why-the-preferred-set-keeps-changing">#</a></h3>
+<p>The important part is:</p>
+<p><strong>The secret key does NOT permanently mark <code>park</code> as preferred.</strong></p>
+<p>At the next token, the key plus the current context can produce a different preferred set. In that new set, <code>park</code> can easily land in the other group and <code>office</code> can land in the preferred group.</p>
+<p>So, the process keeps changing at every single step.</p>
+<pre><code>Secret key + context → preferred token set → small probability boost → next token
+</code></pre>
+<p>Let's read this flow once more, because this is the heart of LLM watermarking.</p>
+<p><strong>Secret key + context:</strong> At every step, the algorithm mixes the secret key with the text written so far.</p>
+<p><strong>Preferred token set:</strong> This mix decides which words are preferred at this exact step.</p>
+<p><strong>Small probability boost:</strong> The preferred words get a gentle push in their probability.</p>
+<p><strong>Next token:</strong> The model picks a token from these modified probabilities, and this new token becomes part of the context for the next step.</p>
+<p>Then the whole cycle runs again for the next token, with a fresh preferred set.</p>
+<p>This is why the watermarked text does not develop any visible habit. There is no fixed word that keeps coming back again and again. The preferred group is different at every step, so nothing repeats in a way that a reader can catch.</p>
+<p>And there is one more reason, and it is a very important one.</p>
+<p>Suppose the preferred group was fixed forever. Then anyone could generate a lot of text from the model, count which words keep coming a little too often, and slowly figure out the whole preferred group. After that, they could remove the watermark, or even worse, they could add a fake watermark to their own text and blame the model for it.</p>
+<p>Because the group changes at every step, this attack does not work. Without the secret key, an outsider only sees ordinary words in an ordinary order.</p>
+<h3 id="one-token-vs-thousands-of-tokens">One token vs thousands of tokens <a aria-hidden="true" class="anchor" href="#one-token-vs-thousands-of-tokens">#</a></h3>
+<p>Now, let's ask the most natural question.</p>
+<p>If the change at each step is so small, how can it ever be detected?</p>
+<p>The answer is in the numbers.</p>
+<p>One token → tiny change → looks completely normal.</p>
+<p>But across thousands of tokens, preferred tokens appear more often than they would by chance.</p>
+<p>Let's understand this with a coin.</p>
+<p>Suppose we toss a fair coin 10 times and we get 6 heads. Nobody will find this strange. This happens all the time.</p>
+<p>Now, suppose we toss the same coin 10,000 times and we get 8,000 heads. Now we know something is going on. A fair coin cannot behave like this. The number is too far from what luck can produce.</p>
+<p>The same thing happens in watermarked text.</p>
+<p>For any normal text written by a human or by a model without a watermark, roughly half of the tokens will fall in the preferred group and roughly half will fall in the other group. That is what pure chance gives us, because the split itself was like a coin toss.</p>
+<p>But in watermarked text, the preferred group keeps getting a small push at every step. So, far more than half of the tokens end up in the preferred group.</p>
+<p>Let's put some numbers on it. Suppose we have a text of 1000 tokens.</p>
+<p>If the text has no watermark, around 500 tokens will fall in the preferred group. It can be 480 or 520, because chance is never exact.</p>
+<p>If the text has a watermark, we can see something like 750 tokens in the preferred group.</p>
+<p>Now, 750 out of 1000 is not something luck can produce. Getting that number by pure chance is like tossing a fair coin 1000 times and getting 750 heads. It simply does not happen.</p>
+<p>For one sentence, this difference means nothing. For a long paragraph, this difference becomes very hard to explain by luck.</p>
+<p>This creates a statistical pattern.</p>
+<p>Here, the word <strong>statistical</strong> simply means a pattern that cannot be seen in one place. We can find it only by counting over a large amount of text.</p>
+<p>And that pattern is our watermark.</p>
+<h3 id="how-does-the-detection-work">How does the detection work? <a aria-hidden="true" class="anchor" href="#how-does-the-detection-work">#</a></h3>
+<p>Now that we have learned how the watermark is added, it is time to learn how it is detected.</p>
+<p>The flow is like below:</p>
+<pre><code>Generated text → watermark detector → uses the secret key → checks the statistical pattern → Watermark detected
+</code></pre>
+<p>Let's go through it step by step.</p>
+<p><strong>Step 1:</strong> We give the text to the detector. The detector breaks the text into tokens, the same small pieces the model works with.</p>
+<p><strong>Step 2:</strong> The detector goes to the first token and looks at the context before it. Using the secret key and that context, the detector rebuilds the exact same preferred set that was used at that step. This is possible because the secret key is a seed, and the same seed with the same context always gives the same result.</p>
+<p><strong>Step 3:</strong> The detector checks whether this token belongs to the preferred group or to the other group, and keeps a count.</p>
+<p><strong>Step 4:</strong> The detector moves to the next token and repeats the same thing, and it keeps going till the end of the text.</p>
+<p><strong>Step 5:</strong> At the end, the detector compares the count with what pure chance would give. If the number of preferred tokens is close to half, the text has no watermark. If the number is far above half, the watermark is there.</p>
+<p>Now, we have understood the detection.</p>
+<p>Here, we must notice a few very important points.</p>
+<ul>
+<li>The detector does not need the LLM. It only needs the text and the secret key.</li>
+<li>The detector does not need the original prompt.</li>
+<li>The detector does not need a stored copy of the generated text anywhere. Nothing is saved in a database. The proof is inside the text itself.</li>
+<li>The detector gives a confidence. It can say how unlikely this pattern is by chance, which makes the answer measurable.</li>
+</ul>
+<p>One more thing to notice. The detector counts token by token, so it can also work on a part of the text. Suppose a student wrote half of the essay and the model wrote the other half. The detector can show that the pattern is strong in one part and absent in the other part.</p>
+<p>But the detector does need the secret key.</p>
+<p>This is a very important limitation. We cannot check a piece of text on our own. Only the company that owns the model, or someone they trust with the key, can run this check. And the moment the key leaks, anyone can strip the watermark or fake it, so the whole system depends on keeping that key safe.</p>
+<p>This is how a watermark detector works.</p>
+<h3 id="how-is-this-different-from-an-ai-text-detector">How is this different from an AI text detector? <a aria-hidden="true" class="anchor" href="#how-is-this-different-from-an-ai-text-detector">#</a></h3>
+<p>Many of us must have used a tool that claims to tell whether a text was written by AI. Let's see how that is different from what we have learned here.</p>
+<p>An AI text detector only reads the final text and guesses. It looks at the writing style, the sentence length, how predictable the words are, and things like that. Nobody gave it any secret. It is making an educated guess from the outside.</p>
+<p>A watermark detector does not guess. The mark was placed inside the text on purpose while the text was being written, and the detector opens it with the secret key.</p>
+<p>Let me tabulate the differences between the two for your better understanding.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>AI text detector</th>
+<th>Watermark detector</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reads the final text and guesses from the style</td>
+<td>Reads the hidden signal that was planted on purpose</td>
+</tr>
+<tr>
+<td>Needs no key and no help from the model owner</td>
+<td>Needs the secret key of the model owner</td>
+</tr>
+<tr>
+<td>Works on text from any model</td>
+<td>Works only on text from a model that added the watermark</td>
+</tr>
+<tr>
+<td>Often marks human writing as AI writing by mistake</td>
+<td>Gives a measurable chance of a mistake</td>
+</tr>
+</tbody>
+</table></div>
+<p>So, both have their place. The watermark detector is far more reliable, but it works only where the model owner has already done the work of adding the watermark.</p>
+<h3 id="why-the-quality-of-the-text-does-not-break">Why the quality of the text does not break <a aria-hidden="true" class="anchor" href="#why-the-quality-of-the-text-does-not-break">#</a></h3>
+<p>Now, one doubt must be coming to our mind.</p>
+<p>If we are pushing the model away from its best answer, are we not making the text worse?</p>
+<p>Let's understand this carefully.</p>
+<p>The push is very small. Look at our example once again. <code>office</code> went from <code>0.31</code> to <code>0.25</code>, and <code>park</code> went from <code>0.29</code> to <code>0.36</code>. The model still picked a word that it already considered a good option. It just picked the second good option instead of the first one.</p>
+<p>And there is one more thing. In many places, the model has almost no freedom at all.</p>
+<p>For example, consider the text "The capital of France is ___". Here, the model gives something like below:</p>
+<pre><code>Paris → 0.99
+Lyon  → 0.004
+Nice  → 0.003
+</code></pre>
+<p>Here, <code>Paris</code> is at <code>0.99</code>. A small boost to some other token cannot beat <code>0.99</code>. So, the model still writes <code>Paris</code>.</p>
+<p>This is very good for us. Where the answer must be a fact, the watermark stays out of the way. Where the model genuinely has many equally good options, the watermark does its work.</p>
+<p><strong>So, the watermark takes its space only from the freedom that the model already had.</strong></p>
+<p>This also tells us something about short text. If the text is only a few words long, there were very few free choices, so there is very little pattern to measure. A watermark detector needs enough tokens to be confident. Short text is hard to check, and long text is easy to check.</p>
+<h3 id="what-happens-when-someone-edits-the-text">What happens when someone edits the text? <a aria-hidden="true" class="anchor" href="#what-happens-when-someone-edits-the-text">#</a></h3>
+<p>This is a very practical question. Let's see a few cases.</p>
+<p><strong>Case 1: Changing a few words.</strong> Suppose someone changes ten words in a long article. The remaining hundreds of tokens still carry the pattern. The detector will still find the watermark, with slightly less confidence.</p>
+<p><strong>Case 2: Rewriting every sentence in different words.</strong> Now, most of the tokens are new choices made by a human or by another model. Those new tokens know nothing about our secret key, so they land in the preferred group only by chance. The pattern becomes much weaker, and the detector can miss the watermark.</p>
+<p><strong>Case 3: Translating the text into another language.</strong> Almost every token changes. The watermark is mostly gone.</p>
+<p>So, the honest summary is:</p>
+<ul>
+<li>LLM watermarking is good against small edits.</li>
+<li>LLM watermarking is weak against heavy rewriting and translation.</li>
+<li>LLM watermarking works only when the model owner adds it, so text from a model without a watermark can never be caught this way.</li>
+</ul>
+<p>This is why we must treat watermarking as one useful signal, and not as a final proof.</p>
+<h3 id="where-is-llm-watermarking-used-in-the-real-world">Where is LLM watermarking used in the real world? <a aria-hidden="true" class="anchor" href="#where-is-llm-watermarking-used-in-the-real-world">#</a></h3>
+<p>Now, let's take a real use case.</p>
+<p>Google DeepMind built a system called <strong>SynthID</strong>, and one part of it, SynthID-Text, does exactly what we have learned in this blog. It changes the token selection slightly while the model writes, and a detector with the key can check the text later.</p>
+<p>The same idea is used beyond text too. For images, audio, and video, a hidden signal is placed inside the pixels or inside the sound in a way that our eyes and ears cannot catch, but a detector can. We have a detailed blog on <a href="https://outcomeschool.com/blog/multimodal-ai" rel="noopener noreferrer" target="_blank">Multimodal AI</a> that covers how models work across all of these together.</p>
+<p>So, the core idea stays the same everywhere. Hide a signal in the small choices that nobody notices, and read it back later with the key.</p>
+<h3 id="advantages-and-disadvantages-of-llm-watermarking">Advantages and disadvantages of LLM watermarking <a aria-hidden="true" class="anchor" href="#advantages-and-disadvantages-of-llm-watermarking">#</a></h3>
+<p>Let's see the advantages and disadvantages of LLM watermarking.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>The text quality stays almost the same.</li>
+<li>Nothing needs to be stored in any database.</li>
+<li>The detection gives a measurable confidence, not a guess.</li>
+<li>The reader sees completely normal text.</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li>Heavy rewriting or translation removes the pattern.</li>
+<li>Short text cannot be checked with confidence.</li>
+<li>The secret key must be protected, because leaking it breaks everything.</li>
+<li>It works only for models that chose to add a watermark.</li>
+</ul>
+<p>So, now we know where we can use LLM watermarking and where we must be careful.</p>
+<h3 id="summary">Summary <a aria-hidden="true" class="anchor" href="#summary">#</a></h3>
+<p>Let's recall everything in a short form.</p>
+<p>An LLM writes one token at a time. At every step, it gives a probability to every possible next token, and then it picks one.</p>
+<p>At most of those steps, many different tokens would give perfectly good text. This freedom is where the watermark lives.</p>
+<p>The secret key acts as a seed. At every step, the key plus the current context splits the vocabulary into preferred tokens and other tokens. The preferred tokens get a small boost in their probability.</p>
+<p>The preferred set is not fixed. It changes at every single step, so the text never develops a visible habit.</p>
+<p>One token gets a tiny change, so nothing looks unusual. Thousands of tokens together produce far more preferred tokens than chance allows, and this becomes a statistical pattern.</p>
+<p>The detector takes the text and the secret key, rebuilds the preferred set at every step, counts the preferred tokens, and compares the count with chance.</p>
+<p>So, the watermark is not a visible mark.</p>
+<p>It is a statistical pattern created by slightly changing the probability of which tokens get selected.</p>
+<p>Now we must have understood how LLM watermarking works.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions <a aria-hidden="true" class="anchor" href="#frequently-asked-questions">#</a></h2>
+<h3 id="can-anyone-check-whether-a-text-has-an-llm-watermark">Can anyone check whether a text has an LLM watermark? <a aria-hidden="true" class="anchor" href="#can-anyone-check-whether-a-text-has-an-llm-watermark">#</a></h3>
+<p>No. The detector needs the secret key of the model owner. Only the company that owns the model, or someone they trust with the key, can run this check. If the key leaks, anyone can strip the watermark or fake it, so the whole system depends on keeping that key safe.</p>
+<h3 id="does-the-watermark-detector-need-the-original-prompt-or-a-saved-copy-of-the-text">Does the watermark detector need the original prompt or a saved copy of the text? <a aria-hidden="true" class="anchor" href="#does-the-watermark-detector-need-the-original-prompt-or-a-saved-copy-of-the-text">#</a></h3>
+<p>No. The detector does not need the LLM, the original prompt, or any stored copy of the generated text. It only needs the text and the secret key. The proof is inside the text itself, so nothing has to be saved in a database.</p>
+<h3 id="can-llm-watermarking-catch-text-from-any-ai-model">Can LLM watermarking catch text from any AI model? <a aria-hidden="true" class="anchor" href="#can-llm-watermarking-catch-text-from-any-ai-model">#</a></h3>
+<p>No. LLM watermarking works only when the model owner adds it while the text is being written. Text from a model without a watermark can never be caught this way. An AI text detector works on text from any model, but it only guesses from the writing style.</p>
+<h3 id="can-a-watermark-detector-find-ai-written-parts-inside-a-mixed-text">Can a watermark detector find AI-written parts inside a mixed text? <a aria-hidden="true" class="anchor" href="#can-a-watermark-detector-find-ai-written-parts-inside-a-mixed-text">#</a></h3>
+<p>Yes. The detector counts token by token, so it can also work on a part of the text. Suppose a student wrote half of an essay and the model wrote the other half. The detector can show that the pattern is strong in one part and absent in the other part.</p>
+<h3 id="is-an-llm-watermark-a-final-proof-that-ai-wrote-the-text">Is an LLM watermark a final proof that AI wrote the text? <a aria-hidden="true" class="anchor" href="#is-an-llm-watermark-a-final-proof-that-ai-wrote-the-text">#</a></h3>
+<p>No. We must treat watermarking as one useful signal, not as a final proof. It is good against small edits, but heavy rewriting and translation can remove the pattern, and short text cannot be checked with confidence. The detector gives a measurable confidence rather than a certain answer.</p>
+
+  <nav class="prev-next" aria-label="Lesson navigation"><a href="m14-l1402-what-is-prompt-injection-in-llms-and-how-do-we-defend-against-it.html"><span class="label">← Previous lesson</span>14.2 What is Prompt Injection in LLMs and How Do We Defend Against It?</a><a class="next" href="m15-l1501-what-is-multimodal-ai-how-it-works-and-where-it-is-used.html"><span class="label">Next lesson →</span>15.1 What is Multimodal AI? How It Works and Where It Is Used</a></nav>
+  <footer class="footer">
+    <p>Personal offline study copy · Content © Outcome School / Amit Shekhar ·
+    <a href="../notice.html">usage notice</a>.</p>
+    <p>Source: <a href="https://outcomeschool.com/blog/how-does-llm-watermarking-work" target="_blank" rel="noopener noreferrer">https://outcomeschool.com/blog/how-does-llm-watermarking-work</a></p>
+  </footer>
+</article>
+
+    </main>
+  </div>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 8: Prompt Engineering and Context Engineering</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/print.css">
+</head>
+<body class="print-body">
+<main class="print-document">
+
+<section class="print-cover">
+  <p class="kicker">AI Engineering Course</p>
+  <h1>Module 8</h1>
+  <h2>Prompt Engineering and Context Engineering</h2>
+  <p class="meta">6 lessons · Personal offline study copy</p>
+  <p class="notice">Personal offline study copy. Content © Outcome School /
+  Amit Shekhar. Not for redistribution. See study/NOTICE.md.</p>
+</section>
+<section class="print-toc">
+<h1>Contents</h1>
+<ul>
+<li class="module-entry"><a href="#module-8">Module 8: Prompt Engineering and Context Engineering</a>
+<ul class="toc-lessons">
+<li class="lesson-entry"><a href="#lesson-m08-l0801">8.1 How does Chain-of-Thought (CoT) Prompting work?</a></li>
+<li class="lesson-entry"><a href="#lesson-m08-l0802">8.2 How does Tree of Thoughts work?</a></li>
+<li class="lesson-entry"><a href="#lesson-m08-l0803">8.3 How does Prompt Chaining work?</a></li>
+<li class="lesson-entry"><a href="#lesson-m08-l0804">8.4 How does Prompt Caching work?</a></li>
+<li class="lesson-entry"><a href="#lesson-m08-l0805">8.5 What is Context Engineering?</a></li>
+<li class="lesson-entry"><a href="#lesson-m08-l0806">8.6 How does context compaction work?</a></li>
+</ul>
+</li>
+</ul>
+</section>
+<section class="print-module" id="module-8">
+  <section class="print-module-title">
+    <p class="kicker">Module 8</p>
+    <h1>Prompt Engineering and Context Engineering</h1>
+    <p class="meta">6 lessons · ~1 min overview</p>
+  </section>
+  <div class="print-module-intro"><p>In this module, we will learn how to talk to an LLM so that it gives better answers, and how to manage everything that goes into its context window.</p>
+<p>By the end of this module, we will be able to design prompts and contexts that make an LLM reliable, fast, and cheap.</p>
+</div>
+  
+<section class="print-lesson" id="lesson-m08-l0801">
+  <p class="print-lesson-kicker">Lesson 8.1</p>
+  <h1>How does Chain-of-Thought (CoT) Prompting work?</h1>
+  <p class="print-lesson-meta">Lesson 8.1 · ~13 min · Published July 11, 2026 · <a href="https://outcomeschool.com/blog/how-does-chain-of-thought-prompting-work">https://outcomeschool.com/blog/how-does-chain-of-thought-prompting-work</a></p>
+  <p><img alt="How does Chain-of-Thought (CoT) Prompting work?" src="../assets/images/08-08-01-how-does-chain-of-thought-cot-prompting-work/how-does-chain-of-thought-prompting-work.png"/></p>
+<p>Chain-of-Thought (CoT) Prompting is a technique where we ask the model to write out its reasoning steps before giving the final answer. In simple words, we ask the model to think out loud first, and this makes its answers more accurate.</p>
+<p>In this blog, we will learn about how Chain-of-Thought (CoT) Prompting works. We will also see why a model that jumps straight to the answer often gets it wrong, how making it reason step by step fixes this, the difference between zero-shot and few-shot CoT, and where this technique is truly useful.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is a prompt?</li>
+<li>What is an LLM?</li>
+<li>The problem: when the model jumps straight to the answer</li>
+<li>What is Chain-of-Thought (CoT) Prompting?</li>
+<li>A simple example without CoT and with CoT</li>
+<li>Zero-shot CoT vs Few-shot CoT</li>
+<li>A step-by-step walkthrough of a reasoning chain</li>
+<li>Why does Chain-of-Thought Prompting work?</li>
+<li>Where Chain-of-Thought Prompting is useful</li>
+<li>Things to keep in mind</li>
+</ul>
+<p>Let's get started.</p>
+<h3 id="what-is-a-prompt">What is a prompt?</h3>
+<p>Before jumping into Chain-of-Thought Prompting, we must know what a <strong>prompt</strong> is.</p>
+<p>A <strong>prompt</strong> is the text instruction we give to an AI model. In simple words, a prompt is the question or the task we type in.</p>
+<p>Let's say we open a chat-based AI tool and type, "What is the capital of France?". That sentence is the prompt. The model reads the prompt and gives us an answer.</p>
+<p>So, a prompt is just our way of telling the model what we want.</p>
+<h3 id="what-is-an-llm">What is an LLM ?</h3>
+<p>Now, let's understand the kind of model we are talking about.</p>
+<p><strong>LLM = Large Language Model.</strong></p>
+<p>In simple words, an LLM is a model that has read a huge amount of text and learned to predict the next word. That is the most important idea here.</p>
+<p>Let's say we type, "The sky is". The model has seen this kind of sentence many times, so it predicts the next word as "blue". It keeps doing this, one word after another, until the full answer is formed.</p>
+<p>So, an LLM builds its answer word by word. It does not see the whole answer at once. It writes the answer the same way we speak a sentence, one word at a time.</p>
+<p>This one-word-at-a-time way of generating text is called autoregression. We have a detailed blog on <a href="https://outcomeschool.com/blog/autoregressive-models" rel="noopener noreferrer" target="_blank">autoregressive models</a> that explains it in depth.</p>
+<p>This single idea will help us understand why Chain-of-Thought Prompting works so well.</p>
+<h3 id="the-problem-when-the-model-jumps-straight-to-the-answer">The problem: when the model jumps straight to the answer</h3>
+<p>Consider a simple math word problem.</p>
+<blockquote>
+<p>A shop has 12 apples. It sells 5 apples in the morning and buys 8 more in the evening. How many apples does the shop have now?</p>
+</blockquote>
+<p>The correct answer is 15. We get this by doing 12 - 5 = 7, and then 7 + 8 = 15.</p>
+<p>Now, suppose we just ask the model for the answer directly. The model tries to predict the final number immediately. It has not worked out the small steps. For an easy problem, it may get it right. But for harder problems, it often jumps to a wrong number.</p>
+<p>Why does this happen? Because we forced the model to produce the answer in one shot. We did not give it room to think step by step.</p>
+<p>The model writes word by word, so if it commits to a final number too early, it has no chance to correct itself.</p>
+<p>This is the core problem. So, here comes Chain-of-Thought Prompting to the rescue.</p>
+<h3 id="what-is-chain-of-thought-cot-prompting">What is Chain-of-Thought (CoT) Prompting?</h3>
+<p><strong>Chain-of-Thought (CoT) Prompting is a technique where we ask the model to write out its reasoning steps before giving the final answer.</strong></p>
+<p>In simple words, instead of asking for the answer directly, we ask the model to "think out loud" first.</p>
+<p>Let's decompose the name to make it clearer.</p>
+<p><strong>Chain-of-Thought = Chain + of + Thought.</strong></p>
+<p>A <strong>thought</strong> is one small reasoning step. A <strong>chain</strong> is many small steps linked together, one after another. So a Chain-of-Thought is a series of small reasoning steps that lead us to the final answer.</p>
+<p>Let's say we are solving the apple problem. The thoughts in the chain are like this:</p>
+<ul>
+<li>Thought 1: Start with 12 apples.</li>
+<li>Thought 2: Sell 5, so 12 - 5 = 7 apples.</li>
+<li>Thought 3: Buy 8 more, so 7 + 8 = 15 apples.</li>
+<li>Final answer: 15.</li>
+</ul>
+<p>Here, we can see that each thought builds on the previous one. This is the chain. This is how Chain-of-Thought Prompting guides the model.</p>
+<p>Let's visualize the difference between the two ways as below:</p>
+<pre><code class="language-text">   Without CoT (jump straight to the answer)
+   Question --&gt; [ guess the final number ] --&gt; Answer (often wrong)
+   With CoT (think step by step)
+   Question
+      |
+      v
+   Thought 1: start with 12 apples
+      |
+      v
+   Thought 2: 12 - 5 = 7 apples
+      |
+      v
+   Thought 3: 7 + 8 = 15 apples
+      |
+      v
+   Final answer: 15 (more reliable)
+</code></pre>
+<p>Here, we can see that without <code>CoT</code> the model goes from the question straight to the answer in one jump. With <code>CoT</code> the question flows through small thoughts, one after another, and only the last thought gives the final answer.</p>
+<h3 id="a-simple-example-without-cot-and-with-cot">A simple example without CoT and with CoT</h3>
+<p>The best way to learn this is by taking an example.</p>
+<p>First, let's see a prompt without Chain-of-Thought, as below:</p>
+<pre><code class="language-text">Q: A shop has 12 apples. It sells 5 in the morning and buys 8 in the evening.
+How many apples does it have now? Give only the final number.
+</code></pre>
+<p>Here, we have told the model to give only the final number. The model is forced to jump straight to the answer with no thinking space. On harder problems, this often leads to mistakes.</p>
+<p>Now, let's add Chain-of-Thought to the same prompt, as below:</p>
+<pre><code class="language-text">Q: A shop has 12 apples. It sells 5 in the morning and buys 8 in the evening.
+How many apples does it have now? Let's think step by step.
+</code></pre>
+<p>Here, we have added one simple line at the end: "Let's think step by step." This small line is the trigger. It tells the model to write out its reasoning before the answer.</p>
+<p>Now the model responds like below:</p>
+<pre><code class="language-text">We start with 12 apples.
+After selling 5, we have 12 - 5 = 7 apples.
+After buying 8 more, we have 7 + 8 = 15 apples.
+So, the final answer is 15.
+</code></pre>
+<p>Here, we can notice that the model first writes the steps and only then gives the final answer. The reasoning is laid out clearly. This is Chain-of-Thought Prompting in action.</p>
+<p>Problem Solved!</p>
+<h3 id="zero-shot-cot-vs-few-shot-cot">Zero-shot CoT vs Few-shot CoT</h3>
+<p>Now, let's learn that there are two common ways to do Chain-of-Thought Prompting.</p>
+<p>The first one is <strong>Zero-shot CoT</strong>.</p>
+<p>In simple words, "zero-shot" means we give zero examples. We just add a line like "Let's think step by step" and the model starts reasoning on its own. This is the easiest way, and we already saw it above.</p>
+<p>Let's see the Zero-shot CoT prompt again, as below:</p>
+<pre><code class="language-text">Q: If a train travels 60 km in 1 hour, how far does it travel in 3 hours?
+Let's think step by step.
+</code></pre>
+<p>Here, we have given no example at all. We only added the magic line "Let's think step by step." The model figures out the steps by itself.</p>
+<p>The second one is <strong>Few-shot CoT</strong>.</p>
+<p>In simple words, "few-shot" means we give a few examples first. We show the model one or two solved problems with full reasoning. Then we ask our real question. The model copies the same step-by-step style.</p>
+<p>Let's see a Few-shot CoT prompt, as below:</p>
+<pre><code class="language-text">Q: A box has 4 pens. We add 3 more pens. How many pens now?
+A: We start with 4 pens. We add 3, so 4 + 3 = 7. The answer is 7.
+Q: A jar has 10 candies. We eat 6. How many candies now?
+A: We start with 10 candies. We eat 6, so 10 - 6 = 4. The answer is 4.
+Q: A shelf has 8 books. We add 5 more. How many books now?
+A:
+</code></pre>
+<p>Here, we have given two solved examples first. Each example shows the reasoning, not just the answer. After seeing this pattern, the model answers the third question in the same step-by-step way. It will write, "We start with 8 books. We add 5, so 8 + 5 = 13. The answer is 13."</p>
+<p>So, Zero-shot CoT uses a simple instruction, and Few-shot CoT uses solved examples to teach the pattern.</p>
+<p>Let me tabulate the differences between Zero-shot CoT and Few-shot CoT for your better understanding.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Point</th>
+<th>Zero-shot CoT</th>
+<th>Few-shot CoT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Examples given</td>
+<td>None</td>
+<td>A few solved examples</td>
+</tr>
+<tr>
+<td>How reasoning is triggered</td>
+<td>A line like "Let's think step by step"</td>
+<td>Showing solved examples with steps</td>
+</tr>
+<tr>
+<td>Prompt length</td>
+<td>Short</td>
+<td>Longer</td>
+</tr>
+<tr>
+<td>Effort to write</td>
+<td>Very less</td>
+<td>More, because we write examples</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>Quick, common problems</td>
+<td>Harder or unusual problems</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="a-step-by-step-walkthrough-of-a-reasoning-chain">A step-by-step walkthrough of a reasoning chain</h3>
+<p>Now, let's take a slightly bigger problem and walk through the chain step by step.</p>
+<blockquote>
+<p>Suppose a class has 30 students. 12 of them play football. Half of the remaining students play cricket. How many students play cricket?</p>
+</blockquote>
+<p>Let's follow the chain.</p>
+<p><strong>Step 1:</strong> Start with 30 students in total.</p>
+<p><strong>Step 2:</strong> 12 students play football. So the remaining students are 30 - 12 = 18.</p>
+<p><strong>Step 3:</strong> Half of the remaining 18 students play cricket. So 18 divided by 2 = 9.</p>
+<p><strong>Step 4:</strong> So, the final answer is 9 students play cricket.</p>
+<p>We can picture how the result of each step flows into the next as below:</p>
+<pre><code class="language-text">  Step 1            Step 2              Step 3            Step 4
++--------+      +-------------+     +-------------+     +--------+
+| total  | ---&gt; | remaining   | --&gt; | cricket     | --&gt; | final  |
+| = 30   |      | = 30 - 12   |     | = 18 / 2    |     | answer |
+|        |      | = 18        |     | = 9         |     | = 9    |
++--------+      +-------------+     +-------------+     +--------+
+                     ^                    ^
+                     |                    |
+              uses total from      uses remaining from
+                  Step 1                Step 2
+</code></pre>
+<p>Here, we can see that each step uses the result of the step before it. Step 2 needs the total from Step 1. Step 3 needs the remaining count from Step 2. This linking of steps is exactly why we call it a chain.</p>
+<p>If the model tried to guess "9" in one shot, it could easily slip. But by working through each step, it stays on track. This is how Chain-of-Thought Prompting reduces mistakes.</p>
+<h3 id="why-does-chain-of-thought-prompting-work">Why does Chain-of-Thought Prompting work?</h3>
+<p>Now, the next big question is: why does this simple trick work so well?</p>
+<p>Remember the idea from earlier. An LLM writes its answer one word at a time, and each new word depends on the words written before it.</p>
+<p>When the model writes out its reasoning, those reasoning words become part of what it reads next. So the model is now building its final answer on top of correct, visible steps, instead of guessing from nothing.</p>
+<p>Let's say we are doing a hard calculation in our head. It is easy to make a mistake. But if we write each step on paper, we are far more likely to get it right. Chain-of-Thought Prompting gives the model that same "paper to write on".</p>
+<p>Another reason is this. Breaking a big problem into small steps makes each step easy. The model is good at small, simple steps. By chaining many easy steps, it can solve a problem that looked hard as a whole.</p>
+<p>So, the model is not getting smarter. We are just giving it room to think, and that too in a structured way. That's the beauty of Chain-of-Thought Prompting.</p>
+<p>Some newer models are trained to produce these reasoning steps on their own, without us adding any special prompt. We have a detailed blog on <a href="https://outcomeschool.com/blog/large-reasoning-models" rel="noopener noreferrer" target="_blank">large reasoning models</a> that explains how this works.</p>
+<h3 id="where-chain-of-thought-prompting-is-useful">Where Chain-of-Thought Prompting is useful</h3>
+<p>Now, we know how it works. Let's see where we can use it.</p>
+<ul>
+<li>Math word problems, where we need many small calculations.</li>
+<li>Logic puzzles, where one wrong step breaks the whole answer.</li>
+<li>Multi-step questions, where the answer depends on earlier facts.</li>
+<li>Decision-making tasks, where we must weigh a few options before choosing.</li>
+<li>Reading comprehension, where we must connect different parts of a passage.</li>
+</ul>
+<p>In all of these, the answer is not a single fact. It needs several steps. Chain-of-Thought Prompting fits these cases perfectly.</p>
+<p>When one wrong first step can break the whole answer, we can go one step further and let the model try many paths, judge them, and go back when a path fails. We have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-tree-of-thoughts-work" rel="noopener noreferrer" target="_blank">Tree of Thoughts</a> that explains this step by step.</p>
+<h3 id="things-to-keep-in-mind">Things to keep in mind</h3>
+<p>Now, let's discuss a few important points before we close.</p>
+<ul>
+<li>Chain-of-Thought Prompting helps most on hard, multi-step problems. For very simple questions like "What is the capital of France?", we do not need it. The answer is a single fact, so there is nothing to break into steps.</li>
+<li>The reasoning the model writes is helpful, but it is not always perfect. The model can write steps that look correct but still reach a wrong answer. So, for important tasks, we must check the steps ourselves and not blindly trust them.</li>
+<li>Writing out the steps means the model produces more text. More text takes a little more time and cost. For most tasks this is a fair trade for better answers, but we must keep it in mind based on our use case.</li>
+</ul>
+<p>So, the idea is simple. Instead of asking the model for the answer directly, we ask it to think step by step. The model writes a chain of small thoughts, and each thought leads to the next, until we reach a reliable final answer.</p>
+<p>This is how Chain-of-Thought Prompting works, and this is why such a small change in our prompt can make such a big difference.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="does-chain-of-thought-prompting-make-the-model-smarter">Does Chain-of-Thought Prompting make the model smarter?</h3>
+<p>No. The model is not getting smarter. We are just giving it room to think in a structured way. The reasoning words it writes become part of what it reads next, so it builds the final answer on top of visible steps instead of guessing from nothing.</p>
+<h3 id="should-we-use-chain-of-thought-prompting-for-simple-questions">Should we use Chain-of-Thought Prompting for simple questions?</h3>
+<p>No. It helps most on hard, multi-step problems. For a simple question like "What is the capital of France?", the answer is a single fact, so there is nothing to break into steps. It fits math word problems, logic puzzles, and multi-step questions much better.</p>
+<h3 id="can-we-fully-trust-the-reasoning-steps-the-model-writes">Can we fully trust the reasoning steps the model writes?</h3>
+<p>No. The reasoning is helpful, but it is not always perfect. The model can write steps that look correct but still reach a wrong answer. So, for important tasks, we must check the steps ourselves and not blindly trust them.</p>
+<h3 id="does-chain-of-thought-prompting-increase-time-and-cost">Does Chain-of-Thought Prompting increase time and cost?</h3>
+<p>Yes. Writing out the steps means the model produces more text, and more text takes a little more time and cost. For most tasks, this is a fair trade for better answers, but we must keep it in mind based on our use case.</p>
+<h3 id="do-all-models-need-a-special-prompt-to-reason-step-by-step">Do all models need a special prompt to reason step by step?</h3>
+<p>No. Some newer models are trained to produce these reasoning steps on their own, without us adding any special prompt. For other models, a simple line like "Let's think step by step" or a few solved examples triggers the reasoning.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m08-l0802">
+  <p class="print-lesson-kicker">Lesson 8.2</p>
+  <h1>How does Tree of Thoughts work?</h1>
+  <p class="print-lesson-meta">Lesson 8.2 · ~16 min · Published October 7, 2026 · <a href="https://outcomeschool.com/blog/how-does-tree-of-thoughts-work">https://outcomeschool.com/blog/how-does-tree-of-thoughts-work</a></p>
+  <p><img alt="How does Tree of Thoughts work?" src="../assets/images/08-08-02-how-does-tree-of-thoughts-work/how-does-tree-of-thoughts-work.png"/></p>
+<p>Tree of Thoughts is a way of making an LLM solve a hard problem by trying many possible next steps, checking which ones look good, and going deeper only on the good ones, just like exploring the branches of a tree.</p>
+<p>In this blog, we will learn about how Tree of Thoughts works. We will also see why a normal step-by-step answer fails on hard problems, what a "thought" means here, how the LLM generates and judges many thoughts, how a search algorithm walks through the tree and goes back when a path fails, a full walkthrough on the Game of 24, and where it works well and where it fails.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>How does an LLM answer?</li>
+<li>What is Chain of Thought?</li>
+<li>The problem with Chain of Thought</li>
+<li>What is Tree of Thoughts?</li>
+<li>What is a thought?</li>
+<li>Step 1: Breaking the problem into thoughts</li>
+<li>Step 2: Generating many thoughts</li>
+<li>Step 3: Judging the thoughts</li>
+<li>Step 4: Searching through the tree</li>
+<li>A complete example: the Game of 24</li>
+<li>A simple code sketch of Tree of Thoughts</li>
+<li>Chain of Thought vs Tree of Thoughts</li>
+<li>Where Tree of Thoughts works well and where it fails</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="how-does-an-llm-answer">How does an LLM answer?</h2>
+<p>Before jumping into Tree of Thoughts, we must know how an LLM gives an answer.</p>
+<p>An LLM writes text one small piece at a time. The small piece of text that an LLM writes at a time is called a <strong><a href="https://outcomeschool.com/blog/tokenization-in-llms" rel="noopener noreferrer" target="_blank">token</a></strong>. A token is a word or a part of a word. For the sake of understanding, we can think of a token as one word.</p>
+<p>An LLM writes its answer from left to right, one token after another. Once it has written a token, it does not go back and change it. It just keeps moving forward.</p>
+<p>Let's say we ask a friend to solve a puzzle, but with one strict rule: they must speak every step out loud, and they can never say "wait, let me try another way". If they take one wrong step early, the whole answer goes wrong. This is how a normal LLM answers.</p>
+<h2 id="what-is-chain-of-thought">What is Chain of Thought?</h2>
+<p>Now, let's understand the idea that came before Tree of Thoughts.</p>
+<p><strong>Chain of Thought is a way of asking an LLM to write down its reasoning step by step before giving the final answer.</strong></p>
+<p>Suppose we ask: "A shop has 23 apples. It sells 20 and then buys 6 more. How many apples does it have now?"</p>
+<p>Without Chain of Thought, the LLM jumps straight to an answer, and sometimes that answer is wrong.</p>
+<p>With Chain of Thought, we add a line like "Let's think step by step." Now, the LLM writes:</p>
+<pre><code class="language-text">The shop starts with 23 apples.
+It sells 20, so 23 - 20 = 3 apples are left.
+It buys 6 more, so 3 + 6 = 9 apples.
+The answer is 9.
+</code></pre>
+<p>Here, we can see that the LLM writes small steps one after another, like the links of a chain. Each step builds on the previous one. This trick makes LLMs much better at maths and logic problems.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-chain-of-thought-prompting-work" rel="noopener noreferrer" target="_blank">Chain-of-Thought Prompting</a> that explains this in depth.</p>
+<h2 id="the-problem-with-chain-of-thought">The problem with Chain of Thought</h2>
+<p>Chain of Thought is still one single chain. The LLM picks one first step, then one second step, then one third step, and never looks back.</p>
+<pre><code class="language-text">Start
+  ↓
+Step 1
+  ↓
+Step 2
+  ↓
+Step 3
+  ↓
+Answer
+</code></pre>
+<p>If Step 1 is a bad choice, every step after it is built on a bad foundation. The LLM has no way to say, "This path is not working, let me go back and try a different Step 1."</p>
+<p>Think about how we humans solve a hard puzzle, like a Sudoku or a maze. We try something. If it leads to a dead end, we go back and try something else. We also compare a few options in our head before picking one. We explore.</p>
+<p>Chain of Thought does not explore. It just walks in a straight line.</p>
+<p>So, the question is: how can we make an LLM explore many paths, check them, and go back when one path fails?</p>
+<p>So, here comes Tree of Thoughts to the rescue.</p>
+<h2 id="what-is-tree-of-thoughts">What is Tree of Thoughts?</h2>
+<p><strong>Tree of Thoughts is a method where an LLM builds many possible reasoning paths in the shape of a tree, judges how promising each path is, and uses a search to keep the good paths and drop the bad ones.</strong></p>
+<p>It was introduced in 2023 in a research paper named "Tree of Thoughts: Deliberate Problem Solving with Large Language Models" by Shunyu Yao and others from Princeton University and Google DeepMind.</p>
+<p>Here, the thoughts are small steps of reasoning, and they are arranged like the branches of a tree. One starting point splits into many branches, and each branch splits again.</p>
+<p>It looks like below:</p>
+<pre><code class="language-text">                     [Problem]
+                         ↓
+          +--------------+--------------+
+          ↓              ↓              ↓
+     [Thought A]    [Thought B]    [Thought C]
+          ↓              ↓              ↓
+     +----+----+        [B1]         dropped
+     ↓         ↓         ↓
+    [A1]      [A2]      [B2]
+     ↓         ↓
+  [Answer]  dropped
+</code></pre>
+<p>Here, we can notice that the LLM did not commit to one path. It tried three first thoughts. Path C looked hopeless, so it was dropped. Path A2 also failed. Path A1 reached the answer.</p>
+<p>Tree of Thoughts is built from four parts:</p>
+<ul>
+<li>Breaking the problem into thoughts</li>
+<li>Generating many thoughts</li>
+<li>Judging the thoughts</li>
+<li>Searching through the tree</li>
+</ul>
+<p>We will learn about each of them in detail.</p>
+<h2 id="what-is-a-thought">What is a thought?</h2>
+<p>Before going to the steps, we must understand what a "thought" means here.</p>
+<p><strong>A thought is one meaningful middle step towards solving the problem.</strong></p>
+<p>It is bigger than a single token, but smaller than the whole answer. The size of a thought depends on the problem:</p>
+<ul>
+<li>In a maths puzzle, one thought can be one equation, like <code>4 + 9 = 13</code>.</li>
+<li>In a crossword, one thought can be one word filled into the grid.</li>
+<li>In creative writing, one thought can be a short plan of the story.</li>
+</ul>
+<p>A <strong>state</strong> is everything we have so far: the original problem plus all the thoughts on the current path. Each box in the tree above is a state.</p>
+<p>Now, let's move to the four steps.</p>
+<h2 id="step-1-breaking-the-problem-into-thoughts">Step 1: Breaking the problem into thoughts</h2>
+<p>First, we need to decide how to cut the problem into thought-sized steps.</p>
+<p>The size matters a lot. If a thought is too small, like one word, the LLM cannot judge whether it is good or bad. If a thought is too big, like the whole answer, the LLM cannot create many different options for it.</p>
+<p>So, we pick a size where the LLM can create a few different options and also judge them. This choice is made by us, the people designing the system, based on our use case.</p>
+<h2 id="step-2-generating-many-thoughts">Step 2: Generating many thoughts</h2>
+<p>Then, at every state, we ask the LLM to create a few possible next thoughts. This part is called the <strong>thought generator</strong>.</p>
+<p>There are two common ways to do it:</p>
+<ul>
+<li><strong>Sample:</strong> We ask the LLM the same question a few times, separately. Each time, it gives a slightly different next thought. This works well when there are many open choices, like in creative writing.</li>
+<li><strong>Propose:</strong> We ask the LLM once to list several different next thoughts in one answer. This works well when the choices are small and limited, like in a maths puzzle, because it avoids getting the same thought again and again.</li>
+</ul>
+<p>Let's say we have a small maths puzzle: we get the numbers 4, 9, 10, 13, and we must combine them to make 24. We will see this puzzle in detail later. For the first step, the LLM can propose:</p>
+<pre><code class="language-text">4 + 9 = 13  (left: 10, 13, 13)
+10 - 4 = 6  (left: 6, 9, 13)
+13 - 9 = 4  (left: 4, 4, 10)
+</code></pre>
+<p>Here, each line is one candidate thought, and each one opens a new branch in the tree.</p>
+<h2 id="step-3-judging-the-thoughts">Step 3: Judging the thoughts</h2>
+<p>Now, we have many branches. But we cannot follow all of them, because the tree grows very fast. We need to know which branches look promising.</p>
+<p>This part is called the <strong>state evaluator</strong>. The same LLM does the judging. We simply ask it to think about each state and give an opinion.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/llm-as-a-judge" rel="noopener noreferrer" target="_blank">LLM as a Judge</a> that explains how an LLM can grade the work of an LLM.</p>
+<p>There are two common ways:</p>
+<ul>
+<li><strong>Value:</strong> We show the LLM one state and ask it to rate it. For example, in the maths puzzle, the LLM labels each state as <strong>sure</strong>, <strong>likely</strong>, or <strong>impossible</strong> to reach the goal. These labels are turned into scores.</li>
+<li><strong>Vote:</strong> We show the LLM all the states together and ask, "Which one is the most promising?". The LLM votes for one. We repeat the vote a few times and count.</li>
+</ul>
+<p>Let's say the state is "left: 4, 4, 10". The LLM can reason like below:</p>
+<pre><code class="language-text">10 - 4 = 6, 6 * 4 = 24. We can reach 24.
+Judgement: sure
+</code></pre>
+<p>And for a state like "left: 1, 1, 2", it can reason:</p>
+<pre><code class="language-text">The biggest we can make is (1 + 1) * 2 = 4. Too small to reach 24.
+Judgement: impossible
+</code></pre>
+<p>This is like a chess player who looks at a board position and says, "This looks winning" or "This looks lost", without playing the whole game till the end.</p>
+<p>To make the judgement more stable, we can ask the LLM the same rating question a few times and add up the scores. A "sure" gets a big score, a "likely" gets a small score, and an "impossible" gets almost zero.</p>
+<p>The judgement does not need to be perfect. It just needs to be good enough to guide the search.</p>
+<h2 id="step-4-searching-through-the-tree">Step 4: Searching through the tree</h2>
+<p>Finally, we need a plan for walking through the tree. This is the <strong>search algorithm</strong>. The paper uses two well-known ones.</p>
+<h3 id="breadth-first-search-bfs">Breadth-First Search (BFS)</h3>
+<p><strong>Breadth-First Search goes level by level. At each level, it keeps only the best few states and drops the rest.</strong></p>
+<p>The number of states we keep at each level is called the <strong>breadth limit</strong>, and we write it as <code>b</code>. Let's say <code>b = 5</code>.</p>
+<pre><code class="language-text">Level 1: generate many thoughts, judge, keep best 5
+   ↓
+Level 2: from those 5, generate many, judge, keep best 5
+   ↓
+Level 3: from those 5, generate many, judge, keep best 5
+</code></pre>
+<p>It is like a talent show with rounds. In every round, many people perform, and only the top 5 go to the next round.</p>
+<p>BFS works well when the number of steps is small and fixed, like our maths puzzle, which always needs exactly 3 steps.</p>
+<h3 id="depth-first-search-dfs">Depth-First Search (DFS)</h3>
+<p><strong>Depth-First Search goes deep along the most promising path first. If a state is judged as hopeless, it goes back to the previous state and tries the next option.</strong></p>
+<p>Going back like this is called <strong>backtracking</strong>.</p>
+<pre><code class="language-text">        Problem
+           ↓
+           A
+           ↓
+     +-----+-----+
+     ↓           ↓
+     A1          A2
+     ↓           ↓
+ impossible     A2a
+ back to A       ↓
+               Answer
+</code></pre>
+<p>It is like exploring a maze. We walk down one corridor as far as we can. If we hit a wall, we come back to the last turning and take another corridor.</p>
+<p>DFS works well when the path is long and there are many steps, like filling a crossword. In fact, the paper used DFS for small 5x5 crossword puzzles, where each thought fills one word and a word that breaks the grid sends the search back.</p>
+<p>Chain of Thought can never go back. Tree of Thoughts can.</p>
+<p>Now that we have learned about all the four parts, it's time to see them working together.</p>
+<h2 id="a-complete-example-the-game-of-24">A complete example: the Game of 24</h2>
+<p>The best way to learn this is by taking an example.</p>
+<p>The <strong>Game of 24</strong> is a maths puzzle. We get four numbers. We must use each number exactly once, with <code>+</code>, <code>-</code>, <code>*</code>, and <code>/</code>, to make 24.</p>
+<p>Let's take the numbers <code>4, 9, 10, 13</code>.</p>
+<p><strong>Step 1:</strong> We break the problem into thoughts. Each thought is one equation that combines two numbers. So, we need exactly 3 thoughts to go from 4 numbers down to 1 number.</p>
+<p><strong>Step 2:</strong> We generate at level 1. The LLM proposes a few first moves:</p>
+<pre><code class="language-text">(a) 4 + 9 = 13    left: 10, 13, 13
+(b) 10 - 4 = 6    left: 6, 9, 13
+(c) 13 - 9 = 4    left: 4, 4, 10
+(d) 9 * 4 = 36    left: 10, 13, 36
+</code></pre>
+<p><strong>Step 3:</strong> We judge level 1. The LLM rates each state:</p>
+<pre><code class="language-text">(a) 10, 13, 13  -&gt; impossible
+(b) 6, 9, 13    -&gt; sure
+(c) 4, 4, 10    -&gt; sure
+(d) 10, 13, 36  -&gt; impossible
+</code></pre>
+<p><strong>Step 4:</strong> We search. With BFS, we keep the best ones, which are (c) and (b), and drop (a) and (d).</p>
+<p><strong>Level 2:</strong> From (c) "4, 4, 10", the LLM proposes:</p>
+<pre><code class="language-text">10 - 4 = 6    left: 4, 6   -&gt; sure (4 * 6 = 24)
+4 + 4 = 8     left: 8, 10  -&gt; impossible
+</code></pre>
+<p>We keep "4, 6". The state (b) is also expanded in the same way, but just for the sake of understanding, we are following only the path of (c) here.</p>
+<p><strong>Level 3:</strong> From "4, 6", the LLM proposes <code>4 * 6 = 24</code>. We reached 24.</p>
+<p>Now, we just read the path back from the root:</p>
+<pre><code class="language-text">13 - 9 = 4
+10 - 4 = 6
+4 * 6 = 24
+</code></pre>
+<p>Means, <code>(10 - (13 - 9)) * 4 = 24</code>. It works perfectly.</p>
+<p>In the paper, GPT-4 with Chain of Thought solved only 4% of these puzzles. GPT-4 with Tree of Thoughts, keeping the best 5 states at each level, solved 74%.</p>
+<p>With Chain of Thought, if the first equation was (a), the whole answer failed. With Tree of Thoughts, (a) was judged as impossible and dropped early.</p>
+<h2 id="a-simple-code-sketch-of-tree-of-thoughts">A simple code sketch of Tree of Thoughts</h2>
+<p>Now, let's see the code for a very simple version of Tree of Thoughts with BFS. Here, <code>llm_propose</code> and <code>llm_judge</code> are helper functions that send a prompt to an LLM and read back its answer. We are hiding their details for the sake of understanding.</p>
+<pre><code class="language-python">def tree_of_thoughts(problem, steps=3, keep=5):
+    states = [problem]                  # level 0: only the problem
+    for level in range(steps):
+        candidates = []
+        for state in states:
+            for thought in llm_propose(state):      # Step 2: generate
+                candidates.append(state + "\n" + thought)
+        scored = [(llm_judge(c), c) for c in candidates]  # Step 3: judge
+        scored.sort(reverse=True)                         # best first
+        states = [c for score, c in scored[:keep]]        # Step 4: keep best
+    return states[0]                    # the best final path
+</code></pre>
+<p>Here, we have:</p>
+<ul>
+<li><code>states</code> holds the paths we are currently keeping. At the start, it only has the problem.</li>
+<li>In each level, for every kept state, we ask the LLM to propose new thoughts and attach each one to the path. This is the thought generator.</li>
+<li><code>llm_judge</code> gives a score to every new path. For example, "sure" can become a high score and "impossible" a very low score. This is the state evaluator.</li>
+<li>We sort by score and keep only the top <code>keep</code> paths. This is the BFS search with breadth limit <code>b</code>.</li>
+<li>After the last level, we return the best path.</li>
+</ul>
+<p>This is how the four parts fit together in a few lines of code.</p>
+<h2 id="chain-of-thought-vs-tree-of-thoughts">Chain of Thought vs Tree of Thoughts</h2>
+<p>Let me tabulate the differences between Chain of Thought and Tree of Thoughts for your better understanding.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Point</th>
+<th>Chain of Thought</th>
+<th>Tree of Thoughts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shape of reasoning</td>
+<td>One straight chain</td>
+<td>A tree with many branches</td>
+</tr>
+<tr>
+<td>Options at each step</td>
+<td>One</td>
+<td>Many</td>
+</tr>
+<tr>
+<td>Judges its own steps</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Can go back after a mistake</td>
+<td>No</td>
+<td>Yes, with backtracking</td>
+</tr>
+<tr>
+<td>Number of LLM calls</td>
+<td>One</td>
+<td>Many, often dozens or more</td>
+</tr>
+<tr>
+<td>Cost and time</td>
+<td>Low</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>Simple, step-by-step problems</td>
+<td>Hard problems that need trying and checking</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="where-tree-of-thoughts-works-well-and-where-it-fails">Where Tree of Thoughts works well and where it fails</h2>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>It solves problems where the first move matters a lot, like puzzles, planning, and crosswords.</li>
+<li>It can recover from a bad step by dropping it or going back.</li>
+<li>It needs no new training. It works with any existing LLM.</li>
+<li>We can tune it: change the breadth limit, the size of a thought, or the search algorithm.</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li>It is expensive. One question can need many LLM calls, so it costs more money and takes more time.</li>
+<li>The judging step can be wrong. If the LLM rates a good path as "impossible", that path is dropped forever.</li>
+<li>We must design the thought size, the prompts, and the search for each new type of problem.</li>
+<li>For easy questions, it is a waste. Chain of Thought already does the job.</li>
+</ul>
+<p><strong>Note:</strong> Newer <a href="https://outcomeschool.com/blog/large-reasoning-models" rel="noopener noreferrer" target="_blank">reasoning models</a> are trained to explore, check, and go back inside their own long chain of reasoning. But the idea of Tree of Thoughts is still very useful when we build our own <a href="https://outcomeschool.com/blog/ai-agent" rel="noopener noreferrer" target="_blank">agents</a> and want clear control over how many paths are tried and how they are judged.</p>
+<p>Now, we must have understood how Tree of Thoughts works.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="does-tree-of-thoughts-need-a-new-model-or-extra-training">Does Tree of Thoughts need a new model or extra training?</h3>
+<p>No. Tree of Thoughts needs no new training and works with any existing LLM. The same LLM proposes the next thoughts and also judges them. We only design the thought size, the prompts, and the search algorithm around it, and we can tune the breadth limit or the search to fit our use case.</p>
+<h3 id="who-introduced-tree-of-thoughts">Who introduced Tree of Thoughts?</h3>
+<p>Tree of Thoughts was introduced in 2023 in a research paper named "Tree of Thoughts: Deliberate Problem Solving with Large Language Models". It was written by Shunyu Yao and others from Princeton University and Google DeepMind. The paper tested it on puzzles like the Game of 24 and small 5x5 crosswords.</p>
+<h3 id="is-tree-of-thoughts-more-expensive-than-chain-of-thought">Is Tree of Thoughts more expensive than Chain of Thought?</h3>
+<p>Yes. Chain of Thought needs one LLM call, while Tree of Thoughts often needs dozens of calls or more for a single question, because it generates and judges many thoughts. So, it costs more money and takes more time. For easy questions, Chain of Thought already does the job.</p>
+<h3 id="what-happens-if-the-llm-judges-a-good-path-wrongly">What happens if the LLM judges a good path wrongly?</h3>
+<p>That path is dropped forever. If the LLM rates a good path as "impossible", the search never comes back to it. To make the judgement more stable, we can ask the same rating question a few times and add up the scores. The judgement does not need to be perfect, just good enough to guide the search.</p>
+<h3 id="do-reasoning-models-make-tree-of-thoughts-unnecessary">Do reasoning models make Tree of Thoughts unnecessary?</h3>
+<p>No. Newer reasoning models are trained to explore, check, and go back inside their own long chain of reasoning. But Tree of Thoughts is still very useful when we build our own agents and want clear control over how many paths are tried and how they are judged.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m08-l0803">
+  <p class="print-lesson-kicker">Lesson 8.3</p>
+  <h1>How does Prompt Chaining work?</h1>
+  <p class="print-lesson-meta">Lesson 8.3 · ~14 min · Published July 10, 2026 · <a href="https://outcomeschool.com/blog/how-does-prompt-chaining-work">https://outcomeschool.com/blog/how-does-prompt-chaining-work</a></p>
+  <p><img alt="How does Prompt Chaining work?" src="../assets/images/08-08-03-how-does-prompt-chaining-work/how-does-prompt-chaining-work.png"/></p>
+<p>Prompt Chaining is a way of breaking one big task into smaller prompts, where the output of one prompt becomes the input of the next prompt.</p>
+<p>In this blog, we will learn about how Prompt Chaining works. We will also see why we need it, how it works step by step by passing the output of one prompt into the next, and where it is used in the real world to solve bigger tasks reliably.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is a prompt?</li>
+<li>What is Prompt Chaining?</li>
+<li>Why do we need Prompt Chaining?</li>
+<li>How does Prompt Chaining work step by step?</li>
+<li>A real example of Prompt Chaining</li>
+<li>Code example of Prompt Chaining</li>
+<li>Common patterns in Prompt Chaining</li>
+<li>Advantages of Prompt Chaining</li>
+<li>Things to take care of while using Prompt Chaining</li>
+<li>When to use Prompt Chaining</li>
+</ul>
+<p>Let's get started.</p>
+<h3 id="what-is-a-prompt">What is a prompt?</h3>
+<p>Before jumping into Prompt Chaining, we must know what a prompt is.</p>
+<p>A <strong>prompt</strong> is the instruction or question that we give to an AI model.</p>
+<p>In simple words, a prompt is what we type to tell the AI what we want.</p>
+<p>Let's say we open an AI chat tool and type "Write a short poem about the rain." That sentence is the prompt. The AI reads our prompt and gives us an answer back. That answer is called the <strong>response</strong>.</p>
+<p>So, a prompt goes in, and a response comes out. This is the simplest way to talk to an AI model.</p>
+<p>Now, we have understood what a prompt is. Now, it's time to learn about Prompt Chaining.</p>
+<h3 id="what-is-prompt-chaining">What is Prompt Chaining?</h3>
+<p><strong>Prompt Chaining</strong> is a way of breaking one big task into smaller prompts, where the output of one prompt becomes the input of the next prompt.</p>
+<p>Let's decompose the term to understand it better.</p>
+<blockquote>
+<p>Prompt Chaining = Prompt + Chaining</p>
+</blockquote>
+<p>Here, "Prompt" is the instruction we give to the AI. And "Chaining" means joining things one after another, like the links of a chain.</p>
+<p>In simple words, instead of asking the AI to do everything in one single big prompt, we ask it in small steps. We take the answer from the first step and feed it into the second step. Then we take the answer from the second step and feed it into the third step, and so on.</p>
+<p>So, each step depends on the answer of the step before it. The steps are connected like a chain. That is why we call it Prompt Chaining.</p>
+<p>Do not confuse this with <a href="https://outcomeschool.com/blog/how-does-chain-of-thought-prompting-work" rel="noopener noreferrer" target="_blank">Chain-of-Thought (CoT) Prompting</a> - there, a single model reasons step by step inside one prompt, while here we join multiple separate prompts into a chain.</p>
+<h3 id="why-do-we-need-prompt-chaining">Why do we need Prompt Chaining?</h3>
+<p>The best way to learn this is by taking an example.</p>
+<p>Suppose we want the AI to do this big task for us:</p>
+<p>"Read this long customer review, find out if the customer is happy or angry, and then write a polite reply to the customer."</p>
+<p>We can try to do this in one single prompt. Let's call this Approach 1.</p>
+<p><strong>Approach 1: One big prompt</strong></p>
+<p>We write everything in one prompt as below:</p>
+<pre><code class="language-text">Here is a customer review: "..."
+Find out if the customer is happy or angry,
+and then write a polite reply to the customer.
+</code></pre>
+<p>Here, we are asking the AI to do many things at once. It must read the review, decide the mood, and write a reply, all in one go.</p>
+<p>The issue with this approach is that the AI tries to do too many things in one step. The mood detection can be wrong, and the reply can become messy. When one big prompt does many jobs, mistakes become hard to find and hard to fix.</p>
+<p>Let's see how the next approach solves this issue.</p>
+<p><strong>Approach 2: Prompt Chaining</strong></p>
+<p>Now, we break the big task into small steps. Each step has its own small prompt.</p>
+<p>So, here comes Prompt Chaining to the rescue.</p>
+<p>We split the work like below:</p>
+<ul>
+<li>Step 1: Ask the AI to read the review and tell us only the mood (happy or angry).</li>
+<li>Step 2: Take that mood, and ask the AI to write a reply that matches the mood.</li>
+</ul>
+<p>Here, each prompt does only one small job. The first prompt finds the mood. The second prompt uses that mood to write the reply.</p>
+<p>This way the work becomes clean and clear. If something goes wrong, we know exactly which step to fix. The problem is solved.</p>
+<p>We can picture the difference between the two approaches as below:</p>
+<pre><code class="language-text">Approach 1: One big prompt
+  +-------------------------------+        +---------------+
+  | Read review + find mood +     |        |               |
+  | write reply (all in one go)   |  ---&gt;  |  Reply (messy)|
+  +-------------------------------+        +---------------+
+Approach 2: Prompt Chaining
+  +----------------+   mood    +----------------+
+  | Find the mood  | --------&gt; | Write reply    |  ---&gt;  Reply
+  | (happy/angry)  |           | for that mood  |        (clean)
+  +----------------+           +----------------+
+</code></pre>
+<p>Here, we can see that in Approach 1 a single prompt is forced to do every job at once, so the reply can come out messy. In Approach 2, the first prompt only finds the mood, and that mood is passed into the second prompt, which writes the reply. Each box does one small job.</p>
+<p>This is why we need Prompt Chaining. It makes a hard task easy by splitting it into small, simple steps.</p>
+<h3 id="how-does-prompt-chaining-work-step-by-step">How does Prompt Chaining work step by step?</h3>
+<p>Now, let's understand how Prompt Chaining actually works, one step at a time.</p>
+<p>The idea is simple. We pass the output of one prompt as the input to the next prompt.</p>
+<p>Let's say we have three steps. Here is how the flow works:</p>
+<ul>
+<li><strong>Step 1:</strong> We give the first prompt to the AI. The AI gives us an output. Let's call it Output 1.</li>
+<li><strong>Step 2:</strong> We take Output 1 and put it inside the second prompt. The AI gives us Output 2.</li>
+<li><strong>Step 3:</strong> We take Output 2 and put it inside the third prompt. The AI gives us the final answer.</li>
+</ul>
+<p>Let's visualize this flow as below:</p>
+<pre><code class="language-text">  +---------+   Output 1   +---------+   Output 2   +---------+
+  | Prompt  | -----------&gt; | Prompt  | -----------&gt; | Prompt  |
+  | Step 1  |              | Step 2  |              | Step 3  |
+  +---------+              +---------+              +---------+
+       ^                                                 |
+       |                                                 v
+   first input                                     Final answer
+</code></pre>
+<p>Here, we can see that the output of each step becomes the input of the next step. Output 1 from Step 1 flows into Step 2, and Output 2 from Step 2 flows into Step 3, which gives us the final answer.</p>
+<p>So, Output 1 feeds Step 2, and Output 2 feeds Step 3. Each output becomes the input of the next step. This is the heart of Prompt Chaining.</p>
+<p>For better understanding, let's map this to a real-world team.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Prompt Chaining role</th>
+<th>Real-world comparison</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The full task</td>
+<td>A project given to a team</td>
+</tr>
+<tr>
+<td>Each small prompt</td>
+<td>One team member doing one job</td>
+</tr>
+<tr>
+<td>Output passed forward</td>
+<td>One member handing their work to the next member</td>
+</tr>
+<tr>
+<td>Final answer</td>
+<td>The finished project</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, we can see that Prompt Chaining works just like a team in a factory line. Each worker does one small job and passes the result to the next worker. The last worker hands over the finished product.</p>
+<p>This is how Prompt Chaining works at a high level.</p>
+<h3 id="a-real-example-of-prompt-chaining">A real example of Prompt Chaining</h3>
+<p>Let's take a real example so that everything becomes clear.</p>
+<p>Suppose we run a blog website. We want to take a long article and turn it into a short social media post.</p>
+<p>This is a big task. So, we break it into a chain of small prompts.</p>
+<p><strong>Step 1: Summarize the article.</strong></p>
+<p>We give the AI this prompt:</p>
+<pre><code class="language-text">Summarize the following article in 3 short sentences:
+"&lt;the full long article goes here&gt;"
+</code></pre>
+<p>Here, the AI reads the long article and gives us a short summary of three sentences. This summary is our Output 1.</p>
+<p><strong>Step 2: Turn the summary into a social media post.</strong></p>
+<p>Now, we take Output 1 (the summary) and put it into the next prompt as below:</p>
+<pre><code class="language-text">Turn the following summary into a short, catchy social media post:
+"&lt;the summary from Step 1 goes here&gt;"
+</code></pre>
+<p>Here, the AI does not see the long article again. It only sees the short summary from Step 1. The AI now writes a catchy post based on that summary. This is our Output 2.</p>
+<p><strong>Step 3: Add hashtags.</strong></p>
+<p>Finally, we take Output 2 (the social media post) and put it into the last prompt as below:</p>
+<pre><code class="language-text">Add 3 relevant hashtags to the end of this social media post:
+"&lt;the social media post from Step 2 goes here&gt;"
+</code></pre>
+<p>Here, the AI adds three hashtags to the post. This is our final answer, ready to be published.</p>
+<p>We have followed the following steps:</p>
+<ul>
+<li>We summarized the long article.</li>
+<li>We turned the summary into a post.</li>
+<li>We added hashtags to the post.</li>
+</ul>
+<p>Each step used the output of the step before it. This way we used Prompt Chaining to solve the task in a very simple way.</p>
+<h3 id="code-example-of-prompt-chaining">Code example of Prompt Chaining</h3>
+<p>Now, let's see the code for a simple Prompt Chaining. We will use Python for the sake of understanding.</p>
+<p>We can write the code as below:</p>
+<pre><code class="language-python"># A made-up helper that sends a prompt to the AI and returns the answer.
+def ask_ai(prompt):
+    # send the prompt to the AI model and get the response back
+    return call_the_ai_model(prompt)
+# The long article that we want to process.
+article = "&lt;the full long article goes here&gt;"
+# Step 1: Get a short summary.
+summary = ask_ai("Summarize this article in 3 short sentences: " + article)
+# Step 2: Turn the summary into a social media post.
+post = ask_ai("Turn this summary into a catchy social media post: " + summary)
+# Step 3: Add hashtags to the post.
+final_post = ask_ai("Add 3 relevant hashtags to this post: " + post)
+print(final_post)
+</code></pre>
+<p>Here, we can see the whole chain in action.</p>
+<ul>
+<li>The <code>ask_ai</code> function takes a prompt, sends it to the AI model, and returns the answer.</li>
+<li>In Step 1, we pass the <code>article</code> and get back a <code>summary</code>.</li>
+<li>In Step 2, we pass the <code>summary</code> (not the full article) and get back a <code>post</code>.</li>
+<li>In Step 3, we pass the <code>post</code> and get back the <code>final_post</code>.</li>
+</ul>
+<p>Here, we can notice that the output of one step is passed into the next step as input. The <code>summary</code> flows into Step 2, and the <code>post</code> flows into Step 3. This is exactly what Prompt Chaining means in code.</p>
+<p>It works perfectly.</p>
+<p>In real projects, frameworks like LangChain let us build these chains without wiring each step by hand. We have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-langchain-work" rel="noopener noreferrer" target="_blank">How does LangChain work</a> that covers this end to end.</p>
+<h3 id="common-patterns-in-prompt-chaining">Common patterns in Prompt Chaining</h3>
+<p>Now, let's understand a few common patterns that we use in Prompt Chaining.</p>
+<p><strong>Pattern 1: The straight chain.</strong></p>
+<p>This is the simplest pattern. Step 1 feeds Step 2, Step 2 feeds Step 3, and so on, in a straight line, with no branches and no going back - the moment we need those, we are into <a href="https://outcomeschool.com/blog/what-is-graph-engineering" rel="noopener noreferrer" target="_blank">Graph Engineering</a>. Our blog example above used this pattern.</p>
+<p><strong>Pattern 2: Extract, then act.</strong></p>
+<p>First, we ask the AI to pull out some important information from a piece of text. Then, in the next prompt, we ask the AI to do something with that information.</p>
+<p>For example, first extract the name and email from a message. Then write a personal reply using that name.</p>
+<p><strong>Pattern 3: Generate, then check.</strong></p>
+<p>First, we ask the AI to write something. Then, in the next prompt, we ask the AI to check its own work and fix any mistakes.</p>
+<p>For example, first write a piece of code. Then ask the AI to review the code and correct any bug.</p>
+<p>This generate-then-check idea is exactly how a <a href="https://outcomeschool.com/blog/reflection-agent" rel="noopener noreferrer" target="_blank">Reflection Agent</a> works, where the model reviews and improves its own output.</p>
+<p>So, now we know the common patterns where we can use Prompt Chaining. We can pick the pattern based on our use case.</p>
+<h3 id="advantages-of-prompt-chaining">Advantages of Prompt Chaining</h3>
+<p>Now, let's understand why Prompt Chaining is so useful.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li><strong>Each step is simple.</strong> Every prompt does only one small job, so the AI gives better answers.</li>
+<li><strong>Easy to fix mistakes.</strong> If the final answer is wrong, we can check each step and find exactly where the problem started.</li>
+<li><strong>Easy to reuse.</strong> We can use the same small prompt in many different chains.</li>
+<li><strong>Better control.</strong> We can look at the output of each step and even change it before passing it to the next step.</li>
+<li><strong>Clear thinking.</strong> Breaking a big task into small steps helps the AI think in a clear order, just like we do.</li>
+</ul>
+<p>Short prompts help in one more way. Nothing important ends up buried in the middle of a long context. We have a detailed blog on <a href="https://outcomeschool.com/blog/lost-in-the-middle-problem-in-llms" rel="noopener noreferrer" target="_blank">The Lost in the Middle Problem in LLMs</a> that explains this in depth.</p>
+<p>This is how Prompt Chaining makes our life easier when we work on complex tasks.</p>
+<h3 id="things-to-take-care-of-while-using-prompt-chaining">Things to take care of while using Prompt Chaining</h3>
+<p>Now, it's time to learn about a few things we must take care of.</p>
+<p>But, here is the catch. Prompt Chaining is powerful, but we must use it carefully.</p>
+<p><strong>Note:</strong> Each step makes one more call to the AI model. So, a chain with five steps makes five calls. More steps mean more time and more cost. We must keep our chain only as long as needed.</p>
+<p>One more thing to notice is the error spreading. If Step 1 gives a wrong output, then Step 2 works on that wrong output, and the mistake travels down the whole chain. So, we must make sure each early step is correct before moving forward.</p>
+<p>Another thing to take care of is to pass only the needed information to the next step. In our blog example, Step 2 received only the short summary, not the whole long article. This keeps each prompt small, fast, and focused.</p>
+<p>So, we must keep our chain short, check the early steps, and pass only what is needed.</p>
+<h3 id="when-to-use-prompt-chaining">When to use Prompt Chaining</h3>
+<p>Now, the question is, when must we use Prompt Chaining?</p>
+<p>We must use Prompt Chaining when a task is too big or has many clear steps inside it.</p>
+<p>Here are a few example use cases:</p>
+<ul>
+<li>Reading a document, then answering questions about it.</li>
+<li>Translating a text, then making the translation more polite.</li>
+<li>Pulling data out of a form, then saving it in a clean format.</li>
+<li>Writing a draft, then improving the draft, then checking it for mistakes.</li>
+</ul>
+<p>If a task feels like one giant instruction with many parts, that is a strong sign to break it into a chain.</p>
+<p>But, if a task is simple and small, then we do not need Prompt Chaining. A single prompt is enough. We must choose based on our use case.</p>
+<p>Now, we have understood how Prompt Chaining works. We learned that it means breaking a big task into small prompts, where the output of one prompt becomes the input of the next prompt. We saw a real example, a code example, the common patterns, the advantages, and the things to take care of.</p>
+<p>This way we can use Prompt Chaining to solve any complex AI task in a very simple way.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="what-is-the-difference-between-prompt-chaining-and-chain-of-thought-prompting">What is the difference between Prompt Chaining and Chain-of-Thought Prompting?</h3>
+<p>In Chain-of-Thought Prompting, a single model reasons step by step inside one prompt. In Prompt Chaining, we join multiple separate prompts into a chain, where the output of one prompt becomes the input of the next. So one works inside a single prompt, and the other connects many prompts.</p>
+<h3 id="does-prompt-chaining-cost-more-than-a-single-prompt">Does Prompt Chaining cost more than a single prompt?</h3>
+<p>Yes. Each step makes one more call to the AI model, so a chain with five steps makes five calls. More steps mean more time and more cost. We should keep the chain only as long as needed, and use a single prompt when the task is simple and small.</p>
+<h3 id="what-happens-if-one-step-in-the-chain-gives-a-wrong-output">What happens if one step in the chain gives a wrong output?</h3>
+<p>The mistake travels down the whole chain. If Step 1 gives a wrong output, Step 2 works on that wrong output, and so on. So we must make sure each early step is correct before moving forward. Because every step is separate, we can check each one and find exactly where the problem started.</p>
+<h3 id="should-we-pass-the-full-original-input-to-every-step-of-the-chain">Should we pass the full original input to every step of the chain?</h3>
+<p>No. We should pass only the information the next step needs. For example, when turning an article into a social media post, the second step receives only the short summary, not the whole long article. This keeps each prompt small, fast, and focused.</p>
+<h3 id="do-we-need-a-framework-like-langchain-to-build-a-prompt-chain">Do we need a framework like LangChain to build a prompt chain?</h3>
+<p>No. A simple prompt chain can be written in plain code, where we call the model, store its answer in a variable, and pass that variable into the next prompt. In real projects, frameworks like LangChain let us build these chains without wiring each step by hand.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m08-l0804">
+  <p class="print-lesson-kicker">Lesson 8.4</p>
+  <h1>How does Prompt Caching work?</h1>
+  <p class="print-lesson-meta">Lesson 8.4 · ~18 min · Published June 9, 2026 · <a href="https://outcomeschool.com/blog/how-does-prompt-caching-work">https://outcomeschool.com/blog/how-does-prompt-caching-work</a></p>
+  <p><img alt="How does Prompt Caching work?" src="../assets/images/08-08-04-how-does-prompt-caching-work/how-does-prompt-caching-work.png"/></p>
+<p>Prompt Caching is a technique where the model saves the work it already did for a repeated part of a prompt, so that next time it can reuse that saved work instead of doing it all over again.</p>
+<p>In this blog, we will learn about how Prompt Caching works. We will also see why we need it, how it actually works inside a large language model, and where it is used in real systems like AI assistants and agents.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is a prompt?</li>
+<li>A quick recap of how an LLM reads a prompt</li>
+<li>What is Prompt Caching?</li>
+<li>Why we need Prompt Caching</li>
+<li>The core idea behind Prompt Caching</li>
+<li>The exact-prefix rule</li>
+<li>Cache write vs cache read and TTL</li>
+<li>What we should put in the cache</li>
+<li>The benefits of Prompt Caching</li>
+<li>Prompt Caching in the real world</li>
+</ul>
+<p>Let's get started.</p>
+<h3 id="what-is-a-prompt">What is a prompt?</h3>
+<p>Before we talk about Prompt Caching, we must first understand what a prompt is.</p>
+<p><strong>A prompt is simply the text we send to a large language model.</strong></p>
+<p>A large language model, or LLM, is the technology behind tools like ChatGPT and Claude. We give it some text, and it gives us back some text.</p>
+<p>In simple words, the prompt is everything we type in. The model reads our prompt and then writes a reply.</p>
+<p>Let's say we are building a customer support assistant. The text we send to the model usually has a few parts:</p>
+<ul>
+<li>A set of instructions telling the model how to behave, for example "You are a polite support agent for a shoe store."</li>
+<li>Maybe a long document with all our shoe return policies.</li>
+<li>The actual question from the user, for example "Can I return shoes after 40 days?"</li>
+</ul>
+<p>All of this text together is the prompt.</p>
+<p>Now, here is something important to notice. The instructions and the policy document stay the same for every user. Only the user's question changes. We will come back to this point soon, because it is the heart of Prompt Caching.</p>
+<h3 id="a-quick-recap-of-how-an-llm-reads-a-prompt">A quick recap of how an LLM reads a prompt</h3>
+<p>To understand Prompt Caching, we must understand one thing about how an LLM reads a prompt.</p>
+<p>When we send a prompt, the model does not read it as full words. It first breaks the text into small pieces called <a href="https://outcomeschool.com/blog/tokenization-in-llms" rel="noopener noreferrer" target="_blank"><strong>tokens</strong></a>. A token is a small chunk of text, roughly a word or part of a word. For example, a short word like <code>support</code> is usually one token, while a longer word like <code>returning</code> is often split into two tokens.</p>
+<p>So, the prompt becomes a list of tokens.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/bpe-in-llms" rel="noopener noreferrer" target="_blank">Byte Pair Encoding (BPE)</a> that explains how this tokenization works.</p>
+<p>Now, the model goes through these tokens one by one and builds an internal understanding of each token. This first step, where the model reads the whole prompt and processes every token before writing even a single word of the reply, is called the <a href="https://outcomeschool.com/blog/prefill-vs-decode-llm-inference-optimization" rel="noopener noreferrer" target="_blank"><strong>prefill</strong></a> step.</p>
+<p>In simple words, prefill is the model reading and digesting our entire prompt.</p>
+<p>During prefill, for every single token, the model computes some internal values and stores them. These stored values are kept in something called the <a href="https://outcomeschool.com/blog/kv-cache-in-llms" rel="noopener noreferrer" target="_blank"><strong>KV cache</strong></a>.</p>
+<p>Let's understand the KV cache in plain words. As the model reads each token, it creates a small summary of that token, a kind of note about what that token means in the context of everything before it. The KV cache is the collection of all these notes, one set of notes per token. The model needs these notes to write the reply, and it also reuses them while generating each new word.</p>
+<p>Here is the key point to remember:</p>
+<p><strong>Building the KV cache for a long prompt takes real work. The model has to do heavy computation for every token, one by one.</strong></p>
+<p>So, if our prompt has 5,000 tokens, the model does this work for all 5,000 tokens before it writes anything. The longer the prompt, the more time and money this prefill step costs.</p>
+<p>This is the foundation we needed. Now we are ready to understand the problem.</p>
+<h3 id="what-is-prompt-caching">What is Prompt Caching?</h3>
+<p>Now that we know how the model reads a prompt, let's understand Prompt Caching.</p>
+<p><strong>Prompt Caching is a technique where the model saves the work it already did for a repeated part of a prompt, so that next time it can reuse that saved work instead of doing it all over again.</strong></p>
+<p>In simple words, Prompt Caching means: do the hard work once, then reuse it.</p>
+<p>The word "cache" simply means a place where we store something so we can grab it quickly later, instead of making it again from scratch.</p>
+<p>Let's connect this to what we just learned. The "hard work" the model does is building the KV cache during the prefill step. Prompt Caching saves that KV cache for a repeated part of the prompt. The next time we send a prompt that starts with the same repeated part, the model loads the saved KV cache and skips redoing all that work.</p>
+<p>So, Prompt Caching is about reusing the internal computation for a repeated beginning of a prompt.</p>
+<p>This is different from <a href="https://outcomeschool.com/blog/how-does-semantic-caching-work" rel="noopener noreferrer" target="_blank">semantic caching</a>, which reuses the final answer whenever a new question means the same thing, even if the words are different.</p>
+<p>Now, the question is, why do we even need this? Let's see.</p>
+<h3 id="why-we-need-prompt-caching">Why we need Prompt Caching</h3>
+<p>Let's go back to our shoe store support assistant.</p>
+<p>Every user sends a question. But remember, with every single question, we also send the same instructions and the same long return policy document. The user's question is short, but the instructions and the document are long.</p>
+<p>So, the model reads the same long instructions and the same long document again and again, for every user, for every message.</p>
+<p>Let's put some numbers to it for the sake of understanding. Suppose:</p>
+<ul>
+<li>The instructions and the policy document are 5,000 tokens.</li>
+<li>The user's question is 50 tokens.</li>
+</ul>
+<p>Every time a user asks something, the model does prefill on 5,050 tokens. Out of these, 5,000 tokens are exactly the same as last time. Only 50 tokens are new.</p>
+<p>This is wasteful. The model is doing heavy work on 5,000 tokens that have not changed at all.</p>
+<p>This causes two real problems:</p>
+<ul>
+<li><strong>It is slow.</strong> Processing 5,000 tokens again and again adds delay before the user sees a reply.</li>
+<li><strong>It is costly.</strong> We pay based on how many tokens the model processes. Reprocessing the same 5,000 tokens every time means we pay for the same work over and over.</li>
+</ul>
+<p>This problem becomes much bigger in real applications. Think about long system instructions, large documents, and many examples that we send with every request. We send the same big block of text repeatedly, and the model keeps redoing the same work.</p>
+<p>So, here comes Prompt Caching to the rescue.</p>
+<h3 id="the-core-idea-behind-prompt-caching">The core idea behind Prompt Caching</h3>
+<p>Let's understand the core idea step by step.</p>
+<p>We learned that during prefill, the model builds the KV cache, which is the set of internal notes for every token. Prompt Caching takes a simple but powerful step.</p>
+<p><strong>The idea is to save the KV cache of a fixed, repeated part of the prompt. On the next request that starts with the same part, the model loads the saved KV cache and starts from there, skipping the recomputation.</strong></p>
+<p>Let's walk through it with our example.</p>
+<p><strong>Step 1:</strong> A user sends the first question. The prompt is the 5,000-token instructions and document, followed by the 50-token question. The model does prefill on all 5,050 tokens and builds the KV cache. While doing this, it saves the KV cache for the first 5,000 tokens, because we marked that part to be cached.</p>
+<p><strong>Step 2:</strong> A new user sends a different question. The prompt is the same 5,000-token instructions and document, followed by a new 50-token question. Now, instead of redoing the work for the first 5,000 tokens, the model loads the saved KV cache for them. It only does fresh work for the new 50-token question.</p>
+<p>So, the model jumped straight to where the cached part ended and continued from there. It did not waste time on the 5,000 tokens it had already understood.</p>
+<p>Here is a simple diagram to make this clear.</p>
+<pre><code>WITHOUT prompt caching (every request):
+[ 5,000 tokens: instructions + document ]  +  [ 50 tokens: question ]
+        process all of this again                process this
+        (slow, costly, repeated)                 (new work)
+WITH prompt caching (after the first request):
+[ 5,000 tokens: instructions + document ]  +  [ 50 tokens: question ]
+        load from cache (fast, cheap)             process this
+        skip the heavy work                       (new work)
+</code></pre>
+<p>The problem is solved. The model now does the heavy work on the repeated part only once.</p>
+<h3 id="the-exact-prefix-rule">The exact-prefix rule</h3>
+<p>Now, there is one very important rule we must understand, because most mistakes happen here.</p>
+<p><strong>Prompt Caching works on a matching prefix. The cached part must be the beginning of the prompt, and it must match exactly, character for character.</strong></p>
+<p>Let's understand the word <strong>prefix</strong>. A prefix is the starting part of something. In our case, the cached part is the beginning of the prompt, the part that comes before the user's question.</p>
+<p>The model can reuse the cache only as long as the beginning of the new prompt is exactly identical to the beginning of the cached prompt. The moment the text differs, the cache stops being useful from that point onward.</p>
+<p>We can picture it as below:</p>
+<pre><code>Cached prompt:    You are a polite support agent. Return window is 30 days.
+New prompt:       You are a polite support agent. Return window is 45 days.
+                  |--------------- matches exactly ---------------|
+                                   read from cache
+                                                                  ^ differs from here, so this part is redone
+</code></pre>
+<p>Here, we can notice that the two prompts are the same up to a point, so that matching front part is read from the cache. From the very first token that differs, the prefix no longer matches, so the model must redo the work for everything after that point.</p>
+<p>Here is the part we must be very careful about:</p>
+<p><strong>If even one character changes early in the prompt, the cache breaks for everything after that change.</strong></p>
+<p>Let's see why with an example. Suppose at the very top of our instructions we add a line like "Today's date is 2026-06-07." This line changes every single day. Since it sits at the very beginning of the prompt, the prefix is now different every day. So, the cache built yesterday cannot be reused today. The model has to redo all the work.</p>
+<p>This is a very common mistake. We accidentally put something that changes, like the current date, a random ID, or a user name, near the top of the prompt. And that one small changing thing quietly breaks the entire cache.</p>
+<p>So, the rule to remember is simple:</p>
+<p><strong>Put the stable part first, and put the changing part last.</strong></p>
+<p>If the beginning of the prompt stays the same, the cache keeps working. If the beginning keeps changing, the cache is useless. Do not worry, we will see exactly which parts to keep stable and where to place them in a moment.</p>
+<h3 id="cache-write-vs-cache-read-and-ttl">Cache write vs cache read and TTL</h3>
+<p>Now, let's understand two simple terms: cache write and cache read.</p>
+<p><strong>A cache write happens the first time.</strong> This is when the model processes the repeated part and saves its KV cache. We are writing the result into the cache for the first time.</p>
+<p><strong>A cache read happens after that.</strong> This is when a later request reuses the saved KV cache instead of recomputing it. We are reading from the cache.</p>
+<p>Let's connect this to cost, because this is where it gets interesting.</p>
+<p>A cache write costs a little more than normal processing, because the model has to do the work and also store the result. As a rough idea, the cache write costs around 1.25 times the normal price for that part.</p>
+<p>But a cache read is very cheap. Reading from the cache costs only around one-tenth of the normal price. That is roughly a 90 percent saving on the repeated part.</p>
+<p>So, the first request pays a small extra cost to write the cache. Every request after that pays much less because it reads from the cache. The more we reuse the cache, the more we save.</p>
+<p>The flow looks like below:</p>
+<pre><code>Request 1  --&gt;  process the stable part  --&gt;  save it    (cache WRITE, ~1.25x cost)
+                                               |
+                                               v
+                                        +-------------+
+                                        |    cache    |
+                                        +-------------+
+                                            ^  ^  ^
+Request 2 ----------------------------------+  |  |   (cache READ, ~0.1x cost)
+Request 3 -------------------------------------+  |   (cache READ, ~0.1x cost)
+Request 4 ----------------------------------------+   (cache READ, ~0.1x cost)
+</code></pre>
+<p>Here, we can see that only the first request does the heavy work and writes the result into the cache. Every later request that starts with the same stable part simply reads from the cache, which is why each one costs much less than redoing the work from scratch.</p>
+<p>Now, the next question is: does the cache stay forever? The answer is no.</p>
+<p>The cache has a <strong>TTL</strong>, which stands for <strong>time to live</strong>. In simple words, TTL is how long the cache stays alive before it expires and gets removed.</p>
+<p>A common default TTL is 5 minutes. There is also an option for a longer TTL, such as 1 hour. Here is what TTL means in practice:</p>
+<ul>
+<li>If a new request with the same prefix comes within the TTL window, it can read from the cache.</li>
+<li>If no request comes within the TTL window, the cache expires. The next request has to do a fresh cache write again.</li>
+</ul>
+<p>So, Prompt Caching helps the most when many requests share the same beginning and arrive close together in time.</p>
+<p><strong>Note:</strong> A longer TTL keeps the cache alive longer, which is helpful when requests are spread out, but the cache write for a longer TTL costs a bit more. So we choose the TTL based on our use case.</p>
+<h3 id="what-we-should-put-in-the-cache">What we should put in the cache</h3>
+<p>Now, we know caching works on the stable beginning of the prompt. So, the natural question is, what exactly should we put there?</p>
+<p>The answer is simple. We put the parts that stay the same across many requests first, and the parts that change last.</p>
+<p>Here are the parts that are great to cache, because they usually do not change:</p>
+<ul>
+<li><strong>System instructions.</strong> These describe how the model should behave, for example "You are a polite support agent." These stay the same for every user.</li>
+<li><strong>Large documents.</strong> For example, our full return policy, a product manual, or a knowledge base article. These are long and repeated, so caching them saves a lot.</li>
+<li><strong>Tool definitions.</strong> When we let the model use tools, we describe each tool to it. These descriptions are usually fixed.</li>
+<li><strong>Few-shot examples.</strong> These are example questions and answers we give the model so it learns the style we want. The word "few-shot" simply means we give the model a few examples to guide it. These examples are the same every time.</li>
+</ul>
+<p>And here is the part that changes and must come last:</p>
+<ul>
+<li><strong>The user's actual question or message.</strong> This is different for every request, so it goes at the very end, after all the cached parts.</li>
+</ul>
+<p>Let's see the order with a simple diagram.</p>
+<pre><code>ORDER OF A WELL-DESIGNED PROMPT
+  FIRST  -&gt;  Tool definitions     |
+             System instructions  |  stable part: cache this
+             Large documents      |
+             Few-shot examples    |
+  LAST   -&gt;  User's question         changing part: do not cache
+</code></pre>
+<p>This order is the whole trick. The stable block sits at the front and gets cached. The changing question sits at the back and does not break the cache.</p>
+<p>So, now we know exactly what to cache and where to place it.</p>
+<p>Deciding what goes into the prompt and in what order is its own discipline. We have a detailed blog on <a href="https://outcomeschool.com/blog/context-engineering" rel="noopener noreferrer" target="_blank">Context Engineering</a> that covers this in depth.</p>
+<h3 id="the-benefits-of-prompt-caching">The benefits of Prompt Caching</h3>
+<p>Let's quickly bring together the benefits, because they are the reason we use this technique.</p>
+<ul>
+<li><strong>Lower latency.</strong> Latency means the delay before the user gets a reply. Since the model skips reprocessing the repeated part, it starts replying faster.</li>
+<li><strong>Lower cost.</strong> Cached tokens are read at a much cheaper rate, around one-tenth of the normal price. When we send the same large block of text again and again, this saving adds up to a lot.</li>
+</ul>
+<p>In simple words, Prompt Caching makes our application faster and cheaper at the same time, without changing the quality of the answers. The model still sees the full prompt. It just avoids redoing work it has already done.</p>
+<p>That's the beauty of Prompt Caching.</p>
+<h3 id="prompt-caching-in-the-real-world">Prompt Caching in the real world</h3>
+<p>Now, let's see where Prompt Caching is used in real systems.</p>
+<p>Major AI providers offer Prompt Caching as a built-in feature. For example, Anthropic, the company behind Claude, and OpenAI, the company behind GPT models, both support Prompt Caching. We simply mark the stable part of our prompt to be cached, and the provider handles the saving and reusing for us. We can also check the response to see how many tokens were written to the cache and how many were read from it, so we always know that the caching is actually working.</p>
+<p>Prompt Caching is especially powerful in two kinds of systems.</p>
+<p>The first is <strong>RAG</strong>. RAG stands for Retrieval-Augmented Generation. In simple words, it is a system where we first fetch some relevant documents and then send them to the model along with the user's question. These fetched documents and the fixed instructions are often large and repeated across requests. Caching the stable instructions and any text we send again cuts down the cost and the delay. The same trick makes <a href="https://outcomeschool.com/blog/how-does-contextual-retrieval-work" rel="noopener noreferrer" target="_blank">Contextual Retrieval</a> affordable, where we send the same full document to the model once for every chunk to write a short context note for that chunk. Earlier in the same pipeline, the document embeddings can be cached too, and we have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-an-embedding-cache-work" rel="noopener noreferrer" target="_blank">how an Embedding Cache works</a> that explains how that avoids recomputing them on every query.</p>
+<p>The second is <strong>agent systems</strong>. An <a href="https://outcomeschool.com/blog/ai-agent" rel="noopener noreferrer" target="_blank">agent</a> is an AI program that works on a task step by step, often calling tools and taking many turns to finish a job. In an agent system, the same big block of instructions, tool definitions, and earlier text is sent on every single step. There can be many steps, so the same beginning is reused a huge number of times. This is exactly the situation where Prompt Caching shines, because the cached prefix is read again and again.</p>
+<p>Serving these repeated prefixes at scale is the job of the inference engine, and we have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-vllm-work" rel="noopener noreferrer" target="_blank">vLLM</a> that explains how it shares identical prefixes across requests step by step. Another inference engine, <a href="https://outcomeschool.com/blog/how-does-sglang-work" rel="noopener noreferrer" target="_blank">SGLang</a>, does the same with a radix tree that matches shared prefixes even more precisely. NVIDIA's <a href="https://outcomeschool.com/blog/how-does-tensorrt-llm-work" rel="noopener noreferrer" target="_blank">TensorRT-LLM</a> does it too, under the name prefix reuse.</p>
+<p>So, anywhere we keep sending the same large beginning of a prompt, Prompt Caching helps us a lot.</p>
+<p>This is how Prompt Caching works. We save the model's internal work for a fixed, repeated beginning of the prompt, we keep that beginning exactly the same and place it first, and then we reuse it again and again to get faster and cheaper responses.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="what-is-the-difference-between-prompt-caching-and-semantic-caching">What is the difference between prompt caching and semantic caching?</h3>
+<p>Prompt caching reuses the model's internal work, the KV cache, for a repeated beginning of a prompt. The model still reads the new part and writes a fresh reply. Semantic caching reuses the final answer whenever a new question means the same thing, even if the words are different.</p>
+<h3 id="does-prompt-caching-change-the-quality-of-the-answers">Does prompt caching change the quality of the answers?</h3>
+<p>No. Prompt caching makes our application faster and cheaper without changing the quality of the answers. The model still sees the full prompt. It just avoids redoing the work for the repeated part that it has already done.</p>
+<h3 id="why-is-our-prompt-cache-not-getting-any-hits">Why is our prompt cache not getting any hits?</h3>
+<p>A very common reason is something that changes near the top of the prompt, like the current date, a random ID, or a user name. The cached part must match exactly, character for character, so even one early change breaks the cache for everything after it. We should put the stable part first and the changing part last.</p>
+<h3 id="is-prompt-caching-always-cheaper">Is prompt caching always cheaper?</h3>
+<p>Not for the first request. A cache write costs a little more than normal processing, around 1.25 times the normal price. The savings come from later cache reads, which cost around one-tenth of the normal price. So caching pays off when many requests share the same beginning and arrive within the TTL window.</p>
+<h3 id="how-do-we-know-if-prompt-caching-is-actually-working">How do we know if prompt caching is actually working?</h3>
+<p>We can check the response from the provider. It shows how many tokens were written to the cache and how many were read from it. If later requests show tokens read from the cache, the caching is working.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m08-l0805">
+  <p class="print-lesson-kicker">Lesson 8.5</p>
+  <h1>What is Context Engineering?</h1>
+  <p class="print-lesson-meta">Lesson 8.5 · ~19 min · Published May 8, 2026 · <a href="https://outcomeschool.com/blog/context-engineering">https://outcomeschool.com/blog/context-engineering</a></p>
+  <p><img alt="Context Engineering" src="../assets/images/08-08-05-what-is-context-engineering/context-engineering.png"/></p>
+<p>Context Engineering is the practice of designing, organizing, and managing everything that goes into an LLM's context window, so that the model can do its task reliably.</p>
+<p>In this blog, we will learn about Context Engineering - what it is, why it has become the most important skill for building reliable AI applications, how it differs from Prompt Engineering, the components that make up the context, common patterns like RAG, few-shot examples, tools, and memory, and the best practices and common mistakes to keep in mind.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is Context Engineering?</li>
+<li>The Big Picture</li>
+<li>Why Context Engineering matters</li>
+<li>Prompt Engineering vs Context Engineering</li>
+<li>The components of the context</li>
+<li>Common patterns in Context Engineering</li>
+<li>Common mistakes to avoid</li>
+<li>Best practices</li>
+<li>Quick Summary</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="what-is-context-engineering">What is Context Engineering?</h2>
+<p><strong>Context Engineering is the practice of designing, organizing, and managing everything that goes into an LLM's context window so that the model can do its task reliably.</strong></p>
+<p>In simple words, Context Engineering is the work of deciding <strong>what information</strong> to give the model, <strong>how to organize it</strong>, and <strong>when to include it</strong>, so that the model produces the right output.</p>
+<p>The LLM itself is just a function. It takes whatever is in the context window and predicts the next tokens. Whatever the model says or does is decided entirely by what we have put into the context.</p>
+<p>If the context is good, the output is good. If the context is bad, the output is bad. That is the whole story.</p>
+<h2 id="the-big-picture">The Big Picture</h2>
+<p>Before we go into the details, let's understand the big picture.</p>
+<p>Imagine we are about to brief a brilliant new colleague who has just joined our team. This colleague is extremely smart and a fast worker. But there is one catch - they have no memory of anything we have discussed before. Every time we ask them to do a task, we have to brief them from scratch.</p>
+<p>To get good work out of them, we need to give them, in one short briefing:</p>
+<ul>
+<li>Who they are and what role they are playing.</li>
+<li>What the task is.</li>
+<li>Any background documents they need to read.</li>
+<li>Examples of past work that look like what we want.</li>
+<li>The tools they can use.</li>
+<li>The format we want the answer in.</li>
+</ul>
+<p>If we miss something, they cannot guess. They will do their best with whatever we hand them.</p>
+<p>This is exactly what we are doing with an LLM. The LLM is the brilliant colleague. The context window is the briefing. Context Engineering is the discipline of writing that briefing well.</p>
+<p>In simple words: <strong>Context Engineering = Briefing the LLM with the right information, in the right shape, at the right time.</strong></p>
+<h2 id="why-context-engineering-matters">Why Context Engineering Matters</h2>
+<p>LLMs are <strong>stateless</strong>. They do not remember anything between calls. Every time we send a request, the model starts fresh. The only thing the model knows about our task is whatever we have included in the context window.</p>
+<p>This means three things:</p>
+<ul>
+<li>The output of the LLM is decided entirely by the input context.</li>
+<li>A weak model with a great context can outperform a strong model with a poor context.</li>
+<li>As we move from simple chat to RAG, agents, and multi-step workflows, the context becomes more and more crucial. The complexity of the application is now mostly about context, not about the model.</li>
+</ul>
+<p>Earlier, we used to spend most of our time picking the right model and tweaking the wording of the prompt. That is <strong>Prompt Engineering</strong>. Prompt Engineering is still useful, but it is now just one small part of a much bigger discipline.</p>
+<p>Today, the real bottleneck for building reliable AI applications is Context Engineering. We have powerful models. What we need is the ability to feed them the right information at the right time.</p>
+<p>This was all about why Context Engineering matters. Now, let's compare it with Prompt Engineering.</p>
+<h2 id="prompt-engineering-vs-context-engineering">Prompt Engineering vs Context Engineering</h2>
+<p>These two terms get mixed up a lot. Let's draw a clean line between them.</p>
+<p><strong>Prompt Engineering</strong> is the art of writing the <strong>wording</strong> of a single instruction well. For example, the difference between "summarize this article" and "summarize this article in three bullet points, written for a non-technical reader". The task is the same, but the wording produces different results.</p>
+<p><strong>Context Engineering</strong> is the bigger discipline of designing the <strong>entire information environment</strong> the model sees. It includes the prompt, but also the system instructions, the retrieved documents, the examples, the tool outputs, the memory, the conversation history, and the output format.</p>
+<p>Let me tabulate the differences between Prompt Engineering and Context Engineering for your better understanding.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Prompt Engineering</th>
+<th>Context Engineering</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>One instruction at a time</td>
+<td>The full context window</td>
+</tr>
+<tr>
+<td><strong>Concerns</strong></td>
+<td>Wording, phrasing, structure of one prompt</td>
+<td>Everything the model sees: system prompt, RAG, tools, examples, memory, history</td>
+</tr>
+<tr>
+<td><strong>When it matters most</strong></td>
+<td>Simple one-shot tasks</td>
+<td>RAG, agents, multi-step workflows, production systems</td>
+</tr>
+<tr>
+<td><strong>Failure mode</strong></td>
+<td>Bad wording leads to a bad answer</td>
+<td>Missing or wrong context leads to wrong answers, hallucinations, or wrong tool use</td>
+</tr>
+<tr>
+<td><strong>Example fix</strong></td>
+<td>Rewriting a sentence in the prompt</td>
+<td>Adding a retrieved document, adjusting memory, reordering the system prompt</td>
+</tr>
+</tbody>
+</table></div>
+<p>In short - Prompt Engineering is a subset of Context Engineering. Every prompt we write is part of the context, but the context is much more than just the prompt.</p>
+<p>Let's see this as a diagram:</p>
+<pre><code>   +-------------------------------------------------+
+   |  CONTEXT WINDOW (Context Engineering scope)     |
+   |                                                 |
+   |   System prompt                                 |
+   |   Examples (few-shot)                           |
+   |   Retrieved documents (RAG)                     |
+   |   Tools and tool descriptions                   |
+   |   Memory                                        |
+   |   Conversation history                          |
+   |   Tool results                                  |
+   |                                                 |
+   |   +-----------------------------------------+   |
+   |   |  PROMPT (Prompt Engineering scope)      |   |
+   |   |                                         |   |
+   |   |  "Summarize this article in three       |   |
+   |   |   bullet points for a non-technical     |   |
+   |   |   reader."                              |   |
+   |   +-----------------------------------------+   |
+   |                                                 |
+   +-------------------------------------------------+
+</code></pre>
+<p>Prompt Engineering tunes the small inner box - the wording of one instruction. Context Engineering designs the whole outer box - everything the model sees at this moment. Both matter, but Context Engineering is the bigger discipline.</p>
+<p>This was all about Prompt Engineering vs Context Engineering. Now, let's see what actually goes into the context.</p>
+<h2 id="the-components-of-the-context">The Components of the Context</h2>
+<p>When we look at the context window of a real LLM application, it is not just one prompt. It is a structured stack of pieces, each playing a different role.</p>
+<p>Let's see this as a diagram:</p>
+<pre><code>       +------------------------------------------+
+       |  CONTEXT WINDOW (what the LLM sees)      |
+       +------------------------------------------+
+       |                                          |
+       |  1. System prompt                        |
+       |     (role, rules, persona, format)       |
+       |                                          |
+       |  2. Examples (few-shot)                  |
+       |     (input -&gt; output samples)            |
+       |                                          |
+       |  3. Retrieved documents (RAG)            |
+       |     (relevant external knowledge)        |
+       |                                          |
+       |  4. Tools and tool descriptions          |
+       |     (what the agent can do)              |
+       |                                          |
+       |  5. Memory                               |
+       |     (long-term facts, user preferences)  |
+       |                                          |
+       |  6. Conversation history                 |
+       |     (previous turns)                     |
+       |                                          |
+       |  7. Tool results                         |
+       |     (outputs from tool calls)            |
+       |                                          |
+       |  8. Current user message                 |
+       |     (the latest question or instruction) |
+       |                                          |
+       +------------------------------------------+
+                          |
+                          ↓
+                  LLM produces output
+</code></pre>
+<p>Let's decode each one.</p>
+<p><strong>1. System prompt.</strong> The system prompt sets the role, the rules, and the format. It is the "you are an X, you must do Y, you must not do Z, you must respond in Z format" piece. It defines the personality and the boundaries.</p>
+<p><strong>2. Examples (few-shot).</strong> A few input-output samples that show the model the pattern we want. Even one good example can dramatically improve the output. This is sometimes called in-context learning.</p>
+<p><strong>3. Retrieved documents (RAG).</strong> When the answer depends on external knowledge (a knowledge base, a docs site, a database), we retrieve the most relevant chunks and put them in the context. We have a detailed blog on <a href="https://outcomeschool.com/blog/agentic-rag" rel="noopener noreferrer" target="_blank">Agentic RAG</a> that goes deeper into this.</p>
+<p><strong>4. Tools and tool descriptions.</strong> When the LLM is acting as an agent, the context includes a list of tools available to it (function names, descriptions, parameter schemas). This is what tells the LLM what it can do.</p>
+<p><strong>5. Memory.</strong> Long-term facts about the user, past conversations, learned preferences. We have a detailed blog on <a href="https://outcomeschool.com/blog/ai-agent-memory" rel="noopener noreferrer" target="_blank">AI Agent Memory</a> that explains how memory is structured for agents.</p>
+<p><strong>6. Conversation history.</strong> The previous turns in the current session. This is what gives the model continuity in a chat.</p>
+<p><strong>7. Tool results.</strong> When the LLM has recommended a tool (search, calculator, database query) and the runtime has executed it, the result of that tool comes back into the context for the next turn.</p>
+<p><strong>8. Current user message.</strong> The fresh question or instruction the user just sent.</p>
+<p>All eight of these compete for the same finite context window. Context Engineering is the discipline of deciding what goes in, in what order, and at what size.</p>
+<p>Coming back to our briefing analogy - the system prompt is the job role we hand the colleague, the examples are the past work we point them at, the retrieved documents are the binder of background reading, the tools are the equipment they can use, the memory is what we have learned about them and the user across past meetings, the conversation history is the meeting we are currently in, the tool results are the answers they got back from running their equipment, and the current user message is the latest thing the user just said. Every briefing has to fit on one page. That one page is the context window.</p>
+<p>This was all about the components of the context. Now, let's see the common patterns we use to fill them.</p>
+<h2 id="common-patterns-in-context-engineering">Common Patterns in Context Engineering</h2>
+<p>Before we go through the patterns, let's see what actually happens at every turn.</p>
+<p>The context is not stored anywhere. It is rebuilt from scratch every single turn. We pull pieces from different sources and assemble them into one fresh context for that one call.</p>
+<p>Let's see this as a diagram:</p>
+<pre><code>   For each new turn, we pull from these sources:
+      +----------+   +----------+   +----------+   +----------+
+      |  System  |   |  Memory  |   |   RAG    |   |Few-shot  |
+      |  prompt  |   |  store   |   |retrieval |   |examples  |
+      +----------+   +----------+   +----------+   +----------+
+      +----------+   +----------+   +----------+   +----------+
+      |  Tool    |   |   Tool   |   |  Conv.   |   | Latest   |
+      |  list    |   |  results |   | history  |   |  user    |
+      |          |   |(if any)  |   |          |   | message  |
+      +----------+   +----------+   +----------+   +----------+
+              All combined into one single input:
+                                  ↓
+                  +-------------------------------+
+                  |     Assembled context         |
+                  |     (sent to the LLM)         |
+                  +-------------------------------+
+                                  |
+                                  ↓
+                         LLM produces output
+                                  |
+                                  ↓
+                  Next turn rebuilds the context
+                  from scratch (with any new tool
+                  results from this turn included)
+</code></pre>
+<p>Here, we can see that Context Engineering is not a one-time setup. It is a fresh decision on every turn. Each pattern below is a tool we use to fill one of these boxes well.</p>
+<p>Now, let's go through the most important patterns.</p>
+<p><strong>1. RAG (Retrieval-Augmented Generation).</strong></p>
+<p>Instead of stuffing the entire knowledge base into the context, we retrieve only the most relevant pieces and inject them. This keeps the context small and focused.</p>
+<p>We pair RAG with <a href="https://outcomeschool.com/blog/chunking-strategies-for-rag" rel="noopener noreferrer" target="_blank">chunking</a>, <a href="https://outcomeschool.com/blog/how-does-a-vector-database-work" rel="noopener noreferrer" target="_blank">embedding-based search</a>, and <a href="https://outcomeschool.com/blog/how-does-a-reranker-work" rel="noopener noreferrer" target="_blank">re-ranking</a> to make sure the right pieces land in the context.</p>
+<p><strong>2. Few-shot examples.</strong></p>
+<p>We include a handful of example pairs of input and the desired output (2-5 is a good starting range, but the optimum varies by task). The model learns the pattern from the examples and follows it. This is one of the cheapest ways to lift quality.</p>
+<p><strong>3. Tool calling.</strong></p>
+<p>Instead of asking the model to do everything itself, we give it tools and let it recommend which tool to use when needed. The runtime then executes the recommended tool. The tool definitions live in the context, and so do the tool results when they come back.</p>
+<p>This is the foundation of building an <a href="https://outcomeschool.com/blog/ai-agent" rel="noopener noreferrer" target="_blank">AI Agent</a>, and it overlaps closely with <a href="https://outcomeschool.com/blog/harness-engineering-in-ai" rel="noopener noreferrer" target="_blank">Harness Engineering</a>, which is the broader design of the loop, tools, and context that an agent runs inside. It also overlaps with <a href="https://outcomeschool.com/blog/what-is-loop-engineering" rel="noopener noreferrer" target="_blank">Loop Engineering</a>, which is the design of the repeating cycle itself - how many turns the agent gets, what carries forward, and when it must stop.</p>
+<p><strong>4. Memory injection.</strong></p>
+<p>For agents and chat systems, we keep a memory of important facts and inject only the relevant slices into the context for each new turn. We do not put the entire memory in every time. We pick what is relevant to the current task.</p>
+<p><strong>5. Conversation history management.</strong></p>
+<p>In a long chat, the full history grows past the context window. We use techniques like <a href="https://outcomeschool.com/blog/how-does-context-compaction-work" rel="noopener noreferrer" target="_blank">summarization</a>, sliding windows, or selective inclusion to keep the conversation history within budget.</p>
+<p><strong>6. Output formatting.</strong></p>
+<p>We tell the model the exact output format we want - JSON, a specific schema, a markdown table, a structured form. Putting the format requirement in the context makes downstream parsing reliable.</p>
+<p>For truly reliable parsing, structured output APIs and JSON schema constraints (offered by most modern model providers) are stronger than prompt-based formatting alone. The prompt asks for the format, the schema enforces it.</p>
+<p><strong>7. Context compression.</strong></p>
+<p>When the raw context is too long, we compress it. This can be summarization, key-fact extraction, or structured rewriting. The goal is to keep the meaning while shrinking the token count.</p>
+<p><strong>8. Per-step context rebuilding (for agents).</strong></p>
+<p>In an AI agent, every step in <a href="https://outcomeschool.com/blog/ai-agent-loop" rel="noopener noreferrer" target="_blank">the loop</a> is a fresh LLM call with a freshly built context. Between steps, the agent's state changes - new tool results come in, sub-tasks get completed, plans get revised. We rebuild the context for the next step using only what is relevant <strong>right now</strong>: the current sub-task, the latest tool result, the relevant facts from memory. We do not just append everything endlessly.</p>
+<p>The agent that does this well stays focused. The agent that does not gets buried under old, useless information and fails the task.</p>
+<p>This was all about the patterns. Now, let's see the common mistakes to avoid.</p>
+<h2 id="common-mistakes-to-avoid">Common Mistakes to Avoid</h2>
+<p>Most failures in LLM applications are actually Context Engineering failures. Here are the most common mistakes.</p>
+<p><strong>Mistake 1: Stuffing the context with everything.</strong></p>
+<p>A bigger context is not always a better context. When too much information is in the context, the model gets distracted, slows down, costs more, and often produces worse answers. The model has to pick the relevant signal out of a lot of noise, and the more noise we add, the harder it gets. The community is now calling this <strong>context rot</strong> or <strong>context degradation</strong> - the slow decay in answer quality as the context grows past what the task actually needs.</p>
+<p>The fix is to be ruthless about what goes in. Only include what is needed for this turn.</p>
+<p><strong>Mistake 2: Not including enough.</strong></p>
+<p>The opposite mistake. The model cannot guess what it does not see. If we expect the model to know our company's policy on refunds, that policy must be in the context.</p>
+<p>The fix is to ask: "If I were doing this task, what would I need to know? Is all of that in the context?"</p>
+<p>The harder part is that this knowledge usually lives in people's heads, wikis, and code comments, so there is nothing to put in the context in the first place. OKF is an open standard for writing exactly that knowledge down as plain markdown files an agent can read. We have a detailed blog on <a href="https://outcomeschool.com/blog/what-is-okf-open-knowledge-format" rel="noopener noreferrer" target="_blank">What is OKF (Open Knowledge Format)?</a> that explains how it works.</p>
+<p><strong>Mistake 3: Bad ordering.</strong></p>
+<p>Order matters. The model pays more attention to information at the start (the system prompt area) and the end (the most recent message). Putting critical instructions in the middle of a long context is a recipe for the model ignoring them. This is a well-studied phenomenon called <strong><a href="https://outcomeschool.com/blog/lost-in-the-middle-problem-in-llms" rel="noopener noreferrer" target="_blank">"lost in the middle"</a></strong> - models genuinely under-attend to information buried deep inside a long context.</p>
+<p>The fix is to put rules and instructions at the start, and the current task at the end.</p>
+<p><strong>Mistake 4: Stale context.</strong></p>
+<p>Old conversation history, old tool results, old retrieved documents that are no longer relevant - all of this clutters the context and confuses the model.</p>
+<p>The fix is to actively prune the context. If something is not relevant to the current step, remove it.</p>
+<p><strong>Mistake 5: No structure.</strong></p>
+<p>Pasting a wall of text into the context with no headers, no separators, no labels makes it hard for the model to parse. Even though LLMs can read unstructured text, structure helps them focus.</p>
+<p>The fix is to use clear section markers, headers, and consistent formatting.</p>
+<p><strong>Mistake 6: Confusing instructions.</strong></p>
+<p>When the system prompt says one thing and the user message says another, the model has to guess which one to follow. When two retrieved documents contradict each other, the model has to pick one.</p>
+<p>The fix is to design the context so that there is one clear answer to "what should the model do right now".</p>
+<p>This was all about the common mistakes. Now, let's see the best practices.</p>
+<h2 id="best-practices">Best Practices</h2>
+<p>Here are the best practices that experienced teams follow.</p>
+<p><strong>1. Treat the context as a budget.</strong></p>
+<p>Every token costs money and attention. Decide upfront how much of the context goes to the system prompt, how much to retrieval, how much to history, and how much to the current task. Stick to the budget.</p>
+<p><strong>2. Keep the context focused on the current task.</strong></p>
+<p>For each call, ask: "What does the model actually need to do this one task?" Include exactly that. Nothing more. <a href="https://outcomeschool.com/blog/what-are-agent-skills" rel="noopener noreferrer" target="_blank">Agent Skills</a> apply this rule to instructions - only a one-line description of each procedure stays loaded, and the full steps are read only when a request matches.</p>
+<p><strong>3. Order from most stable to most fresh.</strong></p>
+<p>System prompt at the top (stable, rarely changes), then examples, then retrieved knowledge, then memory, then conversation history, then the current message at the end. This works with <a href="https://outcomeschool.com/blog/how-does-prompt-caching-work" rel="noopener noreferrer" target="_blank">caching</a> too - stable parts of the context can be cached and reused.</p>
+<p><strong>4. Use clear section markers.</strong></p>
+<p>Headers, dividers, and labels make it easy for the model to know where each piece begins and ends. For example:</p>
+<pre><code>### SYSTEM
+You are a helpful assistant...
+### EXAMPLES
+Example 1: ...
+Example 2: ...
+### RETRIEVED DOCUMENTS
+[Doc 1]: ...
+[Doc 2]: ...
+### CONVERSATION
+User: ...
+Assistant: ...
+### CURRENT TASK
+User: ...
+</code></pre>
+<p>This kind of structure helps the model find what it needs.</p>
+<p><strong>5. Test the context, not just the model.</strong></p>
+<p>When something goes wrong, the first question should be "what was in the context when this failed?" Log the full context for failures. The bug is usually there, not in the model.</p>
+<p><strong>6. Iterate on the context like any other piece of software.</strong></p>
+<p>Version it. Diff it. A/B test it. Build evals that measure how the context performs on real tasks. Treat it as a first-class engineering artifact, not as a free-text afterthought.</p>
+<p><strong>7. Compress when needed, but be careful.</strong></p>
+<p>Summarization and compression save tokens, but they also lose information. Compress only what we are sure we will not need in detail later.</p>
+<p><strong>8. Build for the worst case.</strong></p>
+<p>In production, the context will sometimes grow unexpectedly - long conversations, big retrieved documents, repeated <a href="https://outcomeschool.com/blog/how-does-function-calling-work-in-llms" rel="noopener noreferrer" target="_blank">tool calls</a>. Design the context so that it gracefully handles the worst case, not just the average case.</p>
+<p>This was all about the best practices. Now, let's wrap it up.</p>
+<h2 id="quick-summary">Quick Summary</h2>
+<p>Let's recap what we have learned:</p>
+<ul>
+<li><strong>Context Engineering</strong> is the practice of designing, organizing, and managing everything that goes into the LLM's context window so that the model can do its task reliably.</li>
+<li><strong>The big idea:</strong> The LLM is a brilliant colleague with no memory. Context Engineering is the briefing we give them every single time.</li>
+<li><strong>Why it matters:</strong> LLMs are stateless. The output is decided entirely by what is in the context. As applications get more complex (RAG, agents, multi-step), the context becomes the main place where the work happens.</li>
+<li><strong>Prompt Engineering vs Context Engineering:</strong> Prompt Engineering is the wording of one instruction. Context Engineering is the design of the entire information environment. Prompt Engineering is a subset of Context Engineering.</li>
+<li><strong>The components:</strong> System prompt, examples (few-shot), retrieved documents (RAG), tools and tool descriptions, memory, conversation history, tool results, and the current user message.</li>
+<li><strong>Common patterns:</strong> RAG, few-shot examples, tool calling, memory injection, conversation history management, output formatting, context compression, per-step context rebuilding for agents.</li>
+<li><strong>Common mistakes:</strong> Stuffing too much, not including enough, bad ordering, stale context, no structure, confusing instructions.</li>
+<li><strong>Best practices:</strong> Treat the context as a budget, keep it focused on the current task, order from most stable to most fresh, use clear section markers, log and test the context, iterate on it like software, compress carefully, build for the worst case.</li>
+<li><strong>In simple words:</strong> Context Engineering = Briefing the LLM with the right information, in the right shape, at the right time.</li>
+</ul>
+<p>Context Engineering is the new most important skill for building reliable AI applications. The model is the engine, but the context is the fuel. A great context with an average model often beats an average context with a great model.</p>
+<p>So, the next time we are debugging an AI application that is not behaving well, the first question should not be "is the model wrong?" - it should be "is the context right?"</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="is-a-bigger-context-always-better-for-an-llm">Is a bigger context always better for an LLM?</h3>
+<p>No. When too much information is in the context, the model gets distracted, slows down, costs more, and often produces worse answers. This slow decay in answer quality as the context grows past what the task needs is called context rot or context degradation. We must include only what is needed for the current turn.</p>
+<h3 id="can-a-weaker-model-beat-a-stronger-model-with-better-context">Can a weaker model beat a stronger model with better context?</h3>
+<p>Yes. A weak model with a great context can outperform a strong model with a poor context. The output of the LLM is decided entirely by the input context. The model is the engine, but the context is the fuel.</p>
+<h3 id="does-an-llm-remember-previous-calls">Does an LLM remember previous calls?</h3>
+<p>No. LLMs are stateless, so they do not remember anything between calls. Every request starts fresh, and the only thing the model knows is what we include in the context window. That is why the context is rebuilt from scratch on every single turn.</p>
+<h3 id="where-should-we-place-important-instructions-in-a-long-context">Where should we place important instructions in a long context?</h3>
+<p>We should place rules and instructions at the start and the current task at the end. The model pays more attention to the start and the end, and it under-attends to information buried in the middle. This is known as the "lost in the middle" problem.</p>
+<h3 id="is-asking-for-json-in-the-prompt-enough-for-reliable-parsing">Is asking for JSON in the prompt enough for reliable parsing?</h3>
+<p>Not for truly reliable parsing. Putting the format requirement in the context helps, but structured output APIs and JSON schema constraints are stronger than prompt-based formatting alone. The prompt asks for the format, and the schema enforces it.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m08-l0806">
+  <p class="print-lesson-kicker">Lesson 8.6</p>
+  <h1>How does context compaction work?</h1>
+  <p class="print-lesson-meta">Lesson 8.6 · ~15 min · Published July 21, 2026 · <a href="https://outcomeschool.com/blog/how-does-context-compaction-work">https://outcomeschool.com/blog/how-does-context-compaction-work</a></p>
+  <p><img alt="How does context compaction work?" src="../assets/images/08-08-06-how-does-context-compaction-work/how-does-context-compaction-work.png"/></p>
+<p>Context compaction is the technique of shrinking the old part of a long conversation into a short summary, so that the important facts stay, and the model's context window gets free space again.</p>
+<p>In this blog, we will learn about how context compaction works in Large Language Models. We will also see why long conversations overflow the context window, how summarization shrinks the older messages without losing the important points, and where compaction is used in real AI agents.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is a Large Language Model?</li>
+<li>What is the context window?</li>
+<li>What is context?</li>
+<li>The problem of long conversations</li>
+<li>The naive fix and why it fails</li>
+<li>What is context compaction?</li>
+<li>How summarization powers compaction</li>
+<li>A step-by-step walkthrough</li>
+<li>Context compaction in code</li>
+<li>Compaction in real AI agents</li>
+<li>Why context compaction is important</li>
+</ul>
+<p>Let's get started.</p>
+<h3 id="what-is-a-large-language-model">What is a Large Language Model?</h3>
+<p>Before jumping into context compaction, we must know what a Large Language Model is.</p>
+<p>A <strong>Large Language Model</strong> is a model that reads text and predicts the next word.</p>
+<p>In simple words, it is a very good guessing machine. We give it some words, and it guesses the word that comes next. Then it adds that word and guesses again. It keeps doing this, one word at a time.</p>
+<p>Let's say we type "I want to learn". The model guesses "machine". Now the text becomes "I want to learn machine". The model reads all of it again and guesses the next word. This is how a model writes long answers, one word after another.</p>
+<p><strong>Note:</strong> The model actually works with small pieces of words called <strong>tokens</strong>. A token can be a full word, a part of a word, or even a single letter. For the sake of understanding, we can think of a token as a word.</p>
+<p>This is how a Large Language Model works. Now, let's understand the context window.</p>
+<h3 id="what-is-the-context-window">What is the context window?</h3>
+<p>The model cannot read an unlimited amount of text. It has a limit on how many words it can hold at once.</p>
+<p>The <strong>context window</strong> is the maximum number of tokens the model can keep in front of it at one time.</p>
+<p>In simple words, the context window is the size of the model's short-term memory. If the limit is 4000 tokens, the model can only keep the last 4000 tokens in mind. Anything beyond that does not fit.</p>
+<p>Let's say the context window is like a small whiteboard. We can write only so many words on it. Once the whiteboard is full, we cannot add a single new word without first erasing something.</p>
+<p>So, the context window is a fixed-size space. This single fact is the root of the whole problem we are going to solve. Now, let's understand what we actually put inside this window.</p>
+<h3 id="what-is-context">What is context?</h3>
+<p>Everything we send to the model in one go is called the <strong>context</strong>.</p>
+<p>In simple words, the context is the full pile of text the model reads before it answers. It is the model's working memory for this one task.</p>
+<p>So context is all the words put together that the model looks at right now. In a chat, the context holds the system instructions, every past message, and the new question we just asked.</p>
+<p>Assume that we are talking to a chatbot. The context is the running record of our whole conversation so far. The model reads this entire record every single time before it replies. That is how it <a href="https://outcomeschool.com/blog/how-does-chatgpt-remember-you" rel="noopener noreferrer" target="_blank">remembers what we said earlier</a>.</p>
+<p>Here is the important point. The context lives inside the context window. The window is the box, and the context is the stuff we pack into the box.</p>
+<p>Designing and managing everything that goes into this context is a skill of its own. We have a detailed blog on <a href="https://outcomeschool.com/blog/context-engineering" rel="noopener noreferrer" target="_blank">Context Engineering</a> that covers this in depth.</p>
+<p>This is how context works. Now, let's see the problem that creates the need for context compaction.</p>
+<h3 id="the-problem-of-long-conversations">The problem of long conversations</h3>
+<p>Suppose we are building a chatbot or an <a href="https://outcomeschool.com/blog/how-does-claude-code-work" rel="noopener noreferrer" target="_blank">AI coding assistant</a>. We want to use it for hours. The conversation keeps growing longer and longer. Every message we send and every answer the model gives is added to the context.</p>
+<p>Here is the catch. The context box has a fixed size, but our conversation never stops growing. Sooner or later, the box becomes full.</p>
+<p>Let's visualize the box filling up as below:</p>
+<pre><code class="language-text">Context window (a fixed box that holds 8 messages)
+Early in chat:   [ msg1 msg2 ........................ ]   plenty of room
+Later in chat:   [ msg1 msg2 msg3 msg4 msg5 msg6 .... ]   filling up
+Very long chat:  [ msg1 msg2 msg3 msg4 msg5 ... msg8 ]   FULL, no room
+New message msg9 arrives -&gt;  it does not fit. Now what?
+</code></pre>
+<p>Here, we can see that the box fills up as the chat grows. When a new message arrives and the box is already full, we are stuck. We cannot add the new message without first removing something old.</p>
+<p>When the context overflows, three bad things happen. First, the model cannot fit the new message, so it errors out or cuts off old text. Second, a fuller context makes the model slower and more expensive, because it must read more tokens every turn. Third, the model can get confused by too much old text and lose track of what matters.</p>
+<p>There is one more catch even before the box is full. A model reads the start and the end of a long context much better than the middle. We have a detailed blog on <a href="https://outcomeschool.com/blog/lost-in-the-middle-problem-in-llms" rel="noopener noreferrer" target="_blank">The Lost in the Middle Problem in LLMs</a> that explains why the middle quietly gets ignored.</p>
+<p>So, the question is: how do we keep the conversation going for hours without the box overflowing?</p>
+<h3 id="the-naive-fix-and-why-it-fails">The naive fix and why it fails</h3>
+<p>The most obvious idea is simple. When the box is full, throw away the oldest messages and keep only the most recent ones. This is called a <strong>sliding window</strong>.</p>
+<p>In simple words, a sliding window keeps a window of recent messages and lets the old ones fall off the back, like a moving train window where old scenery slides away.</p>
+<p>Dropping the oldest text is risky inside the model too, and we have a detailed blog on <a href="https://outcomeschool.com/blog/how-do-attention-sinks-work" rel="noopener noreferrer" target="_blank">Attention Sinks</a> that explains why the very first tokens must never fall out of the window.</p>
+<p>Let's see this with an example. Suppose the box holds 4 messages. The conversation is:</p>
+<pre><code class="language-text">msg1 msg2 msg3 msg4 msg5 msg6
+</code></pre>
+<p>Here, we have six messages, but the box holds only four. When msg5 arrives, we drop msg1. When msg6 arrives, we drop msg2. We always keep the latest 4 messages.</p>
+<p>This sounds perfect. But, here is the catch. The old messages often hold facts we still need.</p>
+<p>Let's say msg1 was "My name is Amit and I am building an Android app in Kotlin." Hours later we ask, "What language am I using?" If we already dropped msg1, the model has no idea. The fact is gone forever. The model either guesses wrong or says it does not know.</p>
+<p>The issue with this approach is that throwing away old messages also throws away important facts hidden inside them. We lose memory, not just words. Let's see how the next idea solves this issue.</p>
+<h3 id="what-is-context-compaction">What is context compaction?</h3>
+<p>So, here comes context compaction to the rescue.</p>
+<p><strong>Context compaction</strong> is the technique of shrinking the old conversation into a short summary, so the important facts stay while the box gets free space again.</p>
+<p>In simple words, instead of deleting old messages, we squeeze them. We replace a long pile of old text with a small note that keeps the key facts. The box gets emptier, but the memory survives.</p>
+<p>Let's break the term down for the sake of understanding.</p>
+<p><strong>Context Compaction = Context + Compaction</strong></p>
+<p>"Context" is all the text the model reads. "Compaction" means pressing something into a smaller size. So context compaction means pressing the text into a smaller size while keeping what matters.</p>
+<p>Let's say we have a 20-page diary of our day. We do not need all 20 pages tomorrow. We can write a half-page summary that keeps the important events and throw away the 20 pages. We lose the tiny details, but we keep the story. That half-page is the compacted context.</p>
+<p>Let me map this idea to packing a suitcase so it stays clear in our mind:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Packing a suitcase</th>
+<th>Context compaction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The suitcase</td>
+<td>The context window (fixed size)</td>
+</tr>
+<tr>
+<td>All the clothes</td>
+<td>The full conversation history</td>
+</tr>
+<tr>
+<td>The clothes overflowing</td>
+<td>The context becoming full</td>
+</tr>
+<tr>
+<td>Folding and vacuum-packing clothes</td>
+<td>Summarizing old messages</td>
+</tr>
+<tr>
+<td>The neatly packed suitcase</td>
+<td>The compacted, smaller context</td>
+</tr>
+<tr>
+<td>Throwing away trash, keeping clothes</td>
+<td>Dropping filler, keeping key facts</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, we can see that we do not throw away our clothes when the suitcase is full. We fold them tightly to make room. Context compaction does the same thing with words.</p>
+<p>This is the heart of the topic. Now, let's understand the engine that makes compaction work.</p>
+<h3 id="how-summarization-powers-compaction">How summarization powers compaction</h3>
+<p>The way we shrink the old text is by <strong>summarization</strong>.</p>
+<p>In simple words, summarization means asking the model itself to read the old messages and write a short note that keeps only the key points.</p>
+<p>This is the clever part. The same Large Language Model that answers our questions is very good at summarizing text. So we use it for both jobs. We ask it, "Read this old conversation and write a short summary of the important facts." It hands us a tiny note.</p>
+<p>Let's say the old messages are 3000 tokens long. We feed them to the model and ask for a summary. The model returns a 200-token note that still holds the user's name, the project, the language, and the decisions made so far.</p>
+<p>Now we throw away the 3000 tokens of raw old messages and keep only the 200-token summary. We just freed up 2800 tokens of space, and we did not lose the important facts. That is the whole trick.</p>
+<p>We can picture this flow as below:</p>
+<pre><code class="language-text">   Old messages          The model            Short summary
+   (3000 tokens)        (summarizer)          (200 tokens)
+  +-------------+                            +-----------+
+  | msg1 msg2   |  --&gt;  +-----------+  --&gt;   | key facts |
+  | msg3 ... old|       |  read and |        | name      |
+  | raw history |       | summarize |        | project   |
+  +-------------+       +-----------+        +-----------+
+   Throw away 3000 raw tokens, keep the 200-token note.
+</code></pre>
+<p>Here, we can see that the raw old messages go into the model and a tiny note comes out, so the same model that answers our questions is also the engine that shrinks the text.</p>
+<p>One more thing to notice. We can do this again and again. When the box fills up next time, we summarize the new old messages along with the previous summary into a fresh, even shorter summary. So compaction repeats whenever the box gets full.</p>
+<p>So, summarization is the engine, and compaction is the result. Now, let's see this in action with concrete numbers.</p>
+<h3 id="a-step-by-step-walkthrough">A step-by-step walkthrough</h3>
+<p>Learning by example is the best way to learn. Let's take a tiny example and follow the numbers.</p>
+<p>Assume that our context window holds 1000 tokens. We set a rule: when the context crosses 800 tokens, we run compaction.</p>
+<p><strong>Step 1:</strong> The conversation grows. After many turns, the old messages take up 700 tokens and the recent messages take up 150 tokens. The total is 850 tokens. We have crossed the 800-token line, so it is time to compact.</p>
+<p><strong>Step 2:</strong> We take the 700 tokens of old messages and ask the model to summarize them. The model reads them and returns a short summary that is only 120 tokens long. This summary keeps the user's name, the goal of the project, and the key decisions.</p>
+<p><strong>Step 3:</strong> We rebuild the context. We throw away the 700 tokens of old messages and put the 120-token summary in their place. We keep the 150 tokens of recent messages untouched, because they are fresh and detailed.</p>
+<p>The new context looks like below:</p>
+<pre><code class="language-text">Before compaction (850 tokens, over the limit):
+  [ old messages: 700 ] + [ recent messages: 150 ]   -&gt; 850 (too big)
+After compaction (270 tokens, plenty of room):
+  [ summary: 120 ] + [ recent messages: 150 ]         -&gt; 270 (lots of space)
+We freed up 580 tokens and kept every important fact.
+</code></pre>
+<p>Here, we can see that the context dropped from 850 tokens to 270 tokens. We freed up 580 tokens of room. The recent messages stayed in full detail, and the old messages became a short summary that still holds the facts.</p>
+<p><strong>Step 4:</strong> The conversation continues. The model now reads the small summary plus the recent messages. It still knows our name and our project, so it answers correctly. When the box fills again later, we simply run compaction once more.</p>
+<p>This is how the numbers work out. Now, let's see it in code.</p>
+<h3 id="context-compaction-in-code">Context compaction in code</h3>
+<p>So, let's see the code. First, we will see the naive sliding window, the broken version, as below:</p>
+<pre><code class="language-python">def naive_sliding_window(messages, max_messages):
+    # keep only the most recent messages
+    return messages[-max_messages:]
+</code></pre>
+<p>Here, we have kept only the last <code>max_messages</code> items. This drops the old messages completely, which means we lose every fact hidden inside them. This is the version that forgets.</p>
+<p>Now, our updated code that compacts instead of deleting, like below:</p>
+<pre><code class="language-python">def compact_context(messages, recent_count, summarize):
+    # split the history into old and recent parts
+    old = messages[:-recent_count]
+    recent = messages[-recent_count:]
+    # turn the old messages into one short summary
+    summary = summarize(old)
+    # rebuild: short summary first, then the recent messages
+    return [summary] + recent
+</code></pre>
+<p>Here, we can see what we have done:</p>
+<ul>
+<li>We split the history into <code>old</code> messages and the last <code>recent_count</code> messages.</li>
+<li>We call <code>summarize(old)</code>, which asks the model to compress the old messages into a short note.</li>
+<li>We rebuild the context as the short <code>summary</code> followed by the detailed <code>recent</code> messages.</li>
+</ul>
+<p>The old facts survive inside the summary. The recent details stay in full. The context becomes small again, so the conversation can keep going. The problem is solved.</p>
+<p><strong>Note:</strong> In practice, we do not compact after every message. We run compaction only when the context crosses a threshold, for example 80 percent of the window. This keeps the cost low.</p>
+<p>This is how the code works. Now, let's see how real AI tools use this.</p>
+<h3 id="compaction-in-real-ai-agents">Compaction in real AI agents</h3>
+<p>Context compaction is not just an idea on paper. It is used heavily in modern <a href="https://outcomeschool.com/blog/ai-agent" rel="noopener noreferrer" target="_blank">AI agents</a> and coding assistants.</p>
+<p>In simple words, an AI agent is a program that uses a Large Language Model to do many steps in a row, like reading files, running commands, and fixing code. Each step adds more text to the context. Over a long task, the context grows huge. Deciding when to compact, and what else that repeating cycle must control, is <a href="https://outcomeschool.com/blog/what-is-loop-engineering" rel="noopener noreferrer" target="_blank">Loop Engineering</a>.</p>
+<p>Let's say a coding assistant has been working for an hour. It has read dozens of files and run many commands. The raw history is now enormous and the box is almost full. Without compaction, the assistant would forget the early goal of the task.</p>
+<p>So, the assistant runs context compaction in the background. It summarizes the old steps into a short note, such as "Goal: fix the login bug. Already changed <code>auth.py</code> and <code>login.py</code>. Tests are passing." Then it keeps working with this small note plus the latest steps.</p>
+<p>There is one more step forward. Good compaction keeps a few things in full and never summarizes them away. The original system instructions stay. The user's main goal stays. The very latest messages stay in full detail. Only the messy middle gets compressed.</p>
+<p>So, modern agents treat compaction as a planned feature, not an afterthought. They protect the most important parts and squeeze the rest. This is how an agent works on a long task for hours without ever losing the plot.</p>
+<h3 id="why-context-compaction-is-important">Why context compaction is important</h3>
+<p>Now, we have understood context compaction fully. Let's see why it's important for all of us.</p>
+<ul>
+<li>It lets chatbots and agents run for hours without overflowing the context window.</li>
+<li>It keeps the important facts alive while throwing away only the filler.</li>
+<li>It keeps cost and speed under control, because the model reads fewer tokens each turn.</li>
+<li>It turns a hard memory limit into a smooth, never-ending conversation.</li>
+</ul>
+<p>This way we can use context compaction to solve the interesting problem of holding long conversations inside a small, fixed memory without forgetting what matters.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="what-is-the-difference-between-context-compaction-and-a-sliding-window">What is the difference between context compaction and a sliding window?</h3>
+<p>A sliding window deletes the oldest messages, while context compaction summarizes them. With a sliding window, facts hidden in old messages are gone forever. With compaction, the old messages become a short summary that keeps the key facts, so the model still remembers them.</p>
+<h3 id="does-context-compaction-lose-any-information">Does context compaction lose any information?</h3>
+<p>Yes, but only the tiny details. Compaction replaces the long raw history with a short summary that keeps the important facts, like the user's name, the project goal, and key decisions. Only the filler is dropped, so the model keeps the story while the context window gets free space again.</p>
+<h3 id="how-often-should-we-run-context-compaction">How often should we run context compaction?</h3>
+<p>We should run compaction only when the context crosses a threshold, not after every message. For example, we can compact when the context reaches 80 percent of the window. This keeps the cost low. When the context window fills up again later, we simply run compaction once more.</p>
+<h3 id="which-parts-of-the-context-should-never-be-summarized">Which parts of the context should never be summarized?</h3>
+<p>The original system instructions, the user's main goal, and the very latest messages should stay in full. Good compaction protects these parts and compresses only the messy middle. This is how an agent keeps working on a long task for hours without losing the plot.</p>
+<h3 id="does-context-compaction-reduce-cost">Does context compaction reduce cost?</h3>
+<p>Yes. A fuller context makes the model slower and more expensive, because it must read more tokens every turn. Compaction shrinks the old history into a short summary, so the model reads fewer tokens each turn and cost and speed stay under control.</p>
+
+</section>
+
+</section>
+<p class="print-footer">Personal offline study copy · Content © Outcome School / Amit Shekhar</p>
+</main>
+</body>
+</html>

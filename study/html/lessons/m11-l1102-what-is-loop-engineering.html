@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="What is Loop Engineering? Module 11 · Lesson 11.2 Source: Outcome School · Published: August 20, 2026 · Reading time: 20 min · Tags: ai agent , llm , ai , system design Loop Engine">
+<title>What is Loop Engineering? · AI Engineering Course</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/pygments.css">
+</head>
+<body class="">
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="topbar">
+  <button id="menu-toggle" class="icon-btn" type="button" aria-label="Toggle navigation">☰</button>
+  <a class="brand" href="../index.html">AI Engineering Course</a>
+  <div class="search-wrap">
+    <input id="search" type="search" placeholder="Search lessons…" autocomplete="off" aria-label="Search lessons">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+  <div class="progress-mini" title="Course progress"><span id="progress-text">0%</span></div>
+  <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle light/dark theme">🌙</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="progress-box">
+      <div class="progress-bar"><span id="progress-fill"></span></div>
+      <div class="progress-label" id="progress-label">0 of 0 lessons read</div>
+    </div>
+    <nav class="course-nav" aria-label="Course modules">
+<a class="nav-home" href="../index.html">Course home</a>
+<a class="nav-module-single" href="../modules/m00.html">0. Must Know</a>
+<details class="nav-module" data-module="1">
+<summary><span class="nav-module-title">1. Machine Learning Foundations</span><span class="nav-count" data-nav-count="1">0/9</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0101" data-module="1" aria-label="Mark What is Machine Learning? as read"></label><a href="../lessons/m01-l0101-what-is-machine-learning.html">1.1 What is Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0102" data-module="1" aria-label="Mark Supervised vs Unsupervised Learning as read"></label><a href="../lessons/m01-l0102-supervised-vs-unsupervised-learning.html">1.2 Supervised vs Unsupervised Learning</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0103" data-module="1" aria-label="Mark Linear Regression vs Logistic Regression as read"></label><a href="../lessons/m01-l0103-linear-regression-vs-logistic-regression.html">1.3 Linear Regression vs Logistic Regression</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0104" data-module="1" aria-label="Mark What is Feature Engineering in Machine Learning? as read"></label><a href="../lessons/m01-l0104-what-is-feature-engineering-in-machine-learning.html">1.4 What is Feature Engineering in Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0105" data-module="1" aria-label="Mark Precision vs Recall as read"></label><a href="../lessons/m01-l0105-precision-vs-recall.html">1.5 Precision vs Recall</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0106" data-module="1" aria-label="Mark What Are L1 and L2 Loss Functions? as read"></label><a href="../lessons/m01-l0106-what-are-l1-and-l2-loss-functions.html">1.6 What Are L1 and L2 Loss Functions?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0107" data-module="1" aria-label="Mark What is Regularization in Machine Learning? L1 vs L2 Explained as read"></label><a href="../lessons/m01-l0107-what-is-regularization-in-machine-learning-l1-vs-l2-explained.html">1.7 What is Regularization in Machine Learning? L1 vs L2 Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0108" data-module="1" aria-label="Mark What is Reinforcement Learning? as read"></label><a href="../lessons/m01-l0108-what-is-reinforcement-learning.html">1.8 What is Reinforcement Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0109" data-module="1" aria-label="Mark What is Contrastive Learning? How It Works Step by Step as read"></label><a href="../lessons/m01-l0109-what-is-contrastive-learning-how-it-works-step-by-step.html">1.9 What is Contrastive Learning? How It Works Step by Step</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="2">
+<summary><span class="nav-module-title">2. Deep Learning and Neural Networks</span><span class="nav-count" data-nav-count="2">0/12</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0201" data-module="2" aria-label="Mark What is a Neural Network and How Does It Work? as read"></label><a href="../lessons/m02-l0201-what-is-a-neural-network-and-how-does-it-work.html">2.1 What is a Neural Network and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0202" data-module="2" aria-label="Mark What is Bias In Artificial Neural Network? as read"></label><a href="../lessons/m02-l0202-what-is-bias-in-artificial-neural-network.html">2.2 What is Bias In Artificial Neural Network?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0203" data-module="2" aria-label="Mark How Does Matrix Multiplication Work in Neural Networks? as read"></label><a href="../lessons/m02-l0203-how-does-matrix-multiplication-work-in-neural-networks.html">2.3 How Does Matrix Multiplication Work in Neural Networks?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0204" data-module="2" aria-label="Mark How Does Gradient Descent Work? as read"></label><a href="../lessons/m02-l0204-how-does-gradient-descent-work.html">2.4 How Does Gradient Descent Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0205" data-module="2" aria-label="Mark How Does Backpropagation Work? The Math Explained Step by Step as read"></label><a href="../lessons/m02-l0205-how-does-backpropagation-work-the-math-explained-step-by-step.html">2.5 How Does Backpropagation Work? The Math Explained Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0206" data-module="2" aria-label="Mark What is Cross-Entropy Loss? as read"></label><a href="../lessons/m02-l0206-what-is-cross-entropy-loss.html">2.6 What is Cross-Entropy Loss?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0207" data-module="2" aria-label="Mark What is Dropout in Neural Networks and How Does It Work? as read"></label><a href="../lessons/m02-l0207-what-is-dropout-in-neural-networks-and-how-does-it-work.html">2.7 What is Dropout in Neural Networks and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0208" data-module="2" aria-label="Mark Batch Normalization vs Layer Normalization as read"></label><a href="../lessons/m02-l0208-batch-normalization-vs-layer-normalization.html">2.8 Batch Normalization vs Layer Normalization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0209" data-module="2" aria-label="Mark What is RMSNorm? Root Mean Square Layer Normalization Explained as read"></label><a href="../lessons/m02-l0209-what-is-rmsnorm-root-mean-square-layer-normalization-explained.html">2.9 What is RMSNorm? Root Mean Square Layer Normalization Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0210" data-module="2" aria-label="Mark What is a Recurrent Neural Network (RNN)? as read"></label><a href="../lessons/m02-l0210-what-is-a-recurrent-neural-network-rnn.html">2.10 What is a Recurrent Neural Network (RNN)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0211" data-module="2" aria-label="Mark How does PyTorch work? as read"></label><a href="../lessons/m02-l0211-how-does-pytorch-work.html">2.11 How does PyTorch work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0212" data-module="2" aria-label="Mark How Does The Machine Learning Library TensorFlow Work? as read"></label><a href="../lessons/m02-l0212-how-does-the-machine-learning-library-tensorflow-work.html">2.12 How Does The Machine Learning Library TensorFlow Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="3">
+<summary><span class="nav-module-title">3. Generative AI and the Transformer Architecture</span><span class="nav-count" data-nav-count="3">0/16</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0301" data-module="3" aria-label="Mark What is Generative AI? as read"></label><a href="../lessons/m03-l0301-what-is-generative-ai.html">3.1 What is Generative AI?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0302" data-module="3" aria-label="Mark What are Autoregressive Models? as read"></label><a href="../lessons/m03-l0302-what-are-autoregressive-models.html">3.2 What are Autoregressive Models?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0303" data-module="3" aria-label="Mark Tokenization in LLMs as read"></label><a href="../lessons/m03-l0303-tokenization-in-llms.html">3.3 Tokenization in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0304" data-module="3" aria-label="Mark What is Byte Pair Encoding (BPE) in LLMs? as read"></label><a href="../lessons/m03-l0304-what-is-byte-pair-encoding-bpe-in-llms.html">3.4 What is Byte Pair Encoding (BPE) in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0305" data-module="3" aria-label="Mark What are Embeddings? as read"></label><a href="../lessons/m03-l0305-what-are-embeddings.html">3.5 What are Embeddings?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0306" data-module="3" aria-label="Mark How do RNNs and Transformers differ? as read"></label><a href="../lessons/m03-l0306-how-do-rnns-and-transformers-differ.html">3.6 How do RNNs and Transformers differ?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0307" data-module="3" aria-label="Mark How Does the Transformer Architecture Work? as read"></label><a href="../lessons/m03-l0307-how-does-the-transformer-architecture-work.html">3.7 How Does the Transformer Architecture Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0308" data-module="3" aria-label="Mark Encoder vs Decoder in Transformers as read"></label><a href="../lessons/m03-l0308-encoder-vs-decoder-in-transformers.html">3.8 Encoder vs Decoder in Transformers</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0309" data-module="3" aria-label="Mark What is Self Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0309-what-is-self-attention-in-transformers-and-how-does-it-work.html">3.9 What is Self Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0310" data-module="3" aria-label="Mark How Does Attention Work? The Math Behind Q, K, and V Step by Step as read"></label><a href="../lessons/m03-l0310-how-does-attention-work-the-math-behind-q-k-and-v-step-by-step.html">3.10 How Does Attention Work? The Math Behind Q, K, and V Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0311" data-module="3" aria-label="Mark Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor as read"></label><a href="../lessons/m03-l0311-why-do-we-scale-attention-by-dk-the-math-behind-the-scaling-factor.html">3.11 Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0312" data-module="3" aria-label="Mark What is Causal Masking in Attention and Why Do LLMs Need It? as read"></label><a href="../lessons/m03-l0312-what-is-causal-masking-in-attention-and-why-do-llms-need-it.html">3.12 What is Causal Masking in Attention and Why Do LLMs Need It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0313" data-module="3" aria-label="Mark What is Multi-Head Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0313-what-is-multi-head-attention-in-transformers-and-how-does-it-work.html">3.13 What is Multi-Head Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0314" data-module="3" aria-label="Mark What is Cross Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0314-what-is-cross-attention-in-transformers-and-how-does-it-work.html">3.14 What is Cross Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0315" data-module="3" aria-label="Mark What is RoPE (Rotary Position Embedding)? The Math Behind It as read"></label><a href="../lessons/m03-l0315-what-is-rope-rotary-position-embedding-the-math-behind-it.html">3.15 What is RoPE (Rotary Position Embedding)? The Math Behind It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0316" data-module="3" aria-label="Mark What is the Feed-Forward Network in LLMs and What Does It Do? as read"></label><a href="../lessons/m03-l0316-what-is-the-feed-forward-network-in-llms-and-what-does-it-do.html">3.16 What is the Feed-Forward Network in LLMs and What Does It Do?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="4">
+<summary><span class="nav-module-title">4. How LLMs Generate Text</span><span class="nav-count" data-nav-count="4">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0401" data-module="4" aria-label="Mark How does Temperature control LLM output? as read"></label><a href="../lessons/m04-l0401-how-does-temperature-control-llm-output.html">4.1 How does Temperature control LLM output?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0402" data-module="4" aria-label="Mark How do Top-k and Top-p Sampling work? as read"></label><a href="../lessons/m04-l0402-how-do-top-k-and-top-p-sampling-work.html">4.2 How do Top-k and Top-p Sampling work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0403" data-module="4" aria-label="Mark Stop Tokens in LLMs as read"></label><a href="../lessons/m04-l0403-stop-tokens-in-llms.html">4.3 Stop Tokens in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0404" data-module="4" aria-label="Mark How does Token Streaming work? as read"></label><a href="../lessons/m04-l0404-how-does-token-streaming-work.html">4.4 How does Token Streaming work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0405" data-module="4" aria-label="Mark What is the Lost in the Middle Problem in LLMs and How to Fix It? as read"></label><a href="../lessons/m04-l0405-what-is-the-lost-in-the-middle-problem-in-llms-and-how-to-fix-it.html">4.5 What is the Lost in the Middle Problem in LLMs and How to Fix It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0406" data-module="4" aria-label="Mark Why Do LLMs Hallucinate? The Token-Level Explanation as read"></label><a href="../lessons/m04-l0406-why-do-llms-hallucinate-the-token-level-explanation.html">4.6 Why Do LLMs Hallucinate? The Token-Level Explanation</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="5">
+<summary><span class="nav-module-title">5. Modern LLM Architecture</span><span class="nav-count" data-nav-count="5">0/7</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0501" data-module="5" aria-label="Mark Evolution of LLM Architecture as read"></label><a href="../lessons/m05-l0501-evolution-of-llm-architecture.html">5.1 Evolution of LLM Architecture</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0502" data-module="5" aria-label="Mark What is Mixture of Experts (MoE) and How Does It Work? as read"></label><a href="../lessons/m05-l0502-what-is-mixture-of-experts-moe-and-how-does-it-work.html">5.2 What is Mixture of Experts (MoE) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0503" data-module="5" aria-label="Mark What is Grouped Query Attention (GQA) and Why Do LLMs Use It? as read"></label><a href="../lessons/m05-l0503-what-is-grouped-query-attention-gqa-and-why-do-llms-use-it.html">5.3 What is Grouped Query Attention (GQA) and Why Do LLMs Use It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0504" data-module="5" aria-label="Mark How does Sliding Window Attention work? as read"></label><a href="../lessons/m05-l0504-how-does-sliding-window-attention-work.html">5.4 How does Sliding Window Attention work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0505" data-module="5" aria-label="Mark How do Attention Sinks work? as read"></label><a href="../lessons/m05-l0505-how-do-attention-sinks-work.html">5.5 How do Attention Sinks work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0506" data-module="5" aria-label="Mark What is Flash Attention and Why Is It So Fast? as read"></label><a href="../lessons/m05-l0506-what-is-flash-attention-and-why-is-it-so-fast.html">5.6 What is Flash Attention and Why Is It So Fast?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0507" data-module="5" aria-label="Mark What is DeepSeek-V4 and How Does It Work? Architecture Explained as read"></label><a href="../lessons/m05-l0507-what-is-deepseek-v4-and-how-does-it-work-architecture-explained.html">5.7 What is DeepSeek-V4 and How Does It Work? Architecture Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="6">
+<summary><span class="nav-module-title">6. Types of Language Models</span><span class="nav-count" data-nav-count="6">0/5</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0601" data-module="6" aria-label="Mark What are Small Language Models (SLMs) and When Should We Use Them? as read"></label><a href="../lessons/m06-l0601-what-are-small-language-models-slms-and-when-should-we-use-them.html">6.1 What are Small Language Models (SLMs) and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0602" data-module="6" aria-label="Mark What are Large Reasoning Models (LRMs) and How Are They Different from LLMs? as read"></label><a href="../lessons/m06-l0602-what-are-large-reasoning-models-lrms-and-how-are-they-different-from-llms.html">6.2 What are Large Reasoning Models (LRMs) and How Are They Different from LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0603" data-module="6" aria-label="Mark What are Recursive Language Models (RLMs) and How Do They Work? as read"></label><a href="../lessons/m06-l0603-what-are-recursive-language-models-rlms-and-how-do-they-work.html">6.3 What are Recursive Language Models (RLMs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0604" data-module="6" aria-label="Mark How do Diffusion Language Models (DLMs) work? as read"></label><a href="../lessons/m06-l0604-how-do-diffusion-language-models-dlms-work.html">6.4 How do Diffusion Language Models (DLMs) work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0605" data-module="6" aria-label="Mark Jev and System One Models Explained as read"></label><a href="../lessons/m06-l0605-jev-and-system-one-models-explained.html">6.5 Jev and System One Models Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="7">
+<summary><span class="nav-module-title">7. Training, Fine-Tuning, and Alignment</span><span class="nav-count" data-nav-count="7">0/11</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0701" data-module="7" aria-label="Mark How does fine-tuning work? as read"></label><a href="../lessons/m07-l0701-how-does-fine-tuning-work.html">7.1 How does fine-tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0702" data-module="7" aria-label="Mark What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs? as read"></label><a href="../lessons/m07-l0702-what-is-lora-low-rank-adaptation-and-how-does-it-fine-tune-llms.html">7.2 What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0703" data-module="7" aria-label="Mark How does Prefix Tuning work? as read"></label><a href="../lessons/m07-l0703-how-does-prefix-tuning-work.html">7.3 How does Prefix Tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0704" data-module="7" aria-label="Mark How does Knowledge Distillation work? as read"></label><a href="../lessons/m07-l0704-how-does-knowledge-distillation-work.html">7.4 How does Knowledge Distillation work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0705" data-module="7" aria-label="Mark What is Continual Learning in LLMs? Solving Catastrophic Forgetting as read"></label><a href="../lessons/m07-l0705-what-is-continual-learning-in-llms-solving-catastrophic-forgetting.html">7.5 What is Continual Learning in LLMs? Solving Catastrophic Forgetting</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0706" data-module="7" aria-label="Mark What is Deep RL from Human Preferences? The Paper That Started RLHF as read"></label><a href="../lessons/m07-l0706-what-is-deep-rl-from-human-preferences-the-paper-that-started-rlhf.html">7.6 What is Deep RL from Human Preferences? The Paper That Started RLHF</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0707" data-module="7" aria-label="Mark What is InstructGPT? How GPT-3 Learned to Follow Instructions as read"></label><a href="../lessons/m07-l0707-what-is-instructgpt-how-gpt-3-learned-to-follow-instructions.html">7.7 What is InstructGPT? How GPT-3 Learned to Follow Instructions</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0708" data-module="7" aria-label="Mark What is RLHF? Reinforcement Learning from Human Feedback Explained as read"></label><a href="../lessons/m07-l0708-what-is-rlhf-reinforcement-learning-from-human-feedback-explained.html">7.8 What is RLHF? Reinforcement Learning from Human Feedback Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0709" data-module="7" aria-label="Mark What is Proximal Policy Optimization (PPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0709-what-is-proximal-policy-optimization-ppo-and-how-does-it-work.html">7.9 What is Proximal Policy Optimization (PPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0710" data-module="7" aria-label="Mark What is Direct Preference Optimization (DPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0710-what-is-direct-preference-optimization-dpo-and-how-does-it-work.html">7.10 What is Direct Preference Optimization (DPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0711" data-module="7" aria-label="Mark What is Group Relative Policy Optimization (GRPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0711-what-is-group-relative-policy-optimization-grpo-and-how-does-it-work.html">7.11 What is Group Relative Policy Optimization (GRPO) and How Does It Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="8">
+<summary><span class="nav-module-title">8. Prompt Engineering and Context Engineering</span><span class="nav-count" data-nav-count="8">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0801" data-module="8" aria-label="Mark How does Chain-of-Thought (CoT) Prompting work? as read"></label><a href="../lessons/m08-l0801-how-does-chain-of-thought-cot-prompting-work.html">8.1 How does Chain-of-Thought (CoT) Prompting work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0802" data-module="8" aria-label="Mark How does Tree of Thoughts work? as read"></label><a href="../lessons/m08-l0802-how-does-tree-of-thoughts-work.html">8.2 How does Tree of Thoughts work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0803" data-module="8" aria-label="Mark How does Prompt Chaining work? as read"></label><a href="../lessons/m08-l0803-how-does-prompt-chaining-work.html">8.3 How does Prompt Chaining work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0804" data-module="8" aria-label="Mark How does Prompt Caching work? as read"></label><a href="../lessons/m08-l0804-how-does-prompt-caching-work.html">8.4 How does Prompt Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0805" data-module="8" aria-label="Mark What is Context Engineering? as read"></label><a href="../lessons/m08-l0805-what-is-context-engineering.html">8.5 What is Context Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0806" data-module="8" aria-label="Mark How does context compaction work? as read"></label><a href="../lessons/m08-l0806-how-does-context-compaction-work.html">8.6 How does context compaction work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="9">
+<summary><span class="nav-module-title">9. Vector Search and Retrieval-Augmented Generation (RAG)</span><span class="nav-count" data-nav-count="9">0/15</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0901" data-module="9" aria-label="Mark How does a Vector Database work? as read"></label><a href="../lessons/m09-l0901-how-does-a-vector-database-work.html">9.1 How does a Vector Database work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0902" data-module="9" aria-label="Mark How does Approximate Nearest Neighbor (ANN) search work? as read"></label><a href="../lessons/m09-l0902-how-does-approximate-nearest-neighbor-ann-search-work.html">9.2 How does Approximate Nearest Neighbor (ANN) search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0903" data-module="9" aria-label="Mark How does Semantic Search work? as read"></label><a href="../lessons/m09-l0903-how-does-semantic-search-work.html">9.3 How does Semantic Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0904" data-module="9" aria-label="Mark How does Hybrid Search work? as read"></label><a href="../lessons/m09-l0904-how-does-hybrid-search-work.html">9.4 How does Hybrid Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0905" data-module="9" aria-label="Mark How does a Reranker work? as read"></label><a href="../lessons/m09-l0905-how-does-a-reranker-work.html">9.5 How does a Reranker work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0906" data-module="9" aria-label="Mark What is ColBERT? Late Interaction Retrieval Explained as read"></label><a href="../lessons/m09-l0906-what-is-colbert-late-interaction-retrieval-explained.html">9.6 What is ColBERT? Late Interaction Retrieval Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0907" data-module="9" aria-label="Mark How to Chunk Documents for RAG? Chunking Strategies Explained as read"></label><a href="../lessons/m09-l0907-how-to-chunk-documents-for-rag-chunking-strategies-explained.html">9.7 How to Chunk Documents for RAG? Chunking Strategies Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0908" data-module="9" aria-label="Mark How does Contextual Retrieval work? as read"></label><a href="../lessons/m09-l0908-how-does-contextual-retrieval-work.html">9.8 How does Contextual Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0909" data-module="9" aria-label="Mark How does HyDE work in RAG? as read"></label><a href="../lessons/m09-l0909-how-does-hyde-work-in-rag.html">9.9 How does HyDE work in RAG?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0910" data-module="9" aria-label="Mark How do Query Rewriting and Multi-Query Retrieval work? as read"></label><a href="../lessons/m09-l0910-how-do-query-rewriting-and-multi-query-retrieval-work.html">9.10 How do Query Rewriting and Multi-Query Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0911" data-module="9" aria-label="Mark How does an Embedding Cache work? as read"></label><a href="../lessons/m09-l0911-how-does-an-embedding-cache-work.html">9.11 How does an Embedding Cache work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0912" data-module="9" aria-label="Mark How does Semantic Caching work? as read"></label><a href="../lessons/m09-l0912-how-does-semantic-caching-work.html">9.12 How does Semantic Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0913" data-module="9" aria-label="Mark What is Agentic RAG? How It Works and When to Use It as read"></label><a href="../lessons/m09-l0913-what-is-agentic-rag-how-it-works-and-when-to-use-it.html">9.13 What is Agentic RAG? How It Works and When to Use It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0914" data-module="9" aria-label="Mark What is GraphRAG? How Knowledge Graphs Improve RAG as read"></label><a href="../lessons/m09-l0914-what-is-graphrag-how-knowledge-graphs-improve-rag.html">9.14 What is GraphRAG? How Knowledge Graphs Improve RAG</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0915" data-module="9" aria-label="Mark What is Vectorless RAG? RAG Without Embeddings or a Vector Database as read"></label><a href="../lessons/m09-l0915-what-is-vectorless-rag-rag-without-embeddings-or-a-vector-database.html">9.15 What is Vectorless RAG? RAG Without Embeddings or a Vector Database</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="10">
+<summary><span class="nav-module-title">10. AI Agents and Agentic Systems</span><span class="nav-count" data-nav-count="10">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1001" data-module="10" aria-label="Mark What is an AI Agent? How It Works as read"></label><a href="../lessons/m10-l1001-what-is-an-ai-agent-how-it-works.html">10.1 What is an AI Agent? How It Works</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1002" data-module="10" aria-label="Mark How does Function Calling work in LLMs? as read"></label><a href="../lessons/m10-l1002-how-does-function-calling-work-in-llms.html">10.2 How does Function Calling work in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1003" data-module="10" aria-label="Mark What is an AI Agent Loop? as read"></label><a href="../lessons/m10-l1003-what-is-an-ai-agent-loop.html">10.3 What is an AI Agent Loop?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1004" data-module="10" aria-label="Mark What is a ReAct Agent? How It Thinks and Acts, Explained as read"></label><a href="../lessons/m10-l1004-what-is-a-react-agent-how-it-thinks-and-acts-explained.html">10.4 What is a ReAct Agent? How It Thinks and Acts, Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1005" data-module="10" aria-label="Mark What is a Plan-and-Execute Agent and How Does It Work? as read"></label><a href="../lessons/m10-l1005-what-is-a-plan-and-execute-agent-and-how-does-it-work.html">10.5 What is a Plan-and-Execute Agent and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1006" data-module="10" aria-label="Mark What is a Reflection Agent? How It Generates, Critiques, and Revises as read"></label><a href="../lessons/m10-l1006-what-is-a-reflection-agent-how-it-generates-critiques-and-revises.html">10.6 What is a Reflection Agent? How It Generates, Critiques, and Revises</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1007" data-module="10" aria-label="Mark How Does AI Agent Memory Work? The Memory Stack Explained as read"></label><a href="../lessons/m10-l1007-how-does-ai-agent-memory-work-the-memory-stack-explained.html">10.7 How Does AI Agent Memory Work? The Memory Stack Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1008" data-module="10" aria-label="Mark How does ChatGPT remember you? as read"></label><a href="../lessons/m10-l1008-how-does-chatgpt-remember-you.html">10.8 How does ChatGPT remember you?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1009" data-module="10" aria-label="Mark What is MCP (Model Context Protocol)? as read"></label><a href="../lessons/m10-l1009-what-is-mcp-model-context-protocol.html">10.9 What is MCP (Model Context Protocol)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1010" data-module="10" aria-label="Mark What are Agent Skills? as read"></label><a href="../lessons/m10-l1010-what-are-agent-skills.html">10.10 What are Agent Skills?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1011" data-module="10" aria-label="Mark What is OKF (Open Knowledge Format)? as read"></label><a href="../lessons/m10-l1011-what-is-okf-open-knowledge-format.html">10.11 What is OKF (Open Knowledge Format)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1012" data-module="10" aria-label="Mark What are Multi-Agent Systems and When Should We Use Them? as read"></label><a href="../lessons/m10-l1012-what-are-multi-agent-systems-and-when-should-we-use-them.html">10.12 What are Multi-Agent Systems and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1013" data-module="10" aria-label="Mark What are AI SubAgents? Why We Need Them and How They Work as read"></label><a href="../lessons/m10-l1013-what-are-ai-subagents-why-we-need-them-and-how-they-work.html">10.13 What are AI SubAgents? Why We Need Them and How They Work</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1014" data-module="10" aria-label="Mark How AI Agents Communicate as read"></label><a href="../lessons/m10-l1014-how-ai-agents-communicate.html">10.14 How AI Agents Communicate</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1015" data-module="10" aria-label="Mark What is AI Orchestration? How It Works and the Common Patterns as read"></label><a href="../lessons/m10-l1015-what-is-ai-orchestration-how-it-works-and-the-common-patterns.html">10.15 What is AI Orchestration? How It Works and the Common Patterns</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1016" data-module="10" aria-label="Mark What is Sakana Fugu? The Technical Report Explained as read"></label><a href="../lessons/m10-l1016-what-is-sakana-fugu-the-technical-report-explained.html">10.16 What is Sakana Fugu? The Technical Report Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1017" data-module="10" aria-label="Mark How do Computer-Use Agents work? as read"></label><a href="../lessons/m10-l1017-how-do-computer-use-agents-work.html">10.17 How do Computer-Use Agents work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1018" data-module="10" aria-label="Mark How do Browser Agents work? as read"></label><a href="../lessons/m10-l1018-how-do-browser-agents-work.html">10.18 How do Browser Agents work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="11" open>
+<summary><span class="nav-module-title">11. Agentic Engineering and Agent Frameworks</span><span class="nav-count" data-nav-count="11">0/8</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1101" data-module="11" aria-label="Mark What is Harness Engineering? as read"></label><a href="../lessons/m11-l1101-what-is-harness-engineering.html">11.1 What is Harness Engineering?</a></li>
+<li class="nav-lesson active"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1102" data-module="11" aria-label="Mark What is Loop Engineering? as read"></label><a href="../lessons/m11-l1102-what-is-loop-engineering.html">11.2 What is Loop Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1103" data-module="11" aria-label="Mark What is Graph Engineering? as read"></label><a href="../lessons/m11-l1103-what-is-graph-engineering.html">11.3 What is Graph Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1104" data-module="11" aria-label="Mark AI Is Only as Good as Our Definition of Done as read"></label><a href="../lessons/m11-l1104-ai-is-only-as-good-as-our-definition-of-done.html">11.4 AI Is Only as Good as Our Definition of Done</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1105" data-module="11" aria-label="Mark How does LangChain work? as read"></label><a href="../lessons/m11-l1105-how-does-langchain-work.html">11.5 How does LangChain work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1106" data-module="11" aria-label="Mark How does LangGraph work? as read"></label><a href="../lessons/m11-l1106-how-does-langgraph-work.html">11.6 How does LangGraph work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1107" data-module="11" aria-label="Mark How does Claude Code work? as read"></label><a href="../lessons/m11-l1107-how-does-claude-code-work.html">11.7 How does Claude Code work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1108" data-module="11" aria-label="Mark How does Cursor work? as read"></label><a href="../lessons/m11-l1108-how-does-cursor-work.html">11.8 How does Cursor work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="12">
+<summary><span class="nav-module-title">12. LLM Inference Engineering</span><span class="nav-count" data-nav-count="12">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1201" data-module="12" aria-label="Mark LLM Inference Optimization as read"></label><a href="../lessons/m12-l1201-llm-inference-optimization.html">12.1 LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1202" data-module="12" aria-label="Mark Prefill vs Decode: LLM Inference Optimization as read"></label><a href="../lessons/m12-l1202-prefill-vs-decode-llm-inference-optimization.html">12.2 Prefill vs Decode: LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1203" data-module="12" aria-label="Mark What is Prefill-Decode Disaggregation in LLM Inference? as read"></label><a href="../lessons/m12-l1203-what-is-prefill-decode-disaggregation-in-llm-inference.html">12.3 What is Prefill-Decode Disaggregation in LLM Inference?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1204" data-module="12" aria-label="Mark KV Cache in LLMs as read"></label><a href="../lessons/m12-l1204-kv-cache-in-llms.html">12.4 KV Cache in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1205" data-module="12" aria-label="Mark What is KV Cache Compression? as read"></label><a href="../lessons/m12-l1205-what-is-kv-cache-compression.html">12.5 What is KV Cache Compression?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1206" data-module="12" aria-label="Mark What is Paged Attention in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1206-what-is-paged-attention-in-llms-and-how-does-it-work.html">12.6 What is Paged Attention in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1207" data-module="12" aria-label="Mark What is Continuous Batching in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1207-what-is-continuous-batching-in-llms-and-how-does-it-work.html">12.7 What is Continuous Batching in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1208" data-module="12" aria-label="Mark What is Speculative Decoding and How Does It Make LLMs Faster? as read"></label><a href="../lessons/m12-l1208-what-is-speculative-decoding-and-how-does-it-make-llms-faster.html">12.8 What is Speculative Decoding and How Does It Make LLMs Faster?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1209" data-module="12" aria-label="Mark What is N-gram Speculation in LLMs and How Does It Speed Up Generation? as read"></label><a href="../lessons/m12-l1209-what-is-n-gram-speculation-in-llms-and-how-does-it-speed-up-generation.html">12.9 What is N-gram Speculation in LLMs and How Does It Speed Up Generation?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1210" data-module="12" aria-label="Mark What is Medusa? Multi-Head Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1210-what-is-medusa-multi-head-speculative-decoding-explained.html">12.10 What is Medusa? Multi-Head Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1211" data-module="12" aria-label="Mark What is EAGLE? Feature-Level Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1211-what-is-eagle-feature-level-speculative-decoding-explained.html">12.11 What is EAGLE? Feature-Level Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1212" data-module="12" aria-label="Mark How does Model Quantization work? as read"></label><a href="../lessons/m12-l1212-how-does-model-quantization-work.html">12.12 How does Model Quantization work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1213" data-module="12" aria-label="Mark How does GGUF work? as read"></label><a href="../lessons/m12-l1213-how-does-gguf-work.html">12.13 How does GGUF work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1214" data-module="12" aria-label="Mark How does llama.cpp run LLMs on everyday hardware? as read"></label><a href="../lessons/m12-l1214-how-does-llama-cpp-run-llms-on-everyday-hardware.html">12.14 How does llama.cpp run LLMs on everyday hardware?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1215" data-module="12" aria-label="Mark How does Ollama work? as read"></label><a href="../lessons/m12-l1215-how-does-ollama-work.html">12.15 How does Ollama work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1216" data-module="12" aria-label="Mark How does vLLM work? as read"></label><a href="../lessons/m12-l1216-how-does-vllm-work.html">12.16 How does vLLM work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1217" data-module="12" aria-label="Mark How does SGLang work? as read"></label><a href="../lessons/m12-l1217-how-does-sglang-work.html">12.17 How does SGLang work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1218" data-module="12" aria-label="Mark How does TensorRT-LLM work? as read"></label><a href="../lessons/m12-l1218-how-does-tensorrt-llm-work.html">12.18 How does TensorRT-LLM work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="13">
+<summary><span class="nav-module-title">13. Evaluation and Observability</span><span class="nav-count" data-nav-count="13">0/4</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1301" data-module="13" aria-label="Mark What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained as read"></label><a href="../lessons/m13-l1301-what-is-llm-evaluation-metrics-benchmarks-and-methods-explained.html">13.1 What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1302" data-module="13" aria-label="Mark What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs as read"></label><a href="../lessons/m13-l1302-what-is-llm-as-a-judge-how-to-use-an-llm-to-evaluate-llm-outputs.html">13.2 What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1303" data-module="13" aria-label="Mark How to Evaluate AI Agents? Metrics, Methods, and Best Practices as read"></label><a href="../lessons/m13-l1303-how-to-evaluate-ai-agents-metrics-methods-and-best-practices.html">13.3 How to Evaluate AI Agents? Metrics, Methods, and Best Practices</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1304" data-module="13" aria-label="Mark What is AI Agent Observability? Traces, Spans, and Metrics Explained as read"></label><a href="../lessons/m13-l1304-what-is-ai-agent-observability-traces-spans-and-metrics-explained.html">13.4 What is AI Agent Observability? Traces, Spans, and Metrics Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="14">
+<summary><span class="nav-module-title">14. AI Safety and Security</span><span class="nav-count" data-nav-count="14">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1401" data-module="14" aria-label="Mark How do LLM guardrails work? as read"></label><a href="../lessons/m14-l1401-how-do-llm-guardrails-work.html">14.1 How do LLM guardrails work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1402" data-module="14" aria-label="Mark What is Prompt Injection in LLMs and How Do We Defend Against It? as read"></label><a href="../lessons/m14-l1402-what-is-prompt-injection-in-llms-and-how-do-we-defend-against-it.html">14.2 What is Prompt Injection in LLMs and How Do We Defend Against It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1403" data-module="14" aria-label="Mark How Does LLM Watermarking Work? as read"></label><a href="../lessons/m14-l1403-how-does-llm-watermarking-work.html">14.3 How Does LLM Watermarking Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="15">
+<summary><span class="nav-module-title">15. Multimodal AI and Generative Models</span><span class="nav-count" data-nav-count="15">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1501" data-module="15" aria-label="Mark What is Multimodal AI? How It Works and Where It Is Used as read"></label><a href="../lessons/m15-l1501-what-is-multimodal-ai-how-it-works-and-where-it-is-used.html">15.1 What is Multimodal AI? How It Works and Where It Is Used</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1502" data-module="15" aria-label="Mark What is a Vision Transformer (ViT) and How Does It Work? as read"></label><a href="../lessons/m15-l1502-what-is-a-vision-transformer-vit-and-how-does-it-work.html">15.2 What is a Vision Transformer (ViT) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1503" data-module="15" aria-label="Mark How do Image Embeddings work? as read"></label><a href="../lessons/m15-l1503-how-do-image-embeddings-work.html">15.3 How do Image Embeddings work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1504" data-module="15" aria-label="Mark What are Diffusion Models and How Do They Generate Images? as read"></label><a href="../lessons/m15-l1504-what-are-diffusion-models-and-how-do-they-generate-images.html">15.4 What are Diffusion Models and How Do They Generate Images?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1505" data-module="15" aria-label="Mark What are Generative Adversarial Networks (GANs) and How Do They Work? as read"></label><a href="../lessons/m15-l1505-what-are-generative-adversarial-networks-gans-and-how-do-they-work.html">15.5 What are Generative Adversarial Networks (GANs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1506" data-module="15" aria-label="Mark What are Variational Autoencoders (VAEs) and How Do They Work? as read"></label><a href="../lessons/m15-l1506-what-are-variational-autoencoders-vaes-and-how-do-they-work.html">15.6 What are Variational Autoencoders (VAEs) and How Do They Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="16">
+<summary><span class="nav-module-title">16. AI Infrastructure, Deployment, and System Design</span><span class="nav-count" data-nav-count="16">0/17</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1601" data-module="16" aria-label="Mark How does a GPU work for Deep Learning? as read"></label><a href="../lessons/m16-l1601-how-does-a-gpu-work-for-deep-learning.html">16.1 How does a GPU work for Deep Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1602" data-module="16" aria-label="Mark How do CUDA Kernels work? as read"></label><a href="../lessons/m16-l1602-how-do-cuda-kernels-work.html">16.2 How do CUDA Kernels work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1603" data-module="16" aria-label="Mark How does a Google TPU work? as read"></label><a href="../lessons/m16-l1603-how-does-a-google-tpu-work.html">16.3 How does a Google TPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1604" data-module="16" aria-label="Mark How does an LPU work? as read"></label><a href="../lessons/m16-l1604-how-does-an-lpu-work.html">16.4 How does an LPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1605" data-module="16" aria-label="Mark Cloud vs On-device Model Deployment as read"></label><a href="../lessons/m16-l1605-cloud-vs-on-device-model-deployment.html">16.5 Cloud vs On-device Model Deployment</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1606" data-module="16" aria-label="Mark Android TensorFlow Lite Machine Learning Example as read"></label><a href="../lessons/m16-l1606-android-tensorflow-lite-machine-learning-example.html">16.6 Android TensorFlow Lite Machine Learning Example</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1607" data-module="16" aria-label="Mark What is LLM Routing? How to Send Each Query to the Right LLM as read"></label><a href="../lessons/m16-l1607-what-is-llm-routing-how-to-send-each-query-to-the-right-llm.html">16.7 What is LLM Routing? How to Send Each Query to the Right LLM</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1608" data-module="16" aria-label="Mark Design a Real-Time Voice AI Agent as read"></label><a href="../lessons/m16-l1608-design-a-real-time-voice-ai-agent.html">16.8 Design a Real-Time Voice AI Agent</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1609" data-module="16" aria-label="Mark What is turn-taking in a voice AI agent? as read"></label><a href="../lessons/m16-l1609-what-is-turn-taking-in-a-voice-ai-agent.html">16.9 What is turn-taking in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1610" data-module="16" aria-label="Mark What is barge-in in a voice AI agent? as read"></label><a href="../lessons/m16-l1610-what-is-barge-in-in-a-voice-ai-agent.html">16.10 What is barge-in in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1611" data-module="16" aria-label="Mark Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture? as read"></label><a href="../lessons/m16-l1611-cascaded-vs-speech-to-speech-how-to-choose-the-right-voice-agent-architecture.html">16.11 Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1612" data-module="16" aria-label="Mark How do you build a latency budget for a voice AI agent? as read"></label><a href="../lessons/m16-l1612-how-do-you-build-a-latency-budget-for-a-voice-ai-agent.html">16.12 How do you build a latency budget for a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1613" data-module="16" aria-label="Mark How does the voice-to-voice latency of a voice agent get measured? as read"></label><a href="../lessons/m16-l1613-how-does-the-voice-to-voice-latency-of-a-voice-agent-get-measured.html">16.13 How does the voice-to-voice latency of a voice agent get measured?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1614" data-module="16" aria-label="Mark Why does the time-to-first-audio matter more than total response time? as read"></label><a href="../lessons/m16-l1614-why-does-the-time-to-first-audio-matter-more-than-total-response-time.html">16.14 Why does the time-to-first-audio matter more than total response time?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1615" data-module="16" aria-label="Mark What is System Design? as read"></label><a href="../lessons/m16-l1615-what-is-system-design.html">16.15 What is System Design?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1616" data-module="16" aria-label="Mark HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events as read"></label><a href="../lessons/m16-l1616-http-request-vs-http-long-polling-vs-websocket-vs-server-sent-events.html">16.16 HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1617" data-module="16" aria-label="Mark How do Voice And Video Call Work? as read"></label><a href="../lessons/m16-l1617-how-do-voice-and-video-call-work.html">16.17 How do Voice And Video Call Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="17">
+<summary><span class="nav-module-title">17. Frontier Ideas in AI</span><span class="nav-count" data-nav-count="17">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1701" data-module="17" aria-label="Mark What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work? as read"></label><a href="../lessons/m17-l1701-what-is-joint-embedding-predictive-architecture-jepa-and-how-does-it-work.html">17.1 What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1702" data-module="17" aria-label="Mark How do World Models work? as read"></label><a href="../lessons/m17-l1702-how-do-world-models-work.html">17.2 How do World Models work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1703" data-module="17" aria-label="Mark What is Recursive Self-Improvement (RSI)? as read"></label><a href="../lessons/m17-l1703-what-is-recursive-self-improvement-rsi.html">17.3 What is Recursive Self-Improvement (RSI)?</a></li>
+</ul>
+</details>
+<a class="nav-module-single" href="../modules/m18.html">18. Prepare for AI Engineering Interviews</a>
+</nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="content-wrap">
+    <main class="content" id="content">
+      
+<article>
+  <header class="lesson-header">
+    <p class="breadcrumb">
+      <a href="../index.html">Course</a> /
+      <a href="../modules/m11.html">Module 11</a> /
+      Lesson 11.2
+    </p>
+    <h1>What is Loop Engineering?</h1>
+    <div class="lesson-meta">
+      <span>Lesson 11.2 · ~20 min · Published August 20, 2026</span>
+      <a href="https://outcomeschool.com/blog/what-is-loop-engineering" target="_blank" rel="noopener noreferrer">Original article</a>
+    </div>
+    <div class="lesson-tags"><span class="tag">ai-agent</span> <span class="tag">llm</span> <span class="tag">ai</span> <span class="tag">system-design</span></div>
+    <label class="read-toggle">
+      <input type="checkbox" data-lesson="m11-l1102" data-module="11">
+      Mark as read
+    </label>
+    
+  </header>
+  <details class="toc">
+<summary>On this page</summary>
+<ul>
+<li><a href="#what-is-loop-engineering">What is Loop Engineering?</a></li>
+<li><a href="#loop-engineering-loop-engineering">Loop Engineering = Loop + Engineering</a></li>
+<li><a href="#why-do-we-need-loop-engineering">Why do we need Loop Engineering?</a></li>
+<li><a href="#what-is-a-loop-in-an-ai-agent">What is a loop in an AI agent?</a></li>
+<li><a href="#the-simplest-loop-and-its-problems">The simplest loop and its problems</a></li>
+<li><a href="#the-parts-of-the-loop-that-we-must-engineer">The parts of the loop that we must engineer</a></li>
+<li><a href="#prompt-engineering-vs-context-engineering-vs-loop-engineering">Prompt Engineering vs Context Engineering vs Loop Engineering</a></li>
+<li><a href="#common-ways-a-loop-breaks">Common ways a loop breaks</a></li>
+<li><a href="#techniques-of-loop-engineering">Techniques of Loop Engineering</a></li>
+<li><a href="#a-complete-example">A complete example</a></li>
+<li><a href="#where-it-works-well-and-where-it-fails">Where it works well and where it fails</a></li>
+<li><a href="#frequently-asked-questions">Frequently Asked Questions</a>
+<ul>
+<li><a href="#can-a-stronger-model-make-up-for-a-badly-designed-loop">Can a stronger model make up for a badly designed loop?</a></li>
+<li><a href="#should-we-trust-an-agent-when-it-says-the-task-is-done">Should we trust an agent when it says the task is done?</a></li>
+<li><a href="#what-should-an-agent-do-when-it-runs-out-of-its-step-budget">What should an agent do when it runs out of its step budget?</a></li>
+<li><a href="#is-it-good-to-paste-the-full-tool-output-back-into-the-context">Is it good to paste the full tool output back into the context?</a></li>
+<li><a href="#what-is-the-difference-between-loop-engineering-and-graph-engineering">What is the difference between Loop Engineering and Graph Engineering?</a></li>
+</ul>
+</li>
+</ul>
+</details>
+  <p><img alt="What is Loop Engineering?" decoding="async" loading="lazy" src="../assets/images/11-11-02-what-is-loop-engineering/what-is-loop-engineering.png"/></p>
+<p>Loop Engineering is the practice of designing the repeating cycle that an AI agent runs, so that the agent keeps making real progress on a task and stops at the right moment with the right result.</p>
+<p>In this blog, we will learn about Loop Engineering, the practice of designing the repeating cycle that an AI agent runs again and again until a task is actually finished. We will also see why we need it, what one turn of the loop looks like, the parts of the loop that we must control, how it is different from prompt engineering and context engineering, the common ways a loop breaks, the techniques that fix those breaks, and where it works well and where it fails.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is Loop Engineering?</li>
+<li>Loop Engineering = Loop + Engineering</li>
+<li>Why do we need Loop Engineering?</li>
+<li>What is a loop in an AI agent?</li>
+<li>The simplest loop and its problems</li>
+<li>The parts of the loop that we must engineer</li>
+<li>Prompt Engineering vs Context Engineering vs Loop Engineering</li>
+<li>Common ways a loop breaks</li>
+<li>Techniques of Loop Engineering</li>
+<li>A complete example</li>
+<li>Where it works well and where it fails</li>
+</ul>
+<p>Let's get started.</p>
+<h3 id="what-is-loop-engineering">What is Loop Engineering? <a aria-hidden="true" class="anchor" href="#what-is-loop-engineering">#</a></h3>
+<p><strong>Loop Engineering is the practice of designing the repeating cycle that an AI agent runs, so that the agent keeps making real progress on a task and stops at the right moment with the right result.</strong></p>
+<p>In simple words, a modern <a href="https://outcomeschool.com/blog/ai-agent" rel="noopener noreferrer" target="_blank">AI agent</a> does not answer in one shot. It thinks, it does something, it looks at what happened, and then it thinks again. That circle repeats many times. Loop Engineering is the work of shaping that circle.</p>
+<p>The model is only one part of an agent. The loop around the model decides how many times the model gets to try, what the model sees on each try, what it is allowed to do, and when the whole thing must stop. A strong model inside a badly designed loop will still fail. A modest model inside a well designed loop will often finish the job.</p>
+<h3 id="loop-engineering-loop-engineering">Loop Engineering = Loop + Engineering <a aria-hidden="true" class="anchor" href="#loop-engineering-loop-engineering">#</a></h3>
+<p>Let's break the term into two parts.</p>
+<p><strong>Loop</strong> means something that repeats. The agent does a step, and then it does another step, and then another one, until some condition tells it to stop.</p>
+<p><strong>Engineering</strong> means designing that repetition on purpose, with rules, limits, and checks, instead of letting it run wild.</p>
+<p>So, Loop Engineering is the deliberate design of the repeat.</p>
+<p>The best way to learn this is by taking an example.</p>
+<p>Let's say we are cooking a soup. We taste it. It needs salt. We add a pinch of salt. We taste it again. It is still not enough. We add another pinch. We taste again. Now it is good, so we stop and serve it.</p>
+<p>Here, we can see a loop. Taste, decide, act, taste again.</p>
+<p>Now think about what can go wrong. A cook who never tastes will never know when to stop. A cook who forgets that salt was already added will keep adding salt forever. A cook who tastes a hundred times will serve the soup cold. A cook who never decides that the soup is good enough will never serve it at all.</p>
+<p>Loop Engineering is everything we do to prevent these problems. How many tastes are allowed, what the cook must remember, what "good enough" means, and what to do when the soup is already ruined.</p>
+<p>An AI agent has exactly the same problems. Let me map the kitchen to the agent for your better understanding.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>In the kitchen</th>
+<th>In the agent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The cook</td>
+<td>The AI model that decides what to do next</td>
+</tr>
+<tr>
+<td>Adding a pinch of salt</td>
+<td>An action, such as running a command or reading a file</td>
+</tr>
+<tr>
+<td>Tasting the soup</td>
+<td>Looking at the result of that action</td>
+</tr>
+<tr>
+<td>Remembering the salt already added</td>
+<td>The memory that carries from one turn to the next</td>
+</tr>
+<tr>
+<td>"The soup is good enough"</td>
+<td>The definition of done</td>
+</tr>
+<tr>
+<td>"Serve it before it goes cold"</td>
+<td>The limit on how many turns are allowed</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="why-do-we-need-loop-engineering">Why do we need Loop Engineering? <a aria-hidden="true" class="anchor" href="#why-do-we-need-loop-engineering">#</a></h3>
+<p>Earlier, we used a language model like a vending machine. We put in a question, we got out an answer, and the story ended there. One request, one response.</p>
+<p>But real tasks are not like that. Consider a task like "find the bug in this file and fix it". The model cannot do this in one shot, because it does not know what is inside the file yet. It must read the file first. After reading, it must run the test. After running the test, it must see the error. After seeing the error, it must edit the code. After editing, it must run the test again to confirm.</p>
+<p>So, the work naturally becomes a sequence of steps, and each step depends on the result of the previous one. That is a loop.</p>
+<p>Once we put a model inside a loop, a new class of problems arrives that never existed in the single-question world. The agent can repeat itself. It can forget what it already did. It can drift away from the original goal. It can run forever and burn a lot of money. It can declare success when nothing actually worked.</p>
+<p>None of these are problems of the prompt. They are problems of the loop.</p>
+<p>Now, let's take a real use-case. A coding agent that fixes a failing test, a research agent that reads twenty pages before writing a summary, and a support agent that checks an order, then checks the refund policy, then raises a ticket. Every one of them is a loop running behind the scenes. The company that builds the better loop ships the better agent, even when everyone is calling the very same model.</p>
+<p>So, here comes Loop Engineering to the rescue.</p>
+<h3 id="what-is-a-loop-in-an-ai-agent">What is a loop in an AI agent? <a aria-hidden="true" class="anchor" href="#what-is-a-loop-in-an-ai-agent">#</a></h3>
+<p>Before jumping into the loop, we must know one word that we will use again and again from here onwards.</p>
+<p><strong>The context is everything the model can see at this moment.</strong> It is the working notepad of the agent. The goal sits in it, the earlier steps sit in it, and every result sits in it. The model has no other memory. If a fact is not in the context, then for the model that fact does not exist.</p>
+<p>Now, one turn of an <a href="https://outcomeschool.com/blog/ai-agent-loop" rel="noopener noreferrer" target="_blank">agent loop</a> has three parts.</p>
+<p><strong>Think:</strong> the model reads the context and decides what to do next.</p>
+<p><strong>Act:</strong> the system runs the thing the model asked for. The model cannot touch the outside world by itself, so it asks for a <strong><a href="https://outcomeschool.com/blog/how-does-function-calling-work-in-llms" rel="noopener noreferrer" target="_blank">tool</a></strong>. A tool is simply a small program that we hand to the model, such as one that reads a file, searches the web, runs a command, or fetches data from another service.</p>
+<p><strong>Observe:</strong> the result of that action comes back and gets added to the context.</p>
+<p>Then the turn ends, and the next turn begins with that updated context. Think, act, observe. Again and again.</p>
+<p>This think, act, observe cycle is exactly the pattern behind a <a href="https://outcomeschool.com/blog/react-agent" rel="noopener noreferrer" target="_blank">ReAct Agent</a>, and we have a detailed blog on it that explains this in depth.</p>
+<p>The important thing to notice is that the model itself does not loop. The model just produces one output when we call it. <strong>The loop is code that we write around the model.</strong> That is why we can engineer it.</p>
+<blockquote>
+<p>The model decides what to do next. The loop decides what actually happens.</p>
+</blockquote>
+<h3 id="the-simplest-loop-and-its-problems">The simplest loop and its problems <a aria-hidden="true" class="anchor" href="#the-simplest-loop-and-its-problems">#</a></h3>
+<p>Let's see the most basic version of an agent loop as below:</p>
+<pre><code class="language-python"><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">decision</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">run_tool</span><span class="p">(</span><span class="n">decision</span><span class="o">.</span><span class="n">tool</span><span class="p">,</span> <span class="n">decision</span><span class="o">.</span><span class="n">input</span><span class="p">)</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">context</span> <span class="o">+</span> <span class="n">result</span>
+</code></pre>
+<p>Here, we can see that the model looks at the context, picks a tool, we run that tool, and we paste the result back into the context. Then it goes around again.</p>
+<p>This works for a small demo, and it fails badly in the real world.</p>
+<p><strong>Problem 1:</strong> There is no stop. <code>while True</code> means the agent can go around a thousand times if the model never says it is finished.</p>
+<p><strong>Problem 2:</strong> The context only grows. Every raw tool result gets pasted in. After twenty steps, the context is huge, expensive, and full of noise.</p>
+<p><strong>Problem 3:</strong> There is no error handling. If the tool crashes, the whole loop crashes with it.</p>
+<p><strong>Problem 4:</strong> There is no <a href="https://outcomeschool.com/blog/ai-is-only-as-good-as-our-definition-of-done" rel="noopener noreferrer" target="_blank">definition of done</a>. Nothing in this code knows what success looks like.</p>
+<p>The issue with this approach is that it trusts the model to manage itself. Let's see how the next approach solve this issue.</p>
+<h3 id="the-parts-of-the-loop-that-we-must-engineer">The parts of the loop that we must engineer <a aria-hidden="true" class="anchor" href="#the-parts-of-the-loop-that-we-must-engineer">#</a></h3>
+<p>There are seven parts in a loop, and each one is a decision that we, the engineers, must make.</p>
+<p><strong>The goal.</strong> The loop must carry a clear statement of what finished means. "Fix the bug" is weak. "The test named <code>test_login</code> passes" is strong, because a machine can check it.</p>
+<p><strong>The step budget.</strong> The loop must have a maximum number of turns. When the budget runs out, the agent stops and reports honestly that it did not finish.</p>
+<p><strong>The tools.</strong> The list of actions the agent is allowed to take. A short, sharp list of tools produces a much better loop than a long list of overlapping ones, because the model has fewer wrong turns available to it.</p>
+<p><strong>The observation.</strong> What we paste back after a tool runs. A tool that returns ten thousand lines of output will drown the loop. We must trim it, or summarize it, or return it in small pages, before it enters the context.</p>
+<p><strong>The <a href="https://outcomeschool.com/blog/ai-agent-memory" rel="noopener noreferrer" target="_blank">memory</a>.</strong> What carries forward from turn to turn. Full history is honest but expensive. A running summary is cheap but can lose details. This choice shapes everything.</p>
+<p><strong>The feedback on failure.</strong> When a tool returns an error, the message we paste back is a teaching signal. "Error" teaches nothing. "File not found at path <code>src/mian.py</code>, did you mean <code>src/main.py</code>" lets the agent recover on the very next turn.</p>
+<p><strong>The exit.</strong> The set of conditions under which the loop stops. Success, budget exhausted, repeated failure, or a request for a human. Every one of these must be handled.</p>
+<p>Now, we have understood the parts. Let's see them inside real code.</p>
+<p>Our updated loop:</p>
+<pre><code class="language-python"><span class="n">MAX_STEPS</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_agent</span><span class="p">(</span><span class="n">goal</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_STEPS</span><span class="p">):</span>
+        <span class="c1"># the goal goes in on every single turn, so the agent cannot drift</span>
+        <span class="n">decision</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">goal</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">decision</span><span class="o">.</span><span class="n">is_done</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">verify</span><span class="p">(</span><span class="n">goal</span><span class="p">):</span>          <span class="c1"># check the claim, do not believe it</span>
+                <span class="k">return</span> <span class="n">decision</span><span class="o">.</span><span class="n">answer</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s2">"Verification failed. Keep working."</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">run_tool</span><span class="p">(</span><span class="n">decision</span><span class="o">.</span><span class="n">tool</span><span class="p">,</span> <span class="n">decision</span><span class="o">.</span><span class="n">input</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">ToolError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># a crash becomes a lesson instead of the end of the run</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Tool failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">. Try a different approach."</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">trim</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s2">"Could not finish within the step budget."</span>
+</code></pre>
+<p>Here, we have made six changes.</p>
+<ul>
+<li><code>MAX_STEPS</code> gives the loop a hard ceiling, so it can never run forever.</li>
+<li>The <code>goal</code> is passed in on every turn, so the agent always knows where it is headed.</li>
+<li><code>decision.is_done</code> gives the model a proper way to say that it has finished.</li>
+<li><code>verify(goal)</code> checks that claim with real code instead of believing it. If the check fails, we tell the agent and let it continue.</li>
+<li>The <code>try</code> block turns a crash into a message, so a broken tool becomes a lesson instead of the end of the run.</li>
+<li><code>trim(result)</code> keeps the observation small, so the context stays clean.</li>
+</ul>
+<p><strong>Note:</strong> the <code>verify</code> step is the single most valuable line here. Without it, an agent will happily tell us that the bug is fixed while the test is still failing.</p>
+<p>This is how a loop stops being a demo and starts being a system.</p>
+<h3 id="prompt-engineering-vs-context-engineering-vs-loop-engineering">Prompt Engineering vs Context Engineering vs Loop Engineering <a aria-hidden="true" class="anchor" href="#prompt-engineering-vs-context-engineering-vs-loop-engineering">#</a></h3>
+<p>These three names sound similar, so let's separate them clearly.</p>
+<p><strong>Prompt Engineering</strong> is about the wording of one instruction. What do we say to the model, and how do we say it.</p>
+<p><strong><a href="https://outcomeschool.com/blog/context-engineering" rel="noopener noreferrer" target="_blank">Context Engineering</a></strong> is about the content of that notepad. What information sits in front of the model at this moment, where it came from, and what we left out.</p>
+<p><strong>Loop Engineering</strong> is about the shape of the repetition. How many turns, what changes between turns, what carries forward, and when it ends.</p>
+<p>Let me tabulate the differences between the three for your better understanding.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Point</th>
+<th>Prompt Engineering</th>
+<th>Context Engineering</th>
+<th>Loop Engineering</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unit of work</td>
+<td>One instruction</td>
+<td>One context</td>
+<td>One full run</td>
+</tr>
+<tr>
+<td>Main question</td>
+<td>What do we say?</td>
+<td>What does the model see?</td>
+<td>What happens next, and when do we stop?</td>
+</tr>
+<tr>
+<td>Typical fix</td>
+<td>Rewrite the wording</td>
+<td>Add, trim, or reorder information</td>
+<td>Add a budget, a check, or a better exit</td>
+</tr>
+<tr>
+<td>Failure it prevents</td>
+<td>A vague or misread answer</td>
+<td>A confused or overloaded model</td>
+<td>An endless, drifting, or falsely successful run</td>
+</tr>
+<tr>
+<td>Who controls it</td>
+<td>The person writing the prompt</td>
+<td>The code that gathers the information</td>
+<td>The code that runs the model again and again</td>
+</tr>
+</tbody>
+</table></div>
+<p>Prompt Engineering fixes what the model hears, Context Engineering fixes what the model knows, and Loop Engineering fixes what the model is allowed to do over time.</p>
+<p>This was all about the comparison. Now, let's learn about the ways a loop breaks in practice.</p>
+<h3 id="common-ways-a-loop-breaks">Common ways a loop breaks <a aria-hidden="true" class="anchor" href="#common-ways-a-loop-breaks">#</a></h3>
+<p>Most of the time, we do mistakes while designing the loop, and the same failures show up again and again.</p>
+<p><strong>The endless loop.</strong> The agent keeps taking turns and never decides that the work is complete. It usually happens when the goal has no definition of done that a machine can check.</p>
+<p><strong>The repeating loop.</strong> The agent runs the same failing command four times in a row and expects a different result. It happens when the failure message carries no new information, so the model has no reason to change its plan.</p>
+<p><strong>The forgetting loop.</strong> The agent solves a sub-problem on turn three, and by turn fifteen that solution has been squeezed out of the context. The agent then solves the same sub-problem again. This is a memory design failure.</p>
+<p><strong>The drifting loop.</strong> The agent starts by fixing a login bug and ends up rewriting the whole database layer. Each single step looked reasonable, and the destination is completely wrong. It happens when the original goal is not repeated in the context on every turn.</p>
+<p><strong>The lying loop.</strong> The agent announces that the task is complete, and nothing was actually verified. This is the most dangerous one, because the run looks successful in the logs.</p>
+<p><strong>The expensive loop.</strong> The agent finishes correctly, and it took ninety turns and a very large bill, because every raw tool output was pasted in and re-sent on every single turn.</p>
+<p>Now that we have seen the failures, it is time to learn the techniques that prevent them.</p>
+<h3 id="techniques-of-loop-engineering">Techniques of Loop Engineering <a aria-hidden="true" class="anchor" href="#techniques-of-loop-engineering">#</a></h3>
+<p><strong>Give a step budget.</strong> Set a maximum number of turns and stop cleanly when it is reached. A run that reports "I could not finish in twelve steps, here is how far I got" is far more useful than a run that never returns.</p>
+<p><strong>Make done checkable by a machine.</strong> Do not ask the loop to decide that the code "looks correct". Ask it to run the test and read the pass or fail result that the computer itself reports. If a machine cannot check the goal, the loop cannot reliably end.</p>
+<p><strong>Verify before we trust.</strong> When the model says it is finished, run the check ourselves. If the check fails, put that fact into the context and continue the loop.</p>
+<p><strong>Repeat the goal every turn.</strong> Keep the original task at the top of the context on every single turn. This costs a few extra words on every turn, and it is the cheapest cure for drift.</p>
+<p><strong>Make failures informative.</strong> Turn an error into a hint. Instead of pasting the full crash report, paste the one line that matters plus a short note about what to try next.</p>
+<p><strong>Break the repeat.</strong> Detect when the same action is being attempted again with the same input. When that happens, block it and add a message such as "This exact command already failed twice. Try a different approach."</p>
+<p><strong>Trim every observation.</strong> Before a tool result enters the context, cut it down. The first few and the last few lines of a long output, the first twenty search results instead of all of them, the relevant function instead of the whole file.</p>
+<p><strong>Compact the history.</strong> When the context crosses a threshold, replace the old turns with a short summary that keeps the decisions and the facts learned, and drops the raw noise. The agent then continues with a light, clean context. We have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-context-compaction-work" rel="noopener noreferrer" target="_blank">context compaction</a> that explains this step by step.</p>
+<p><strong>Plan first, then loop.</strong> Ask for a short plan on the first turn, and keep that plan visible in the context. Each later turn then works against a written list instead of a vague memory, and the drift problem shrinks a lot. This is the idea behind the <a href="https://outcomeschool.com/blog/plan-and-execute-agent" rel="noopener noreferrer" target="_blank">Plan-and-Execute Agent</a>, and we have a detailed blog on it that covers the pattern end to end.</p>
+<p><strong>Use sub-loops.</strong> When a step is big, hand it to a separate agent with its own small loop, its own budget, and its own tools. The <a href="https://outcomeschool.com/blog/ai-subagents" rel="noopener noreferrer" target="_blank">sub-agent</a> returns only its final result. The parent loop stays short and clean, because all the noisy intermediate steps stayed inside the child.</p>
+<p><strong>Keep a human in the loop for irreversible steps.</strong> Deleting data, sending an email, moving money, deploying to production. The loop must pause and ask before crossing these lines.</p>
+<p>Let me tabulate the failures against their fixes for your better understanding so that you know exactly which technique to reach for.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>The failure</th>
+<th>The fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The endless loop</td>
+<td>A step budget and a finish line a machine can check</td>
+</tr>
+<tr>
+<td>The repeating loop</td>
+<td>Better failure messages, and blocking a repeated action</td>
+</tr>
+<tr>
+<td>The forgetting loop</td>
+<td>Compact the history instead of dropping the old turns</td>
+</tr>
+<tr>
+<td>The drifting loop</td>
+<td>Repeat the goal every turn, and plan first</td>
+</tr>
+<tr>
+<td>The lying loop</td>
+<td>Verify the claim with code before exiting</td>
+</tr>
+<tr>
+<td>The expensive loop</td>
+<td>Trim every observation, and use sub-loops</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="a-complete-example">A complete example <a aria-hidden="true" class="anchor" href="#a-complete-example">#</a></h3>
+<p>Let's take a real task. The goal is: "The test <code>test_login</code> must pass."</p>
+<p><strong>Turn 1.</strong> The agent reads the goal. It calls the tool that runs the test. The result comes back as a failure, and it points at line 42. We trim the output to the goal, the failing test name, and that one error line.</p>
+<p><strong>Turn 2.</strong> The agent reads line 42 and the function around it. It sees that a token is compared before it is created.</p>
+<p><strong>Turn 3.</strong> The agent edits the file to move the token creation above the comparison.</p>
+<p><strong>Turn 4.</strong> The agent runs the test again. It fails with a different error now, which tells us that the loop is making progress and not spinning.</p>
+<p><strong>Turn 5.</strong> The agent reads the new error, sees a missing import, and adds it.</p>
+<p><strong>Turn 6.</strong> The agent runs the test. It passes. The agent says it is done.</p>
+<p><strong>The verify step.</strong> The loop does not simply believe this. It runs the whole test suite one final time itself. Every test passes, so the loop exits and returns the answer.</p>
+<p>Here, we can notice a few things. The loop had a budget of twelve turns and used six. The goal was checkable by a machine, so the ending was never in doubt. Each error message pointed at exactly one line, so every turn changed the plan. And the final claim was verified by code, not accepted on trust.</p>
+<p>That is a well engineered loop.</p>
+<h3 id="where-it-works-well-and-where-it-fails">Where it works well and where it fails <a aria-hidden="true" class="anchor" href="#where-it-works-well-and-where-it-fails">#</a></h3>
+<p><strong>Where it works well:</strong></p>
+<ul>
+<li>Tasks that have a clear finish line that a machine can check, such as tests passing, a build succeeding, or a file matching a required format.</li>
+<li>Tasks where the environment gives honest feedback after every action, such as a compiler, a test runner, or a service that returns a real error message.</li>
+<li>Tasks that can be broken into small steps, where a wrong step is cheap to undo.</li>
+<li>Long tasks where the agent must gather information before it can even plan.</li>
+</ul>
+<p><strong>Where it fails:</strong></p>
+<ul>
+<li>Tasks with no objective finish line, such as "make this essay better". The loop has nothing to check, so it either stops too early or never stops.</li>
+<li>Environments that give slow or silent feedback. If a mistake shows up only thirty minutes later, the loop cannot learn from it in time.</li>
+<li>Actions that cannot be undone. A loop that experiments freely is a very bad fit for production systems and real money.</li>
+<li>Very long tasks where the context must hold hundreds of facts. The summarizing starts dropping things, and the forgetting loop appears.</li>
+</ul>
+<p>Now we must have understood what Loop Engineering is. Prompt Engineering shapes one sentence, Context Engineering shapes what the model sees, <a href="https://outcomeschool.com/blog/what-is-graph-engineering" rel="noopener noreferrer" target="_blank">Graph Engineering</a> shapes the path from one step to the next, and Loop Engineering shapes the whole run from the first turn to the last. As agents take on longer and longer work, the quality of the loop, and not the cleverness of the prompt, decides whether the work actually gets finished.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions <a aria-hidden="true" class="anchor" href="#frequently-asked-questions">#</a></h2>
+<h3 id="can-a-stronger-model-make-up-for-a-badly-designed-loop">Can a stronger model make up for a badly designed loop? <a aria-hidden="true" class="anchor" href="#can-a-stronger-model-make-up-for-a-badly-designed-loop">#</a></h3>
+<p>No. A strong model inside a badly designed loop will still fail, while a modest model inside a well designed loop will often finish the job. The loop decides how many times the model tries, what it sees on each try, what it is allowed to do, and when it must stop.</p>
+<h3 id="should-we-trust-an-agent-when-it-says-the-task-is-done">Should we trust an agent when it says the task is done? <a aria-hidden="true" class="anchor" href="#should-we-trust-an-agent-when-it-says-the-task-is-done">#</a></h3>
+<p>No. We must verify the claim with real code before the loop exits, such as running the tests ourselves. If the check fails, we put that fact into the context and let the agent continue. Without this step, an agent can report that a bug is fixed while the test is still failing.</p>
+<h3 id="what-should-an-agent-do-when-it-runs-out-of-its-step-budget">What should an agent do when it runs out of its step budget? <a aria-hidden="true" class="anchor" href="#what-should-an-agent-do-when-it-runs-out-of-its-step-budget">#</a></h3>
+<p>It should stop cleanly and report honestly that it did not finish. A run that says it could not finish within the budget and shows how far it got is far more useful than a run that never returns. The step budget is what keeps the loop from running forever.</p>
+<h3 id="is-it-good-to-paste-the-full-tool-output-back-into-the-context">Is it good to paste the full tool output back into the context? <a aria-hidden="true" class="anchor" href="#is-it-good-to-paste-the-full-tool-output-back-into-the-context">#</a></h3>
+<p>No. If every raw tool result is pasted in, the context keeps growing and becomes huge, expensive, and full of noise. We must trim each observation first, such as keeping only the relevant lines, the first few search results, or the one function we need instead of the whole file.</p>
+<h3 id="what-is-the-difference-between-loop-engineering-and-graph-engineering">What is the difference between Loop Engineering and Graph Engineering? <a aria-hidden="true" class="anchor" href="#what-is-the-difference-between-loop-engineering-and-graph-engineering">#</a></h3>
+<p>Graph Engineering shapes the path from one step to the next, while Loop Engineering shapes the whole run from the first turn to the last. Loop Engineering focuses on the repeating think, act, observe cycle of an agent, including its step budget, memory, feedback on failure, and exit conditions.</p>
+
+  <nav class="prev-next" aria-label="Lesson navigation"><a href="m11-l1101-what-is-harness-engineering.html"><span class="label">← Previous lesson</span>11.1 What is Harness Engineering?</a><a class="next" href="m11-l1103-what-is-graph-engineering.html"><span class="label">Next lesson →</span>11.3 What is Graph Engineering?</a></nav>
+  <footer class="footer">
+    <p>Personal offline study copy · Content © Outcome School / Amit Shekhar ·
+    <a href="../notice.html">usage notice</a>.</p>
+    <p>Source: <a href="https://outcomeschool.com/blog/what-is-loop-engineering" target="_blank" rel="noopener noreferrer">https://outcomeschool.com/blog/what-is-loop-engineering</a></p>
+  </footer>
+</article>
+
+    </main>
+  </div>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

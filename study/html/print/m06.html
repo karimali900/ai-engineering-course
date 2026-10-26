@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 6: Types of Language Models</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/print.css">
+</head>
+<body class="print-body">
+<main class="print-document">
+
+<section class="print-cover">
+  <p class="kicker">AI Engineering Course</p>
+  <h1>Module 6</h1>
+  <h2>Types of Language Models</h2>
+  <p class="meta">5 lessons · Personal offline study copy</p>
+  <p class="notice">Personal offline study copy. Content © Outcome School /
+  Amit Shekhar. Not for redistribution. See study/NOTICE.md.</p>
+</section>
+<section class="print-toc">
+<h1>Contents</h1>
+<ul>
+<li class="module-entry"><a href="#module-6">Module 6: Types of Language Models</a>
+<ul class="toc-lessons">
+<li class="lesson-entry"><a href="#lesson-m06-l0601">6.1 What are Small Language Models (SLMs) and When Should We Use Them?</a></li>
+<li class="lesson-entry"><a href="#lesson-m06-l0602">6.2 What are Large Reasoning Models (LRMs) and How Are They Different from LLMs?</a></li>
+<li class="lesson-entry"><a href="#lesson-m06-l0603">6.3 What are Recursive Language Models (RLMs) and How Do They Work?</a></li>
+<li class="lesson-entry"><a href="#lesson-m06-l0604">6.4 How do Diffusion Language Models (DLMs) work?</a></li>
+<li class="lesson-entry"><a href="#lesson-m06-l0605">6.5 Jev and System One Models Explained</a></li>
+</ul>
+</li>
+</ul>
+</section>
+<section class="print-module" id="module-6">
+  <section class="print-module-title">
+    <p class="kicker">Module 6</p>
+    <h1>Types of Language Models</h1>
+    <p class="meta">5 lessons · ~1 min overview</p>
+  </section>
+  <div class="print-module-intro"><p>In this module, we will learn that not every language model is a large, text-generating LLM. We will see the smaller, reasoning, recursive, diffusion-based, and decision-only models and when to use which one.</p>
+<p>By the end of this module, we will know which type of model to pick for a given problem.</p>
+</div>
+  
+<section class="print-lesson" id="lesson-m06-l0601">
+  <p class="print-lesson-kicker">Lesson 6.1</p>
+  <h1>What are Small Language Models (SLMs) and When Should We Use Them?</h1>
+  <p class="print-lesson-meta">Lesson 6.1 · ~19 min · Published May 11, 2026 · <a href="https://outcomeschool.com/blog/small-language-models-slms">https://outcomeschool.com/blog/small-language-models-slms</a></p>
+  <p><img alt="Small Language Models (SLMs)" src="../assets/images/06-06-01-what-are-small-language-models-slms-and-when-should-we-use-them/small-language-models-slms.png"/></p>
+<p>A Small Language Model (SLM) is a language model that typically has less than 10 billion parameters. It is cheaper and faster than a Large Language Model, and it can even run on our own devices.</p>
+<p>In this blog, we will learn about Small Language Models (SLMs), what counts as small, why they matter, where they shine, and the trade-offs we must keep in mind.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>SLM = Small + Language Model</li>
+<li>What is a Language Model?</li>
+<li>What Counts as "Small"?</li>
+<li>Popular SLMs we should know</li>
+<li>How SLMs Stay Capable Despite Being Small</li>
+<li>Why SLMs Matter</li>
+<li>SLM vs LLM</li>
+<li>The Size Spectrum</li>
+<li>Where SLMs Shine - Use Cases</li>
+<li>Trade-offs of SLMs</li>
+<li>When to Pick an SLM</li>
+<li>Quick Summary</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="slm-small-language-model">SLM = Small + Language Model</h2>
+<p>A <strong>Small Language Model (SLM)</strong> is a language model that is small enough to run cheaply, quickly, and even on our own laptop or phone, while still being good enough for many real tasks.</p>
+<p>Let's decompose the name:</p>
+<p><strong>SLM = Small + Language Model.</strong></p>
+<ul>
+<li><strong>Small</strong> - the model has very few parameters compared to a large model. Typically less than <code>10</code> billion parameters, and often as small as <code>0.5</code> billion or <code>1</code> billion.</li>
+<li><strong>Language Model</strong> - a neural network that learns to predict the next word in a sequence.</li>
+</ul>
+<p>So, when we say "Small Language Model", we are simply saying "a language model with a small number of parameters". An SLM is a deliberate design choice. We trade some general knowledge and heavy reasoning power for speed, low cost, and the ability to run on a laptop or phone.</p>
+<p>Now, the question is: what is a parameter? And what is a language model exactly? Let's understand both before we move forward.</p>
+<h2 id="what-is-a-language-model">What is a Language Model?</h2>
+<p>A <strong>Language Model</strong> is a neural network trained to predict the next token (i.e. the next small chunk of text) based on the previous tokens.</p>
+<p>A token is roughly a small piece of text - sometimes a full word, sometimes part of a word. For example, the sentence "I love AI" might be split into <code>3</code> tokens: <code>I</code>, <code>love</code>, <code>AI</code>. The model works on tokens, not characters or words directly.</p>
+<p>Let's say we give the model the text:</p>
+<pre><code>The sky is
+</code></pre>
+<p>The model predicts the next token. It might predict <code>blue</code>. Then we feed the new sequence back in and it predicts the next token, and so on. This is how the model writes full sentences, paragraphs, and even code.</p>
+<p>The "knowledge" of the model is stored inside its <strong>parameters</strong>. A parameter is just a number that the model has learned during training. More parameters means more capacity to memorize patterns, facts, and reasoning shortcuts.</p>
+<p>For example, a <code>1B</code> model has <code>1</code> billion (<code>1,000,000,000</code>) such numbers. A <code>70B</code> model has <code>70</code> billion of them. That is a <code>70x</code> jump in capacity.</p>
+<p>So, a Language Model = a neural network + a huge number of learned parameters + the goal of predicting the next token.</p>
+<p>Now that we know what a language model is, let's understand what makes one "small".</p>
+<h2 id="what-counts-as-small">What Counts as "Small"?</h2>
+<p>There is no strict rule, but in practice:</p>
+<ul>
+<li><strong>Small Language Model (SLM)</strong> - typically <strong>less than 10 billion parameters</strong>. Often <code>0.5B</code>, <code>1B</code>, <code>2B</code>, <code>3B</code>, <code>4B</code>, or up to about <code>9B</code>.</li>
+<li><strong>Large Language Model (LLM)</strong> - typically <code>30B</code> and above. Frontier LLMs are often <code>70B</code>, <code>400B</code>, or even larger.</li>
+</ul>
+<p>So, the line is roughly drawn at <code>10B</code> parameters. Anything well below that is comfortably an SLM. Anything well above that is comfortably an LLM. The middle zone (around <code>10B</code> to <code>30B</code>) is fuzzy and depends on whom we ask.</p>
+<p><strong>Note:</strong> "Small" is a moving target. A <code>7B</code> model was considered very small a few years back. A few years from now, today's <code>1B</code> model may feel like the new midsize. The key idea is relative size, not a fixed number.</p>
+<p>To make this concrete, let's see real examples.</p>
+<h2 id="popular-slms-we-should-know">Popular SLMs we should know</h2>
+<p>Here are some well-known SLMs we should know about:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Size</th>
+<th>Developer</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phi-4-mini</td>
+<td>3.8B</td>
+<td>Microsoft</td>
+<td>Strong reasoning, <code>128K</code> context</td>
+</tr>
+<tr>
+<td>Gemma 4 E2B</td>
+<td>2B (effective)</td>
+<td>Google</td>
+<td>Built for phones; <code>128K</code> context, text, image, and audio input</td>
+</tr>
+<tr>
+<td>Gemma 4 E4B</td>
+<td>4B (effective)</td>
+<td>Google</td>
+<td>Built for edge devices; <code>128K</code> context, audio input</td>
+</tr>
+<tr>
+<td>Llama 3.2 1B</td>
+<td>1B</td>
+<td>Meta</td>
+<td>Designed for mobile and edge, <code>128K</code> context</td>
+</tr>
+<tr>
+<td>Llama 3.2 3B</td>
+<td>3B</td>
+<td>Meta</td>
+<td>Stronger on-device option, <code>128K</code> context</td>
+</tr>
+<tr>
+<td>Qwen 3.5 0.8B</td>
+<td>0.8B</td>
+<td>Alibaba</td>
+<td>Among the smallest usable models, <code>256K</code> context</td>
+</tr>
+<tr>
+<td>Qwen 3.5 2B</td>
+<td>2B</td>
+<td>Alibaba</td>
+<td>Multimodal, thinking-mode toggle, <code>256K</code> context</td>
+</tr>
+<tr>
+<td>Qwen 3.5 4B</td>
+<td>4B</td>
+<td>Alibaba</td>
+<td>Multimodal, <code>256K</code> context</td>
+</tr>
+<tr>
+<td>Qwen 3.5 9B</td>
+<td>9B</td>
+<td>Alibaba</td>
+<td>Sweet spot of small series, rivals older <code>30B</code> models, <code>256K</code> context</td>
+</tr>
+<tr>
+<td>SmolLM3 3B</td>
+<td>3B</td>
+<td>Hugging Face</td>
+<td>Open instruct and reasoning, <code>128K</code> context</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Note:</strong> The "E" in Gemma 4 E2B and E4B stands for "Effective" parameters. Gemma 4 uses Per-Layer Embeddings, so the parameter count that matters at inference time is smaller than the total parameter count.</p>
+<p>Here, we can see that the parameter counts range from <code>0.8B</code> to <code>9B</code>. The smaller ones can run on a phone, while the larger ones run on a laptop with a decent GPU. Compare this to a <code>70B</code> LLM, which needs a heavy GPU server to run at all.</p>
+<p>Now, a natural question arises - how can a <code>3B</code> model be useful at all when a <code>70B</code> model has so much more capacity? Let's understand.</p>
+<h2 id="how-slms-stay-capable-despite-being-small">How SLMs Stay Capable Despite Being Small</h2>
+<p>A few years back, a <code>3B</code> model was very weak. Today, a <code>3B</code> SLM can be surprisingly capable. So, what changed? I am sure many of us must be knowing the headline answer - better data, better training, better architecture. Let's see all three:</p>
+<p><strong>1. Better training data.</strong></p>
+<p>Modern SLMs are trained on carefully filtered, very high-quality data. Instead of dumping the whole internet into the training pipeline, teams now filter, clean, and pick the best <code>1</code> to <code>15</code> trillion tokens. Quality beats quantity.</p>
+<p><strong>2. Better training techniques.</strong></p>
+<p>Techniques like <a href="https://outcomeschool.com/blog/how-does-knowledge-distillation-work" rel="noopener noreferrer" target="_blank"><strong>knowledge distillation</strong></a> (where a small "student" model learns from a large "teacher" model), better optimizers, and longer training runs squeeze more capability out of every parameter.</p>
+<p><strong>3. Smarter architecture choices.</strong></p>
+<p>Choices like Grouped-Query Attention, <a href="https://outcomeschool.com/blog/math-behind-rope-rotary-position-embedding" rel="noopener noreferrer" target="_blank">RoPE (Rotary Position Embedding)</a>, and other recent ideas make small models faster and stronger without needing more parameters. If we want to go deeper, we have a detailed blog on <a href="https://outcomeschool.com/blog/grouped-query-attention" rel="noopener noreferrer" target="_blank">Grouped Query Attention</a> that explains one such technique.</p>
+<p>So, a modern <code>3B</code> SLM today is far stronger than a <code>3B</code> model from a few years ago, thanks to better data and better training.</p>
+<p>Now, let's understand why we even care about SLMs.</p>
+<h2 id="why-slms-matter">Why SLMs Matter</h2>
+<p>Now, the question is: why do we need SLMs when LLMs are so powerful? The answer is: SLMs win on cost, speed, privacy, and <a href="https://outcomeschool.com/blog/cloud-vs-on-device-model-deployment" rel="noopener noreferrer" target="_blank">on-device deployment</a>.</p>
+<p>Let's go through each reason.</p>
+<p><strong>1. Lower cost.</strong></p>
+<p>LLMs are expensive to run. Every token we generate costs money, either in API (Application Programming Interface, i.e. the cloud service we call to use the model) charges or in GPU (Graphics Processing Unit) time. SLMs cost a tiny fraction of that.</p>
+<p>Let's put this into perspective with real numbers. For a typical workload of <code>1</code> million output tokens:</p>
+<ul>
+<li>A frontier LLM might cost around <code>$25</code> per million output tokens via an API.</li>
+<li>A <code>3B</code> SLM running on our own GPU might cost around <code>$0.10</code> to <code>$0.20</code> per million output tokens in electricity and hardware time.</li>
+</ul>
+<p>That is roughly a <code>100x</code> to <code>200x</code> cost reduction. For a product that processes <code>100</code> million tokens per day, this is the difference between <code>$2,500</code> per day and around <code>$15</code> per day.</p>
+<p><strong>2. Lower latency.</strong></p>
+<p>Smaller models respond faster. Less computation per token means less time per token.</p>
+<p>For the same prompt, the <strong><a href="https://outcomeschool.com/blog/how-does-token-streaming-work" rel="noopener noreferrer" target="_blank">time to first token</a></strong> (i.e. how long before the first word appears) looks like:</p>
+<ul>
+<li>A <code>70B</code> model on a single GPU might take around <code>2</code> seconds.</li>
+<li>A <code>3B</code> SLM on the same hardware might take around <code>100</code> milliseconds (<code>0.1</code> second).</li>
+</ul>
+<p>That is a <code>20x</code> speedup. For a chat or <a href="https://outcomeschool.com/blog/design-a-real-time-voice-ai-agent" rel="noopener noreferrer" target="_blank">voice assistant</a>, that difference is the gap between "feels slow" and "feels instant".</p>
+<p><strong>3. Privacy.</strong></p>
+<p>SLMs are small enough to run on our own machine. No data leaves our laptop or our server. This matters for medical records, financial data, internal company documents, and any case where sending data to a cloud API is not allowed.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-ollama-work" rel="noopener noreferrer" target="_blank">how Ollama works</a> that explains step by step how we run a model on our own computer.</p>
+<p><strong>4. On-device and edge deployment.</strong></p>
+<p>A <code>3B</code> model can run on a modern phone. A <code>1B</code> model can run on a small laptop CPU. A <code>0.5B</code> model can run on tiny edge devices. This opens up offline AI - apps that work without internet, on the user's own device. For example, a smart keyboard that suggests the next sentence, a note-taking app that summarizes our notes locally, or a translator that works on a long flight without WiFi. These on-device models are usually packaged in the GGUF format and run through an engine like <a href="https://outcomeschool.com/blog/how-does-llama-cpp-run-llms-on-everyday-hardware" rel="noopener noreferrer" target="_blank">llama.cpp</a>. We have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-gguf-work" rel="noopener noreferrer" target="_blank">how GGUF works</a> that explains the single-file format these models run from.</p>
+<p><strong>5. Easier fine-tuning.</strong></p>
+<p><a href="https://outcomeschool.com/blog/how-does-fine-tuning-work" rel="noopener noreferrer" target="_blank">Fine-tuning</a> means we take a pre-trained model and train it a little more on our own data so that it gets better at our specific task. Fine-tuning a <code>70B</code> model needs a small data center. Fine-tuning a <code>3B</code> model can be done on a single consumer GPU in a few hours. So, teams can build their own custom models for their specific domain very easily.</p>
+<p><strong>6. Reliability and control.</strong></p>
+<p>There is no API rate limit when we run an SLM ourselves. No outages from a third party. No surprise price changes. We own the model and we own the deployment.</p>
+<p>So, SLMs open up use cases that LLMs cannot reach at all - on-device, fully offline, fully private, and fully under our control.</p>
+<p>Now, let's compare SLMs and LLMs side by side.</p>
+<h2 id="slm-vs-llm">SLM vs LLM</h2>
+<p>Let me tabulate the differences between SLMs and LLMs for your better understanding so that you can decide which one to use based on your use case.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>SLM</th>
+<th>LLM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parameters</td>
+<td><code>0.5B</code> to <code>~10B</code></td>
+<td><code>30B</code> to <code>400B+</code></td>
+</tr>
+<tr>
+<td>Memory needed</td>
+<td><code>1</code> to <code>18 GB</code></td>
+<td><code>60</code> to <code>800+ GB</code></td>
+</tr>
+<tr>
+<td>Hardware</td>
+<td>Phone, laptop, single GPU</td>
+<td>Multi-GPU server</td>
+</tr>
+<tr>
+<td>Latency (first token)</td>
+<td><code>~50-200 ms</code></td>
+<td><code>~500 ms - 3 s</code></td>
+</tr>
+<tr>
+<td>Cost per <code>1M</code> output tokens</td>
+<td><code>~$0.10 - $1</code></td>
+<td><code>~$5 - $30</code></td>
+</tr>
+<tr>
+<td>General knowledge</td>
+<td>Decent, but limited</td>
+<td>Very broad</td>
+</tr>
+<tr>
+<td>Complex reasoning</td>
+<td>Weak to medium</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>Long context quality</td>
+<td>Decent at <code>128K</code></td>
+<td>Strong at <code>1M+</code></td>
+</tr>
+<tr>
+<td>Privacy</td>
+<td>Easy (run locally)</td>
+<td>Hard (cloud APIs)</td>
+</tr>
+<tr>
+<td>Fine-tuning effort</td>
+<td>Easy and cheap</td>
+<td>Hard and expensive</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, we can see that each side has its own strengths. SLMs win in deployment, cost, latency, and privacy. LLMs win in general knowledge, reasoning depth, and handling very long contexts.</p>
+<p>There is no clear winner here. It depends on our use case.</p>
+<p>Let's put this into perspective with a small example. Suppose we want to summarize a paragraph of text into one line:</p>
+<ul>
+<li>With a <code>1B</code> SLM: takes around <code>100 ms</code>, uses around <code>2 GB</code> of memory, costs almost nothing.</li>
+<li>With a <code>70B</code> LLM: takes around <code>2</code> seconds, uses around <code>140 GB</code> of memory, costs around <code>$0.0002</code> per call via API.</li>
+</ul>
+<p>For one user, both are fine. For <code>1</code> million calls per day, the SLM saves us thousands of dollars and gives a much better user experience. I have used round numbers here for the sake of understanding, the real numbers depend on the exact hardware and the exact API price.</p>
+<p>Now, let's visualize where SLMs sit on the size spectrum.</p>
+<h2 id="the-size-spectrum">The Size Spectrum</h2>
+<p>Here is a simple diagram showing where SLMs fit:</p>
+<pre><code>   Tiny         Small (SLM)         Mid           Large (LLM)         Frontier
+   ----         -----------         ---           -----------         --------
+   &lt; 0.5B       0.5B - 10B        10B - 30B       30B - 70B          100B - 1T+
+   |              |                  |                 |                   |
+   |              |                  |                 |                   |
+   v              v                  v                 v                   v
+   tiny          phone /            single            single              multi-GPU
+   embedded      laptop /           server            server              cluster
+   devices       single GPU         GPU               (multi-GPU)         (data center)
+</code></pre>
+<p>Here, we can see five rough buckets along the size axis:</p>
+<ul>
+<li><strong>Tiny</strong> (<code>&lt;0.5B</code>) - very small models for embedded use.</li>
+<li><strong>Small / SLM</strong> (<code>0.5B</code> to <code>~10B</code>) - the SLM zone. Smaller ones run on a phone; larger ones on a laptop or single GPU.</li>
+<li><strong>Mid</strong> (<code>10B</code> to <code>30B</code>) - the fuzzy middle between SLM and LLM. Could go either way.</li>
+<li><strong>Large / LLM</strong> (<code>30B</code> to <code>70B</code>) - serious GPU servers needed.</li>
+<li><strong>Frontier</strong> (<code>100B</code> and beyond) - large clusters needed.</li>
+</ul>
+<p>The SLM bucket is the sweet spot for most production use cases that do not need deep reasoning. It is small enough to deploy easily and large enough to do useful work.</p>
+<p>Now, let's see where SLMs really shine in practice.</p>
+<h2 id="where-slms-shine-use-cases">Where SLMs Shine - Use Cases</h2>
+<p>SLMs are the right tool for many real tasks. Let's go through the most common ones.</p>
+<p><strong>1. On-device assistants.</strong></p>
+<p>A <code>1B</code> to <code>3B</code> SLM can run on a phone or laptop. So, we can build a writing assistant, a code helper, or a chat assistant that works offline. No internet, no cloud, no API key. The model lives inside the app.</p>
+<p>For example, a <code>1B</code> model uses around <code>2 GB</code> of memory and can produce around <code>30</code> tokens per second on a modern phone. That is fast enough for real-time chat.</p>
+<p><strong>2. Classification.</strong></p>
+<p>Many real tasks are simply: "given this input, pick one label out of N categories". For example, classifying a support ticket as <code>billing</code>, <code>technical</code>, or <code>account</code>. An SLM, especially after a small fine-tune, handles this very well.</p>
+<p>A <code>0.5B</code> fine-tuned model can classify thousands of inputs per second on a single CPU. For high-volume classification, this is hard to beat.</p>
+<p>A newer option for this exact job is a <a href="https://outcomeschool.com/blog/jev-and-system-one-models-explained" rel="noopener noreferrer" target="_blank">System One Model</a> like Jev, which does not generate text at all and returns the label with a calibrated probability in a single pass.</p>
+<p><strong>3. Structured extraction.</strong></p>
+<p>Pulling structured data out of unstructured text. For example, given an email, extract the sender, the date, the action item, and the deadline. SLMs do this very well, especially when we use constrained decoding (i.e. forcing the model to produce valid JSON).</p>
+<p><strong>4. Agent task heads.</strong></p>
+<p>In a larger agent system, many small steps do not need a heavy <a href="https://outcomeschool.com/blog/large-reasoning-models" rel="noopener noreferrer" target="_blank">reasoning model</a>. Routing a request, selecting a tool from a list, formatting an output - all of these can be done by an SLM. The big LLM is only called when complex reasoning is actually needed.</p>
+<p>If we want to go deeper into how agents work end to end, we can read <a href="https://outcomeschool.com/blog/ai-agent" rel="noopener noreferrer" target="_blank">AI Agent</a>.</p>
+<p><strong>5. Fine-tuned domain models.</strong></p>
+<p>Suppose we work in a niche field - for example, a specific style of legal contracts in our country. Fine-tuning a <code>3B</code> SLM on <code>10,000</code> examples of our domain often beats a generic <code>70B</code> LLM on that specific task. We get a model that is small, fast, cheap, and very accurate within our domain.</p>
+<p><strong>6. High-volume pipelines.</strong></p>
+<p>Imagine processing <code>10</code> million customer reviews per day to extract sentiment. An LLM API would cost around <code>$10,000</code> per day. A self-hosted SLM might cost around <code>$100</code> per day for the same job. The math speaks for itself.</p>
+<p>So, SLMs shine wherever the task is narrow, latency-sensitive, or privacy-sensitive.</p>
+<p>Now, let's be honest about where SLMs do not shine.</p>
+<h2 id="trade-offs-of-slms">Trade-offs of SLMs</h2>
+<p>SLMs are great, but they are not magic. Let's understand the trade-offs.</p>
+<p><strong>1. Less general knowledge.</strong></p>
+<p>A <code>1B</code> model has <code>70x</code> fewer parameters than a <code>70B</code> model. So, it has memorized far fewer facts about the world. Ask it about a niche historical event or a rare scientific concept, and it may simply not know.</p>
+<p><strong>2. Weaker complex reasoning.</strong></p>
+<p>For multi-step reasoning - long math chains or complex planning - SLMs often struggle. They may give wrong answers with high confidence.</p>
+<p><strong>3. Weaker long-context quality.</strong></p>
+<p>Most modern SLMs already support <code>128K</code> tokens or more, so the size of the context window is no longer the main limit. The real gap is in <strong>how well</strong> the model actually uses that window. For tasks like needle-in-haystack search across <code>100K</code> tokens, or long multi-document reasoning, a <code>3B</code> SLM is meaningfully weaker than a <code>200B+</code> frontier LLM, even when both technically support the same window size. We have a detailed blog on <a href="https://outcomeschool.com/blog/recursive-language-models" rel="noopener noreferrer" target="_blank">Recursive Language Models (RLMs)</a> that sidesteps this entirely by splitting a long input into small pieces and letting an SLM-sized model work on one piece at a time.</p>
+<p><strong>4. More fragile.</strong></p>
+<p>SLMs can be more sensitive to prompt wording. A small change in phrasing can lead to a very different answer. So, we often need careful prompting or fine-tuning to get reliable behavior.</p>
+<p><strong>5. Less polished writing.</strong></p>
+<p>For long-form creative writing, marketing copy, or careful multi-step reasoning, the gap between an SLM and a top LLM is real. The SLM may sound less natural and less coherent.</p>
+<p>This trade-off - <strong>less reasoning power and general knowledge, more speed and lower cost</strong> - is the core deal we are making when we choose an SLM.</p>
+<p><strong>Note:</strong> The gap between SLMs and LLMs keeps shrinking with every new generation. A <code>3B</code> SLM today often matches or beats a <code>13B</code> model from two years ago. So, the trade-off list above is correct today, but the gap will keep getting smaller.</p>
+<p>Now, the natural question is: when do we pick an SLM?</p>
+<h2 id="when-to-pick-an-slm">When to Pick an SLM</h2>
+<p>Based on our use case, here is a simple decision guide:</p>
+<p><strong>Pick an SLM when:</strong></p>
+<ul>
+<li>The task is narrow and well-defined (classification, extraction, routing).</li>
+<li>We expect very high volume (millions of calls per day).</li>
+<li>We need very low latency (under <code>200 ms</code>).</li>
+<li>The data is sensitive and must stay on our own server or device.</li>
+<li>We need offline / on-device deployment.</li>
+<li>We have training data and can fine-tune for our domain.</li>
+</ul>
+<p><strong>Pick an LLM when:</strong></p>
+<ul>
+<li>The task needs deep reasoning over multiple steps.</li>
+<li>The task needs broad world knowledge.</li>
+<li>The task needs very long context (i.e. large documents or long histories).</li>
+<li>The volume is low enough that API cost is not a concern.</li>
+<li>We need the highest possible quality and we are willing to pay for it.</li>
+</ul>
+<p><strong>Pick a hybrid (SLM + LLM) when:</strong></p>
+<ul>
+<li>Most steps in our workflow are simple, but a few need heavy reasoning.</li>
+</ul>
+<p>This is where the hybrid setup comes into the picture. The SLM handles routing, classification, extraction, and tool-selection, while the LLM is called only for the hard reasoning steps. This gives us the speed and cost of an SLM with the depth of an LLM where it really matters.</p>
+<p>Here is a simple diagram of the hybrid pattern:</p>
+<pre><code>            +---------------------+
+  Input --&gt; |  SLM (router)       |
+            |  small + fast       |
+            +----------+----------+
+                       |
+            simple?    |    complex?
+            +----------+----------+
+            |                     |
+            v                     v
+       +---------+          +-----------+
+       |  SLM    |          |    LLM    |
+       | handles |          |  handles  |
+       | task    |          |  task     |
+       +---------+          +-----------+
+            |                     |
+            +----------+----------+
+                       |
+                       v
+                    Output
+</code></pre>
+<p>Here, we can see that the SLM acts as the front-line router. For simple tasks (let's say <code>90%</code> of traffic), the SLM handles the work end to end. For complex tasks (the remaining <code>10%</code>), the LLM is called. So, we pay LLM cost on only <code>10%</code> of the traffic, while still getting LLM-quality answers when we need them. This pattern is a form of <a href="https://outcomeschool.com/blog/llm-routing" rel="noopener noreferrer" target="_blank">LLM Routing</a>, where each query is sent to the right model based on cost, latency, and quality.</p>
+<p>I will highly recommend starting with an SLM whenever the task allows it. We get faster iteration, lower cost, and full control. We can always upgrade to an LLM later if the task truly needs it.</p>
+<h2 id="quick-summary">Quick Summary</h2>
+<p>Let's recap what we have learned:</p>
+<ul>
+<li><strong>SLM = Small + Language Model.</strong> A language model with a small number of parameters, typically less than <code>10</code> billion.</li>
+<li><strong>Language Model.</strong> A neural network that predicts the next token given the previous tokens. The "knowledge" is stored in its parameters.</li>
+<li><strong>Popular SLMs we should know.</strong> Phi-4-mini (<code>3.8B</code>), Gemma 4 (<code>E2B</code> / <code>E4B</code>), Llama 3.2 (<code>1B</code> / <code>3B</code>), Qwen 3.5 (<code>0.8B</code> / <code>2B</code> / <code>4B</code> / <code>9B</code>), SmolLM3 (<code>3B</code>).</li>
+<li><strong>Why modern SLMs are strong.</strong> Better training data, knowledge distillation from larger teacher models, and smarter architecture choices.</li>
+<li><strong>Why SLMs matter.</strong> Lower cost, lower latency, privacy, on-device deployment, easier fine-tuning, and full control.</li>
+<li><strong>Cost example.</strong> A <code>3B</code> SLM can be around <code>100x</code> to <code>200x</code> cheaper per million tokens than a frontier LLM.</li>
+<li><strong>Latency example.</strong> A <code>3B</code> SLM responds in around <code>100 ms</code> while a <code>70B</code> LLM may take around <code>2</code> seconds.</li>
+<li><strong>Memory example.</strong> A <code>1B</code> SLM needs around <code>2 GB</code> while a <code>70B</code> LLM needs around <code>140 GB</code>.</li>
+<li><strong>Where SLMs shine.</strong> On-device assistants, classification, structured extraction, agent task heads, fine-tuned domain models, and high-volume pipelines.</li>
+<li><strong>Trade-offs.</strong> Less general knowledge, weaker complex reasoning, weaker long-context quality, more sensitive to prompt wording.</li>
+<li><strong>When to pick an SLM.</strong> Narrow tasks, high volume, low latency, privacy needs, on-device, or when we have data to fine-tune.</li>
+<li><strong>Hybrid setup.</strong> SLM for routine steps, LLM for the few hard reasoning steps. Best of both worlds, based on our use case.</li>
+</ul>
+<p>Now, we have understood Small Language Models (SLMs).</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="can-a-small-language-model-beat-a-large-language-model">Can a Small Language Model beat a Large Language Model?</h3>
+<p>Yes, on a narrow task. Fine-tuning a <code>3B</code> SLM on <code>10,000</code> examples of our domain often beats a generic <code>70B</code> LLM on that specific task. We get a model that is small, fast, cheap, and very accurate within our domain, though it still has less general knowledge.</p>
+<h3 id="can-an-slm-run-on-a-phone">Can an SLM run on a phone?</h3>
+<p>Yes. A <code>3B</code> model can run on a modern phone, and a <code>1B</code> model can run on a small laptop CPU. For example, a <code>1B</code> model uses around <code>2 GB</code> of memory and can produce around <code>30</code> tokens per second on a modern phone, which is fast enough for real-time chat.</p>
+<h3 id="do-slms-support-long-context">Do SLMs support long context?</h3>
+<p>Yes. Most modern SLMs already support <code>128K</code> tokens or more. The real gap is in how well the model uses that window. For tasks like needle-in-haystack search across <code>100K</code> tokens, a <code>3B</code> SLM is meaningfully weaker than a <code>200B+</code> frontier LLM.</p>
+<h3 id="will-the-gap-between-slms-and-llms-keep-shrinking">Will the gap between SLMs and LLMs keep shrinking?</h3>
+<p>Yes. The gap keeps shrinking with every new generation. A <code>3B</code> SLM today often matches or beats a <code>13B</code> model from two years ago.</p>
+<h3 id="are-slms-sensitive-to-how-we-write-the-prompt">Are SLMs sensitive to how we write the prompt?</h3>
+<p>Yes. SLMs can be more sensitive to prompt wording, and a small change in phrasing can lead to a very different answer. So, we often need careful prompting or fine-tuning to get reliable behavior from an SLM.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m06-l0602">
+  <p class="print-lesson-kicker">Lesson 6.2</p>
+  <h1>What are Large Reasoning Models (LRMs) and How Are They Different from LLMs?</h1>
+  <p class="print-lesson-meta">Lesson 6.2 · ~20 min · Published May 12, 2026 · <a href="https://outcomeschool.com/blog/large-reasoning-models">https://outcomeschool.com/blog/large-reasoning-models</a></p>
+  <p><img alt="Large Reasoning Models (LRMs)" src="../assets/images/06-06-02-what-are-large-reasoning-models-lrms-and-how-are-they-different-from-llms/large-reasoning-models.png"/></p>
+<p>A Large Reasoning Model (LRM) is a large language model that does not jump straight to the answer. It first produces a long chain of intermediate reasoning steps, and then gives the final answer.</p>
+<p>In this blog, we will learn about Large Reasoning Models (LRMs), how they are different from standard Large Language Models, how they think before they answer, how they are trained, and when we must use them.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>The Big Picture</li>
+<li>What is a Large Reasoning Model (LRM)?</li>
+<li>LLM vs LRM</li>
+<li>How does an LRM actually think?</li>
+<li>Test-time compute: thinking longer makes them smarter</li>
+<li>How are LRMs trained?</li>
+<li>Input and Output: training phase vs prediction phase</li>
+<li>When to use an LRM, and when to use a regular LLM</li>
+<li>Popular LRMs we should know</li>
+<li>Common Mistakes when using LRMs</li>
+<li>Quick Summary</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="the-big-picture">The Big Picture</h2>
+<p>Before we go further, a quick word on <strong>tokens</strong>. A token is a small piece of text, roughly a word or a part of a word. The model reads and writes text one token at a time. When we say "next token", we mean the next small piece of text the model produces.</p>
+<p>A standard Large Language Model answers as soon as we ask. It predicts the next token, one after the other, and we get the reply.</p>
+<p>A Large Reasoning Model does something different. Before it gives the final answer, it first thinks. It writes out a long internal scratchpad of steps, checks itself, sometimes changes its mind, and only then it speaks.</p>
+<p>In simple words:</p>
+<p><strong>Large Reasoning Model = A Large Language Model that is trained to think first, and answer later.</strong></p>
+<h2 id="what-is-a-large-reasoning-model-lrm">What is a Large Reasoning Model (LRM)?</h2>
+<p>Let's decompose the name:</p>
+<p><strong>LRM = Large + Reasoning + Model</strong></p>
+<ul>
+<li><strong>Large</strong> - it has billions of parameters, often in the range of <code>7B</code> to <code>700B+</code>, just like a normal Large Language Model.</li>
+<li><strong>Reasoning</strong> - it does not jump straight to the answer. It produces a long chain of intermediate steps first.</li>
+<li><strong>Model</strong> - it is still a neural network that predicts the next token.</li>
+</ul>
+<p>So, a Large Reasoning Model is a Large Language Model that has been specially trained to spend extra tokens thinking before it gives the final answer.</p>
+<p>These models are also called <strong>reasoning models</strong> or <strong>thinking models</strong>. They all mean the same thing.</p>
+<p>Examples we may have heard of: OpenAI's <code>GPT-5.5 Thinking</code>, DeepSeek <code>R1</code>, Qwen3, Google's Gemini 3 with <code>Deep Think</code>, Anthropic's <code>extended thinking</code> mode in Claude, and xAI's Grok 4.1 with <code>Think</code> mode.</p>
+<h2 id="llm-vs-lrm">LLM vs LRM</h2>
+<p>The best way to understand LRMs is to compare them with a regular LLM.</p>
+<p>Let's say we ask both a small word problem. We will reuse this same problem throughout the blog to keep the comparisons clean.</p>
+<blockquote>
+<p>A shop sells pens at <code>2</code> for <code>5</code> rupees, and notebooks at <code>3</code> for <code>12</code> rupees. We buy <code>6</code> pens and <code>9</code> notebooks. How much do we pay in total?</p>
+</blockquote>
+<p>A regular LLM may answer in <code>1</code> second, generate just a few tokens like "<code>51</code> rupees", and sometimes get the answer wrong because it tries to guess in one shot.</p>
+<p>A Large Reasoning Model takes a different path. It first thinks - working out the per-unit cost, multiplying, adding, and verifying the total - and only then writes the final answer. For a small problem like this, the trace may use a few hundred reasoning tokens. For harder problems, it can stretch into thousands or tens of thousands of tokens.</p>
+<p>The reasoning tokens are usually hidden from the end user. We only see the final answer. But the model paid the cost of thinking, and that is why the answer is more accurate.</p>
+<p>A quick visual of what each one is doing:</p>
+<pre><code>LLM:   [question] ---&gt; [short answer]            (fast, sometimes wrong)
+LRM:   [question] ---&gt; [long thinking trace]
+                          ---&gt; [short answer]    (slow, more often right)
+</code></pre>
+<p>Here, we can see that the LRM adds a thinking step in the middle, which the LLM skips entirely.</p>
+<p>Let me tabulate the differences between LLM and LRM for your better understanding so that you can decide which one to use based on your use case.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Standard LLM</th>
+<th>Large Reasoning Model (LRM)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Answering style</td>
+<td>Direct, one shot</td>
+<td>Thinks first, answers later</td>
+</tr>
+<tr>
+<td>Tokens used</td>
+<td>Few (<code>100</code> to <code>500</code>)</td>
+<td>Many (<code>5,000</code> to <code>50,000</code>)</td>
+</tr>
+<tr>
+<td>Latency</td>
+<td><code>1</code> to <code>3</code> seconds</td>
+<td><code>10</code> to <code>120</code> seconds</td>
+</tr>
+<tr>
+<td>Cost per query</td>
+<td>Low</td>
+<td><code>10x</code> to <code>30x</code> higher</td>
+</tr>
+<tr>
+<td>Strength</td>
+<td>Simple chat, summaries, drafting</td>
+<td>Math, code, logic, planning</td>
+</tr>
+<tr>
+<td>Weakness</td>
+<td>Hard multi-step problems</td>
+<td>Slow and expensive for easy tasks</td>
+</tr>
+</tbody>
+</table></div>
+<p>Both are useful, just for different jobs.</p>
+<h2 id="how-does-an-lrm-actually-think">How does an LRM actually think?</h2>
+<p>This was all about the difference between LLMs and LRMs. Now, let's understand what really happens inside an LRM when it thinks.</p>
+<p>The thinking inside an LRM is just more text. There is no magic new component. The model writes out its thought process as tokens, the same way it writes any other tokens.</p>
+<p>This long block of internal text is often called the <strong>reasoning trace</strong> or <strong>thinking trace</strong>. For our pen and notebook question above, it looks somewhat like below:</p>
+<pre><code>&lt;think&gt;
+Pens: 2 pens cost 5 rupees, so 1 pen costs 2.5 rupees.
+6 pens cost 6 * 2.5 = 15 rupees.
+Notebooks: 3 notebooks cost 12 rupees, so 1 notebook costs 4 rupees.
+9 notebooks cost 9 * 4 = 36 rupees.
+Total = 15 + 36 = 51 rupees.
+Let me verify. 6 pens means 3 packs of 2 pens, each pack 5 rupees, so 3 * 5 = 15. Correct.
+9 notebooks means 3 packs of 3 notebooks, each pack 12 rupees, so 3 * 12 = 36. Correct.
+Total 15 + 36 = 51. Correct.
+&lt;/think&gt;
+We pay 51 rupees in total.
+</code></pre>
+<p>Here, we can see three things happening:</p>
+<ul>
+<li>The model breaks the problem into smaller steps.</li>
+<li>It tries an approach, computes intermediate values, and writes them down.</li>
+<li>It checks its own answer at the end before giving the final reply.</li>
+</ul>
+<p>This is the same pattern a careful student follows on a rough sheet during an exam. The rough sheet is the reasoning trace. The final answer is what the student writes on the answer sheet.</p>
+<p>A simple flow diagram:</p>
+<pre><code>   User question
+        |
+        v
+   +-------------------+
+   |   LRM thinking    |    &lt;-- long internal scratchpad
+   |  (reasoning trace)|        (often hidden from user)
+   +-------------------+
+        |
+        v
+   Final short answer
+</code></pre>
+<p>The reasoning trace is hidden in many products (like <code>GPT-5.5 Thinking</code>, where we only see a short summary), and visible in some others (like DeepSeek <code>R1</code>).</p>
+<h2 id="test-time-compute-thinking-longer-makes-them-smarter">Test-time compute: thinking longer makes them smarter</h2>
+<p>Here comes one of the most important ideas behind LRMs.</p>
+<p>In a normal LLM, we make the model smarter by <a href="https://outcomeschool.com/blog/evolution-of-llm-architecture" rel="noopener noreferrer" target="_blank">training a bigger model on more data</a>. That is <strong>train-time compute</strong>. We pay once during training, and then every answer is fast.</p>
+<p>LRMs add a second knob, called <strong>test-time compute</strong>. This means the model becomes smarter at the moment of answering, by thinking for longer.</p>
+<p>Let's put this into perspective with the actual published numbers from OpenAI on the AIME 2024 math competition (a hard high school contest):</p>
+<ul>
+<li><strong>GPT-4o</strong> (a regular LLM, no extended reasoning): around <code>12%</code> correct.</li>
+<li><strong>o1</strong> (an LRM with one full reasoning attempt): around <code>74%</code> correct.</li>
+<li><strong>o1</strong> with majority vote across <code>64</code> parallel attempts: around <code>83%</code> correct.</li>
+<li><strong>o1</strong> re-ranking across <code>1,000</code> attempts: around <code>93%</code> correct.</li>
+</ul>
+<p>The first row is a regular LLM shown for baseline. The next three rows are the same <code>o1</code> model - what changes from row to row is purely how much test-time compute we let it spend at answer time. This is why we say LRMs scale with <strong>test-time compute</strong>.</p>
+<p>In our student analogy, this is like giving the same student more pages of rough sheet during an exam. Same student, same brain, but a longer rough sheet often leads to a better final answer.</p>
+<p>We can also spend extra compute at answer time from the outside, by making a regular LLM try many reasoning paths, judge them, and keep only the good ones. We have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-tree-of-thoughts-work" rel="noopener noreferrer" target="_blank">Tree of Thoughts</a> that covers this end to end.</p>
+<p>But, here is the catch. More thinking is not free. More tokens means more time and more cost. Doubling the thinking tokens roughly doubles the output cost of that query, and the output cost is usually most of the bill for an LRM.</p>
+<p>This trade-off - <strong>less speed, more accuracy</strong> - is the core reason LRMs exist as a separate class of models.</p>
+<p>How fast those thinking tokens actually come out is a hardware question, and we have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-an-lpu-work" rel="noopener noreferrer" target="_blank">how an LPU works</a> that explains a chip built to make exactly this part fast.</p>
+<p><strong>Note:</strong> Many LRM APIs let us control how much the model is allowed to think. For example, we can set a thinking budget of <code>1,024</code>, <code>8,192</code>, or <code>32,768</code> tokens. A small budget gives a fast and cheap answer. A large budget gives a slow but more accurate answer. We can tune this knob based on our use case. Newer APIs are moving toward <strong>adaptive thinking</strong>, where the model decides how much to think based on the complexity of the query, instead of us setting a fixed budget.</p>
+<h2 id="how-are-lrms-trained">How are LRMs trained?</h2>
+<p>Now that we have understood how an LRM thinks at answer time, let's understand how it learns to think in the first place.</p>
+<p>A regular LLM is trained in two main stages: pre-training on a huge amount of text from the internet, and <a href="https://outcomeschool.com/blog/how-does-fine-tuning-work" rel="noopener noreferrer" target="_blank">instruction tuning</a> so it learns to follow our prompts.</p>
+<p>LRMs add one more stage on top: <strong><a href="https://outcomeschool.com/blog/reinforcement-learning" rel="noopener noreferrer" target="_blank">reinforcement learning</a> on reasoning tasks</strong>.</p>
+<p>The idea is simple:</p>
+<ul>
+<li>Give the model a hard problem with a known correct answer.</li>
+<li>Let it generate many long reasoning traces in parallel (a group of <code>16</code>, <code>32</code>, or <code>64</code> traces for the same problem).</li>
+<li>Check which traces lead to the correct final answer. Math problems have a clear right answer, so this check is easy and automatic.</li>
+<li>Score each trace relative to the rest of the group. The traces that did better than the group average are reinforced. The ones that did worse are penalised.</li>
+<li>Update the model so it becomes more likely to follow the good reasoning patterns next time.</li>
+</ul>
+<p><strong>Note:</strong> This group-relative scoring is the heart of <strong><a href="https://outcomeschool.com/blog/group-relative-policy-optimization-grpo" rel="noopener noreferrer" target="_blank">GRPO (Group Relative Policy Optimization)</a></strong>, the algorithm used to train DeepSeek <code>R1</code>. The "compare to the group, not to an absolute target" trick is what makes RLVR stable at this scale.</p>
+<p>This is called <strong>Reinforcement Learning with Verifiable Rewards (RLVR)</strong>. The word <strong>verifiable</strong> is important. Means, the reward comes from a simple automatic checker, not from a human opinion the way it does in <a href="https://outcomeschool.com/blog/decoding-deep-rl-from-human-preferences" rel="noopener noreferrer" target="_blank">Deep RL from Human Preferences</a>. The checker can be:</p>
+<ul>
+<li>Math: does the final number match the correct answer?</li>
+<li>Code: does the generated code pass all unit tests?</li>
+<li>Logic: does the answer match the puzzle's known solution?</li>
+</ul>
+<p>Because the reward is automatic, we can run this training loop millions of times without any human in the middle. In our student analogy, we are teaching the student which kinds of rough sheet patterns lead to the right final answer. We let them try many times, score each attempt, and reward the winners. Over time, the model learns useful habits like:</p>
+<ul>
+<li>Break the problem down before solving.</li>
+<li>Try a step, check the unit, then continue.</li>
+<li>Spot a mistake, go back, and try a different approach.</li>
+</ul>
+<p>This is exactly what we see in the long reasoning traces.</p>
+<h2 id="input-and-output-training-phase-vs-prediction-phase">Input and Output: training phase vs prediction phase</h2>
+<p>Now, let's put everything together by looking at exact examples of what went into the model and what came out, in both the training phase and the prediction phase, for both LLM and LRM.</p>
+<h3 id="training-phase-standard-llm">Training phase: Standard LLM</h3>
+<p>In LLM training, the model is shown a piece of text with the next token hidden. It must predict that token.</p>
+<p><strong>Input to the model:</strong></p>
+<pre><code>The capital of France is
+</code></pre>
+<p><strong>Output from the model (the predicted next token):</strong></p>
+<pre><code>Paris
+</code></pre>
+<p>The actual next token in the data is also "Paris". The model got it right, so the loss is small. If the model had predicted "London", the loss would be large, and the weights would be nudged to fix this.</p>
+<h3 id="training-phase-large-reasoning-model">Training phase: Large Reasoning Model</h3>
+<p>In LRM training, the model is shown a hard problem with a known correct answer. It generates several full attempts to solve it.</p>
+<p><strong>Input to the model:</strong></p>
+<pre><code>A shop sells pens at 2 for 5 rupees, and notebooks at 3 for 12 rupees.
+We buy 6 pens and 9 notebooks. How much do we pay in total?
+</code></pre>
+<p><strong>Output from the model (one of the <code>16</code> attempted traces):</strong></p>
+<pre><code>&lt;think&gt;
+Pens: 2 pens cost 5 rupees, so 1 pen costs 2.5 rupees.
+6 pens cost 6 * 2.5 = 15 rupees.
+Notebooks: 3 notebooks cost 12 rupees, so 1 notebook costs 4 rupees.
+9 notebooks cost 9 * 4 = 36 rupees.
+Total = 15 + 36 = 51 rupees.
+Let me verify. 6 pens means 3 packs of 2 pens, each pack 5 rupees, so 3 * 5 = 15. Correct.
+9 notebooks means 3 packs of 3 notebooks, each pack 12 rupees, so 3 * 12 = 36. Correct.
+Total 15 + 36 = 51. Correct.
+&lt;/think&gt;
+We pay 51 rupees in total.
+</code></pre>
+<p>During training, the model is asked to produce many such attempts for the same problem - say <code>16</code> traces in parallel. A simple checker compares the final answer of each trace against the known correct answer "51 rupees". Maybe <code>6</code> traces got <code>51</code>, and <code>10</code> got something wrong like <code>48</code> or <code>54</code>. The <code>6</code> good ones score above the group average and are reinforced. The <code>10</code> wrong ones score below the group average and are penalised. The model is then updated to produce more of the rewarding kinds of traces.</p>
+<h3 id="prediction-phase-standard-llm">Prediction phase: Standard LLM</h3>
+<p>The model is already trained. We give it a prompt, it produces an answer.</p>
+<p><strong>Input to the model:</strong></p>
+<pre><code>Write a haiku about rain.
+</code></pre>
+<p><strong>Output from the model:</strong></p>
+<pre><code>Soft drops on the leaves,
+A grey sky weeps to the earth,
+Spring whispers goodbye.
+</code></pre>
+<p>The model goes straight from prompt to answer. There is no internal thinking step. The user sees the full output.</p>
+<h3 id="prediction-phase-large-reasoning-model">Prediction phase: Large Reasoning Model</h3>
+<p>The model is already trained. We give it a prompt, it produces a thinking trace and then the final answer.</p>
+<p><strong>Input to the model:</strong></p>
+<pre><code>A shop sells pens at 2 for 5 rupees, and notebooks at 3 for 12 rupees.
+We buy 6 pens and 9 notebooks. How much do we pay in total?
+</code></pre>
+<p><strong>Output from the model:</strong></p>
+<pre><code>&lt;think&gt;
+Pens: 2 pens cost 5 rupees, so 1 pen costs 2.5 rupees.
+6 pens cost 6 * 2.5 = 15 rupees.
+Notebooks: 3 notebooks cost 12 rupees, so 1 notebook costs 4 rupees.
+9 notebooks cost 9 * 4 = 36 rupees.
+Total = 15 + 36 = 51 rupees.
+Let me verify. 6 pens means 3 packs of 2 pens, each pack 5 rupees, so 3 * 5 = 15. Correct.
+9 notebooks means 3 packs of 3 notebooks, each pack 12 rupees, so 3 * 12 = 36. Correct.
+Total 15 + 36 = 51. Correct.
+&lt;/think&gt;
+We pay 51 rupees in total.
+</code></pre>
+<p>The text inside <code>&lt;think&gt;...&lt;/think&gt;</code> is the long reasoning trace. The line after it is the final answer. In many products, the user only sees "We pay 51 rupees in total." - the trace is hidden.</p>
+<p>Notice that this is the same problem we used in the training example above. During training, this was one of <code>16</code> attempted traces that got scored against the known answer "51". During prediction, the model now produces the same kind of trace because that is exactly what training rewarded it to do.</p>
+<h3 id="quick-recap-of-the-four-cases">Quick recap of the four cases</h3>
+<p>In LLM training, the input is a chunk of text and the output is the next token. The loss measures how close the predicted token is to the actual next token. In LRM training, the input is a hard problem with a known answer, and the output is a full reasoning trace ending in a final answer. The reward checks if the final answer is correct.</p>
+<p>In LLM prediction, the input is a user prompt and the output is a direct answer. In LRM prediction, the input is a user prompt and the output is a long internal thinking trace followed by a short final answer.</p>
+<h2 id="when-to-use-an-lrm-and-when-to-use-a-regular-llm">When to use an LRM, and when to use a regular LLM</h2>
+<p>Now that we have seen exactly what goes in and what comes out of both models, the most practical question for any AI Engineer: when to use an LRM and when to use a regular LLM.</p>
+<p>We use a <strong>regular LLM</strong> when:</p>
+<ul>
+<li>The task is short and direct.</li>
+<li>We want a quick chat reply, a simple summary, or a draft email.</li>
+<li>Latency matters more than perfect correctness.</li>
+<li>Cost per query must be low because we are doing millions of calls.</li>
+</ul>
+<p>We use an <strong>LRM</strong> when:</p>
+<ul>
+<li>The task needs multiple steps of careful thought.</li>
+<li>A wrong answer is costly. Examples: complex math, hard coding problems, scientific questions, multi-step planning, deep data analysis, debugging tricky logic.</li>
+<li>We can afford to wait <code>30</code> seconds or more.</li>
+<li>We can afford the higher token cost.</li>
+</ul>
+<p>And when the answer is not text at all but a decision, like which category, which team, or safe or not, there is a third option built just for that. We have a detailed blog on <a href="https://outcomeschool.com/blog/jev-and-system-one-models-explained" rel="noopener noreferrer" target="_blank">Jev and System One Models</a> that explains how such a model returns a typed decision with a calibrated probability in a fraction of a second.</p>
+<h2 id="popular-lrms-we-should-know">Popular LRMs we should know</h2>
+<p>Now, let's look at the popular LRMs we should know:</p>
+<ul>
+<li><strong>OpenAI GPT-5.5 Thinking</strong> - the current OpenAI reasoning flagship. The raw reasoning trace is hidden, and we only see a short summary plus the final answer.</li>
+<li><strong>DeepSeek <code>R1</code> and <code>R1-Zero</code></strong> - open weights, shows the full reasoning trace, uses RLVR as a key training stage. <code>R1-Zero</code> is the purest RLVR demonstration, trained with only rule-based rewards on top of the base model, with no <strong>SFT (Supervised Fine-Tuning, i.e. training on human-written examples)</strong> in between. DeepSeek's newer line (<a href="https://outcomeschool.com/blog/decoding-deepseek-v4" rel="noopener noreferrer" target="_blank">V3.1 and V4</a>) packs both thinking and non-thinking modes into one model.</li>
+<li><strong>Qwen3</strong> - open weights from Alibaba. One unified model that supports both a thinking mode and a non-thinking mode, with an explicit thinking budget knob.</li>
+<li><strong>Google Gemini 3 with Deep Think</strong> - Google's reasoning mode inside the Gemini family. It can spend tens of seconds, and sometimes minutes, of test-time compute on a truly hard problem.</li>
+<li><strong>Anthropic Claude Opus 4.7 with extended thinking</strong> - Anthropic's reasoning mode, available as a first-class feature across the Claude 4.7 family.</li>
+<li><strong>xAI Grok 4.1 with Think mode</strong> - xAI's reasoning model. It pairs the thinking step with DeepSearch over X and the web.</li>
+</ul>
+<p>All of them share the same core idea: think first, answer later. The differences are in the size of the model, the training data, and whether the reasoning trace is shown to us or hidden.</p>
+<h2 id="common-mistakes-when-using-lrms">Common Mistakes when using LRMs</h2>
+<p>Now, let's look at a few common mistakes we must avoid.</p>
+<p><strong>Mistake 1: Using an LRM for everything.</strong></p>
+<p>If we use an LRM for a simple "translate this sentence" or "summarize this paragraph", we are paying <code>10x</code> to <code>30x</code> more cost and waiting <code>30</code> seconds for a task that a normal LLM would finish in <code>1</code> second. We must route only the hard tasks to the LRM.</p>
+<p><strong>Mistake 2: Ignoring the cost of reasoning tokens.</strong></p>
+<p>Even if the reasoning trace is hidden, we still pay for it. A query that returns <code>200</code> visible tokens may have used <code>15,000</code> reasoning tokens behind the scenes. We must always check the billing model.</p>
+<p><strong>Mistake 3: Adding "think step by step" to an LRM prompt.</strong></p>
+<p>The model is already trained to think step by step. Adding extra "think carefully" instructions usually does not help, and sometimes confuses the model. Keep the prompt clean and just state the problem.</p>
+<p><strong>Mistake 4: Not setting a thinking budget on production traffic.</strong></p>
+<p>If we let an LRM think for as long as it wants, a single hard prompt can burn through tens of thousands of reasoning tokens. The cost per query swings wildly, and one bad input can dominate the day's bill. For production traffic, we must set a thinking budget - for example, <code>8,192</code> tokens for most paths, and <code>32,768</code> only for the truly hard ones. Adaptive thinking helps, but a hard upper bound is the safer default.</p>
+<p><strong>Mistake 5: Treating the reasoning trace as the final answer.</strong></p>
+<p>The reasoning trace is a draft. It can contain wrong intermediate steps, scratch values, and corrections. We must only show the final answer to the end user, not the raw trace.</p>
+<h2 id="quick-summary">Quick Summary</h2>
+<p>Let's recap what we have learned:</p>
+<ul>
+<li><strong>LRM</strong> stands for <strong>Large Reasoning Model</strong>. It is a Large Language Model that is trained to think first and answer later.</li>
+<li><strong>Reasoning trace</strong> is the long internal scratchpad of tokens the model produces before the final answer.</li>
+<li><strong>Test-time compute</strong> is the idea that we can make a model smarter by letting it think longer at answer time.</li>
+<li><strong>RLVR</strong> (Reinforcement Learning with Verifiable Rewards) is the training trick that teaches the model to write good reasoning traces, using automatic checkers like math answers and unit tests.</li>
+<li><strong>LRMs are best for hard, multi-step problems.</strong> For simple tasks, a regular LLM is faster and cheaper.</li>
+<li><strong>Popular LRMs</strong>: <code>GPT-5.5 Thinking</code>, DeepSeek <code>R1</code>, Qwen3, Gemini 3 with Deep Think, Claude Opus 4.7 with extended thinking, and Grok 4.1 with Think mode.</li>
+</ul>
+<p>Now, we have understood Large Reasoning Models (LRMs).</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="is-a-large-reasoning-model-a-different-kind-of-neural-network-from-an-llm">Is a Large Reasoning Model a different kind of neural network from an LLM?</h3>
+<p>No. A Large Reasoning Model is still a neural network that predicts the next token, just like a Large Language Model. The thinking inside an LRM is just more text, and there is no magic new component. The difference is that it has been specially trained to spend extra tokens thinking before the final answer.</p>
+<h3 id="can-we-see-the-reasoning-trace-of-an-lrm">Can we see the reasoning trace of an LRM?</h3>
+<p>It depends on the product. The reasoning trace is hidden in many products, like <code>GPT-5.5 Thinking</code>, where we only see a short summary and the final answer. It is visible in some others, like DeepSeek <code>R1</code>, which shows the full reasoning trace.</p>
+<h3 id="does-rlvr-training-need-humans-to-score-the-answers">Does RLVR training need humans to score the answers?</h3>
+<p>No. In RLVR, the reward comes from a simple automatic checker, not from a human opinion. For math, it checks if the final number matches the correct answer, and for code, it checks if the code passes all unit tests. Because of this, the training loop can run millions of times without any human in the middle.</p>
+<h3 id="can-one-model-support-both-a-thinking-mode-and-a-non-thinking-mode">Can one model support both a thinking mode and a non-thinking mode?</h3>
+<p>Yes. Qwen3 is one unified model that supports both a thinking mode and a non-thinking mode, with an explicit thinking budget knob. DeepSeek's newer line, V3.1 and V4, also packs both thinking and non-thinking modes into one model.</p>
+<h3 id="what-is-adaptive-thinking-in-lrms">What is adaptive thinking in LRMs?</h3>
+<p>Adaptive thinking is when the model decides how much to think based on the complexity of the query. This is different from us setting a fixed thinking budget, like <code>1,024</code> or <code>32,768</code> tokens. Adaptive thinking helps, but for production traffic, a hard upper bound is the safer default.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m06-l0603">
+  <p class="print-lesson-kicker">Lesson 6.3</p>
+  <h1>What are Recursive Language Models (RLMs) and How Do They Work?</h1>
+  <p class="print-lesson-meta">Lesson 6.3 · ~12 min · Published May 19, 2026 · <a href="https://outcomeschool.com/blog/recursive-language-models">https://outcomeschool.com/blog/recursive-language-models</a></p>
+  <p><img alt="Recursive Language Models (RLMs)" src="../assets/images/06-06-03-what-are-recursive-language-models-rlms-and-how-do-they-work/recursive-language-models.png"/></p>
+<p>A Recursive Language Model (RLM) is a way of using a language model where the model can call another language model, or itself, on smaller parts of the input. This lets it handle very large inputs that do not fit in the context window.</p>
+<p>In this blog, we will learn about <strong>Recursive Language Models (RLMs)</strong>, a new way of using language models to handle very large inputs that do not fit in the model's context window.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is a Recursive Language Model (RLM)?</li>
+<li>Why do we need RLMs?</li>
+<li>How an RLM works</li>
+<li>How the model writes and runs code</li>
+<li>Why RLMs work better</li>
+<li>Recursion inside RLMs</li>
+<li>How RLMs differ from simple chunking</li>
+<li>Advantages of RLMs</li>
+<li>Limitations of RLMs</li>
+<li>When to use RLMs</li>
+<li>RLM vs RAG</li>
+<li>A real use case</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="what-is-a-recursive-language-model-rlm">What is a Recursive Language Model (RLM)?</h2>
+<p>A <strong>Recursive Language Model (RLM)</strong> is a way of using a language model where the model can call another language model (or itself) on smaller parts of the input to solve a bigger problem.</p>
+<p>In simple words, instead of putting the entire input into the model at once, the model breaks the input into smaller pieces and calls another language model (or itself) on those smaller pieces.</p>
+<p><strong>RLM = Recursive + Language Model</strong></p>
+<p>Here, <strong>Recursive</strong> means the model can call itself (or another model) again and again on smaller parts of the problem. <strong>Language Model</strong> is the LLM that understands and generates text.</p>
+<h2 id="why-do-we-need-rlms">Why do we need RLMs?</h2>
+<p>The best way to learn this is by taking an example.</p>
+<p>Let's say we have a very long document with 1 million tokens, and we want to ask a question about it.</p>
+<p>When we put a lot of text into a language model, the following issues arise:</p>
+<ul>
+<li>The model has a context window limit. It cannot accept too many tokens at once.</li>
+<li>The quality of the answer goes down as the context gets longer. The model gets confused with too much information and misses important details in the middle. This is called <a href="https://outcomeschool.com/blog/context-engineering" rel="noopener noreferrer" target="_blank"><strong>context rot</strong></a>.</li>
+<li>The cost of running the model goes up.</li>
+<li>The speed of the model goes down.</li>
+</ul>
+<p>This means, just making the context window bigger does not solve the problem. We need a better approach.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/lost-in-the-middle-problem-in-llms" rel="noopener noreferrer" target="_blank">The Lost in the Middle Problem in LLMs</a> that covers this problem end to end.</p>
+<p>So, here comes the Recursive Language Model to the rescue.</p>
+<h2 id="how-an-rlm-works">How an RLM works</h2>
+<p>In an RLM, the main model does not directly read the full input. Instead, the full input stays inside a Python environment as a variable. The model gets a small prompt that only names this variable and explains how to use it. The model then writes code to read parts of the input and call other language models on those parts. The smaller calls return short answers, which the main model combines into the final answer.</p>
+<p>The next section walks through this with a concrete example.</p>
+<p>Now, the question is: why is this called recursive? The answer is, the model can call another model, which can again call another model, and so on. Each call works on a smaller piece. This is just like recursion in programming.</p>
+<h2 id="how-the-model-writes-and-runs-code">How the model writes and runs code</h2>
+<p>Let's understand this with a real example. Suppose we have a long meeting transcript and we want to ask: "What were the action items?"</p>
+<p>The model only generates text. It cannot run code by itself. So, we wrap the model with a Python environment. This environment has a variable <code>context</code> that stores the full transcript, and a function <code>call_llm(prompt)</code> that calls another language model.</p>
+<p>Now, we send a short prompt to the main model:</p>
+<pre><code>Question: What were the action items?
+Write Python code to answer this. The Python environment has:
+- A variable named `context` that stores the full transcript.
+- A function `call_llm(prompt)` that calls another language model.
+</code></pre>
+<p><strong>Very important:</strong> The full transcript is never sent to the main model. Only the variable <strong>name</strong> <code>context</code> is sent in the prompt, not its actual content. The transcript stays inside the Python environment. The model can read parts of it through code, but the model never reads the whole thing. This is what keeps the main model's context small even when the input is huge.</p>
+<p>Now, the loop runs as below:</p>
+<p><strong>Step 1:</strong> The model writes Python code as its response:</p>
+<pre><code class="language-python">turns = context.split("\n")
+results = [call_llm(f"Find action items in: {turn}") for turn in turns]
+print(results)
+</code></pre>
+<p>Here, the model decides to split <code>context</code> by turn and call <code>call_llm</code> on each one.</p>
+<p><strong>Step 2:</strong> The code runs in the Python environment. Each <code>call_llm</code> call sends one turn to another language model and gets back a short answer. All answers are collected into a list.</p>
+<p><strong>Step 3:</strong> The list is sent back to the model. The model now sees only the short answers, not the full transcript.</p>
+<p><strong>Step 4:</strong> The model reads the list and returns the final list of action items as the answer. If the answer was not clear yet, the model would write more code and the loop would continue.</p>
+<p>This back-and-forth between the model and the Python environment is called an <a href="https://outcomeschool.com/blog/ai-agent" rel="noopener noreferrer" target="_blank"><strong>agentic loop</strong></a>.</p>
+<p>So, the model is only generating text. The text just happens to be Python code. The Python environment runs the code. And <code>call_llm</code> is just an API call to another language model.</p>
+<h2 id="why-rlms-work-better">Why RLMs work better</h2>
+<p>Here, we can notice that each smaller call gets a small input. In our transcript example, each <code>call_llm</code> call works on just one turn, not the full meeting. A small input is easy for the model to handle. The model can focus on the small piece and give a good answer.</p>
+<p>Also, the main model only sees the small answers, not the full input. So, the main model has a clean and small context.</p>
+<p>This way, we avoid context rot. The problem is solved.</p>
+<h2 id="recursion-inside-rlms">Recursion inside RLMs</h2>
+<p>Now, let's understand the recursive part more clearly.</p>
+<p>Let's say one piece is still too long for the smaller call. The smaller call can also act as an RLM. It can again split its piece into even smaller parts and call another language model on each part.</p>
+<p>So, the structure looks like below:</p>
+<ul>
+<li>The main RLM works on the full input.</li>
+<li>The main RLM calls sub-RLMs on each big piece.</li>
+<li>Each sub-RLM can again call sub-RLMs on each smaller piece.</li>
+<li>The smallest calls work on tiny pieces of text.</li>
+</ul>
+<p>This is just like a tree. The top of the tree handles the big problem. The leaves of the tree handle the small pieces. Each level passes its answer up to the next level.</p>
+<p><strong>Note:</strong> The depth of recursion depends on the size of the input and the type of question. The model itself decides how deep to go.</p>
+<p>That's the beauty of Recursive Language Models.</p>
+<h2 id="how-rlms-differ-from-simple-chunking">How RLMs differ from simple chunking</h2>
+<p>Now, the next big question is: how is this different from just splitting the input into <a href="https://outcomeschool.com/blog/chunking-strategies-for-rag" rel="noopener noreferrer" target="_blank">chunks</a> and processing each chunk?</p>
+<p>In <strong>simple chunking</strong>, we fix the chunk size beforehand. We send each chunk to the model, get an answer, and combine the answers. The split is fixed, and we always do the same steps.</p>
+<p>In an <strong>RLM</strong>, the model itself decides how to split the input. The model also decides what to ask for each piece. The model can change its strategy based on the question.</p>
+<p>So, how can we say RLM is smarter? The answer is, the RLM is more like a human reader. A human reader does not chunk a book into fixed pages. A human reader skims, jumps, reads carefully, and decides on the fly. An RLM works in a similar way.</p>
+<p>This makes RLMs more flexible than simple chunking.</p>
+<h2 id="advantages-of-rlms">Advantages of RLMs</h2>
+<ul>
+<li><strong>Handles very long inputs.</strong> RLMs can work with inputs much larger than the model's context window.</li>
+<li><strong>Better accuracy on long context.</strong> Since each call works on a small piece, the model can focus and give better answers.</li>
+<li><strong>Lower cost in some cases.</strong> We do not need to send the full input every time. We only send small pieces when needed.</li>
+<li><strong>Modular thinking.</strong> The model can break a big problem into small problems, just like a human would.</li>
+<li><strong>Flexible.</strong> The model decides how to split the input based on the question.</li>
+</ul>
+<h2 id="limitations-of-rlms">Limitations of RLMs</h2>
+<ul>
+<li><strong>More complex to build.</strong> We need to set up a code environment and <a href="https://outcomeschool.com/blog/how-does-function-calling-work-in-llms" rel="noopener noreferrer" target="_blank">tool calls</a>.</li>
+<li><strong>Many model calls.</strong> One question can lead to many small calls. This can be slow.</li>
+<li><strong>Errors can stack up.</strong> If a smaller call gives a wrong answer, the final answer can also become wrong.</li>
+<li><strong>Hard to debug.</strong> Since the model writes its own code, it can be hard to know what went wrong.</li>
+</ul>
+<p>So, RLMs are powerful, but we must use them carefully.</p>
+<h2 id="when-to-use-rlms">When to use RLMs</h2>
+<p>I will highly recommend using RLMs for the following cases:</p>
+<ul>
+<li>We have a very long document and need to ask questions about it.</li>
+<li>We need to analyze a large codebase.</li>
+<li>We need to summarize a long meeting or transcript.</li>
+<li>We need to compare many files at once.</li>
+<li>The task can be broken into smaller, independent sub-tasks.</li>
+</ul>
+<p>For short inputs, we do not need RLMs. A simple language model call is enough. We must choose the approach based on our use case.</p>
+<h2 id="rlm-vs-rag">RLM vs RAG</h2>
+<p>Now that we have learned about RLMs, it's time to compare RLMs with another popular approach called RAG (Retrieval-Augmented Generation).</p>
+<p>In <strong>RAG</strong>, we first search for the most relevant parts of a document and then send only those parts to the language model.</p>
+<p>In <strong>RLM</strong>, the model itself decides how to explore the input. The model can write code, split the input, and call smaller models.</p>
+<p>Let me tabulate the differences between RAG and RLM for your better understanding so that you can decide which one to use based on your use case.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>RAG</th>
+<th>RLM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>How it picks data</td>
+<td>A search step picks relevant parts first</td>
+<td>The model itself explores the data</td>
+</tr>
+<tr>
+<td>Flexibility</td>
+<td>Less flexible, depends on the search step</td>
+<td>More flexible, model decides what to do</td>
+</tr>
+<tr>
+<td>Code execution</td>
+<td>No code execution by the model</td>
+<td>The model can write and run code</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>Question answering on a fixed knowledge base</td>
+<td>Complex tasks on long inputs</td>
+</tr>
+<tr>
+<td>Complexity</td>
+<td>Easier to build</td>
+<td>Harder to build</td>
+</tr>
+</tbody>
+</table></div>
+<p>For simple question answering, RAG is enough. For complex analysis on long inputs, RLM is a better fit.</p>
+<h2 id="a-real-use-case">A real use case</h2>
+<p>A real use case in software development:</p>
+<p>Let's say we want to find all the security issues in a large codebase. The codebase has hundreds of files. The total size is much bigger than what a normal model can read in one go.</p>
+<p>With an RLM, we can do the following:</p>
+<ul>
+<li>Store the codebase as a variable.</li>
+<li>Ask the RLM: "Find all security issues."</li>
+<li>The RLM writes code to loop through each file.</li>
+<li>For each file, the RLM calls a smaller language model to find security issues in that file.</li>
+<li>The smaller calls return short lists of issues.</li>
+<li>The RLM combines all the issues into a final report.</li>
+</ul>
+<p>Here, we can see that the main RLM does not read the full codebase. The main RLM only sees small summaries from each file. This keeps the main context clean and small.</p>
+<p>This way we can use RLMs to solve the interesting problem of large codebase analysis.</p>
+<h2 id="summary">Summary</h2>
+<p>We have learned the following:</p>
+<ul>
+<li>A Recursive Language Model (RLM) is a way of using a language model that can recursively call other language models on smaller parts of the input.</li>
+<li>RLMs solve the problem of long context and context rot.</li>
+<li>The main model writes code to split the input and call smaller models.</li>
+<li>RLMs are powerful for long documents, codebases, and complex tasks.</li>
+<li>We must use RLMs carefully because they have more complexity and more model calls.</li>
+</ul>
+<p>Now, we have understood Recursive Language Models (RLMs).</p>
+<p>This way we can use RLMs to solve any problem on long inputs in a very simple way.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="does-a-bigger-context-window-solve-the-long-input-problem">Does a bigger context window solve the long input problem?</h3>
+<p>No. Just making the context window bigger does not solve the problem. As the context gets longer, the quality of the answer goes down because of context rot, the cost goes up, and the speed goes down. An RLM avoids this by keeping each call's input small.</p>
+<h3 id="does-the-main-model-in-an-rlm-ever-read-the-full-input">Does the main model in an RLM ever read the full input?</h3>
+<p>No. The full input stays inside a Python environment as a variable, and only the variable name is sent in the prompt. The main model reads parts of the input through code and sees only the short answers from the smaller calls. This keeps its context clean and small even when the input is huge.</p>
+<h3 id="can-the-language-model-run-the-python-code-by-itself">Can the language model run the Python code by itself?</h3>
+<p>No. The model only generates text, and that text just happens to be Python code. The Python environment wrapped around the model runs the code. The <code>call_llm</code> function inside that code is simply an API call to another language model.</p>
+<h3 id="who-decides-how-deep-the-recursion-goes-in-an-rlm">Who decides how deep the recursion goes in an RLM?</h3>
+<p>The model itself decides how deep to go. The depth depends on the size of the input and the type of question. If one piece is still too long, the smaller call can act as an RLM and split its piece again into even smaller parts.</p>
+<h3 id="do-we-need-an-rlm-for-short-inputs">Do we need an RLM for short inputs?</h3>
+<p>No. For short inputs, a simple language model call is enough. RLMs make sense for very long documents, large codebases, long transcripts, comparing many files, or tasks that can be broken into smaller independent sub-tasks.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m06-l0604">
+  <p class="print-lesson-kicker">Lesson 6.4</p>
+  <h1>How do Diffusion Language Models (DLMs) work?</h1>
+  <p class="print-lesson-meta">Lesson 6.4 · ~17 min · Published June 22, 2026 · <a href="https://outcomeschool.com/blog/how-do-diffusion-language-models-dlms-work">https://outcomeschool.com/blog/how-do-diffusion-language-models-dlms-work</a></p>
+  <p><img alt="How do Diffusion Language Models (DLMs) work?" src="../assets/images/06-06-04-how-do-diffusion-language-models-dlms-work/how-do-diffusion-language-models-dlms-work.png"/></p>
+<p>A Diffusion Language Model (DLM) is a type of AI model that writes text by starting from pure gibberish and slowly cleaning it up into a clear sentence. It does not write one word at a time from left to right like the usual LLMs.</p>
+<p>In this blog, we will learn about Diffusion Language Models (DLMs), a new way to make models write text. They promise to generate words in a different way than the LLMs we use today, and that too much faster in many cases.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is a Diffusion Language Model?</li>
+<li>How do today's language models write text?</li>
+<li>The problem with the usual approach</li>
+<li>Where the diffusion idea comes from</li>
+<li>What does "noise" mean for text?</li>
+<li>The two phases: forward and reverse</li>
+<li>How a DLM actually generates text, step by step</li>
+<li>A tiny end-to-end example</li>
+<li>A simple code-style walk-through</li>
+<li>DLMs vs the usual language models</li>
+<li>Advantages of DLMs</li>
+<li>Limitations of DLMs</li>
+<li>The current state</li>
+</ul>
+<p>Let's get started.</p>
+<h3 id="what-is-a-diffusion-language-model">What is a Diffusion Language Model?</h3>
+<p><strong>A Diffusion Language Model is a type of AI model that writes text by starting from a piece of pure gibberish and slowly cleaning it up into a clear, meaningful sentence.</strong></p>
+<p>In simple words, it does not write a sentence one word at a time from left to right. Instead, it starts with a rough, messy version of the whole sentence and then refines it again and again until it becomes correct.</p>
+<p>Let's understand the term: Diffusion</p>
+<p><strong>Diffusion</strong> is a word borrowed from nature. It means something spreading out and mixing, like a drop of ink slowly spreading into a glass of water until everything is blurry.</p>
+<p>So, a Diffusion Language Model is a model that learns to take blurry, mixed-up text and turn it back into clean text.</p>
+<p>Do not worry, we will learn about each part in detail.</p>
+<h3 id="how-do-today-s-language-models-write-text">How do today's language models write text?</h3>
+<p>Before jumping into diffusion, we must understand how the popular LLMs today write text. This will help us see why diffusion is interesting.</p>
+<p>LLMs are built on an architecture called the <strong><a href="https://outcomeschool.com/blog/decoding-transformer-architecture" rel="noopener noreferrer" target="_blank">Transformer</a></strong>, which is just a powerful kind of AI brain that is very good at understanding language. These models write in a style called <a href="https://outcomeschool.com/blog/autoregressive-models" rel="noopener noreferrer" target="_blank"><strong>autoregressive</strong> generation</a>.</p>
+<p>Let's decompose that word:</p>
+<blockquote>
+<p>Autoregressive = Auto + Regressive</p>
+</blockquote>
+<p>In simple words, it means the model predicts the next word based on all the words that came before it. It writes one word, looks at everything written so far, then writes the next word, and keeps going.</p>
+<p>Let's say we ask the model to complete this sentence: "The sky is".</p>
+<p>The model writes one word at a time, like below:</p>
+<pre><code>Step 1:  The sky is ___            -&gt;  picks "blue"
+Step 2:  The sky is blue ___       -&gt;  picks "and"
+Step 3:  The sky is blue and ___   -&gt;  picks "clear"
+</code></pre>
+<p>Here, we can see that the model adds one word in each step. It can never pick the third word before it has picked the second word. Each word waits for the one before it.</p>
+<p>This is how today's language models write text. It works very well, and that is why it feel so natural.</p>
+<h3 id="the-problem-with-the-usual-approach">The problem with the usual approach</h3>
+<p>Now, the question is: if this works so well, why do we need anything new?</p>
+<p>The issue with this approach is <strong>speed</strong>. Because the model writes strictly one word after another, it cannot do them at the same time. If a sentence has 100 words, the model must take 100 turns, one after another. It cannot jump ahead.</p>
+<p>Let's say we are writing a long essay. Writing one word, waiting, then the next word, waiting, then the next, is slow. We are stuck in a single line, moving forward one step at a time. We cannot go back and fix an earlier word either, because we have already moved past it.</p>
+<p>Now, the next big question is: what if a model could work on the whole sentence at once, fixing many words together instead of one at a time?</p>
+<p>So, here comes the Diffusion Language Model to the rescue.</p>
+<h3 id="where-the-diffusion-idea-comes-from">Where the diffusion idea comes from</h3>
+<p>Before jumping into text, we must know where this idea was born.</p>
+<p>The diffusion idea first became famous for creating images. Tools that turn a text prompt into a beautiful picture often use a method called <strong>diffusion</strong>.</p>
+<p>Here is the simple idea behind <a href="https://outcomeschool.com/blog/diffusion-models" rel="noopener noreferrer" target="_blank">image diffusion</a>. We take a clear photo and slowly add random dots of noise to it, again and again, until the photo becomes complete static, like an old TV with no signal. Then we train a model to do the reverse: start from pure static and slowly remove the noise until a clear picture appears.</p>
+<p>We can picture it like below:</p>
+<pre><code>Clear image  -&gt;  add noise  -&gt;  more noise  -&gt;  pure static
+                                                     |
+                                                     v  (now reverse it)
+Clear image  &lt;-  remove noise  &lt;-  less noise  &lt;-  pure static
+</code></pre>
+<p>Here, we can see that the model learns to walk backward, from total mess to a clean image, one small cleanup step at a time.</p>
+<p>Now, the next big question is: can we do the same thing for text instead of images? The answer is yes, and that is exactly what a Diffusion Language Model does.</p>
+<h3 id="what-does-noise-mean-for-text">What does "noise" mean for text?</h3>
+<p>For an image, adding noise was easy. We just add random dots to the pixels.</p>
+<p>But text is different. A sentence is made of words, not pixels. We cannot add a "half word". So we need a different idea of noise for text.</p>
+<p>For text, <strong>noise means hiding or replacing words with a blank or a random word.</strong></p>
+<p>In simple words, to make a clean sentence noisy, we hide some of its words. The more words we hide, the noisier the sentence becomes. When every word is hidden, the sentence is pure noise. This is just like the ink drop spreading in water until everything is blurry.</p>
+<p>Let's say our clean sentence is "The cat sat on the mat". We use the symbol <code>[?]</code> for a hidden word. Adding more and more noise looks like below:</p>
+<pre><code>Clean:        The cat sat on the mat
+A little noise: The cat [?] on the mat
+More noise:     The [?] [?] on [?] mat
+Pure noise:     [?] [?] [?] [?] [?] [?]
+</code></pre>
+<p>Here, we can see that as we add more noise, more words turn into <code>[?]</code>. At the end, the whole sentence is just blanks. This blank-filled sentence is the text version of "pure static".</p>
+<p>This way of hiding words is called <strong>masking</strong>, and the hidden spot is called a <strong>mask</strong>. So, for text, adding noise simply means masking more words.</p>
+<p>This is how we bring the idea of noise into the world of text. It makes our life easy, because hiding words is something a computer can do instantly.</p>
+<h3 id="the-two-phases-forward-and-reverse">The two phases: forward and reverse</h3>
+<p>A Diffusion Language Model works in two phases. Let's understand each one.</p>
+<p><strong>The forward phase (adding noise):</strong> This is the easy part, and it happens only during training. We take a clean sentence from our training data and slowly hide its words until the whole sentence is masked. We do not need any intelligence for this. We are just deleting words on purpose.</p>
+<p><strong>The reverse phase (removing noise):</strong> This is the hard part, and this is what the model actually learns. The model takes a masked sentence and tries to guess the hidden words to make it clean again. It does this again and again, filling in more words each time.</p>
+<p>We can picture both phases like below:</p>
+<pre><code>FORWARD (training only, just hide words)
+The cat sat on the mat  -&gt;  The [?] sat on [?] mat  -&gt;  [?] [?] [?] [?] [?] [?]
+REVERSE (what the model learns to do)
+[?] [?] [?] [?] [?] [?]  -&gt;  The [?] sat on [?] mat  -&gt;  The cat sat on the mat
+</code></pre>
+<p>Here, we can see that the forward phase destroys the sentence and the reverse phase rebuilds it. The model only needs to become very good at the reverse phase. The forward phase is just a teacher creating practice questions.</p>
+<p>So, during training, we hide words and ask the model to guess them. By practicing on millions of sentences, the model gets very good at filling in blanks. This is how it learns. It is just like a student who keeps solving fill-in-the-blanks exercises until the answers come naturally.</p>
+<h3 id="how-a-dlm-actually-generates-text-step-by-step">How a DLM actually generates text, step by step</h3>
+<p>Now comes the most interesting part. Till now, we have learned how the model is trained. Now it's time to learn how it writes a brand new sentence for us.</p>
+<p>It starts with a sentence that is all blanks and refines it step by step. Let's understand the full process.</p>
+<p><strong>Step 1: Start from pure noise.</strong> The model begins with a sentence where every word is masked. It is a blank canvas of <code>[?]</code> symbols.</p>
+<p><strong>Step 2: Guess all the words at once.</strong> Here is the beauty of it. Unlike the usual models, the DLM looks at every blank at the same time and makes a guess for each one in a single pass. It does not go left to right. It works on the whole sentence together.</p>
+<p><strong>Step 3: Keep the confident words, blank out the rest.</strong> Some guesses will be good and some will be shaky. The model keeps the words it is most confident about and turns the unsure ones back into <code>[?]</code>. This is the key trick that makes the result better over time. Do not worry, we will see this with a clear example soon.</p>
+<p><strong>Step 4: Repeat.</strong> The model looks at the partly-filled sentence and guesses the remaining blanks again, now with more context to help it. It keeps the confident ones and blanks the rest.</p>
+<p><strong>Step 5: Stop when nothing is masked.</strong> After a few rounds, there are no blanks left. The sentence is complete.</p>
+<p>We can picture the whole generation like below:</p>
+<pre><code>Round 1:  [?]  [?]  [?]  [?]  [?]      (start, all masked)
+            |    |    |    |    |
+            v    v    v    v    v       (guess all at once, keep the confident ones)
+Round 2:  The  [?]  [?]   is  [?]
+            |    |    |    |    |
+            v    v    v    v    v       (guess the rest again)
+Round 3:  The  food [?]   is good
+            |    |    |    |    |
+            v    v    v    v    v
+Round 4:  The  food here  is good       (done, no blanks left)
+</code></pre>
+<p>Here, we can see that the model fills in the easy, confident words first, like "The" and "is". Then it uses those words as hints to fill in the harder words like "food", "here", and "good". Step by step, the messy blank sentence becomes a clean, meaningful one.</p>
+<p>This is how a Diffusion Language Model generates text. The big difference is that it can fix many words in parallel, instead of one at a time. It enables us to do complex things very simply.</p>
+<h3 id="a-tiny-end-to-end-example">A tiny end-to-end example</h3>
+<p>The best way to learn this is by taking an example. Let's say we ask the model to answer: "What is the capital of France?"</p>
+<p>The model needs to produce a short answer of, let's say, 4 word-slots. It starts with all of them masked.</p>
+<pre><code>Question: What is the capital of France?
+Answer slots:  [?]  [?]  [?]  [?]
+</code></pre>
+<p><strong>Round 1:</strong> The model guesses every slot at once. Suppose it produces:</p>
+<pre><code>The   is   capital   Paris
+</code></pre>
+<p>The model is very confident about "Paris" and fairly confident about "The". It is unsure about "is" and "capital" in those spots. So it keeps the confident words and blanks the rest.</p>
+<pre><code>The   [?]   [?]   Paris
+</code></pre>
+<p><strong>Round 2:</strong> Now the model looks at "The [?] [?] Paris" and guesses the two blanks again. With "The" and "Paris" already in place, the context is clearer. This time it produces:</p>
+<pre><code>The   capital   is   Paris
+</code></pre>
+<p>Here, we can see that the answer is now correct and complete. The model used the words it was sure about as anchors to figure out the rest.</p>
+<p>So, in just two rounds, the model went from total blanks to a correct answer. This way we can use a Diffusion Language Model to write text by refining the whole sentence together.</p>
+<h3 id="a-simple-code-style-walk-through">A simple code-style walk-through</h3>
+<p>Now, let's see this idea in a small, simplified code-style form using Python. This is just for the sake of understanding, not a real library. We can write it as below:</p>
+<pre><code class="language-python"># A simplified view of how a DLM generates text
+sentence = ["[?]", "[?]", "[?]", "[?]"]   # start: everything masked
+for current_round in range(num_rounds):
+    # 1. Ask the model to guess EVERY position at once
+    guesses, confidence = model.predict_all(sentence)
+    # 2. Keep only the most confident guesses, mask the rest
+    for i in range(len(sentence)):
+        if confidence[i] &gt; threshold:
+            sentence[i] = guesses[i]      # lock in this word
+        else:
+            sentence[i] = "[?]"           # send it back to be re-guessed
+    # 3. Stop early if no masks are left
+    if "[?]" not in sentence:
+        break
+print(sentence)   # the final clean sentence
+</code></pre>
+<p>Here, we have written the core loop of a Diffusion Language Model. Let me explain each part.</p>
+<ul>
+<li><code>sentence</code> starts as a list full of <code>[?]</code>, which means every position is masked.</li>
+<li><code>model.predict_all(sentence)</code> is the key step. The model guesses all positions at the same time and also tells us how confident it is about each guess.</li>
+<li>The <code>if confidence[i] &gt; threshold</code> check keeps the words the model is sure about and sends the unsure ones back to <code>[?]</code> to be guessed again next round. Here, <code>threshold</code> is just a confidence bar we set, for example "only keep words the model is more than 90 percent sure about".</li>
+<li>The loop repeats, and each round the sentence gets cleaner.</li>
+<li>When there are no <code>[?]</code> left, we stop, and the sentence is ready.</li>
+</ul>
+<p>Notice that there is no left-to-right loop here. The model works on the whole sentence in every round. This is the heart of the difference. Here, we can see that many words can be decided together.</p>
+<h3 id="dlms-vs-the-usual-language-models">DLMs vs the usual language models</h3>
+<p>Now that we have learned how a DLM works, it's time to compare it with the usual autoregressive models we discussed earlier.</p>
+<p>The usual model is a <a href="https://outcomeschool.com/blog/encoder-vs-decoder-in-transformers" rel="noopener noreferrer" target="_blank">decoder-only</a> Transformer that writes left to right, one word at a time. The diffusion model fills the whole sentence and refines it over a few rounds. We can picture the contrast like below:</p>
+<pre><code>Autoregressive (usual):                 Diffusion (DLM):
+word1                                    [?] [?] [?] [?] [?]   (all at once)
+word1 word2                                    |
+word1 word2 word3                              v
+word1 word2 word3 word4                  the [?] cat on mat   (refine)
+... one new word each step                     |
+                                               v
+                                         the big cat on mat   (refine again)
+one direction, one word per step         whole sentence, refined over rounds
+</code></pre>
+<p>Here, we can see the core difference. The usual model takes as many steps as there are words. The diffusion model takes a small number of refinement rounds that does not grow with every extra word, and it works on many words together in each round.</p>
+<p>Let me tabulate the differences between Autoregressive Models and Diffusion Language Models for your better understanding.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Autoregressive Model</th>
+<th>Diffusion Language Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Writing order</td>
+<td>Left to right, one word at a time</td>
+<td>Whole sentence at once, refined in rounds</td>
+</tr>
+<tr>
+<td>Parallel work</td>
+<td>No, each word waits for the previous</td>
+<td>Yes, many words decided together</td>
+</tr>
+<tr>
+<td>Number of steps</td>
+<td>Equal to the number of words</td>
+<td>A small number of rounds, not tied to the word count</td>
+</tr>
+<tr>
+<td>Can revise earlier words</td>
+<td>No, once written it stays</td>
+<td>Yes, it can re-mask and fix words</td>
+</tr>
+</tbody>
+</table></div>
+<p>One important thing to clear up: Diffusion Language Models (DLMs) often use a Transformer-based architecture internally, similar to the large language models. The difference is not the brain, it is the way the text is written. The usual model writes one word at a time, and the diffusion model fills and refines the whole sentence together.</p>
+<h3 id="advantages-of-dlms">Advantages of DLMs</h3>
+<ul>
+<li><strong>Speed through parallel work:</strong> Because the model decides many words together, it can produce text in far fewer steps than writing one word at a time. This can make generation much faster.</li>
+<li><strong>It can fix its own mistakes:</strong> A word that was placed early can be sent back to <code>[?]</code> and corrected in a later round. The usual model cannot undo a word once it is written.</li>
+<li><strong>Whole-sentence view:</strong> The model sees the entire sentence in every round, so a word near the end can influence a word near the start. This global view can help with consistency.</li>
+<li><strong>Good control over the output:</strong> Since the model fills in blanks, it is naturally suited to tasks where we give a partial sentence and ask it to complete the missing parts.</li>
+</ul>
+<h3 id="limitations-of-dlms">Limitations of DLMs</h3>
+<ul>
+<li><strong>Choosing how many rounds is tricky:</strong> Too few rounds give messy text, and too many rounds slow things down. Finding the right balance takes care.</li>
+<li><strong>Fixed length can be awkward:</strong> Many DLM setups need to know how many word-slots to fill ahead of time. The usual models can simply keep writing until they decide to stop, which feels more natural for open-ended writing.</li>
+<li><strong>Less mature tooling:</strong> The usual autoregressive models have years of tuning, tools, and tricks behind them. DLMs are catching up but are still younger.</li>
+<li><strong>Quality is still being proven:</strong> For some tasks, the very best autoregressive models are still ahead on quality, though the gap keeps shrinking.</li>
+</ul>
+<p>So, DLMs are a promising direction, but they are still an active area of research.</p>
+<h3 id="the-current-state">The current state</h3>
+<p>Now, let's discuss where things stand today, in 2026.</p>
+<p>Diffusion for text started as a research idea, but it has moved quickly into real, working models. Researchers have built large diffusion-based language models that can chat, answer questions, and write code, and some of them run noticeably faster than the usual word-by-word models because of the parallel refinement.</p>
+<p>A few important points about the current state:</p>
+<ul>
+<li>Several real diffusion-style language models are now in use, and the main selling point is high speed. Their speed is measured in <strong>tokens</strong> per second, where a token is a small chunk of a word. For example, <strong>Mercury</strong> from Inception Labs can generate over a thousand tokens per second on a single chip, which is several times faster than the usual word-by-word models. Google has released <strong>DiffusionGemma</strong>, an open model that anyone can download and run, and it reaches a similar speed on a single chip. <strong>LLaDA</strong> is another popular open model that anyone can download and run.</li>
+<li>Newer diffusion models can also <strong>reason</strong>. They no longer just write fast, they can solve hard math and coding problems too, which earlier diffusion models struggled with.</li>
+<li>Many practical systems are <strong>hybrids</strong>. They borrow the strong Transformer brain from the usual models and add the diffusion-style refinement on top, so they get the best of both worlds. A common trick is to start from a normal trained model and then continue training it with the diffusion idea, instead of starting from scratch.</li>
+</ul>
+<p>So, now we know where Diffusion Language Models fit and how they work.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="do-diffusion-language-models-use-a-transformer">Do Diffusion Language Models use a Transformer?</h3>
+<p>Often, yes. Diffusion Language Models often use a Transformer-based architecture internally, similar to the usual large language models. The difference is not the brain, it is the way the text is written. The usual model writes one word at a time, while the diffusion model fills and refines the whole sentence together.</p>
+<h3 id="are-diffusion-language-models-better-than-autoregressive-llms">Are Diffusion Language Models better than autoregressive LLMs?</h3>
+<p>Not in every way yet. DLMs can be much faster because they decide many words together, and they can fix their own mistakes. But for some tasks, the very best autoregressive models are still ahead on quality, though the gap keeps shrinking. DLMs also have less mature tooling and are still an active area of research.</p>
+<h3 id="can-a-diffusion-language-model-change-a-word-it-already-wrote">Can a Diffusion Language Model change a word it already wrote?</h3>
+<p>Yes. A word placed in an early round can be sent back to a mask and corrected in a later round. The model keeps only the words it is confident about and re-guesses the rest. The usual autoregressive model cannot undo a word once it is written.</p>
+<h3 id="does-a-diffusion-language-model-need-to-know-the-output-length-in-advance">Does a Diffusion Language Model need to know the output length in advance?</h3>
+<p>Often, yes. Many DLM setups need to know how many word-slots to fill ahead of time. The usual autoregressive models can simply keep writing until they decide to stop, which feels more natural for open-ended writing.</p>
+<h3 id="do-we-have-to-train-a-diffusion-language-model-from-scratch">Do we have to train a Diffusion Language Model from scratch?</h3>
+<p>No. A common trick is to start from a normal trained model and then continue training it with the diffusion idea, instead of starting from scratch. Many practical systems are hybrids that borrow the strong Transformer brain from the usual models and add diffusion-style refinement on top.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m06-l0605">
+  <p class="print-lesson-kicker">Lesson 6.5</p>
+  <h1>Jev and System One Models Explained</h1>
+  <p class="print-lesson-meta">Lesson 6.5 · ~18 min · Published September 17, 2026 · <a href="https://outcomeschool.com/blog/jev-and-system-one-models-explained">https://outcomeschool.com/blog/jev-and-system-one-models-explained</a></p>
+  <p><img alt="Jev and System One Models Explained" src="../assets/images/06-06-05-jev-and-system-one-models-explained/jev-and-system-one-models-explained.png"/></p>
+<p>Jev is the first System One Model, a new kind of AI model that does not write text at all. It looks at a situation and returns a decision from a fixed list of answers, along with how sure it is, that our software can use directly.</p>
+<p>In this blog, we will learn about Jev and System One Models, a new kind of AI model that does not write text at all but only makes fast decisions that our software can use directly. We will also see what System One and System Two thinking mean, why using a normal LLM for small decisions is slow and unreliable, how Jev answers many questions in a single pass instead of one word at a time, what a typed answer is, how the probability attached to every answer is made honest, why Jev cannot hallucinate, and where it works well and where it fails.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is a System One Model?</li>
+<li>System One vs System Two Thinking</li>
+<li>The Problem with Using an LLM for Decisions</li>
+<li>What is Jev?</li>
+<li>How Jev Works</li>
+<li>Typed Answers: Choice, Score, and Yes/No</li>
+<li>Calibration and RLCD</li>
+<li>Why Jev Cannot Hallucinate</li>
+<li>Jev vs LLM</li>
+<li>Where Jev Works Well and Where It Fails</li>
+<li>When to Use Which One</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="what-is-a-system-one-model">What is a System One Model?</h2>
+<p><strong>A System One Model is an AI model that looks at a situation and returns a decision, not text.</strong></p>
+<p>In simple words, we give it some information and a fixed list of possible answers. It picks one answer from that list and also gives a number telling how sure it is.</p>
+<p>Let's say we run an online shop. A customer sends a message: "My card was charged twice." We want to know which team must handle this message. The possible answers are <code>billing</code>, <code>technical</code>, and <code>account</code>. A System One Model reads the message and returns <code>billing</code> with a probability of 0.97, which means it is 97% sure.</p>
+<p>That is all. It does not write a reply to the customer. It does not explain its thinking. It just decides.</p>
+<p><strong>System One Model = System One + Model</strong></p>
+<p>Here, "System One" comes from a famous idea about how the human brain thinks. And "Model" is the AI model. So, a System One Model is an AI model that thinks like the System One of our brain.</p>
+<p>Before jumping into Jev, we must know what System One and System Two thinking mean.</p>
+<h2 id="system-one-vs-system-two-thinking">System One vs System Two Thinking</h2>
+<p>Daniel Kahneman, a psychologist who won the Nobel Prize, explained that our brain has two ways of thinking.</p>
+<p><strong>System 1</strong> is fast, automatic, and effortless. When we see a friend's face, we know who it is instantly. When someone asks "2 + 2?", we say "4" without thinking. We do not sit and calculate. The answer just comes.</p>
+<p><strong>System 2</strong> is slow, careful, and effortful. When someone asks "17 × 24?", we stop, think step by step, and work it out. It takes time and energy.</p>
+<p>Both are useful. System 1 handles thousands of small decisions every day. System 2 handles the hard ones.</p>
+<p><strong>Note:</strong> Kahneman writes them as System 1 and System 2. TypeSafe writes the model name as System One. Both mean the same thing.</p>
+<p>Now, let's connect this to AI.</p>
+<p>An LLM, which stands for Large Language Model, is the AI model behind a chatbot like ChatGPT. It is built to produce text, one small piece at a time. Even when we ask it a simple yes or no question, it goes through this slow writing process. And the newer <a href="https://outcomeschool.com/blog/large-reasoning-models" rel="noopener noreferrer" target="_blank">reasoning models</a> go one step further, they write out their thinking step by step before giving the final answer. This is System 2 style work. It is powerful, but slow and costly.</p>
+<p>But most of the decisions inside real software are small and repeated. Is this email spam or not? Which team must get this ticket? Is this review positive or negative? Is this answer safe to show to the user? These are System 1 type decisions. We need an instant answer, and we need it millions of times a day.</p>
+<p>So, the question is: why are we using a slow, System 2 style model for fast, System 1 style decisions?</p>
+<p>This is exactly the problem that System One Models are built to solve.</p>
+<h2 id="the-problem-with-using-an-llm-for-decisions">The Problem with Using an LLM for Decisions</h2>
+<p>The best way to learn this is by taking an example.</p>
+<p>Suppose we have a support system and we want to send every incoming ticket to the right team. Today, most of us do it with an LLM as below:</p>
+<pre><code class="language-python">prompt = """
+Classify this support ticket into one of: billing, technical, account.
+Reply with only the category name.
+Ticket: My card was charged twice.
+"""
+response = llm.generate(prompt)
+category = response.text.strip()
+</code></pre>
+<p>Here, we are asking the LLM to read the ticket and reply with only the category name. It looks simple. But, here is the catch.</p>
+<p><strong>Problem 1: It writes the answer one token at a time.</strong></p>
+<p>A <a href="https://outcomeschool.com/blog/tokenization-in-llms" rel="noopener noreferrer" target="_blank">token</a> is a small piece of text, roughly a word or a part of a word. An LLM writes its answer <a href="https://outcomeschool.com/blog/autoregressive-models" rel="noopener noreferrer" target="_blank">one token at a time</a>. To write "billing", it first predicts "bill", then "ing", and so on. Every single step is a full pass through a huge model. So, even a one-word answer takes many steps. And if the model decides to add an explanation, it takes even more steps.</p>
+<p><strong>Problem 2: We cannot trust the output format.</strong></p>
+<p>We asked for only the category name. But the model can reply "The category is billing." or "Billing." or "billing, let me know if you need anything else." or even "refund", which is not in our list at all. Now we must write extra code to clean this output. Most of the time, we do mistakes while writing this cleaning code, and it breaks in surprising ways.</p>
+<p><strong>Problem 3: We do not know how sure it is.</strong></p>
+<p>The model says "billing". Was it 99% sure or 51% sure? We do not know. So, we cannot decide when to trust it and when to send the ticket to a human.</p>
+<p><strong>Problem 4: It is slow and costly.</strong></p>
+<p>A frontier LLM, which means one of the biggest and most capable models available today, takes seconds for such a call. If we have a million tickets a day, both the waiting time and the bill add up very fast.</p>
+<p>We needed a model that only decides, does it instantly, always returns a valid answer, and tells us how sure it is.</p>
+<p>So, here comes Jev to the rescue.</p>
+<h2 id="what-is-jev">What is Jev?</h2>
+<p><strong>Jev is the first System One Model, built by a company called TypeSafe AI.</strong></p>
+<p>It was announced on September 15, 2026. TypeSafe AI was founded by Diogo Almeida, one of the people behind ChatGPT, and the team spent about two years quietly building a new way of training models. Jev is the result of that work.</p>
+<p>The most surprising thing about Jev is this: <strong>it does not generate text at all.</strong></p>
+<p>We cannot chat with Jev. We cannot ask it to write an email or code. It takes a situation as input, and it returns typed decisions with probabilities as output. Nothing else.</p>
+<p>Now, let's understand how it works.</p>
+<h2 id="how-jev-works">How Jev Works</h2>
+<p>Jev takes two things as input:</p>
+<ul>
+<li><strong>State</strong>: the information about the situation. State is just a word for "everything the model needs to know about the situation right now". It is always text. It can be a plain string, a list of texts, or a JSON object, which is a simple way of writing data as labels and values. For example, the customer message, their last few transactions, and the refund policy.</li>
+<li><strong>Questions with allowed answers</strong>: what we want to decide, and what the valid answers are. For example, "Which team?" with the allowed answers <code>billing</code>, <code>technical</code>, and <code>account</code>.</li>
+</ul>
+<p>And it returns:</p>
+<ul>
+<li><strong>Typed answers</strong>: one answer per question, always chosen from the allowed answers.</li>
+<li><strong>Probabilities</strong>: for every answer, a number between 0 and 1 telling how sure the model is.</li>
+</ul>
+<p>Let's see it in code. For the sake of understanding, the code below is simplified and is not the exact API:</p>
+<pre><code class="language-python">result = jev.decide(
+    state={
+        "message": "My card was charged twice.",
+        "recent_transactions": ["$49 on Sep 10", "$49 on Sep 10"]
+    },
+    questions={
+        "team": ["billing", "technical", "account"],
+        "is_urgent": "yes_no",
+        "frustration": {"min": 0, "max": 2}
+    }
+)
+</code></pre>
+<p>The result will be:</p>
+<pre><code class="language-json">{
+  "team": { "answer": "billing", "probability": 0.97 },
+  "is_urgent": { "answer": true, "probability": 0.88 },
+  "frustration": { "answer": 1, "probability": 0.74 }
+}
+</code></pre>
+<p>Here, we can notice a few things:</p>
+<ul>
+<li>We asked three questions in one call and got three answers.</li>
+<li>Every answer is one of the allowed answers. <code>team</code> can only be <code>billing</code>, <code>technical</code>, or <code>account</code>. It can never be "refund" or a sentence.</li>
+<li>Every answer comes with a probability.</li>
+</ul>
+<p>Now, the most important part: <strong>Jev answers all these questions in a single parallel pass.</strong></p>
+<p>Here, parallel means all at the same time, and a pass means one run through the model. Let's understand what this means with an analogy.</p>
+<p>An LLM is like a person writing an essay with a pen. Each word comes after the previous word. It cannot write the tenth word before writing the ninth.</p>
+<p>Jev is like a person filling a form with checkboxes. It reads the whole state once, and then ticks all the boxes at the same time. There is no "next word" to wait for. That's the beauty of a System One Model.</p>
+<p>This is why Jev is so fast. A decision that takes a frontier LLM 3 seconds to a few minutes takes Jev about 70 to 500 milliseconds, which is a fraction of a second. TypeSafe reports that Jev is 40 to 200 times faster than LLMs of comparable intelligence on these tasks. In their own evaluation, they report Jev to be up to 193 times faster than Claude Sonnet 5 on decision tasks.</p>
+<p>And because there is no text output, there is nothing to charge for on the output side. Jev costs $0.042 per million input tokens and the output is free.</p>
+<p>So, it decides instantly, always returns a valid answer, tells us how sure it is, and costs very less. All four problems that we saw with the LLM approach got solved.</p>
+<p>This was all about how Jev works. Now, let's understand what "typed" means, because this is the heart of Jev.</p>
+<h2 id="typed-answers-choice-score-and-yes-no">Typed Answers: Choice, Score, and Yes/No</h2>
+<p>In programming, a <strong>type</strong> tells what kind of value something can hold. A variable of type boolean can only hold <code>true</code> or <code>false</code>. It can never hold "maybe". This is what we call <strong>type safety</strong>. The program cannot even represent a wrong kind of value. This is also where the company name TypeSafe comes from.</p>
+<p>Jev brings the same idea to AI answers. Every question we ask has a type, and the answer must fit that type. Jev supports three kinds of typed answers:</p>
+<p><strong>Choice</strong>: pick one option from a fixed list. Example: <code>billing</code>, <code>technical</code>, or <code>account</code>. Jev supports up to 255 options in one list.</p>
+<p><strong>Score</strong>: pick a number from a fixed range. Example: frustration level from 0 to 2, or a quality score from 1 to 5.</p>
+<p><strong>Yes/No</strong>: a <code>true</code> or <code>false</code> answer. Example: "Is this urgent?"</p>
+<p>And every one of these comes with a probability.</p>
+<p>Now, the question is: how does Jev make sure the answer always fits the type?</p>
+<p>Answer: Jev does not write the answer as text, it scores the options. Just for the sake of understanding, think of it like this. For a choice question with three options, Jev produces three probabilities, one for each option, and they add up to 1. The answer is simply the option with the highest probability. There is no way to output a fourth option, because there is no fourth slot.</p>
+<p>This is very different from asking an LLM to "reply in JSON". With an LLM, the JSON is still written token by token, and we hope it comes out valid. With Jev, the shape of the answer is fixed before the model even runs.</p>
+<h2 id="calibration-and-rlcd">Calibration and RLCD</h2>
+<p>Till now, we have learned that Jev returns a probability with every answer. Now, the next big question is: can we trust that probability?</p>
+<p>This is where <strong>calibration</strong> comes into the picture.</p>
+<p><strong>A model is calibrated when its probabilities match reality.</strong> In simple words, if we take all the answers where the model said "I am 90% sure", then about 90% of them must actually be correct. Not 60%. Not 99%. Around 90%.</p>
+<p>Let's say a weather app says "70% chance of rain" on 100 different days. If it rained on about 70 of those days, the app is calibrated. If it rained on only 30 of those days, the app is not calibrated, and its 70% means nothing.</p>
+<p>Most LLMs are not trained for this. They are <a href="https://outcomeschool.com/blog/reinforcement-learning-from-human-feedback-rlhf" rel="noopener noreferrer" target="_blank">trained to write text that humans like</a>. So, when an LLM says "I am confident", it is just writing words that sound confident.</p>
+<p>Jev is trained differently, using a method that TypeSafe calls <strong>RLCD</strong>.</p>
+<p><strong>RLCD = Reinforcement Learning for Calibrated Decisions</strong></p>
+<p>Let's break it down.</p>
+<p><strong><a href="https://outcomeschool.com/blog/reinforcement-learning" rel="noopener noreferrer" target="_blank">Reinforcement Learning</a></strong> is a way of training where the model makes a decision, gets a reward when the decision turns out to be good, and gets a penalty when it turns out to be bad. Over millions of tries, the model learns to make better decisions.</p>
+<p><strong>For Calibrated Decisions</strong> means the reward is not just for being right. The reward is for being right and being honest about how sure it is. Let's see with an example:</p>
+<ul>
+<li>The model says 99% and is right: big reward.</li>
+<li>The model says 99% and is wrong: big penalty.</li>
+<li>The model says 55% and is right: small reward.</li>
+<li>The model says 55% and is wrong: small penalty.</li>
+</ul>
+<p>So, the only way for the model to score well is to say a high probability when it is truly likely to be right, and a low probability when it is not. This is how the probabilities become honest.</p>
+<p>And this honest probability is very useful for us. Now, we can write code like below:</p>
+<pre><code class="language-python">if result["team"]["probability"] &gt; 0.9:
+    route_to(result["team"]["answer"])
+else:
+    send_to_human()
+</code></pre>
+<p>Here, we are trusting Jev when it is very sure, and sending the ticket to a human when it is not. We could never write these lines with a normal LLM, because it never gave us an honest number. This makes our life easy.</p>
+<p><strong>Note:</strong> Calibration does not mean every single answer is correct. A 90% answer is still wrong 10% of the time. Calibration only means the number is honest, so we know how much to trust it.</p>
+<h2 id="why-jev-cannot-hallucinate">Why Jev Cannot Hallucinate</h2>
+<p>You must have heard that <a href="https://outcomeschool.com/blog/why-do-llms-hallucinate-the-token-level-explanation" rel="noopener noreferrer" target="_blank">LLMs hallucinate</a>. In simple words, hallucination means the model confidently says something that is not true or does not exist. It can invent a book that was never written, a function that does not exist, or a category that is not in our list.</p>
+<p>TypeSafe makes a strong claim: Jev cannot hallucinate. Let's understand exactly what this means, because it is easy to misread.</p>
+<p>There are two kinds of mistakes a model can make when we ask it to decide something:</p>
+<p><strong>Type error</strong>: the answer is not even a valid kind of answer. We asked for <code>billing</code>, <code>technical</code>, or <code>account</code>, and the model said "refund" or wrote a paragraph.</p>
+<p><strong>Wrong answer</strong>: the answer is valid, but it is the wrong one. The ticket was about a login problem, and the model said <code>billing</code>.</p>
+<p>Jev can never make a type error. This is a mathematical guarantee, not a promise. The answer is always one of the allowed options, because the model only scores the allowed options. There is no path inside the model that can produce anything else. TypeSafe even says that a single counterexample would be enough to prove this claim false.</p>
+<p>Jev can still give a wrong answer. But when it is unsure, the probability will be lower, because it is calibrated. So, most of the wrong answers can be caught by looking at the probability, and we can send those cases to a human.</p>
+<p>This is the meaning of "cannot hallucinate" here: <strong>it can never invent an answer that does not exist, and when it is unsure, it tells us.</strong></p>
+<p>One more thing to notice. Normally, we think System 1 is fast but error-prone, and System 2 is slow but reliable. TypeSafe turns this idea around. For these decision tasks, a System One Model can be made more reliable than the slow alternative, because its answers are limited to the allowed options by design, and its confidence is honest by training.</p>
+<h2 id="jev-vs-llm">Jev vs LLM</h2>
+<p>Now that we have learned about Jev in detail, it's time to compare it with an LLM side by side.</p>
+<p>Let me tabulate the differences between Jev and an LLM for your better understanding.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Jev (System One Model)</th>
+<th>LLM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Output</td>
+<td>Typed decisions with probabilities</td>
+<td>Free-form text</td>
+</tr>
+<tr>
+<td>How it answers</td>
+<td>All answers in one parallel pass</td>
+<td>One token at a time</td>
+</tr>
+<tr>
+<td>Can write text, code, replies</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Can reason step by step</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Output format guarantee</td>
+<td>Always valid, by design</td>
+<td>Must be cleaned and checked by our code</td>
+</tr>
+<tr>
+<td>Confidence</td>
+<td>Calibrated probability with every answer</td>
+<td>Not available or not honest</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>70 to 500 milliseconds</td>
+<td>Seconds to minutes</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>$0.042 per million input tokens, output free</td>
+<td>Much higher, and output tokens cost extra</td>
+</tr>
+<tr>
+<td>Input</td>
+<td>Text, JSON, lists of text</td>
+<td>Text, images, audio, and more</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>Classify, route, score, check, decide</td>
+<td>Chat, write, code, reason, explain</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="where-jev-works-well-and-where-it-fails">Where Jev Works Well and Where It Fails</h2>
+<p><strong>Where it works well:</strong></p>
+<ul>
+<li><strong>Routing</strong>: which team, <a href="https://outcomeschool.com/blog/llm-routing" rel="noopener noreferrer" target="_blank">which model</a>, or which workflow must handle this?</li>
+<li><strong>Classification</strong>: spam or not, positive or negative, which category?</li>
+<li><strong>Scoring</strong>: how relevant is this document, or <a href="https://outcomeschool.com/blog/llm-as-a-judge" rel="noopener noreferrer" target="_blank">how good is this answer</a>, from 1 to 5?</li>
+<li><strong><a href="https://outcomeschool.com/blog/how-do-llm-guardrails-work" rel="noopener noreferrer" target="_blank">Guardrails</a></strong>, which means safety checks: is this LLM output safe, on topic, and correct? Jev can check an LLM's answer in a fraction of a second before the user sees it.</li>
+<li><strong>Real-time decisions</strong>: anything inside a user-facing app where we cannot wait for seconds.</li>
+<li><strong>Large datasets</strong>: running the same decision over millions of rows, where cost and speed matter the most.</li>
+</ul>
+<p><strong>Where it fails:</strong></p>
+<ul>
+<li><strong>Writing anything</strong>: Jev cannot write a reply, an email, a summary, or code. There is no text output.</li>
+<li><strong>Open-ended reasoning</strong>: if the task needs many steps of thinking, like solving a hard math problem, Jev is not the right tool.</li>
+<li><strong>Explanations</strong>: Jev gives the answer and the probability, not the reason behind it.</li>
+<li><strong>Images and audio</strong>: as of now, Jev accepts text only.</li>
+<li><strong>Very large option lists</strong>: one choice question supports up to 255 options.</li>
+</ul>
+<h2 id="when-to-use-which-one">When to Use Which One</h2>
+<p>The simplest rule is this:</p>
+<p><strong>If the answer is a decision, use Jev. If the answer is text, use an LLM.</strong></p>
+<p>And in real systems, we use both together. Let's say we are building a customer support system that replies to customers automatically.</p>
+<p>First, Jev reads the ticket and decides the team, the urgency, and whether it is safe to reply automatically. This takes a fraction of a second.</p>
+<p>Then, if Jev is sure it is safe, the LLM writes the reply.</p>
+<p>After that, Jev checks the reply and decides whether it is correct and polite before it is sent.</p>
+<p>Here, the LLM does the System 2 work: writing and reasoning. Jev does the System 1 work: deciding, fast and many times. Each one does what it is good at.</p>
+<p>This kind of flow, where one step decides the path and another step does the work, is a common pattern. We have a detailed blog on <a href="https://outcomeschool.com/blog/ai-orchestration" rel="noopener noreferrer" target="_blank">AI Orchestration</a> that covers these patterns end to end.</p>
+<p>Now we must have understood Jev and System One Models, how they think like the fast System 1 of our brain, how they answer all questions in a single pass instead of one token at a time, how typed answers make wrong formats impossible, how RLCD makes the probability honest, and when to use them along with an LLM.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="who-built-jev">Who built Jev?</h3>
+<p>Jev was built by a company called TypeSafe AI and announced on September 15, 2026. TypeSafe AI was founded by Diogo Almeida, one of the people behind ChatGPT. The team spent about two years building a new way of training models, and Jev is the result of that work.</p>
+<h3 id="can-we-ask-jev-several-questions-in-one-call">Can we ask Jev several questions in one call?</h3>
+<p>Yes. We can ask many questions in one call, and Jev answers all of them in a single parallel pass. It reads the whole state once and then ticks all the answers at the same time, like filling a form with checkboxes. Each answer comes with its own probability.</p>
+<h3 id="is-asking-an-llm-to-reply-in-json-the-same-as-jev-s-typed-answers">Is asking an LLM to reply in JSON the same as Jev's typed answers?</h3>
+<p>No. With an LLM, the JSON is still written token by token, and we hope it comes out valid. With Jev, the shape of the answer is fixed before the model even runs. Jev scores only the allowed options, so it cannot output anything outside them.</p>
+<h3 id="does-a-calibrated-probability-mean-jev-is-always-right">Does a calibrated probability mean Jev is always right?</h3>
+<p>No. Calibration does not mean every single answer is correct. A 90% answer is still wrong about 10% of the time. Calibration only means the number is honest, so we know how much to trust it and can send the unsure cases to a human.</p>
+<h3 id="how-much-does-jev-cost-to-use">How much does Jev cost to use?</h3>
+<p>Jev costs $0.042 per million input tokens, and the output is free. Since Jev does not generate any text, there is nothing to charge for on the output side. With an LLM, the cost is much higher, and output tokens cost extra.</p>
+
+</section>
+
+</section>
+<p class="print-footer">Personal offline study copy · Content © Outcome School / Amit Shekhar</p>
+</main>
+</body>
+</html>

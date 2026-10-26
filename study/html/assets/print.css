@@ -1,0 +1,4 @@
+
+/* Print-only overrides. The main print rules live in style.css. */
+.print-body .anchor { display: none; }
+.print-body .toc { display: none; }

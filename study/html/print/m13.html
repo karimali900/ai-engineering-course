@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 13: Evaluation and Observability</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/print.css">
+</head>
+<body class="print-body">
+<main class="print-document">
+
+<section class="print-cover">
+  <p class="kicker">AI Engineering Course</p>
+  <h1>Module 13</h1>
+  <h2>Evaluation and Observability</h2>
+  <p class="meta">4 lessons · Personal offline study copy</p>
+  <p class="notice">Personal offline study copy. Content © Outcome School /
+  Amit Shekhar. Not for redistribution. See study/NOTICE.md.</p>
+</section>
+<section class="print-toc">
+<h1>Contents</h1>
+<ul>
+<li class="module-entry"><a href="#module-13">Module 13: Evaluation and Observability</a>
+<ul class="toc-lessons">
+<li class="lesson-entry"><a href="#lesson-m13-l1301">13.1 What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained</a></li>
+<li class="lesson-entry"><a href="#lesson-m13-l1302">13.2 What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs</a></li>
+<li class="lesson-entry"><a href="#lesson-m13-l1303">13.3 How to Evaluate AI Agents? Metrics, Methods, and Best Practices</a></li>
+<li class="lesson-entry"><a href="#lesson-m13-l1304">13.4 What is AI Agent Observability? Traces, Spans, and Metrics Explained</a></li>
+</ul>
+</li>
+</ul>
+</section>
+<section class="print-module" id="module-13">
+  <section class="print-module-title">
+    <p class="kicker">Module 13</p>
+    <h1>Evaluation and Observability</h1>
+    <p class="meta">4 lessons · ~1 min overview</p>
+  </section>
+  <div class="print-module-intro"><p>In this module, we will learn how to measure whether our LLM and our agent are actually doing a good job, and how to see what they are doing in production.</p>
+<p>By the end of this module, we will be able to build an evaluation suite and trace every step of an agent in production.</p>
+</div>
+  
+<section class="print-lesson" id="lesson-m13-l1301">
+  <p class="print-lesson-kicker">Lesson 13.1</p>
+  <h1>What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained</h1>
+  <p class="print-lesson-meta">Lesson 13.1 · ~19 min · Published May 24, 2026 · <a href="https://outcomeschool.com/blog/llm-evaluation">https://outcomeschool.com/blog/llm-evaluation</a></p>
+  <p><img alt="LLM Evaluation" src="../assets/images/13-13-01-what-is-llm-evaluation-metrics-benchmarks-and-methods-explained/llm-evaluation.png"/></p>
+<p>LLM Evaluation is the process of measuring how well a Large Language Model performs on the tasks we expect it to do. We check if its outputs are correct, helpful, safe, and useful for our use case.</p>
+<p>In this blog, we will learn about LLM Evaluation. We will understand what it is, why we need it, the main types of evaluation, the automatic metrics and benchmarks we can use, human evaluation, LLM as a Judge, task-specific and safety evaluation, the common challenges, and the best practices to follow.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is LLM Evaluation?</li>
+<li>Why do we need LLM Evaluation?</li>
+<li>Types of LLM Evaluation</li>
+<li>Automatic Metrics</li>
+<li>Benchmarks</li>
+<li>Human Evaluation</li>
+<li>LLM as a Judge</li>
+<li>Task-Specific Evaluation</li>
+<li>Safety and Red-Teaming Evaluation</li>
+<li>Challenges in LLM Evaluation</li>
+<li>Best Practices</li>
+<li>When to use which method</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="what-is-llm-evaluation">What is LLM Evaluation?</h2>
+<p><strong>LLM Evaluation is the process of measuring how well a Large Language Model performs on the tasks we expect it to do.</strong></p>
+<p>In simple words, we give the model some inputs, look at the outputs, and check if the outputs are correct, helpful, safe, and useful. This is how we decide whether a model is good enough for our use case.</p>
+<p>Let's say we have built a chatbot using an LLM. Now, the question is: how do we know if our chatbot is actually good? Is it giving correct answers? Is it polite? Is it safe? Is it better than the older version we had last week? To answer all these questions, we need LLM Evaluation.</p>
+<h2 id="why-do-we-need-llm-evaluation">Why do we need LLM Evaluation?</h2>
+<p>LLMs are very powerful, but they are not perfect. They can make mistakes. They can give wrong information. They can sound very confident even when they are wrong. This is called <strong><a href="https://outcomeschool.com/blog/why-do-llms-hallucinate-the-token-level-explanation" rel="noopener noreferrer" target="_blank">hallucination</a></strong>, where the model makes up facts that are not true. They can also produce harmful or biased content.</p>
+<p>So, before we ship an LLM to our users, we must know how it behaves. And after we ship it, we must keep checking it to make sure it does not get worse over time.</p>
+<p>Here are the main reasons we need LLM Evaluation:</p>
+<ul>
+<li>To compare different models and pick the best one for our use case.</li>
+<li>To compare different versions of the same model after <a href="https://outcomeschool.com/blog/how-does-fine-tuning-work" rel="noopener noreferrer" target="_blank">fine-tuning</a> or prompt changes.</li>
+<li>To find weak spots where the model fails so that we can fix them.</li>
+<li>To make sure the model is safe and does not produce harmful content.</li>
+<li>To track quality over time, so that we know if the model is getting better or worse.</li>
+<li>To build trust with our users, our team, and our stakeholders.</li>
+</ul>
+<p>Without evaluation, we are just guessing. And guessing is not a good idea when real users depend on our product.</p>
+<h2 id="types-of-llm-evaluation">Types of LLM Evaluation</h2>
+<p>There are four main types of LLM Evaluation. We will learn about each of them in detail.</p>
+<ul>
+<li><strong>Automatic Metrics</strong> - We use formulas to score the model output against a reference answer.</li>
+<li><strong>Benchmarks</strong> - We test the model on standard datasets that everyone uses.</li>
+<li><strong>Human Evaluation</strong> - We ask humans to read the outputs and rate them.</li>
+<li><strong>LLM as a Judge</strong> - We use another LLM to score the outputs.</li>
+</ul>
+<p>Each of these has its own strengths and weaknesses. In real projects, we usually combine more than one of them.</p>
+<p>Beyond these four core methods, there are two cross-cutting areas we will also cover later in this blog: <strong>Task-Specific Evaluation</strong> and <strong>Safety Evaluation</strong>. These are not separate methods. They reuse the four above.</p>
+<p>Now, let's discuss each one.</p>
+<h2 id="automatic-metrics">Automatic Metrics</h2>
+<p><strong>Automatic Metrics are simple formulas that compare the model output with a reference answer and give us a score.</strong></p>
+<p>The best way to learn this is by taking an example. Suppose we ask the model to translate a sentence from English to French. We already have the correct French translation written by a human. The model gives its own French translation. Now, we want to know how close the model's translation is to the human translation. This is where automatic metrics come into the picture.</p>
+<p>Here are the common ones:</p>
+<p><strong>BLEU</strong></p>
+<p>BLEU is used mostly for translation tasks. It is a precision-based metric. It asks: what fraction of small word groups (called n-grams) in the model output also appear in the reference answer? A higher BLEU score means the model output is closer to the reference. For example, if the reference is "The cat sat on the mat" and the model says "The cat sat on the mat", BLEU is very high. If the model says "A feline rested on the rug", BLEU is low even though the meaning is the same.</p>
+<p><strong>ROUGE</strong></p>
+<p>ROUGE is used mostly for summarization tasks. It asks: what fraction of n-grams in the reference summary are covered by the model summary? Just like BLEU, a higher score is better.</p>
+<p><strong>BERTScore</strong></p>
+<p>BERTScore uses contextual embeddings to compare the meaning of the model output with the reference. So, even if the words are different, if the meaning is close, the score is high. Going back to our earlier example, "A feline rested on the rug" would score high against "The cat sat on the mat" because the meaning is almost the same. This makes BERTScore much better than BLEU for tasks where the wording can vary a lot.</p>
+<p><strong>METEOR</strong></p>
+<p>METEOR is another metric that improves on BLEU by handling synonyms, stemming, and word order. It sits between pure surface matching and full semantic matching.</p>
+<p><strong>Perplexity</strong></p>
+<p>Perplexity measures how well the model predicts the next token. A lower perplexity means the model assigns a higher probability to the actual next token in the test data. This metric is mostly used during model training to track if the model is learning.</p>
+<p><strong>Exact Match</strong></p>
+<p>Exact Match is the simplest one. The score is 1 if the model output is exactly the same as the reference answer, and 0 otherwise. This is useful for tasks like math problems or short factual questions.</p>
+<p><strong>Note:</strong> In modern LLM evaluation, reference-based metrics like BLEU and ROUGE are mostly used in research papers and translation pipelines. For production LLM applications, we usually rely on LLM as a Judge or task-specific evaluation, which we will learn about soon.</p>
+<p><strong>Advantage:</strong></p>
+<ul>
+<li>Fast and cheap to run.</li>
+<li>We can run them at scale on millions of examples.</li>
+<li>The scores are repeatable. Same input gives same score every time.</li>
+</ul>
+<p><strong>Disadvantage:</strong></p>
+<ul>
+<li>They only check surface similarity. They do not understand meaning.</li>
+<li>A model can give a perfect answer in different words and still get a low score.</li>
+<li>They do not work well for open-ended tasks like creative writing or chat.</li>
+</ul>
+<p>This was all about Automatic Metrics. Now, let's learn about Benchmarks.</p>
+<h2 id="benchmarks">Benchmarks</h2>
+<p><strong>Benchmarks are standard datasets that the whole research community uses to test LLMs.</strong></p>
+<p>When a new LLM is released, the team behind it usually publishes scores on popular benchmarks. This helps us compare it with other models in a fair way.</p>
+<p>Different benchmarks test different skills. Let's group them by category, so that we know what each one is for.</p>
+<p><strong>General Knowledge</strong></p>
+<ul>
+<li><strong>MMLU</strong> - Tests general knowledge across 57 subjects like history, law, math, and medicine, using multiple-choice questions.</li>
+<li><strong>MMLU-Pro</strong> - A harder version of MMLU with 10 answer choices and mandatory <a href="https://outcomeschool.com/blog/how-does-chain-of-thought-prompting-work" rel="noopener noreferrer" target="_blank">chain-of-thought reasoning</a>.</li>
+</ul>
+<p><strong>Common Sense Reasoning</strong></p>
+<ul>
+<li><strong>HellaSwag</strong> - The model has to pick the most likely ending to a short story.</li>
+</ul>
+<p><strong>Coding</strong></p>
+<ul>
+<li><strong>HumanEval</strong> - Tests coding ability with simple function-writing problems.</li>
+<li><strong>SWE-bench Verified</strong> - Real GitHub issues from open-source projects. Tests whether a model can solve real-world software problems.</li>
+<li><strong>LiveCodeBench</strong> - A coding benchmark that uses problems released after the model's training cutoff, so it is contamination-resistant.</li>
+</ul>
+<p><strong>Math</strong></p>
+<ul>
+<li><strong>GSM8K</strong> - Math word problems at the grade-school level.</li>
+<li><strong>MATH</strong> - Harder competition-style math problems.</li>
+<li><strong>AIME</strong> - Math olympiad problems used for advanced reasoning.</li>
+</ul>
+<p><strong>Frontier Reasoning</strong></p>
+<ul>
+<li><strong>GPQA-Diamond</strong> - PhD-level science questions used to separate strong reasoning models from average ones.</li>
+<li><strong>Humanity's Last Exam (HLE)</strong> - Over 3,000 expert-level questions across many fields, used as a hard frontier challenge.</li>
+</ul>
+<p><strong>Instruction Following</strong></p>
+<ul>
+<li><strong>IFEval</strong> - Tests instruction-following with verifiable constraints, like "answer in exactly 3 bullet points".</li>
+</ul>
+<p><strong>Tool Use</strong></p>
+<ul>
+<li><strong>BFCL (Berkeley Function-Calling Leaderboard)</strong> - Tests how well a model can use tools and call functions, very relevant for agents.</li>
+</ul>
+<p><strong>Long Context</strong></p>
+<ul>
+<li><strong>RULER</strong> - Tests the <a href="https://outcomeschool.com/blog/lost-in-the-middle-problem-in-llms" rel="noopener noreferrer" target="_blank">effective context window</a>, which is more honest than the nominal context length the model claims.</li>
+</ul>
+<p><strong>Truthfulness</strong></p>
+<ul>
+<li><strong>TruthfulQA</strong> - Tests if the model gives truthful answers instead of repeating common false beliefs.</li>
+</ul>
+<p><strong>Conversation Quality</strong></p>
+<ul>
+<li><strong>Chatbot Arena (LMArena)</strong> - Real users chat with two anonymous models side by side and pick the better one. The models are then ranked using an Elo score, just like in chess.</li>
+</ul>
+<p>Now that we have seen the categories, we must understand three important ideas that decide how useful a benchmark really is.</p>
+<ul>
+<li><strong>Saturation</strong> - Over time, top models start scoring near the ceiling on a benchmark. When every model scores very high, the benchmark stops separating good from great. So, the research community keeps building harder benchmarks to take their place.</li>
+<li><strong>Data contamination</strong> - The model may have seen the test questions during training, which makes the scores look higher than they really are. Contamination-resistant benchmarks try to fix this by using problems released after the model's training cutoff.</li>
+<li><strong>Qualification bar</strong> - Older or easier benchmarks are not useless. They become a basic check that any serious model must pass before we even look at the harder ones.</li>
+</ul>
+<p><strong>Advantage:</strong></p>
+<ul>
+<li>Easy to compare different models, because everyone uses the same dataset.</li>
+<li>Covers a wide range of skills.</li>
+<li>Backed by the research community.</li>
+</ul>
+<p><strong>Disadvantage:</strong></p>
+<ul>
+<li>A high score on a benchmark does not always mean the model works well on our specific use case.</li>
+<li>A benchmark can be saturated, contaminated, or both, which makes the scores misleading.</li>
+<li>Public benchmarks rarely match the exact task we care about in our product.</li>
+</ul>
+<p>This is how Benchmarks work. Now, let's move to Human Evaluation.</p>
+<h2 id="human-evaluation">Human Evaluation</h2>
+<p><strong>Human Evaluation is when real people read the model outputs and rate them.</strong></p>
+<p>This is still the gold standard. Humans can judge things that formulas cannot, like tone, helpfulness, creativity, and safety.</p>
+<p>Let's say we ask the model to write a short poem. There is no single correct answer here. A formula cannot tell us if the poem is good. But a human reader can.</p>
+<p>Here are the common ways to do human evaluation:</p>
+<ul>
+<li><strong>Likert Scale Rating</strong> - The human gives a score from 1 to 5 on quality, helpfulness, or safety.</li>
+<li><strong>Pairwise Comparison</strong> - The human sees two outputs and picks the better one. This is used in tools like Chatbot Arena.</li>
+<li><strong>Error Annotation</strong> - The human marks the exact mistakes in the output, so we know where the model failed.</li>
+</ul>
+<p><strong>Advantage:</strong></p>
+<ul>
+<li>Humans can judge meaning, tone, and quality.</li>
+<li>Works for open-ended tasks where there is no single correct answer.</li>
+<li>Gives us deep insights into where the model fails.</li>
+</ul>
+<p><strong>Disadvantage:</strong></p>
+<ul>
+<li>Very slow and expensive.</li>
+<li>Different humans may give different scores for the same output.</li>
+<li>Hard to scale to thousands or millions of examples.</li>
+</ul>
+<p>One more thing to note. These same pairwise comparisons are also used to train models, not just to score them. We have a detailed blog on <a href="https://outcomeschool.com/blog/decoding-instructgpt" rel="noopener noreferrer" target="_blank">Decoding InstructGPT</a> that shows how human rankings turn into a reward model.</p>
+<p>This was all about Human Evaluation. Now, let's learn about LLM as a Judge.</p>
+<h2 id="llm-as-a-judge">LLM as a Judge</h2>
+<p><strong>LLM as a Judge means we use a strong LLM to score the outputs of another LLM.</strong></p>
+<p>Human evaluation is great but very expensive. So, here comes the LLM as a Judge to the rescue. We give a powerful model, like a top-tier LLM, the input prompt and the output, and we ask it to rate the output.</p>
+<p>For the sake of understanding, let's see an example. Suppose we want to check if a chatbot's reply is helpful and polite. We can write a prompt like this:</p>
+<pre><code>You are an expert evaluator. Read the user question and the assistant reply.
+Rate the reply on a scale of 1 to 5 for helpfulness and politeness.
+Give a short reason for your rating.
+User question: {question}
+Assistant reply: {reply}
+</code></pre>
+<p>The judge LLM reads the prompt and gives us a score and a reason. We can then use this score just like a human score.</p>
+<p><strong>Advantage:</strong></p>
+<ul>
+<li>Much cheaper and faster than human evaluation.</li>
+<li>Can scale to millions of examples.</li>
+<li>Works well for open-ended tasks where formulas fail.</li>
+</ul>
+<p><strong>Disadvantage:</strong></p>
+<ul>
+<li>The judge LLM can have its own biases. The well-known ones are:
+<ul>
+<li><strong>Position bias</strong> - The judge can favor the first option, or sometimes the second, when comparing two answers side by side.</li>
+<li><strong>Verbosity bias</strong> - The judge can favor longer answers, even when a shorter one is better.</li>
+<li><strong>Self-preference bias</strong> - The judge can favor outputs from its own model family.</li>
+</ul>
+</li>
+<li>The judge is not perfect. It can also make mistakes.</li>
+<li>We must validate the judge by comparing its scores with human scores on a small sample.</li>
+</ul>
+<p>If you want to learn more about this, I have a separate blog on <a href="https://outcomeschool.com/blog/llm-as-a-judge" rel="noopener noreferrer" target="_blank">LLM as a Judge</a> that goes deeper into this topic.</p>
+<p>This is how LLM as a Judge works. Now, it's time to learn about Task-Specific Evaluation.</p>
+<h2 id="task-specific-evaluation">Task-Specific Evaluation</h2>
+<p><strong>Task-Specific Evaluation is a layer on top of the four types we just learned. It means we design our own evaluation based on the exact task our LLM is doing.</strong></p>
+<p>Under the hood, task-specific evaluation usually uses automatic metrics or LLM as a Judge. But the questions we ask, the inputs we test on, and the things we score are all chosen based on our specific use case.</p>
+<p>General benchmarks tell us how a model does on average. But, in our real product, we have a specific task. The evaluation must match that task.</p>
+<p>Let's see a few common cases.</p>
+<p><strong>RAG (Retrieval Augmented Generation)</strong></p>
+<p>In RAG, the model uses a retrieved document to answer a question. So, we need to check two things: did the system retrieve the right document, and did the model use the document correctly to answer the question?</p>
+<p>The standard here is the <strong>RAGAS four-metric pattern</strong>:</p>
+<ul>
+<li><strong>Context Precision</strong> - Of the <a href="https://outcomeschool.com/blog/chunking-strategies-for-rag" rel="noopener noreferrer" target="_blank">chunks</a> we retrieved, how many are actually relevant?</li>
+<li><strong>Context Recall</strong> - Of all the relevant chunks in our corpus, how many did we manage to retrieve?</li>
+<li><strong>Faithfulness (Groundedness)</strong> - Is the final answer supported by the retrieved context, or did the model make something up?</li>
+<li><strong>Answer Relevance</strong> - Does the answer actually address the user's question?</li>
+</ul>
+<p>Context Precision and Context Recall are the classic Precision and Recall metrics applied to retrieval. We have a detailed blog on <a href="https://outcomeschool.com/blog/precision-vs-recall" rel="noopener noreferrer" target="_blank">Precision vs Recall</a> that explains both in depth.</p>
+<p>There are popular frameworks that implement these metrics, like <strong>RAGAS</strong>, <strong>DeepEval</strong>. We do not need to learn all of them, but we must know that they exist so that we know what to search for when we build a real RAG system.</p>
+<p><strong>Agents</strong></p>
+<p>In agent systems, the model uses tools and takes many steps. So, we need to check:</p>
+<ul>
+<li>Did the agent pick the right tool?</li>
+<li>Did it pass the correct arguments?</li>
+<li>Did it finish the task?</li>
+<li>How many steps did it take?</li>
+</ul>
+<p>Two popular agent benchmarks worth knowing:</p>
+<ul>
+<li><strong>τ-bench (tau-bench)</strong> - Evaluates agents in realistic customer-service environments.</li>
+<li><strong>SWE-bench Verified</strong> - For coding agents specifically, based on real GitHub issues.</li>
+</ul>
+<p>Other names we will see are <strong>GAIA</strong> for general-assistant tasks, <strong>WebArena</strong> for browser agents, and <strong>BFCL</strong> for <a href="https://outcomeschool.com/blog/how-does-function-calling-work-in-llms" rel="noopener noreferrer" target="_blank">function-calling</a> accuracy.</p>
+<p><strong>Code Generation</strong></p>
+<p>For code generation, we run the generated code against test cases. If the tests pass, the code is correct. This is much better than just comparing the code text.</p>
+<p><strong>Customer Support Chatbots</strong></p>
+<p>For chatbots, we check things like: did the bot answer the question, was the answer polite, did it follow our brand guidelines, and did it escalate to a human when needed.</p>
+<p>This way we can use Task-Specific Evaluation to solve any problem in a very simple way.</p>
+<h2 id="safety-and-red-teaming-evaluation">Safety and Red-Teaming Evaluation</h2>
+<p><strong>Safety Evaluation is its own category, where we test the model against adversarial and harmful inputs.</strong></p>
+<p>So far, we have focused on whether the model gives correct and useful answers. But, there is one more important question: is the model safe?</p>
+<p>In safety evaluation, we red-team the model with adversarial prompts. We try jailbreaks, <a href="https://outcomeschool.com/blog/prompt-injection-in-llms" rel="noopener noreferrer" target="_blank">prompt injections</a>, and harmful requests. We check if the model refuses correctly, if it leaks sensitive data, and if it shows bias on sensitive topics. We have a detailed blog on <a href="https://outcomeschool.com/blog/how-do-llm-guardrails-work" rel="noopener noreferrer" target="_blank">How do LLM guardrails work?</a> that explains how these checks are enforced on the input and the output.</p>
+<p>Here are some well-known safety benchmarks:</p>
+<ul>
+<li><strong>HarmBench</strong> - Tests model behavior on harmful and adversarial requests.</li>
+<li><strong>AdvBench</strong> - A standard set of adversarial prompts used to attack models.</li>
+<li><strong>TrustLLM</strong> - A broad evaluation suite covering truthfulness, safety, fairness, robustness, privacy, and ethics.</li>
+</ul>
+<p>In production, we also run continuous safety monitoring on real traffic, because new attack patterns appear all the time.</p>
+<h2 id="challenges-in-llm-evaluation">Challenges in LLM Evaluation</h2>
+<p>LLM Evaluation is hard. Here are the main challenges:</p>
+<ul>
+<li><strong>Open-ended outputs</strong> - There is no single correct answer for many tasks, so formulas do not work well. For example, there are a thousand ways to write a good email reply, and no formula can score all of them correctly.</li>
+<li><strong>Data contamination</strong> - The model may have seen the test data during training, which makes the scores misleading.</li>
+<li><strong>Cost</strong> - Human evaluation is expensive, and running large evaluation sets through powerful LLMs is also expensive.</li>
+<li><strong>Bias in the judge</strong> - When we use LLM as a Judge, the judge can have its own preferences that do not match real users.</li>
+<li><strong>Drift over time</strong> - The model behavior can change after fine-tuning, prompt updates, or even just because the provider updated the model on the backend. So, we must keep evaluating in production, not just before launch.</li>
+<li><strong>Edge cases</strong> - The model may work well on average, but fail badly on rare but important cases. We must check for these and add them to our evaluation set.</li>
+</ul>
+<p>Now, the next big question is: how do we deal with all these challenges? The answer is, we follow some best practices.</p>
+<h2 id="best-practices">Best Practices</h2>
+<p>Here are the best practices that I personally believe in for LLM Evaluation:</p>
+<ul>
+<li><strong>Build a custom evaluation set</strong> - Do not rely only on public benchmarks. Build a small but high-quality dataset that matches our real use case.</li>
+<li><strong>Combine many methods</strong> - Use automatic metrics for speed, LLM as a Judge for scale, and human evaluation for the final check.</li>
+<li><strong>Validate the judge</strong> - When using LLM as a Judge, compare its scores with human scores on a small sample to make sure the judge is reliable.</li>
+<li><strong>Track over time</strong> - Run evaluations every time we change the prompt, the model, or the system. Save the results so we can see trends.</li>
+<li><strong>Cover edge cases</strong> - Add hard examples, adversarial examples, and safety examples to our evaluation set.</li>
+<li><strong>Keep humans in the loop</strong> - Even with automated evaluation, review a small sample by hand every week to catch problems that the metrics miss.</li>
+<li><strong>Measure cost and latency too</strong> - Quality is not the only thing that matters. We must also track how fast the model responds and how much each call costs. A perfect answer that takes 30 seconds is not useful in a real product.</li>
+</ul>
+<p>This way we can use LLM Evaluation to solve the interesting problem of knowing if our LLM is actually good.</p>
+<h2 id="when-to-use-which-method">When to use which method</h2>
+<p>Let me tabulate the differences between the four evaluation methods for your better understanding so that you can decide which one to use based on your use case.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Speed</th>
+<th>Cost</th>
+<th>Quality of Judgement</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Automatic Metrics</td>
+<td>Very Fast</td>
+<td>Very Low</td>
+<td>Low</td>
+<td>Translation, summarization, exact-answer tasks</td>
+</tr>
+<tr>
+<td>Benchmarks</td>
+<td>Fast</td>
+<td>Low</td>
+<td>Medium</td>
+<td>Comparing models at the research level</td>
+</tr>
+<tr>
+<td>Human Evaluation</td>
+<td>Very Slow</td>
+<td>Very High</td>
+<td>Very High</td>
+<td>Final quality check, open-ended tasks</td>
+</tr>
+<tr>
+<td>LLM as a Judge</td>
+<td>Fast</td>
+<td>Medium</td>
+<td>High</td>
+<td>Scaling evaluation for chat, RAG, and agents</td>
+</tr>
+</tbody>
+</table></div>
+<p>Task-Specific and Safety Evaluation are not in this table, because they sit on top of these four methods. They decide what to test, and then they use these methods to do it.</p>
+<p>In a real product, we usually combine all four. We use automatic metrics during training, benchmarks for model selection, LLM as a Judge for daily monitoring, and human evaluation for the final check before shipping.</p>
+<p>This way we can use LLM Evaluation to build LLM applications that are reliable, safe, and useful for our users.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="what-is-the-difference-between-bleu-and-bertscore">What is the difference between BLEU and BERTScore?</h3>
+<p>BLEU checks word overlap, while BERTScore compares meaning. BLEU asks what fraction of n-grams in the model output also appear in the reference, so "A feline rested on the rug" scores low against "The cat sat on the mat". BERTScore uses contextual embeddings, so the same pair scores high because the meaning is almost the same.</p>
+<h3 id="does-a-high-benchmark-score-mean-the-model-will-work-well-for-our-product">Does a high benchmark score mean the model will work well for our product?</h3>
+<p>No. A high score on a benchmark does not always mean the model works well on our specific use case. Public benchmarks rarely match the exact task we care about, and a benchmark can be saturated, contaminated, or both. So, we should build a small but high-quality evaluation set that matches our real use case.</p>
+<h3 id="what-is-data-contamination-in-llm-evaluation">What is data contamination in LLM evaluation?</h3>
+<p>Data contamination means the model may have seen the test questions during training. This makes the scores look higher than they really are. Contamination-resistant benchmarks try to fix this by using problems released after the model's training cutoff.</p>
+<h3 id="is-it-enough-to-evaluate-an-llm-once-before-launch">Is it enough to evaluate an LLM once before launch?</h3>
+<p>No. Model behavior can change after fine-tuning, prompt updates, or even when the provider updates the model on the backend. So, we must keep evaluating in production, not just before launch. We run evaluations every time we change the prompt, the model, or the system, and save the results to see trends.</p>
+<h3 id="should-we-only-measure-the-quality-of-the-answers">Should we only measure the quality of the answers?</h3>
+<p>No. Quality is not the only thing that matters. We must also track how fast the model responds and how much each call costs. A perfect answer that takes 30 seconds is not useful in a real product.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m13-l1302">
+  <p class="print-lesson-kicker">Lesson 13.2</p>
+  <h1>What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs</h1>
+  <p class="print-lesson-meta">Lesson 13.2 · ~19 min · Published May 21, 2026 · <a href="https://outcomeschool.com/blog/llm-as-a-judge">https://outcomeschool.com/blog/llm-as-a-judge</a></p>
+  <p><img alt="LLM as a Judge" src="../assets/images/13-13-02-what-is-llm-as-a-judge-how-to-use-an-llm-to-evaluate-llm-outputs/llm-as-a-judge.png"/></p>
+<p>LLM as a Judge is a technique where we use a large language model to evaluate the output of another large language model. The judge LLM reads the output, compares it against our criteria, and gives a score or a verdict with a reason.</p>
+<p>In this blog, we will learn about LLM as a Judge. We will also see how it works, why we need it, and how we can use it to evaluate the output of other LLMs.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is LLM as a Judge?</li>
+<li>Why do we need LLM as a Judge?</li>
+<li>How does LLM as a Judge work?</li>
+<li>Types of LLM as a Judge.</li>
+<li>Steps to build an LLM Judge.</li>
+<li>A prompt template for LLM as a Judge.</li>
+<li>Chain-of-thought judging (G-Eval).</li>
+<li>Biases in LLM as a Judge.</li>
+<li>Best practices for LLM as a Judge.</li>
+<li>Real-world use cases of LLM as a Judge.</li>
+</ul>
+<p>Let's get started.</p>
+<h3 id="what-is-llm-as-a-judge">What is LLM as a Judge?</h3>
+<p><strong>LLM as a Judge</strong> is a technique where we use a large language model to evaluate the output of another large language model. The judge LLM reads the output, compares it against our criteria, and gives a score or a verdict with a reason.</p>
+<p>In simple words, <strong>LLM as a Judge = LLM + Judge</strong>. We are using one LLM to judge the work of another LLM.</p>
+<p>Let's say we have built a chatbot using an LLM. The chatbot gives answers to user questions. Now, we want to know how good these answers are. We can ask a human to read every answer and rate it. But this is slow and expensive. Instead, we can ask another LLM to read the answers and rate them for us.</p>
+<p>This is the core idea of LLM as a Judge.</p>
+<p>The judge LLM acts like a teacher checking the homework of a student. The student is another LLM. The teacher reads the homework, compares it with the expected answer, and gives a grade with feedback.</p>
+<h3 id="why-do-we-need-llm-as-a-judge">Why do we need LLM as a Judge?</h3>
+<p>Before jumping into how it works, we must understand the problem it solves.</p>
+<p>When we build an application using LLMs, we need to evaluate the quality of the output. The output of an LLM is open-ended text. There is no single correct answer. Two different answers can both be correct.</p>
+<p>Let's see the traditional ways of <a href="https://outcomeschool.com/blog/llm-evaluation" rel="noopener noreferrer" target="_blank">evaluating LLM outputs</a> and the problems with each approach.</p>
+<p><strong>Approach 1: Human evaluation.</strong></p>
+<p>We can ask humans to read every output and rate it. This gives high quality results because humans understand language well. But humans are slow. They are expensive. They get tired. They cannot evaluate millions of outputs every day.</p>
+<p>The issue with this approach is that it does not scale. Let's see how the next approach solve this issue.</p>
+<p><strong>Approach 2: Rule-based metrics like BLEU and ROUGE.</strong></p>
+<p>We can use rule-based metrics that compare the output with a reference answer word by word. These metrics are fast and cheap. But they only check word overlap. They miss the meaning. An answer can be correct but use different words. These metrics will give it a low score.</p>
+<p>The issue with this approach is that it does not understand meaning. Let's see how the next approach solve this issue.</p>
+<p><strong>Approach 3: LLM as a Judge.</strong></p>
+<p>We use another LLM to read the output and judge its quality. The LLM understands language. It understands meaning. It can compare two answers even if they use different words. It is fast. It is cheap compared to humans. It can evaluate millions of outputs every day.</p>
+<p>So, here comes LLM as a Judge to the rescue.</p>
+<p>It combines the quality of human evaluation with the speed and scale of automated metrics. This is the beauty of LLM as a Judge.</p>
+<p>One more thing to notice. Studies have shown that strong LLM judges agree with human evaluators more than 80% of the time. This is roughly the same rate at which two humans agree with each other on the same task. So, a well-built LLM Judge is almost as reliable as a human evaluator, but much faster and much cheaper. This is the reason LLM as a Judge has become the default way of evaluating LLM applications.</p>
+<p>The deeper question behind all of this is whether a task has an exact checker at all. We have a detailed blog on <a href="https://outcomeschool.com/blog/ai-is-only-as-good-as-our-definition-of-done" rel="noopener noreferrer" target="_blank">AI Is Only as Good as Our Definition of Done</a> that explains this in depth.</p>
+<h3 id="how-does-llm-as-a-judge-work">How does LLM as a Judge work?</h3>
+<p>The best way to learn this is by taking an example.</p>
+<p>Let's say we have built a customer support chatbot. A user asks a question. The chatbot gives an answer. We want to know if the answer is helpful.</p>
+<p>Here is how LLM as a Judge works step-by-step:</p>
+<ul>
+<li><strong>Step 1:</strong> We take the user question and the chatbot answer.</li>
+<li><strong>Step 2:</strong> We write a prompt for the judge LLM. The prompt tells the judge what to do. It includes the question, the answer, and the rules for judging.</li>
+<li><strong>Step 3:</strong> We send this prompt to the judge LLM.</li>
+<li><strong>Step 4:</strong> The judge LLM reads everything and gives a score with a reason.</li>
+<li><strong>Step 5:</strong> We use this score to decide if our chatbot is doing a good job.</li>
+</ul>
+<p>A simple prompt for the judge can be as below:</p>
+<pre><code class="language-text">You are an expert evaluator. Read the user question and the assistant answer below. Rate the answer on a scale of 1 to 5 based on helpfulness.
+User question: How do I reset my password?
+Assistant answer: To reset your password, click on the Forgot Password link on the login page. Enter your email address. You will receive a reset link in your email.
+Give your score as a number from 1 to 5. Also give a short reason for your score.
+</code></pre>
+<p>Here, we have given the judge a clear task. We have given the question, the answer, and the scoring rule.</p>
+<p>The judge LLM will respond as below:</p>
+<pre><code class="language-text">Score: 5
+Reason: The answer is clear, step-by-step, and directly addresses the user question. It tells the user exactly what to do.
+</code></pre>
+<p>This is how LLM as a Judge works.</p>
+<p>In a real system, this judge usually sits as one step inside a bigger flow, where a low score sends the work back for another attempt. We have a detailed blog on <a href="https://outcomeschool.com/blog/what-is-graph-engineering" rel="noopener noreferrer" target="_blank">Graph Engineering</a> that explains how such steps are wired together.</p>
+<h3 id="types-of-llm-as-a-judge">Types of LLM as a Judge</h3>
+<p>There are four common ways to use LLM as a Judge. Let's learn about each of them.</p>
+<p><strong>Type 1: Single answer scoring.</strong></p>
+<p>We give the judge one answer and ask it to rate the answer on a scale, for example 1 to 5 or 1 to 10. The judge gives a score based on our criteria.</p>
+<p>This is useful when we want to track the quality of our LLM over time. We can see if the average score is going up or down.</p>
+<p><strong>Type 2: Pairwise comparison.</strong></p>
+<p>We give the judge two answers to the same question. We ask the judge to pick the better one. The judge picks Answer A or Answer B and gives a reason.</p>
+<p>This is useful when we are comparing two models or two versions of a prompt. We want to know which one is better.</p>
+<p><strong>Type 3: Reference-based evaluation.</strong></p>
+<p>We give the judge an answer and a reference answer. The reference answer is the correct or expected answer. The judge compares the two and gives a score based on how close they are in meaning.</p>
+<p>This is useful when we have a ground truth answer and we want to check how close our LLM output is to that ground truth.</p>
+<p><strong>Type 4: Rubric-based evaluation.</strong></p>
+<p>We give the judge a rubric with multiple criteria. For each criterion, the judge gives a separate score. For example, the rubric can have accuracy, helpfulness, clarity, and tone as separate criteria. The judge gives a score for each one and an overall score at the end.</p>
+<p>This is useful when quality is not a single number. A good answer must be correct, clear, and polite at the same time. Rubric-based evaluation tells us exactly where the answer is strong and where it is weak. This is the most common type used in production today.</p>
+<p>Now, we have understood the types of LLM as a Judge. Let's see how we can build one.</p>
+<h3 id="steps-to-build-an-llm-judge">Steps to build an LLM Judge</h3>
+<p>Now, let's learn how to build our own LLM Judge step-by-step.</p>
+<p><strong>Step 1: Define the evaluation criteria.</strong></p>
+<p>First, we need to be very clear about what we want to evaluate. Are we evaluating helpfulness? Accuracy? Tone? Safety? We must write down the criteria in simple words.</p>
+<p>For example, for a customer support chatbot, the criteria can be:</p>
+<ul>
+<li>Is the answer correct?</li>
+<li>Is the answer clear?</li>
+<li>Is the answer polite?</li>
+</ul>
+<p><strong>Step 2: Choose the judge model.</strong></p>
+<p>We need to pick which LLM will act as our judge. Generally, we use a strong model like GPT-5, Claude Opus 4.7, or Gemini 3.1 Pro as the judge. The judge must be at least as capable as the model we are evaluating. Otherwise, the judge will miss the mistakes.</p>
+<p>We can also explore open-source judge models when we do not want to send our data to a closed API like OpenAI or Anthropic.</p>
+<p><strong>Step 3: Write the judge prompt.</strong></p>
+<p>We write a prompt that tells the judge what to do. The prompt must include:</p>
+<ul>
+<li>The task description.</li>
+<li>The user input.</li>
+<li>The model output to be judged.</li>
+<li>The scoring scale and the rules.</li>
+<li>The output format we want.</li>
+</ul>
+<p><strong>Step 4: Run the judge on a sample.</strong></p>
+<p>We run the judge on a small sample of outputs. We read the scores and reasons given by the judge. We check if the judge is doing a good job.</p>
+<p><strong>Step 5: Compare with human ratings.</strong></p>
+<p>We ask humans to rate the same sample. We compare the human ratings with the judge ratings. If they match closely, our judge is good. If they do not match, we need to improve the judge prompt.</p>
+<p><strong>Step 6: Iterate and improve.</strong></p>
+<p>Based on the comparison, we update the judge prompt. We add more rules. We give better examples. We test again. We keep doing this until the judge ratings match the human ratings.</p>
+<p><strong>Step 7: Use the judge at scale.</strong></p>
+<p>Once we trust the judge, we can use it to evaluate thousands or millions of outputs. We can also use it to compare different models, different prompts, and different versions of our application.</p>
+<p>Now, our LLM Judge is ready.</p>
+<h3 id="a-prompt-template-for-llm-as-a-judge">A prompt template for LLM as a Judge</h3>
+<p>Let's see a complete prompt template that we can use for LLM as a Judge.</p>
+<pre><code class="language-text">You are an expert evaluator. Your task is to evaluate the response given by an AI assistant to a user question.
+Evaluate the response based on the following criteria:
+1. Accuracy: Is the response factually correct?
+2. Helpfulness: Does the response solve the user's problem?
+3. Clarity: Is the response easy to understand?
+User question:
+{user_question}
+Assistant response:
+{assistant_response}
+Give your evaluation in the following format:
+Accuracy score (1-5): &lt;score&gt;
+Helpfulness score (1-5): &lt;score&gt;
+Clarity score (1-5): &lt;score&gt;
+Overall score (1-5): &lt;score&gt;
+Reason: &lt;short explanation of your scores&gt;
+Be fair and consistent. Base your scores only on the response given above.
+</code></pre>
+<p>Here, we have built a clear and structured prompt. The judge LLM knows the task, the criteria, the input, and the output format. This makes the judge reliable and consistent.</p>
+<h3 id="chain-of-thought-judging-g-eval">Chain-of-thought judging (G-Eval)</h3>
+<p>The basic prompt we have built so far works well, but we can make it much better. The trick is to ask the judge to think first and score later. This technique is called <strong>chain-of-thought judging</strong> and it is also known as <strong>G-Eval</strong>.</p>
+<p>In simple words, <strong>G-Eval = Generate evaluation steps + Score</strong>. The judge first writes down the steps it will use to evaluate, then applies those steps to the answer, and only then gives a score.</p>
+<p>Let's see why this works.</p>
+<p>When we ask the judge to give a score directly, the judge picks a number quickly without much thinking. The score is often shallow. But when we ask the judge to first write the evaluation steps, the judge slows down. It reads the answer more carefully. It applies each step one by one. The final score is much more reliable.</p>
+<p>A G-Eval style prompt can be as below:</p>
+<pre><code class="language-text">You are an expert evaluator. Your task is to evaluate the response below.
+Criterion: Helpfulness
+Step 1: Write down the evaluation steps you will use to check if the response is helpful. Think carefully.
+Step 2: Apply each step to the response one by one. Write your reasoning for each step.
+Step 3: Based on your reasoning, give a final score from 1 to 5.
+User question:
+{user_question}
+Assistant response:
+{assistant_response}
+Now, follow Step 1, Step 2, and Step 3 in order.
+</code></pre>
+<p>Here, we have asked the judge to think before scoring. The judge first builds its own checklist, then applies it, and finally gives the score. This is the same idea as <a href="https://outcomeschool.com/blog/how-does-chain-of-thought-prompting-work" rel="noopener noreferrer" target="_blank">chain-of-thought prompting</a>, applied to evaluation.</p>
+<p><strong>Note:</strong> G-Eval gives much better agreement with human ratings than the basic scoring prompt. If we want a reliable judge, we must use chain-of-thought judging.</p>
+<h3 id="biases-in-llm-as-a-judge">Biases in LLM as a Judge</h3>
+<p>LLM as a Judge is powerful, but it is not perfect. The judge LLM can have biases. We must understand these biases so that we can handle them in the right way.</p>
+<p><strong>Style bias.</strong></p>
+<p>This is the most dominant bias in LLM judges today. The judge often prefers a certain writing style, for example bullet points over paragraphs, or formal tone over casual tone. This style preference can be very strong and it can override the actual quality of the answer. The judge rewards the look and feel of the answer, not just the content. So, we must tell the judge in the prompt exactly what style is expected for our use case.</p>
+<p><strong>Position bias.</strong></p>
+<p>When we ask the judge to pick between Answer A and Answer B, the judge often prefers the answer that comes first. This is called position bias. To fix this, we can swap the order and run the judge twice. We take the average of the two results.</p>
+<p><strong>Verbosity bias.</strong></p>
+<p>The judge often prefers longer answers, even when the shorter answer is better. The judge sees more words and thinks the answer is more detailed. To fix this, we can tell the judge in the prompt to not prefer longer answers.</p>
+<p><strong>Self-preference bias.</strong></p>
+<p>This bias shows up at the time of evaluation. When the judge is asked to compare two answers, it gives a higher score to the answer that was generated by itself or by a model from its own family. For example, if we ask GPT-5 to pick between a GPT-5 answer and a Claude answer, GPT-5 picks itself more often than it should. The judge is doing the comparison fairly in its own mind, but it has a hidden preference for its own style. To fix this, we can use a different model as the judge, or use a Panel of Judges from different families.</p>
+<p><strong>Preference leakage.</strong></p>
+<p>This is a bigger problem and it works at the pipeline level, not at the single answer level. Self-preference bias is the mechanism. Preference leakage is what happens when this mechanism contaminates our whole evaluation setup.</p>
+<p>Let's see an example. Suppose we use GPT-5 to generate synthetic training data for our model. Then we use GPT-5 again as the judge to evaluate the trained model. The judge silently rewards answers that look like GPT-5 style, because the training data already pushed our model in that direction. Our scores look amazing on paper. But in the real world, with real users, the model does not perform as well as the scores suggest.</p>
+<p>The data generator and the judge are not independent anymore. The eval is contaminated. To avoid this, the judge model family must be different from the family used to generate training data, prompts, or any other input that touches our pipeline.</p>
+<p><strong>Authority and bandwagon bias.</strong></p>
+<p>The judge often defers to confident-sounding answers and answers that quote experts or sources. Even if the content is wrong, the judge gives a high score because the answer sounds authoritative. Similarly, the judge can follow the crowd. If many earlier answers agree, the judge tends to agree as well, even when it should not. To fix this, we must remind the judge in the prompt to focus only on correctness, not on tone or confidence.</p>
+<p>Now, we have understood the biases. Even frontier judge models still fail on bias-heavy tasks, so we must always test our judge against these biases before trusting it in production.</p>
+<h3 id="best-practices-for-llm-as-a-judge">Best practices for LLM as a Judge</h3>
+<p>Few important points to keep in mind:</p>
+<ul>
+<li><strong>Use a strong judge model.</strong> The judge must be at least as capable as the model being judged.</li>
+<li><strong>Write a clear prompt.</strong> The prompt must include the task, the criteria, the input, the output, and the format.</li>
+<li><strong>Give examples in the prompt.</strong> Few-shot examples help the judge understand what a good score looks like.</li>
+<li><strong>Use a clear scoring scale.</strong> A 1 to 5 scale is easier than a 1 to 100 scale. The judge gives more consistent scores on a small scale.</li>
+<li><strong>Ask for a reason with the score.</strong> This makes the judge think more carefully. It also helps us debug the judge.</li>
+<li><strong>Validate against humans.</strong> Always compare the judge ratings with human ratings on a sample. This tells us if we can trust the judge.</li>
+<li><strong>Handle position bias.</strong> When doing pairwise comparison, swap the order and average the results.</li>
+<li><strong>Use a Panel of LLM Judges.</strong> This is also called the Jury approach. We use more than one judge model from different families and average the scores. A panel reduces self-preference bias and gives more reliable results than any single judge.</li>
+<li><strong>Keep the criteria simple.</strong> Do not ask the judge to evaluate too many things at once. Break it into separate evaluations if needed.</li>
+</ul>
+<p>If we follow these practices, our LLM Judge will be reliable and useful.</p>
+<h3 id="real-world-use-cases-of-llm-as-a-judge">Real-world use cases of LLM as a Judge</h3>
+<p>LLM as a Judge is used in many real-world scenarios across the industry. Let's see some of them.</p>
+<p><strong>Model evaluation.</strong></p>
+<p>When we train or <a href="https://outcomeschool.com/blog/how-does-fine-tuning-work" rel="noopener noreferrer" target="_blank">fine-tune</a> an LLM, we need to know if the new version is better than the old version. We use LLM as a Judge to compare the outputs side by side. This is much faster than human evaluation.</p>
+<p><strong>Chatbot quality monitoring.</strong></p>
+<p>In a production chatbot, we cannot read every conversation. We use LLM as a Judge to score the conversations automatically. We get a daily report on how well the chatbot is doing.</p>
+<p><strong>Content moderation.</strong></p>
+<p>We can use LLM as a Judge to check if the output is safe. The judge reads the output and decides if it contains harmful content. We block such outputs before they reach the user. This is exactly how an output guardrail works, and we have a detailed blog on <a href="https://outcomeschool.com/blog/how-do-llm-guardrails-work" rel="noopener noreferrer" target="_blank">How do LLM guardrails work?</a> that explains it step by step.</p>
+<p><strong>RAG system evaluation.</strong></p>
+<p>In a <a href="https://outcomeschool.com/blog/agentic-rag" rel="noopener noreferrer" target="_blank">Retrieval-Augmented Generation (RAG)</a> system, we need to check if the answer is grounded in the retrieved documents. LLM as a Judge can check if the answer matches the documents. This helps us catch <a href="https://outcomeschool.com/blog/why-do-llms-hallucinate-the-token-level-explanation" rel="noopener noreferrer" target="_blank">hallucinations</a>, where the LLM makes up information that is not present in the documents.</p>
+<p><strong>Prompt engineering.</strong></p>
+<p>When we try different prompts for the same task, we need to know which prompt gives the best results. LLM as a Judge helps us compare prompts at scale.</p>
+<p><strong>Agent trajectory evaluation.</strong></p>
+<p>In <a href="https://outcomeschool.com/blog/ai-agent" rel="noopener noreferrer" target="_blank">agentic systems</a>, the agent takes multiple steps to solve a task. The agent calls tools, reads results, plans next actions, and so on. This full sequence of steps is called the trajectory. LLM as a Judge can read the full trajectory and decide if the agent picked the right tools, used them correctly, and reached the right answer. This is one of the fastest growing applications of LLM as a Judge because agentic systems are hard to evaluate with any other method. We have a detailed blog on <a href="https://outcomeschool.com/blog/ai-agent-evaluation" rel="noopener noreferrer" target="_blank">AI Agent Evaluation</a> that explains this in depth.</p>
+<p>This way we can use LLM as a Judge to solve any evaluation problem in a very simple way.</p>
+<p>Now we must have understood LLM as a Judge. It is a powerful technique that combines the quality of human evaluation with the speed and scale of automation. As LLM applications grow, LLM as a Judge becomes more and more important because we cannot scale human evaluation easily, but we can scale LLM evaluation very easily.</p>
+<p>I will highly recommend that we always validate our LLM Judge against human ratings before trusting it.</p>
+<p>This way we can use LLM as a Judge to evaluate the quality of our AI systems and build better products for our users.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="is-llm-as-a-judge-as-reliable-as-human-evaluation">Is LLM as a Judge as reliable as human evaluation?</h3>
+<p>Almost. Studies have shown that strong LLM judges agree with human evaluators more than 80% of the time, which is roughly the same rate at which two humans agree with each other. So, a well-built judge is almost as reliable as a human, but much faster and much cheaper.</p>
+<h3 id="why-not-just-use-bleu-or-rouge-to-evaluate-llm-outputs">Why not just use BLEU or ROUGE to evaluate LLM outputs?</h3>
+<p>BLEU and ROUGE only check word overlap, so they miss the meaning. An answer can be correct but use different words, and these metrics will give it a low score. An LLM judge understands meaning, so it can compare two answers even if they use different words.</p>
+<h3 id="can-the-same-model-be-used-as-both-the-generator-and-the-judge">Can the same model be used as both the generator and the judge?</h3>
+<p>It is better not to. A judge gives higher scores to answers from itself or its own model family, which is called self-preference bias. If the same family also generates the training data, the evaluation gets contaminated. The judge model family must be different from the family used anywhere else in the pipeline.</p>
+<h3 id="how-do-we-know-if-we-can-trust-our-llm-judge">How do we know if we can trust our LLM Judge?</h3>
+<p>We validate it against human ratings. We ask humans to rate a small sample, run the judge on the same sample, and compare the two. If they match closely, the judge is good. If not, we improve the judge prompt and test again until the ratings match.</p>
+<h3 id="should-the-judge-model-be-smaller-than-the-model-being-evaluated">Should the judge model be smaller than the model being evaluated?</h3>
+<p>No. The judge must be at least as capable as the model we are evaluating. Otherwise, the judge will miss the mistakes. Generally, we use a strong model as the judge, and we can explore open-source judge models when we do not want to send our data to a closed API.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m13-l1303">
+  <p class="print-lesson-kicker">Lesson 13.3</p>
+  <h1>How to Evaluate AI Agents? Metrics, Methods, and Best Practices</h1>
+  <p class="print-lesson-meta">Lesson 13.3 · ~20 min · Published May 23, 2026 · <a href="https://outcomeschool.com/blog/ai-agent-evaluation">https://outcomeschool.com/blog/ai-agent-evaluation</a></p>
+  <p><img alt="AI Agent Evaluation" src="../assets/images/13-13-03-how-to-evaluate-ai-agents-metrics-methods-and-best-practices/ai-agent-evaluation.png"/></p>
+<p>AI Agent Evaluation is the process of measuring how well an AI Agent performs the tasks we give it, from the final result to every step and tool it used in between.</p>
+<p>In this blog, we will learn about AI Agent Evaluation. We will also see why it is different from LLM Evaluation, the types of evaluation we can do, the key metrics we must track, the methods we can use, and the best practices to follow.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is an AI Agent?</li>
+<li>What is AI Agent Evaluation?</li>
+<li>Why do we need AI Agent Evaluation?</li>
+<li>How is AI Agent Evaluation different from LLM Evaluation?</li>
+<li>Types of AI Agent Evaluation</li>
+<li>Outcome Evaluation</li>
+<li>Trajectory Evaluation</li>
+<li>Tool Use Evaluation</li>
+<li>Planning Evaluation</li>
+<li>Key Metrics for AI Agents</li>
+<li>Agent Benchmarks</li>
+<li>Methods to Evaluate AI Agents</li>
+<li>Frameworks and Tools for AI Agent Evaluation</li>
+<li>Challenges in AI Agent Evaluation</li>
+<li>Best Practices</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="what-is-an-ai-agent">What is an AI Agent?</h2>
+<p>Before jumping into AI Agent Evaluation, we must know what an <a href="https://outcomeschool.com/blog/ai-agent" rel="noopener noreferrer" target="_blank">AI Agent</a> is.</p>
+<p><strong>An AI Agent is a system that uses an LLM to plan, take actions using tools, and finish a task on its own.</strong></p>
+<p>In simple words, a normal LLM only gives us text. But an AI Agent does not stop at text. It can call tools, read files, search the web, run code, and take many steps to reach a goal.</p>
+<p>Let's say we ask an AI Agent: "Book a flight from Delhi to Bangalore on Friday." The agent will think, call a flight search tool, read the results, pick a good flight, call a booking tool, and finally give us the confirmation. The agent does many steps in between, and we only see the final result.</p>
+<p>This is the power of agents. They make our life easier. But, because they take many steps and many actions, they can also fail in many new ways. This is why we need a special way to evaluate them.</p>
+<h2 id="what-is-ai-agent-evaluation">What is AI Agent Evaluation?</h2>
+<p><strong>AI Agent Evaluation is the process of measuring how well an AI Agent performs on the tasks we expect it to do.</strong></p>
+<p>In simple words, we give the agent some tasks, watch what it does from start to finish, and check if it finished the task correctly, used the right tools, took the right steps, and did it all without wasting time or money.</p>
+<p>Let's say we have built an AI Agent that helps users book flights. Now, the question is: how do we know if our agent is actually good? Did it pick the right flight? Did it use the booking tool correctly? Did it ask the user for missing information? Did it finish the task in a reasonable number of steps? To answer all these questions, we need AI Agent Evaluation.</p>
+<h2 id="why-do-we-need-ai-agent-evaluation">Why do we need AI Agent Evaluation?</h2>
+<p>AI Agents are powerful, but they are also risky. They take real actions in the real world. They send emails, write to databases, spend money, and talk to users on our behalf. So, a small mistake by an agent can cause a big problem.</p>
+<p>So, before we ship an AI Agent to our users, we must know how it behaves in many situations. And after we ship it, we must keep checking it to make sure it does not get worse over time.</p>
+<p>Here are the main reasons we need AI Agent Evaluation:</p>
+<ul>
+<li>To check if the agent finishes the task correctly.</li>
+<li>To make sure the agent uses the right tool at the right time.</li>
+<li>To track how many steps and how much money the agent uses for each task.</li>
+<li>To find weak spots where the agent fails so that we can fix them.</li>
+<li>To compare different versions of the agent after prompt changes or model changes.</li>
+<li>To make sure the agent is safe and does not take harmful actions.</li>
+</ul>
+<h2 id="how-is-ai-agent-evaluation-different-from-llm-evaluation">How is AI Agent Evaluation different from LLM Evaluation?</h2>
+<p>This is an important question. Most people think AI Agent Evaluation is the same as <a href="https://outcomeschool.com/blog/llm-evaluation" rel="noopener noreferrer" target="_blank">LLM Evaluation</a>. But it is not.</p>
+<p>In LLM Evaluation, we mostly check the final text output. The model takes an input and gives an output, and we score the output.</p>
+<p>But, in AI Agent Evaluation, the agent does many things between the input and the final output. It plans, picks tools, calls tools, reads results, makes decisions, and tries again if something fails. So, we must check not just the final answer, but also everything that happened in between.</p>
+<p>Let me tabulate the differences between LLM Evaluation and AI Agent Evaluation for your better understanding.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>LLM Evaluation</th>
+<th>AI Agent Evaluation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What we check</td>
+<td>Final text output</td>
+<td>Final output + all steps in between</td>
+</tr>
+<tr>
+<td>Number of steps</td>
+<td>One step</td>
+<td>Many steps</td>
+</tr>
+<tr>
+<td>Tool use</td>
+<td>No tools</td>
+<td>Many tool calls</td>
+</tr>
+<tr>
+<td>Cost tracking</td>
+<td>One LLM call</td>
+<td>Many LLM calls + tool calls</td>
+</tr>
+<tr>
+<td>Failure modes</td>
+<td>Wrong text</td>
+<td>Wrong tool, wrong order, infinite loop, and etc.</td>
+</tr>
+</tbody>
+</table></div>
+<p>This is how AI Agent Evaluation is different from LLM Evaluation. Now, let's learn about the types of AI Agent Evaluation.</p>
+<h2 id="types-of-ai-agent-evaluation">Types of AI Agent Evaluation</h2>
+<p>There are four main types of AI Agent Evaluation. We will learn about each of them in detail.</p>
+<ul>
+<li><strong>Outcome Evaluation</strong> - We check only the final result of the task.</li>
+<li><strong>Trajectory Evaluation</strong> - We check every step the agent took to reach the result.</li>
+<li><strong>Tool Use Evaluation</strong> - We check how the agent used the tools.</li>
+<li><strong>Planning Evaluation</strong> - We check the quality of the agent's plan.</li>
+</ul>
+<p>Each of these has its own strengths and weaknesses. In real projects, we usually combine more than one of them.</p>
+<p>Now, let's discuss each one.</p>
+<h2 id="outcome-evaluation">Outcome Evaluation</h2>
+<p><strong>Outcome Evaluation means we only look at the final result of the task and ignore everything in between.</strong></p>
+<p>Suppose we ask our agent: "Find the cheapest flight from Delhi to Bangalore on Friday and book it." We do not care if the agent took 5 steps or 50 steps. We only care: did it book the cheapest flight on Friday? If yes, the outcome is correct. If no, the outcome is wrong.</p>
+<p>This is the simplest form of evaluation, and it works very well for tasks where we have a clear right answer.</p>
+<p>Here are some common outcome metrics:</p>
+<ul>
+<li><strong>Task Success Rate</strong> - The percentage of tasks the agent finished correctly.</li>
+<li><strong>Final Answer Accuracy</strong> - Did the final answer match the expected answer?</li>
+<li><strong>Goal Completion</strong> - Did the agent reach the user's goal?</li>
+</ul>
+<p><strong>Advantage:</strong></p>
+<ul>
+<li>Simple to define and measure.</li>
+<li>Matches what the user actually cares about.</li>
+<li>Works well when there is a clear correct answer.</li>
+</ul>
+<p><strong>Disadvantage:</strong></p>
+<ul>
+<li>We do not know why the agent failed.</li>
+<li>An agent can get the right answer by luck after taking many wrong steps.</li>
+<li>An agent can get the right answer but waste a lot of money and time.</li>
+</ul>
+<p>Outcome Evaluation only works when we can say what a correct outcome is. We have a detailed blog on <a href="https://outcomeschool.com/blog/ai-is-only-as-good-as-our-definition-of-done" rel="noopener noreferrer" target="_blank">AI Is Only as Good as Our Definition of Done</a> that covers this end to end.</p>
+<p>This was all about Outcome Evaluation. Now, let's learn about Trajectory Evaluation.</p>
+<h2 id="trajectory-evaluation">Trajectory Evaluation</h2>
+<p><strong>Trajectory Evaluation means we look at every step the agent took, in the right order, to reach the result.</strong></p>
+<p>In simple words, the trajectory is the full path of actions and thoughts that the agent went through. We check this path step by step.</p>
+<p>Let's say our agent has to answer the question: "What is the weather in Bangalore tomorrow, and should I carry an umbrella?" A good trajectory looks like this:</p>
+<ul>
+<li>Step 1: Call the weather tool with city = Bangalore and date = tomorrow.</li>
+<li>Step 2: Read the result. There is a 70% chance of rain.</li>
+<li>Step 3: Decide that the user should carry an umbrella.</li>
+<li>Step 4: Reply to the user.</li>
+</ul>
+<p>Now, if the agent skipped Step 1 and just guessed the answer, the trajectory is wrong even if the final answer is correct by luck.</p>
+<p>Here is what we check in trajectory evaluation:</p>
+<ul>
+<li><strong>Exact Match</strong> - Did the agent follow the exact expected sequence of steps?</li>
+<li><strong>In-Order Match</strong> - Did the agent perform the required steps in the correct order, even if it added a few extra steps?</li>
+<li><strong>Any-Order Match</strong> - Did the agent perform all the required steps, even if the order was different?</li>
+<li><strong>Precision</strong> - Of all the steps the agent took, how many were useful?</li>
+<li><strong>Recall</strong> - Of all the steps that were needed, how many did the agent take?</li>
+</ul>
+<p>The last two are the same Precision and Recall we use to score any classification system. We have a detailed blog on <a href="https://outcomeschool.com/blog/precision-vs-recall" rel="noopener noreferrer" target="_blank">Precision vs Recall</a> that explains both step by step.</p>
+<p><strong>Advantage:</strong></p>
+<ul>
+<li>We can find exactly where the agent went wrong.</li>
+<li>We can tell luck apart from real understanding.</li>
+<li>It helps us debug the agent and improve it.</li>
+</ul>
+<p><strong>Disadvantage:</strong></p>
+<ul>
+<li>It is hard to define one correct trajectory, because there are often many good paths.</li>
+<li>It is more expensive to evaluate than just checking the final answer.</li>
+<li>It can be too strict if we demand an exact match.</li>
+</ul>
+<p>This is how Trajectory Evaluation works. But before we can evaluate a trajectory, we must first capture every step the agent took - and capturing those steps is exactly what <a href="https://outcomeschool.com/blog/ai-agent-observability" rel="noopener noreferrer" target="_blank">AI Agent Observability</a> gives us. Now, let's move to Tool Use Evaluation.</p>
+<h2 id="tool-use-evaluation">Tool Use Evaluation</h2>
+<p><strong>Tool Use Evaluation means we check how the agent used the tools available to it.</strong></p>
+<p>Tools are the hands of the agent. If the agent picks the wrong tool, or passes wrong arguments, the whole task can fail. So, we must check tool usage very carefully.</p>
+<p>Here are the main things we check:</p>
+<ul>
+<li><strong>Tool Selection</strong> - Did the agent pick the correct tool for the job?</li>
+<li><strong>Argument Correctness</strong> - Did the agent pass the right arguments to the tool?</li>
+<li><strong>Tool Call Success</strong> - Did the <a href="https://outcomeschool.com/blog/how-does-function-calling-work-in-llms" rel="noopener noreferrer" target="_blank">tool call</a> return a valid result, or did it throw an error?</li>
+<li><strong>Result Handling</strong> - Did the agent use the tool result correctly to take the next step?</li>
+<li><strong>No Hallucinated Tools</strong> - Did the agent try to call a tool that does not exist?</li>
+</ul>
+<p>Let's see an example. Suppose our agent has these tools: <code>search_flights</code>, <code>book_flight</code>, and <code>send_email</code>. The user says: "Book the cheapest flight to Bangalore on Friday."</p>
+<p>A good agent will first call <code>search_flights</code>, then call <code>book_flight</code> with the cheapest result, and then call <code>send_email</code> to confirm. A bad agent can call <code>send_email</code> first, or call <code>book_flight</code> with no flight selected, or call a tool that does not exist like <code>cancel_flight</code>. Tool Use Evaluation helps us catch all these mistakes.</p>
+<p><strong>Advantage:</strong></p>
+<ul>
+<li>Catches the most common cause of agent failures.</li>
+<li>Easy to automate, because tool calls are structured.</li>
+<li>Helps us improve the tool descriptions and prompts.</li>
+</ul>
+<p><strong>Disadvantage:</strong></p>
+<ul>
+<li>Does not tell us about the final quality of the answer.</li>
+<li>Needs a clear ground truth for which tool to use, which is sometimes hard to define.</li>
+</ul>
+<p>This was all about Tool Use Evaluation. Now, it's time to learn about Planning Evaluation.</p>
+<h2 id="planning-evaluation">Planning Evaluation</h2>
+<p><strong>Planning Evaluation means we check the quality of the plan that the agent makes before taking actions.</strong></p>
+<p>Many agents first write a plan, and then follow the plan step by step. If the plan is bad, the agent will fail no matter how good the tools are.</p>
+<p>Let's say our agent has to plan a trip. A good plan looks like this:</p>
+<ul>
+<li>Step 1: Find flights for the given dates.</li>
+<li>Step 2: Pick the cheapest flight that fits the user's schedule.</li>
+<li>Step 3: Find hotels near the destination.</li>
+<li>Step 4: Pick the best-rated hotel within the budget.</li>
+<li>Step 5: Send the full itinerary to the user.</li>
+</ul>
+<p>Here is what we check in planning evaluation:</p>
+<ul>
+<li><strong>Completeness</strong> - Does the plan cover all the steps needed to finish the task?</li>
+<li><strong>Correctness</strong> - Are the steps in the right order?</li>
+<li><strong>Feasibility</strong> - Can each step actually be done with the tools available?</li>
+<li><strong>Efficiency</strong> - Is the plan short and clean, or does it have wasted steps?</li>
+</ul>
+<p><strong>Advantage:</strong></p>
+<ul>
+<li>Catches mistakes early, before the agent wastes time running a bad plan.</li>
+<li>Helps us understand how the agent thinks.</li>
+</ul>
+<p><strong>Disadvantage:</strong></p>
+<ul>
+<li>Only works for agents that produce a plan upfront.</li>
+<li>Hard to define one correct plan, because there are often many good plans.</li>
+</ul>
+<p>Planning Evaluation is very useful for complex tasks where the agent must think before acting.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/plan-and-execute-agent" rel="noopener noreferrer" target="_blank">Plan-and-Execute Agent</a> that explains the plan-first agent pattern in depth.</p>
+<h2 id="key-metrics-for-ai-agents">Key Metrics for AI Agents</h2>
+<p>Now that we have learned about the types of evaluation, it's time to learn about the key metrics that we track for AI Agents.</p>
+<p>Here are the most important ones:</p>
+<ul>
+<li><strong>Task Success Rate</strong> - The percentage of tasks the agent finished correctly. This is the most important metric. If our agent has a low success rate, nothing else matters.</li>
+<li><strong>Tool Call Accuracy</strong> - The percentage of tool calls that were correct and useful.</li>
+<li><strong>Number of Steps per Task</strong> - How many steps did the agent take to finish the task? Fewer steps usually means a better agent.</li>
+<li><strong>Cost per Task</strong> - How much money did the agent spend on LLM calls and tool calls to finish one task? This is critical for production agents.</li>
+<li><strong>Latency per Task</strong> - How long did the agent take to finish the task? Users will not wait forever.</li>
+<li><strong>Recovery Rate</strong> - When a tool call fails, can the agent recover and still finish the task?</li>
+<li><strong>Safety Score</strong> - Did the agent take any harmful or risky action that it should not have taken?</li>
+<li><strong>Loop Detection</strong> - Did the agent get stuck in an <a href="https://outcomeschool.com/blog/ai-agent-loop" rel="noopener noreferrer" target="_blank">infinite loop</a>, calling the same tool again and again?</li>
+</ul>
+<p>In a real product, we must track all of these together. A high success rate is useless if every task costs us a lot of money or takes a very long time. Most of these numbers are really a verdict on the agent's loop, and we have a detailed blog on <a href="https://outcomeschool.com/blog/what-is-loop-engineering" rel="noopener noreferrer" target="_blank">Loop Engineering</a> that explains how to design that loop.</p>
+<h2 id="agent-benchmarks">Agent Benchmarks</h2>
+<p>Just like LLMs, AI Agents also have benchmarks to compare them. Different benchmarks test different skills. Let's group them by category, so that we know what each one is for.</p>
+<p><strong>Function Calling</strong></p>
+<ul>
+<li><strong>BFCL (Berkeley Function-Calling Leaderboard)</strong> - Tests how well a model picks the right function and passes correct arguments. The most cited benchmark for tool use.</li>
+</ul>
+<p><strong>Customer Service Agents</strong></p>
+<ul>
+<li><strong>τ-bench / τ²-bench (tau-bench)</strong> - Evaluates agents in realistic customer-service environments where they must use tools and follow company policies. The original τ-bench is single-control, which means only the agent acts on the environment. τ²-bench adds a dual-control setup where both the agent and a simulated user have their own tools and act in the same shared world.</li>
+</ul>
+<p><strong>Coding Agents</strong></p>
+<ul>
+<li><strong>SWE-bench Verified</strong> - Real GitHub issues from open-source projects. A widely used benchmark for measuring coding agents on real-world software tasks.</li>
+<li><strong>Terminal-Bench</strong> - Agents completing real tasks inside a sandboxed command-line environment, like training a machine learning model, building Linux from source, or reverse-engineering a binary. It is truly agentic because the agent runs shell commands instead of just patching a diff.</li>
+<li><strong>MLE-bench</strong> - Machine learning engineering tasks taken from Kaggle competitions.</li>
+</ul>
+<p><strong>General Assistants</strong></p>
+<ul>
+<li><strong>GAIA</strong> - General-assistant tasks that need reasoning, tool use, and web browsing combined.</li>
+</ul>
+<p><strong>Web Browsing Agents</strong></p>
+<ul>
+<li><strong>WebArena</strong> - Realistic websites for <a href="https://outcomeschool.com/blog/how-do-browser-agents-work" rel="noopener noreferrer" target="_blank">browser-using agents</a>.</li>
+<li><strong>VisualWebArena</strong> - Web tasks that need visual understanding of the page.</li>
+<li><strong>BrowseComp</strong> - Information-seeking tasks on the open web.</li>
+</ul>
+<p><strong>Computer Use Agents</strong></p>
+<ul>
+<li><strong>OSWorld</strong> - Real desktop environments where <a href="https://outcomeschool.com/blog/how-do-computer-use-agents-work" rel="noopener noreferrer" target="_blank">the agent controls a full computer</a>.</li>
+<li><strong>AppWorld</strong> - Agents that interact with everyday apps through their APIs.</li>
+</ul>
+<p>Now that we have seen the categories, we must understand two important ideas about agent benchmarks.</p>
+<ul>
+<li><strong>Saturation</strong> - Top agents start scoring near the ceiling on a benchmark as models improve. When the gaps between agents become too small to be meaningful, the benchmark loses its power to separate good from great. This is why SWE-bench Verified is being supplemented by harder benchmarks like Terminal-Bench, so that we can still tell strong coding agents apart.</li>
+<li><strong>Real world gap</strong> - A high score on a public benchmark does not mean the agent will work well in our product. Public benchmarks rarely match the exact task we care about. So, we must always build our own evaluation that matches our use case.</li>
+</ul>
+<p>This was all about Agent Benchmarks. Now, let's learn about the methods to evaluate AI Agents.</p>
+<h2 id="methods-to-evaluate-ai-agents">Methods to Evaluate AI Agents</h2>
+<p>Now, the next big question is: how do we actually run these evaluations? The answer is, we have three main methods.</p>
+<p><strong>Automated Evaluation</strong></p>
+<p>We write code that runs the agent on a set of test tasks and checks the output and the trajectory against expected values. This is the fastest and cheapest method.</p>
+<p>For example, if the agent has to return a flight number, we can simply compare the returned flight number with the expected one. If the agent has to call a specific tool, we can check the tool call log.</p>
+<p><strong>Advantage:</strong> Fast, cheap, repeatable.</p>
+<p><strong>Disadvantage:</strong> Only works when we have clear ground truth.</p>
+<p><strong>LLM as a Judge</strong></p>
+<p>Automated checks fail when there is no single correct answer. So, here comes the LLM as a Judge to the rescue. We use a strong LLM to judge the agent's output and trajectory. We give the judge the user's request, the agent's full trajectory, and the final answer. We ask the judge to rate it on a scale of 1 to 5 on different aspects like correctness, helpfulness, and efficiency.</p>
+<p>For the sake of understanding, let's see an example judge prompt.</p>
+<pre><code>You are an expert evaluator. Read the user request, the agent trajectory, and the final answer.
+Rate the agent on a scale of 1 to 5 on the following aspects:
+- Did it finish the task?
+- Did it use the right tools?
+- Did it take an efficient path?
+- Was the final answer correct?
+Give a short reason for each rating.
+User request: {request}
+Agent trajectory: {trajectory}
+Final answer: {answer}
+</code></pre>
+<p><strong>Advantage:</strong> Scales well, works for open-ended tasks.</p>
+<p><strong>Disadvantage:</strong> The judge can have its own biases, so we must validate it against human ratings.</p>
+<p>If you want to learn more about this, I have a separate blog on <a href="https://outcomeschool.com/blog/llm-as-a-judge" rel="noopener noreferrer" target="_blank">LLM as a Judge</a> that goes deeper into this topic.</p>
+<p><strong>Human Evaluation</strong></p>
+<p>Real humans look at the agent's trajectory and the final answer, and rate them. This is the gold standard for complex tasks where automated metrics and LLM judges can miss subtle problems.</p>
+<p><strong>Advantage:</strong> Highest quality of judgement.</p>
+<p><strong>Disadvantage:</strong> Slow, expensive, hard to scale.</p>
+<p>In a real product, we usually combine all three methods. We use automated evaluation for fast feedback, LLM as a Judge for daily monitoring, and human evaluation for the final check before shipping.</p>
+<h2 id="frameworks-and-tools-for-ai-agent-evaluation">Frameworks and Tools for AI Agent Evaluation</h2>
+<p>To run all these methods at scale, we use evaluation frameworks. They give us a structured way to define test tasks, run the agent, capture the full trajectory, score each run, and view the results on a dashboard.</p>
+<p>There are popular frameworks that we can use for AI Agent Evaluation:</p>
+<ul>
+<li><strong>LangSmith</strong> - Built for tracing and evaluating <a href="https://outcomeschool.com/blog/how-does-langchain-work" rel="noopener noreferrer" target="_blank">LangChain</a> and <a href="https://outcomeschool.com/blog/how-does-langgraph-work" rel="noopener noreferrer" target="_blank">LangGraph</a> agents, with strong support for trajectory inspection.</li>
+<li><strong>DeepEval</strong> - Open-source library with many ready-made metrics for agents, tool use, and RAG.</li>
+</ul>
+<p>We do not need to learn all of them, but we must know that they exist so that we know what to search for when we start building our own agent evaluation system.</p>
+<h2 id="challenges-in-ai-agent-evaluation">Challenges in AI Agent Evaluation</h2>
+<p>AI Agent Evaluation is hard. Here are the main challenges:</p>
+<ul>
+<li><strong>Many correct paths</strong> - For most tasks, there is no single correct trajectory. The agent can finish the task in many different ways, all of which are good. This makes trajectory comparison tricky.</li>
+<li><strong>Non-determinism</strong> - The same agent can give different answers for the same input, because <a href="https://outcomeschool.com/blog/how-does-temperature-control-llm-output" rel="noopener noreferrer" target="_blank">LLMs are not deterministic</a>. So, we must run each test many times to get a stable score.</li>
+<li><strong>Long trajectories</strong> - Real-world agent tasks can have 20, 50, or even 100 steps. Reviewing such long trajectories by hand is very tiring.</li>
+<li><strong>Environment changes</strong> - Agents often interact with real systems like search engines or databases. The results can change every day, which makes evaluation harder to reproduce.</li>
+<li><strong>Cascading failures</strong> - A small mistake in Step 2 can cause a big failure in Step 10. We must trace failures back to their root cause.</li>
+<li><strong>Safety risks</strong> - Agents take real actions. A bad action can cost real money or send a wrong email to a real user. We must catch these before they happen.</li>
+<li><strong>Cost of evaluation</strong> - Running an agent through many test tasks is expensive, because each task uses many LLM calls and many tool calls.</li>
+</ul>
+<p>Now, the next big question is: how do we deal with all these challenges? The answer is, we follow some best practices.</p>
+<h2 id="best-practices">Best Practices</h2>
+<p>Here are the best practices for AI Agent Evaluation:</p>
+<ul>
+<li><strong>Build a strong test set</strong> - Create a set of real tasks that match what our users will actually do. Include easy tasks, hard tasks, edge cases, and adversarial cases.</li>
+<li><strong>Evaluate both outcome and trajectory</strong> - Outcome tells us if the task is done. Trajectory tells us why it failed. We need both.</li>
+<li><strong>Run each test many times</strong> - Because of non-determinism, we must run each task at least 3 to 5 times and look at the average and the worst case, not just one run.</li>
+<li><strong>Use a sandbox environment</strong> - Do not test agents in production. Use a sandbox with fake tools and fake data, so that we can test safely without risk.</li>
+<li><strong>Track cost and latency from day one</strong> - A perfect agent that takes 5 minutes per task and has a high cost per call will not survive in production.</li>
+<li><strong>Validate the judge</strong> - When using LLM as a Judge, compare its scores with human scores on a small sample to make sure the judge is reliable.</li>
+<li><strong>Set up regression tests</strong> - Every time we change the prompt, the tools, or the model, run the full test set and check that nothing got worse.</li>
+<li><strong>Watch for loops and timeouts</strong> - Always set a maximum number of steps and a maximum time. Otherwise, a bad agent can run forever and spend a lot of money.</li>
+<li><strong>Keep humans in the loop</strong> - Even with full automation, review a small sample of trajectories by hand every week. This catches problems that metrics miss.</li>
+</ul>
+<p>This way we can use AI Agent Evaluation to build AI Agents that we can actually trust in production.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="can-an-ai-agent-give-the-right-answer-and-still-fail-evaluation">Can an AI Agent give the right answer and still fail evaluation?</h3>
+<p>Yes. An agent can get the right answer by luck after taking many wrong steps, or it can get the right answer while wasting a lot of money and time. This is why we evaluate both the outcome and the trajectory. The outcome tells us if the task is done, and the trajectory tells us why it failed.</p>
+<h3 id="is-a-high-benchmark-score-enough-to-trust-an-ai-agent">Is a high benchmark score enough to trust an AI Agent?</h3>
+<p>No. A high score on a public benchmark does not mean the agent will work well in our product. Public benchmarks rarely match the exact task we care about. So, we must always build our own evaluation that matches our use case.</p>
+<h3 id="how-many-times-should-we-run-each-test-when-evaluating-an-ai-agent">How many times should we run each test when evaluating an AI Agent?</h3>
+<p>We should run each task at least 3 to 5 times. The same agent can give different answers for the same input, because LLMs are not deterministic. So, we look at the average and the worst case, not just one run.</p>
+<h3 id="can-we-trust-llm-as-a-judge-scores-for-agent-evaluation">Can we trust LLM as a Judge scores for agent evaluation?</h3>
+<p>Only after we validate them. The judge can have its own biases, so we compare its scores with human scores on a small sample to make sure it is reliable. LLM as a Judge scales well and works for open-ended tasks once validated.</p>
+<h3 id="should-we-test-ai-agents-in-production">Should we test AI Agents in production?</h3>
+<p>No. We should not test agents in production. Agents take real actions like sending emails and spending money, so a bad action can cause real harm. We use a sandbox with fake tools and fake data, so that we can test safely without risk.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m13-l1304">
+  <p class="print-lesson-kicker">Lesson 13.4</p>
+  <h1>What is AI Agent Observability? Traces, Spans, and Metrics Explained</h1>
+  <p class="print-lesson-meta">Lesson 13.4 · ~20 min · Published May 27, 2026 · <a href="https://outcomeschool.com/blog/ai-agent-observability">https://outcomeschool.com/blog/ai-agent-observability</a></p>
+  <p><img alt="AI Agent Observability" src="../assets/images/13-13-04-what-is-ai-agent-observability-traces-spans-and-metrics-explained/ai-agent-observability.png"/></p>
+<p>AI Agent Observability is the practice of recording everything an AI Agent does inside, step by step, so that we can see why it behaved the way it did.</p>
+<p>In this blog, we will learn about AI Agent Observability. We will also see why we need it, how it is different from normal software monitoring, what we must observe inside an agent, the key concepts like traces and spans, the metrics we must track, the tools we can use, and the best practices to follow.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is an AI Agent?</li>
+<li>What is Observability?</li>
+<li>What is AI Agent Observability?</li>
+<li>Why do we need AI Agent Observability?</li>
+<li>How is AI Agent Observability different from traditional Observability?</li>
+<li>The Three Pillars of Observability</li>
+<li>Traces and Spans</li>
+<li>What should we observe inside an AI Agent?</li>
+<li>Key Metrics for AI Agent Observability</li>
+<li>How AI Agent Observability works</li>
+<li>Tools and Frameworks for AI Agent Observability</li>
+<li>Observability vs Evaluation</li>
+<li>Challenges in AI Agent Observability</li>
+<li>Best Practices</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="what-is-an-ai-agent">What is an AI Agent?</h2>
+<p>Before jumping into AI Agent Observability, we must know what an <a href="https://outcomeschool.com/blog/ai-agent" rel="noopener noreferrer" target="_blank">AI Agent</a> is.</p>
+<p><strong>An AI Agent is a system that uses an LLM to plan, take actions using tools, and finish a task on its own.</strong></p>
+<p>In simple words, an LLM (Large Language Model) only gives us text. But an AI Agent does not stop at text. It can think, call tools, read files, search the web, run code, and take many steps to reach a goal.</p>
+<p>Let's say we ask an AI Agent: "Find me the cheapest flight from Delhi to Bangalore on Friday and book it." The agent will think about what to do, call a flight search tool, read the results, pick the cheapest flight, call a booking tool, and finally give us the confirmation.</p>
+<p>The agent does many steps in between, and we only see the final result.</p>
+<p>This is the power of agents. They make our life easier. But, because they take many steps and many actions, a lot of things happen inside that we cannot see from outside. This is exactly why we need observability.</p>
+<h2 id="what-is-observability">What is Observability?</h2>
+<p>Let us first understand the word.</p>
+<p><strong>Observability = Observe + Ability</strong></p>
+<p>So, observability is the ability to observe what is happening inside a system by looking at the data it produces.</p>
+<p>In simple words, observability means we can answer the question: "What is happening inside my system right now, and why?"</p>
+<p>Let's say our car is making a strange noise. We open the dashboard and look at the speed, the fuel level, and the engine temperature. From these signals, we can understand what is going on inside the engine without opening the whole engine.</p>
+<p>That dashboard gives us observability into the car.</p>
+<p>A doctor does the same thing with the human body. The doctor cannot directly see inside us, so the doctor uses an X-ray, a blood test, and a heartbeat monitor. From these signals, the doctor understands what is happening inside.</p>
+<p>Observability is the same idea for software. We collect signals from a running system, and from those signals, we understand its internal state.</p>
+<h2 id="what-is-ai-agent-observability">What is AI Agent Observability?</h2>
+<p><strong>AI Agent Observability is the practice of recording and understanding everything an AI Agent does internally, step by step, so that we can see why it behaved the way it did.</strong></p>
+<p>In simple words, an AI Agent takes many hidden steps before giving us the final answer. Observability opens up these hidden steps so that we can see each thought, each <a href="https://outcomeschool.com/blog/how-does-function-calling-work-in-llms" rel="noopener noreferrer" target="_blank">tool call</a>, and each decision the agent made.</p>
+<p>Let's go back to our flight booking agent. From outside, we only see the final message: "Your flight is booked." But inside, many things happened:</p>
+<ul>
+<li>The agent thought about the task.</li>
+<li>The agent called the flight search tool with some input.</li>
+<li>The flight search tool returned a list of flights.</li>
+<li>The agent picked one flight.</li>
+<li>The agent called the booking tool.</li>
+<li>The booking tool returned a confirmation.</li>
+</ul>
+<p>AI Agent Observability records all of these hidden steps. So, when something goes wrong, we do not have to guess. We can simply open the record and see exactly what happened at each step.</p>
+<p>Think of it like a black box flight recorder in an airplane. The black box records everything during the flight. If something goes wrong, we open the black box and understand exactly what happened. AI Agent Observability is the black box for our agent.</p>
+<h2 id="why-do-we-need-ai-agent-observability">Why do we need AI Agent Observability?</h2>
+<p>AI Agents are powerful, but they are also unpredictable. The same agent can take different paths for the same task. It calls real tools, spends real money, sends real emails, and talks to real users.</p>
+<p>So, when an agent fails, the failure is hidden somewhere in the middle of many steps. Without observability, we are completely blind.</p>
+<p>Let's say a user complains: "The agent booked the wrong flight." Now, where is the mistake?</p>
+<ul>
+<li>Did the LLM misunderstand the user?</li>
+<li>Did the agent call the search tool with the wrong dates?</li>
+<li>Did the search tool return wrong data?</li>
+<li>Did the agent pick the wrong flight from a correct list?</li>
+<li>Did the booking tool fail and the agent ignored it?</li>
+</ul>
+<p>Without observability, we cannot answer any of these questions. We can only guess, and guessing is not engineering.</p>
+<p>Here are the main reasons we need AI Agent Observability:</p>
+<ul>
+<li>To see every step the agent took, from start to finish.</li>
+<li>To find the exact step where the agent went wrong.</li>
+<li>To track how much money and how many tokens each task is costing us.</li>
+<li>To track how slow or fast our agent is.</li>
+<li>To catch errors, retries, and failed tool calls.</li>
+<li>To understand why the agent made a certain decision.</li>
+<li>To monitor the agent live in production and get alerts when something breaks.</li>
+<li>To collect real data that we can later use to improve the agent.</li>
+</ul>
+<p>There is one more reason. Not every wrong step is an accident. When an attacker hides an instruction inside a page or an email that our agent reads, the trace is often the only place that shows what really happened. We have a detailed blog on <a href="https://outcomeschool.com/blog/prompt-injection-in-llms" rel="noopener noreferrer" target="_blank">Prompt Injection in LLMs</a> that covers this attack end to end.</p>
+<h2 id="how-is-ai-agent-observability-different-from-traditional-observability">How is AI Agent Observability different from traditional Observability?</h2>
+<p>We have been doing observability for normal software for many years. So, the question arises: why do we need a special kind of observability for AI Agents?</p>
+<p>The answer is that AI Agents behave very differently from normal software.</p>
+<p>In normal software, the same input always gives the same output. If we call a function with <code>2 + 2</code>, it always returns <code>4</code>. The path is fixed. The behavior is predictable.</p>
+<p>But an AI Agent is <strong>non-deterministic</strong>. This means the same input can give different outputs and follow different paths each time. The agent can take 3 steps today and 6 steps tomorrow for the same task. It can call a tool in one run and skip it in another.</p>
+<p>Also, in normal software, an error is usually clear. The program either works or crashes with an error message.</p>
+<p>But an AI Agent can fail silently. It can give an answer that looks perfect but is completely wrong. There is no crash, no red error. The output is just quietly incorrect.</p>
+<p>Let me tabulate the differences between Traditional Observability and AI Agent Observability for your better understanding so that you can decide what extra things you need to track.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Traditional Observability</th>
+<th>AI Agent Observability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Same input gives same output</td>
+<td>Same input can give different outputs</td>
+</tr>
+<tr>
+<td>Fixed path of execution</td>
+<td>Path changes on every run</td>
+</tr>
+<tr>
+<td>Errors are clear crashes</td>
+<td>Failures can be silent and look correct</td>
+</tr>
+<tr>
+<td>We track CPU, memory, requests</td>
+<td>We also track tokens, cost, tool calls, reasoning</td>
+</tr>
+<tr>
+<td>We mainly check "did it run?"</td>
+<td>We also check "was the answer good?"</td>
+</tr>
+<tr>
+<td>Logs are simple text lines</td>
+<td>We also capture prompts, responses, and decisions</td>
+</tr>
+</tbody>
+</table></div>
+<p>So, AI Agent Observability includes everything from traditional observability, plus a lot of new things that are special to agents.</p>
+<h2 id="the-three-pillars-of-observability">The Three Pillars of Observability</h2>
+<p>Observability stands on three classic pillars. These three pillars come from traditional software, and they apply to AI Agents too.</p>
+<p><strong>1. Logs</strong></p>
+<p>Logs are simple text records of events that happened. For an agent, a log can be a line like: "Agent called the flight search tool with Delhi to Bangalore on Friday."</p>
+<p><strong>2. Metrics</strong></p>
+<p>Metrics are numbers that we measure over time. For an agent, a metric can be the number of tokens used, the cost per task, or the average time taken.</p>
+<p><strong>3. Traces</strong></p>
+<p>Traces show the full journey of one request as it moves through the system, step by step. For an agent, a trace shows every thought, every tool call, and every LLM call for one single task.</p>
+<p>For AI Agents, <strong>traces are the most important pillar</strong>. This is because an agent does so many steps internally that we must see the full journey to understand its behavior. So, let's understand traces in detail.</p>
+<h2 id="traces-and-spans">Traces and Spans</h2>
+<p>These two words, <strong>trace</strong> and <strong>span</strong>, are the heart of AI Agent Observability. So, let's understand them with a simple example.</p>
+<p><strong>A span is a record of one single step or operation inside the agent.</strong></p>
+<p><strong>A trace is the complete record of one full run of the agent, made up of many spans.</strong></p>
+<p>In simple words, a span is one step, and a trace is the whole story made of many steps.</p>
+<p>Let's go back to our flight booking agent. When a user asks the agent to book a flight, one full run happens. That full run is one <strong>trace</strong>.</p>
+<p>Inside that trace, each small step is a <strong>span</strong>:</p>
+<ul>
+<li>Span 1: The agent receives the user request.</li>
+<li>Span 2: The LLM thinks and decides to search for flights.</li>
+<li>Span 3: The agent calls the flight search tool.</li>
+<li>Span 4: The agent reads the search results.</li>
+<li>Span 5: The LLM picks the cheapest flight.</li>
+<li>Span 6: The agent calls the booking tool.</li>
+<li>Span 7: The agent returns the final confirmation.</li>
+</ul>
+<p>So, this one trace has seven spans. Each span records useful details like the input, the output, the time taken, and any error.</p>
+<p>Spans can also be nested inside each other. For example, a "planning" span can contain an "LLM call" span inside it. This nesting forms a tree, and that tree shows us the full structure of the agent's work.</p>
+<p>When we design the agent as a graph of small steps in the first place, every node gives us one clean span for free. We have a detailed blog on <a href="https://outcomeschool.com/blog/what-is-graph-engineering" rel="noopener noreferrer" target="_blank">Graph Engineering</a> that explains this step by step.</p>
+<p>We can picture one trace like below:</p>
+<pre><code>TRACE: Book a flight from Delhi to Bangalore
+│
+├── SPAN: Receive user request
+├── SPAN: Plan the task
+│       └── SPAN: LLM call (decide to search flights)
+├── SPAN: Tool call (flight search)
+│       ├── input:  Delhi -&gt; Bangalore, Friday
+│       └── output: list of 12 flights
+├── SPAN: Pick the cheapest flight
+│       └── SPAN: LLM call (choose flight)
+├── SPAN: Tool call (booking)
+│       └── output: booking confirmed
+└── SPAN: Return final confirmation
+</code></pre>
+<p>Here, we can see that the trace is the full tree, and each branch is a span. Some spans hold smaller spans inside them. By looking at this tree, we understand the whole journey of the agent in one glance.</p>
+<p>Here, we can also see that a trace is like a complete medical report of one visit, and each span is like one individual test inside that report. Together, they tell us the full story.</p>
+<p>One more thing to notice. When a user has a long conversation with the agent, that whole conversation can have many traces, one for each request the user sends. We group all these traces together into a <strong>session</strong>. So, the full picture is simple: a session contains many traces, and each trace contains many spans.</p>
+<p>We can picture this hierarchy like below:</p>
+<pre><code>SESSION  (one full user conversation)
+│
+├── TRACE 1  (request: "find flights")
+│       ├── SPAN: LLM call
+│       └── SPAN: tool call (search)
+│
+└── TRACE 2  (request: "book the first flight")
+        ├── SPAN: LLM call
+        └── SPAN: tool call (booking)
+</code></pre>
+<p>Here, we can see that the session is the biggest box, the traces sit inside it, and the spans sit inside each trace.</p>
+<h2 id="what-should-we-observe-inside-an-ai-agent">What should we observe inside an AI Agent?</h2>
+<p>Now that we understand traces and spans, the next question is: what exactly should we capture inside each span?</p>
+<p>An AI Agent has many moving parts. We must observe each of them. Let's go through them one by one.</p>
+<p><strong>1. LLM calls</strong></p>
+<p>This is the most important part. Every time the agent talks to the LLM, we must capture the full prompt we sent, the full response we got back, the model name, the <a href="https://outcomeschool.com/blog/how-does-temperature-control-llm-output" rel="noopener noreferrer" target="_blank">temperature setting</a> that controls how creative the answers are, the number of input tokens, the number of output tokens, and the cost.</p>
+<p>This helps us understand what the agent was thinking and how much it cost.</p>
+<p><strong>2. Tool calls</strong></p>
+<p>Agents use tools to take actions. For every tool call, we must capture which tool was called, what input was passed to it, what output it returned, and whether it succeeded or failed.</p>
+<p>Most of the time, agents fail because they call the wrong tool or pass the wrong input. So, this data is very valuable.</p>
+<p><strong>3. Reasoning and planning steps</strong></p>
+<p>Agents often think before they act. We must capture this reasoning so that we can understand why the agent chose a certain action.</p>
+<p><strong>4. Memory and context</strong></p>
+<p>Many agents use <a href="https://outcomeschool.com/blog/ai-agent-memory" rel="noopener noreferrer" target="_blank">memory</a> to remember past steps or past conversations. We must observe what the agent read from memory and what it wrote to memory.</p>
+<p><strong>5. Retries and errors</strong></p>
+<p>Sometimes a tool fails and the agent retries. We must capture every retry and every error so that we know where the agent is struggling.</p>
+<p><strong>6. The final output</strong></p>
+<p>Finally, we must capture the final answer that the agent gave to the user, so that we can check if it was correct and helpful.</p>
+<p>When we capture all of these, we get a complete picture of the agent. Nothing stays hidden.</p>
+<h2 id="key-metrics-for-ai-agent-observability">Key Metrics for AI Agent Observability</h2>
+<p>Capturing traces tells us the full story of each run. But we also need numbers that we can track over time. These numbers are called metrics. Let's look at the key metrics we must track.</p>
+<p><strong>Latency</strong></p>
+<p>This is the time the agent takes to finish a task. We must track the total time and also the time for each step. A slow tool or a slow LLM call can make the whole agent slow.</p>
+<p><strong>Token Usage</strong></p>
+<p>This is the number of tokens the agent uses for each task. Tokens are the small pieces of text that the LLM reads and writes. More tokens means more cost.</p>
+<p><strong>Cost</strong></p>
+<p>This is the money we spend for each task. Since agents make many LLM calls, the cost can grow very fast. So, we must watch it closely.</p>
+<p><strong>Number of Steps</strong></p>
+<p>This is how many steps the agent took to finish the task. If an agent takes too many steps, it is wasting time and money, or it is <a href="https://outcomeschool.com/blog/ai-agent-loop" rel="noopener noreferrer" target="_blank">stuck in a loop</a>.</p>
+<p><strong>Tool Call Success Rate</strong></p>
+<p>This is the percentage of tool calls that succeeded. A low success rate means something in our tools or our agent is broken somewhere.</p>
+<p><strong>Error Rate</strong></p>
+<p>This is how often the agent runs into errors. A rising error rate is an early warning that something is going wrong.</p>
+<p><strong>Task Success Rate</strong></p>
+<p>This is the most important metric. It tells us how often the agent actually finishes the task correctly.</p>
+<p>So, now we know the key metrics. By watching these over time, we can quickly notice when our agent starts getting worse.</p>
+<h2 id="how-ai-agent-observability-works">How AI Agent Observability works</h2>
+<p>Now, let's understand how observability actually works in practice. The process has a few simple parts.</p>
+<p><strong>Step 1: Instrumentation</strong></p>
+<p>First, we add <strong>instrumentation</strong> to our agent. Instrumentation means adding small pieces of code that record what the agent is doing at each step.</p>
+<p>In simple words, we place tiny sensors at every important point in the agent. These sensors note down the input, the output, the time, and any error.</p>
+<p>The best part is that most modern agent frameworks already have this instrumentation built in, so we do not have to write much code ourselves.</p>
+<p><strong>Step 2: Collecting the data</strong></p>
+<p>As the agent runs, the instrumentation produces traces, spans, and metrics. This data is collected and sent to an observability platform.</p>
+<p><strong>Step 3: Storing and connecting the data</strong></p>
+<p>The platform stores all the spans and connects them into full traces. So, all the steps of one run are grouped together into one clear story.</p>
+<p><strong>Step 4: Visualizing the data</strong></p>
+<p>The platform then shows us this data in a dashboard. We can see each trace as a tree of spans. We can click on any span to see the exact prompt, response, tool input, and tool output.</p>
+<p><strong>Step 5: Alerting</strong></p>
+<p>Finally, we set up alerts. So, if the cost suddenly jumps, or the error rate rises, or the agent becomes slow, we get notified right away.</p>
+<p>We can picture this whole flow like below:</p>
+<pre><code>AI AGENT  (with instrumentation)
+│   records each step
+▼
+Traces, Spans, and Metrics
+│   sent to
+▼
+OBSERVABILITY PLATFORM
+(stores and connects spans into full traces)
+│
+├───────────────────┐
+▼                   ▼
+DASHBOARD           ALERTS
+(see every step)    (notify us on high
+                     cost, errors, slowness)
+</code></pre>
+<p>Here, we can notice that the whole flow is simple: record everything, collect it, connect it, show it, and alert on it.</p>
+<p>A very important standard here is <strong>OpenTelemetry</strong>. OpenTelemetry is an open-source standard that defines how traces, metrics, and logs are collected in a common format. Because it is a common standard, we can collect the data once and send it to many different tools. This is why most observability tools support OpenTelemetry.</p>
+<p>OpenTelemetry even has special <strong>GenAI conventions</strong> now. These give standard names for AI-specific things like the model name, the number of tokens, and the cost. So, every tool reads them in the same way, and we do not have to worry about each tool using a different name for the same thing.</p>
+<h2 id="tools-and-frameworks-for-ai-agent-observability">Tools and Frameworks for AI Agent Observability</h2>
+<p>Now, let's look at some popular tools that help us with AI Agent Observability. We do not have to build everything from scratch. These tools give us tracing, dashboards, and alerts out of the box.</p>
+<ul>
+<li><strong>LangSmith</strong> - An observability and evaluation platform built by the <a href="https://outcomeschool.com/blog/how-does-langchain-work" rel="noopener noreferrer" target="_blank">LangChain</a> team. It gives detailed traces of every agent step.</li>
+<li><strong>Langfuse</strong> - An open-source observability platform for LLM apps and agents. It captures traces, costs, and metrics.</li>
+<li><strong>Arize Phoenix</strong> - An open-source tool for tracing and evaluating LLM applications, built on OpenTelemetry.</li>
+<li><strong>OpenTelemetry</strong> - The open standard for collecting traces, metrics, and logs in a common format.</li>
+<li><strong>Laminar</strong> - An open-source, OpenTelemetry-native platform built specifically for tracing long-running agents, not just single LLM calls.</li>
+<li><strong>Datadog and Grafana</strong> - Traditional observability platforms that now also support LLM and agent monitoring.</li>
+</ul>
+<p>We can choose any of these based on our use case. Many of them support OpenTelemetry, so we are not locked into one tool.</p>
+<h2 id="observability-vs-evaluation">Observability vs Evaluation</h2>
+<p>People often confuse observability with evaluation. So, let's clear this up because they are different but they work together.</p>
+<p><strong>Observability tells us what the agent did. Evaluation tells us how good it was.</strong></p>
+<p>In simple words, observability records the full story of each run. Evaluation then judges whether that story was a good one.</p>
+<p>Let's say our flight agent booked a flight. Observability shows us every step it took to book that flight. Evaluation checks whether it picked the cheapest flight, used the right dates, and finished the task correctly.</p>
+<p>So, observability comes first. It gives us the raw data. Then evaluation uses that data to score the agent.</p>
+<p>Here, we can see that the two go hand in hand. Without observability, we have nothing to evaluate. And without evaluation, our observability data has no judgement on quality.</p>
+<p>If you want to go deeper into how we measure the quality of agents, I will highly recommend reading about <a href="https://outcomeschool.com/blog/ai-agent-evaluation" rel="noopener noreferrer" target="_blank">AI Agent Evaluation</a> as the next step.</p>
+<h2 id="challenges-in-ai-agent-observability">Challenges in AI Agent Observability</h2>
+<p>AI Agent Observability is powerful, but it comes with a few challenges. We must be aware of them.</p>
+<ul>
+<li><strong>High volume of data:</strong> Agents take many steps, so they produce a huge amount of trace data. Storing and searching all of it can become expensive.</li>
+<li><strong>Sensitive data:</strong> Prompts and tool inputs can contain private user information. We must be careful to hide or mask this sensitive data.</li>
+<li><strong>Non-deterministic behavior:</strong> Since the agent takes a different path each time, it is hard to compare two runs directly.</li>
+<li><strong>Cost of observability itself:</strong> Recording everything adds some extra time and cost. We must balance how much we record.</li>
+<li><strong>Connecting the steps:</strong> In a complex agent with many <a href="https://outcomeschool.com/blog/ai-subagents" rel="noopener noreferrer" target="_blank">sub-agents</a>, it is hard to connect all the spans into one clean trace. Good instrumentation is needed to keep the story complete.</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<p>Finally, let's look at some best practices for AI Agent Observability. These will help us get the most value.</p>
+<ul>
+<li><strong>Trace everything from day one.</strong> Do not wait for a problem to add observability. Add it when you build the agent.</li>
+<li><strong>Capture full prompts and responses.</strong> Do not just log "LLM called." Log the actual input and output so that you can debug later.</li>
+<li><strong>Use a common standard like OpenTelemetry.</strong> This keeps you flexible and avoids lock-in to one tool.</li>
+<li><strong>Track cost and tokens for every run.</strong> Agent costs grow fast, so watch them from the start.</li>
+<li><strong>Mask sensitive data.</strong> Always hide private user information before storing traces.</li>
+<li><strong>Set up alerts.</strong> Let alerts notify you when something breaks.</li>
+<li><strong>Connect observability with evaluation.</strong> Use the traces you collect to score and improve your agent.</li>
+<li><strong>Keep traces for past runs.</strong> They help you find patterns and improve the agent over time.</li>
+</ul>
+<p>If we follow these practices, we will always know what our agent is doing and why.</p>
+<p>This is how AI Agent Observability helps us turn a mysterious black box agent into a clear, understandable system that we can trust, debug, and improve.</p>
+<p>Now we must have understood AI Agent Observability, why we need it, what we must observe, the key concepts of traces and spans, the metrics we must track, and the tools we can use to do it well.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="do-we-need-to-write-instrumentation-code-ourselves">Do we need to write instrumentation code ourselves?</h3>
+<p>Mostly no. Most modern agent frameworks already have instrumentation built in, so we do not have to write much code ourselves. Instrumentation is the small pieces of code that record the input, the output, the time, and any error at each important step of the agent.</p>
+<h3 id="which-is-more-important-for-ai-agents-logs-metrics-or-traces">Which is more important for AI agents, logs, metrics, or traces?</h3>
+<p>Traces are the most important for AI agents. An agent does so many steps internally that we must see the full journey of one request to understand its behavior. A trace shows every thought, every tool call, and every LLM call for one single task.</p>
+<h3 id="what-is-a-session-in-ai-agent-observability">What is a session in AI agent observability?</h3>
+<p>A session is the group of all traces from one full user conversation. Each request the user sends creates its own trace, and each trace contains many spans. So, a session contains many traces, and each trace contains many spans.</p>
+<h3 id="when-should-we-add-observability-to-an-ai-agent">When should we add observability to an AI agent?</h3>
+<p>We should add it from day one, when we build the agent. We should not wait for a problem to show up first. Tracing everything from the start means we always have the full record of each run when something goes wrong.</p>
+<h3 id="is-it-safe-to-store-full-prompts-in-traces">Is it safe to store full prompts in traces?</h3>
+<p>Only if we mask sensitive data first. Prompts and tool inputs can contain private user information, so we must hide it before storing traces. We still capture full prompts and responses, because a line like "LLM called" is not enough to debug later.</p>
+
+</section>
+
+</section>
+<p class="print-footer">Personal offline study copy · Content © Outcome School / Amit Shekhar</p>
+</main>
+</body>
+</html>

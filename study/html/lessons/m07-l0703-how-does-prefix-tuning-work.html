@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="How does Prefix Tuning work? Module 7 · Lesson 7.3 Source: Outcome School · Published: August 24, 2026 · Reading time: 24 min · Tags: llm , ai , machine learning Prefix Tuning is a">
+<title>How does Prefix Tuning work? · AI Engineering Course</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/pygments.css">
+</head>
+<body class="">
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="topbar">
+  <button id="menu-toggle" class="icon-btn" type="button" aria-label="Toggle navigation">☰</button>
+  <a class="brand" href="../index.html">AI Engineering Course</a>
+  <div class="search-wrap">
+    <input id="search" type="search" placeholder="Search lessons…" autocomplete="off" aria-label="Search lessons">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+  <div class="progress-mini" title="Course progress"><span id="progress-text">0%</span></div>
+  <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle light/dark theme">🌙</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="progress-box">
+      <div class="progress-bar"><span id="progress-fill"></span></div>
+      <div class="progress-label" id="progress-label">0 of 0 lessons read</div>
+    </div>
+    <nav class="course-nav" aria-label="Course modules">
+<a class="nav-home" href="../index.html">Course home</a>
+<a class="nav-module-single" href="../modules/m00.html">0. Must Know</a>
+<details class="nav-module" data-module="1">
+<summary><span class="nav-module-title">1. Machine Learning Foundations</span><span class="nav-count" data-nav-count="1">0/9</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0101" data-module="1" aria-label="Mark What is Machine Learning? as read"></label><a href="../lessons/m01-l0101-what-is-machine-learning.html">1.1 What is Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0102" data-module="1" aria-label="Mark Supervised vs Unsupervised Learning as read"></label><a href="../lessons/m01-l0102-supervised-vs-unsupervised-learning.html">1.2 Supervised vs Unsupervised Learning</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0103" data-module="1" aria-label="Mark Linear Regression vs Logistic Regression as read"></label><a href="../lessons/m01-l0103-linear-regression-vs-logistic-regression.html">1.3 Linear Regression vs Logistic Regression</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0104" data-module="1" aria-label="Mark What is Feature Engineering in Machine Learning? as read"></label><a href="../lessons/m01-l0104-what-is-feature-engineering-in-machine-learning.html">1.4 What is Feature Engineering in Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0105" data-module="1" aria-label="Mark Precision vs Recall as read"></label><a href="../lessons/m01-l0105-precision-vs-recall.html">1.5 Precision vs Recall</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0106" data-module="1" aria-label="Mark What Are L1 and L2 Loss Functions? as read"></label><a href="../lessons/m01-l0106-what-are-l1-and-l2-loss-functions.html">1.6 What Are L1 and L2 Loss Functions?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0107" data-module="1" aria-label="Mark What is Regularization in Machine Learning? L1 vs L2 Explained as read"></label><a href="../lessons/m01-l0107-what-is-regularization-in-machine-learning-l1-vs-l2-explained.html">1.7 What is Regularization in Machine Learning? L1 vs L2 Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0108" data-module="1" aria-label="Mark What is Reinforcement Learning? as read"></label><a href="../lessons/m01-l0108-what-is-reinforcement-learning.html">1.8 What is Reinforcement Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0109" data-module="1" aria-label="Mark What is Contrastive Learning? How It Works Step by Step as read"></label><a href="../lessons/m01-l0109-what-is-contrastive-learning-how-it-works-step-by-step.html">1.9 What is Contrastive Learning? How It Works Step by Step</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="2">
+<summary><span class="nav-module-title">2. Deep Learning and Neural Networks</span><span class="nav-count" data-nav-count="2">0/12</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0201" data-module="2" aria-label="Mark What is a Neural Network and How Does It Work? as read"></label><a href="../lessons/m02-l0201-what-is-a-neural-network-and-how-does-it-work.html">2.1 What is a Neural Network and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0202" data-module="2" aria-label="Mark What is Bias In Artificial Neural Network? as read"></label><a href="../lessons/m02-l0202-what-is-bias-in-artificial-neural-network.html">2.2 What is Bias In Artificial Neural Network?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0203" data-module="2" aria-label="Mark How Does Matrix Multiplication Work in Neural Networks? as read"></label><a href="../lessons/m02-l0203-how-does-matrix-multiplication-work-in-neural-networks.html">2.3 How Does Matrix Multiplication Work in Neural Networks?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0204" data-module="2" aria-label="Mark How Does Gradient Descent Work? as read"></label><a href="../lessons/m02-l0204-how-does-gradient-descent-work.html">2.4 How Does Gradient Descent Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0205" data-module="2" aria-label="Mark How Does Backpropagation Work? The Math Explained Step by Step as read"></label><a href="../lessons/m02-l0205-how-does-backpropagation-work-the-math-explained-step-by-step.html">2.5 How Does Backpropagation Work? The Math Explained Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0206" data-module="2" aria-label="Mark What is Cross-Entropy Loss? as read"></label><a href="../lessons/m02-l0206-what-is-cross-entropy-loss.html">2.6 What is Cross-Entropy Loss?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0207" data-module="2" aria-label="Mark What is Dropout in Neural Networks and How Does It Work? as read"></label><a href="../lessons/m02-l0207-what-is-dropout-in-neural-networks-and-how-does-it-work.html">2.7 What is Dropout in Neural Networks and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0208" data-module="2" aria-label="Mark Batch Normalization vs Layer Normalization as read"></label><a href="../lessons/m02-l0208-batch-normalization-vs-layer-normalization.html">2.8 Batch Normalization vs Layer Normalization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0209" data-module="2" aria-label="Mark What is RMSNorm? Root Mean Square Layer Normalization Explained as read"></label><a href="../lessons/m02-l0209-what-is-rmsnorm-root-mean-square-layer-normalization-explained.html">2.9 What is RMSNorm? Root Mean Square Layer Normalization Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0210" data-module="2" aria-label="Mark What is a Recurrent Neural Network (RNN)? as read"></label><a href="../lessons/m02-l0210-what-is-a-recurrent-neural-network-rnn.html">2.10 What is a Recurrent Neural Network (RNN)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0211" data-module="2" aria-label="Mark How does PyTorch work? as read"></label><a href="../lessons/m02-l0211-how-does-pytorch-work.html">2.11 How does PyTorch work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0212" data-module="2" aria-label="Mark How Does The Machine Learning Library TensorFlow Work? as read"></label><a href="../lessons/m02-l0212-how-does-the-machine-learning-library-tensorflow-work.html">2.12 How Does The Machine Learning Library TensorFlow Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="3">
+<summary><span class="nav-module-title">3. Generative AI and the Transformer Architecture</span><span class="nav-count" data-nav-count="3">0/16</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0301" data-module="3" aria-label="Mark What is Generative AI? as read"></label><a href="../lessons/m03-l0301-what-is-generative-ai.html">3.1 What is Generative AI?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0302" data-module="3" aria-label="Mark What are Autoregressive Models? as read"></label><a href="../lessons/m03-l0302-what-are-autoregressive-models.html">3.2 What are Autoregressive Models?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0303" data-module="3" aria-label="Mark Tokenization in LLMs as read"></label><a href="../lessons/m03-l0303-tokenization-in-llms.html">3.3 Tokenization in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0304" data-module="3" aria-label="Mark What is Byte Pair Encoding (BPE) in LLMs? as read"></label><a href="../lessons/m03-l0304-what-is-byte-pair-encoding-bpe-in-llms.html">3.4 What is Byte Pair Encoding (BPE) in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0305" data-module="3" aria-label="Mark What are Embeddings? as read"></label><a href="../lessons/m03-l0305-what-are-embeddings.html">3.5 What are Embeddings?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0306" data-module="3" aria-label="Mark How do RNNs and Transformers differ? as read"></label><a href="../lessons/m03-l0306-how-do-rnns-and-transformers-differ.html">3.6 How do RNNs and Transformers differ?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0307" data-module="3" aria-label="Mark How Does the Transformer Architecture Work? as read"></label><a href="../lessons/m03-l0307-how-does-the-transformer-architecture-work.html">3.7 How Does the Transformer Architecture Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0308" data-module="3" aria-label="Mark Encoder vs Decoder in Transformers as read"></label><a href="../lessons/m03-l0308-encoder-vs-decoder-in-transformers.html">3.8 Encoder vs Decoder in Transformers</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0309" data-module="3" aria-label="Mark What is Self Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0309-what-is-self-attention-in-transformers-and-how-does-it-work.html">3.9 What is Self Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0310" data-module="3" aria-label="Mark How Does Attention Work? The Math Behind Q, K, and V Step by Step as read"></label><a href="../lessons/m03-l0310-how-does-attention-work-the-math-behind-q-k-and-v-step-by-step.html">3.10 How Does Attention Work? The Math Behind Q, K, and V Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0311" data-module="3" aria-label="Mark Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor as read"></label><a href="../lessons/m03-l0311-why-do-we-scale-attention-by-dk-the-math-behind-the-scaling-factor.html">3.11 Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0312" data-module="3" aria-label="Mark What is Causal Masking in Attention and Why Do LLMs Need It? as read"></label><a href="../lessons/m03-l0312-what-is-causal-masking-in-attention-and-why-do-llms-need-it.html">3.12 What is Causal Masking in Attention and Why Do LLMs Need It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0313" data-module="3" aria-label="Mark What is Multi-Head Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0313-what-is-multi-head-attention-in-transformers-and-how-does-it-work.html">3.13 What is Multi-Head Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0314" data-module="3" aria-label="Mark What is Cross Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0314-what-is-cross-attention-in-transformers-and-how-does-it-work.html">3.14 What is Cross Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0315" data-module="3" aria-label="Mark What is RoPE (Rotary Position Embedding)? The Math Behind It as read"></label><a href="../lessons/m03-l0315-what-is-rope-rotary-position-embedding-the-math-behind-it.html">3.15 What is RoPE (Rotary Position Embedding)? The Math Behind It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0316" data-module="3" aria-label="Mark What is the Feed-Forward Network in LLMs and What Does It Do? as read"></label><a href="../lessons/m03-l0316-what-is-the-feed-forward-network-in-llms-and-what-does-it-do.html">3.16 What is the Feed-Forward Network in LLMs and What Does It Do?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="4">
+<summary><span class="nav-module-title">4. How LLMs Generate Text</span><span class="nav-count" data-nav-count="4">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0401" data-module="4" aria-label="Mark How does Temperature control LLM output? as read"></label><a href="../lessons/m04-l0401-how-does-temperature-control-llm-output.html">4.1 How does Temperature control LLM output?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0402" data-module="4" aria-label="Mark How do Top-k and Top-p Sampling work? as read"></label><a href="../lessons/m04-l0402-how-do-top-k-and-top-p-sampling-work.html">4.2 How do Top-k and Top-p Sampling work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0403" data-module="4" aria-label="Mark Stop Tokens in LLMs as read"></label><a href="../lessons/m04-l0403-stop-tokens-in-llms.html">4.3 Stop Tokens in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0404" data-module="4" aria-label="Mark How does Token Streaming work? as read"></label><a href="../lessons/m04-l0404-how-does-token-streaming-work.html">4.4 How does Token Streaming work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0405" data-module="4" aria-label="Mark What is the Lost in the Middle Problem in LLMs and How to Fix It? as read"></label><a href="../lessons/m04-l0405-what-is-the-lost-in-the-middle-problem-in-llms-and-how-to-fix-it.html">4.5 What is the Lost in the Middle Problem in LLMs and How to Fix It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0406" data-module="4" aria-label="Mark Why Do LLMs Hallucinate? The Token-Level Explanation as read"></label><a href="../lessons/m04-l0406-why-do-llms-hallucinate-the-token-level-explanation.html">4.6 Why Do LLMs Hallucinate? The Token-Level Explanation</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="5">
+<summary><span class="nav-module-title">5. Modern LLM Architecture</span><span class="nav-count" data-nav-count="5">0/7</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0501" data-module="5" aria-label="Mark Evolution of LLM Architecture as read"></label><a href="../lessons/m05-l0501-evolution-of-llm-architecture.html">5.1 Evolution of LLM Architecture</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0502" data-module="5" aria-label="Mark What is Mixture of Experts (MoE) and How Does It Work? as read"></label><a href="../lessons/m05-l0502-what-is-mixture-of-experts-moe-and-how-does-it-work.html">5.2 What is Mixture of Experts (MoE) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0503" data-module="5" aria-label="Mark What is Grouped Query Attention (GQA) and Why Do LLMs Use It? as read"></label><a href="../lessons/m05-l0503-what-is-grouped-query-attention-gqa-and-why-do-llms-use-it.html">5.3 What is Grouped Query Attention (GQA) and Why Do LLMs Use It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0504" data-module="5" aria-label="Mark How does Sliding Window Attention work? as read"></label><a href="../lessons/m05-l0504-how-does-sliding-window-attention-work.html">5.4 How does Sliding Window Attention work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0505" data-module="5" aria-label="Mark How do Attention Sinks work? as read"></label><a href="../lessons/m05-l0505-how-do-attention-sinks-work.html">5.5 How do Attention Sinks work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0506" data-module="5" aria-label="Mark What is Flash Attention and Why Is It So Fast? as read"></label><a href="../lessons/m05-l0506-what-is-flash-attention-and-why-is-it-so-fast.html">5.6 What is Flash Attention and Why Is It So Fast?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0507" data-module="5" aria-label="Mark What is DeepSeek-V4 and How Does It Work? Architecture Explained as read"></label><a href="../lessons/m05-l0507-what-is-deepseek-v4-and-how-does-it-work-architecture-explained.html">5.7 What is DeepSeek-V4 and How Does It Work? Architecture Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="6">
+<summary><span class="nav-module-title">6. Types of Language Models</span><span class="nav-count" data-nav-count="6">0/5</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0601" data-module="6" aria-label="Mark What are Small Language Models (SLMs) and When Should We Use Them? as read"></label><a href="../lessons/m06-l0601-what-are-small-language-models-slms-and-when-should-we-use-them.html">6.1 What are Small Language Models (SLMs) and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0602" data-module="6" aria-label="Mark What are Large Reasoning Models (LRMs) and How Are They Different from LLMs? as read"></label><a href="../lessons/m06-l0602-what-are-large-reasoning-models-lrms-and-how-are-they-different-from-llms.html">6.2 What are Large Reasoning Models (LRMs) and How Are They Different from LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0603" data-module="6" aria-label="Mark What are Recursive Language Models (RLMs) and How Do They Work? as read"></label><a href="../lessons/m06-l0603-what-are-recursive-language-models-rlms-and-how-do-they-work.html">6.3 What are Recursive Language Models (RLMs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0604" data-module="6" aria-label="Mark How do Diffusion Language Models (DLMs) work? as read"></label><a href="../lessons/m06-l0604-how-do-diffusion-language-models-dlms-work.html">6.4 How do Diffusion Language Models (DLMs) work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0605" data-module="6" aria-label="Mark Jev and System One Models Explained as read"></label><a href="../lessons/m06-l0605-jev-and-system-one-models-explained.html">6.5 Jev and System One Models Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="7" open>
+<summary><span class="nav-module-title">7. Training, Fine-Tuning, and Alignment</span><span class="nav-count" data-nav-count="7">0/11</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0701" data-module="7" aria-label="Mark How does fine-tuning work? as read"></label><a href="../lessons/m07-l0701-how-does-fine-tuning-work.html">7.1 How does fine-tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0702" data-module="7" aria-label="Mark What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs? as read"></label><a href="../lessons/m07-l0702-what-is-lora-low-rank-adaptation-and-how-does-it-fine-tune-llms.html">7.2 What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs?</a></li>
+<li class="nav-lesson active"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0703" data-module="7" aria-label="Mark How does Prefix Tuning work? as read"></label><a href="../lessons/m07-l0703-how-does-prefix-tuning-work.html">7.3 How does Prefix Tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0704" data-module="7" aria-label="Mark How does Knowledge Distillation work? as read"></label><a href="../lessons/m07-l0704-how-does-knowledge-distillation-work.html">7.4 How does Knowledge Distillation work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0705" data-module="7" aria-label="Mark What is Continual Learning in LLMs? Solving Catastrophic Forgetting as read"></label><a href="../lessons/m07-l0705-what-is-continual-learning-in-llms-solving-catastrophic-forgetting.html">7.5 What is Continual Learning in LLMs? Solving Catastrophic Forgetting</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0706" data-module="7" aria-label="Mark What is Deep RL from Human Preferences? The Paper That Started RLHF as read"></label><a href="../lessons/m07-l0706-what-is-deep-rl-from-human-preferences-the-paper-that-started-rlhf.html">7.6 What is Deep RL from Human Preferences? The Paper That Started RLHF</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0707" data-module="7" aria-label="Mark What is InstructGPT? How GPT-3 Learned to Follow Instructions as read"></label><a href="../lessons/m07-l0707-what-is-instructgpt-how-gpt-3-learned-to-follow-instructions.html">7.7 What is InstructGPT? How GPT-3 Learned to Follow Instructions</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0708" data-module="7" aria-label="Mark What is RLHF? Reinforcement Learning from Human Feedback Explained as read"></label><a href="../lessons/m07-l0708-what-is-rlhf-reinforcement-learning-from-human-feedback-explained.html">7.8 What is RLHF? Reinforcement Learning from Human Feedback Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0709" data-module="7" aria-label="Mark What is Proximal Policy Optimization (PPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0709-what-is-proximal-policy-optimization-ppo-and-how-does-it-work.html">7.9 What is Proximal Policy Optimization (PPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0710" data-module="7" aria-label="Mark What is Direct Preference Optimization (DPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0710-what-is-direct-preference-optimization-dpo-and-how-does-it-work.html">7.10 What is Direct Preference Optimization (DPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0711" data-module="7" aria-label="Mark What is Group Relative Policy Optimization (GRPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0711-what-is-group-relative-policy-optimization-grpo-and-how-does-it-work.html">7.11 What is Group Relative Policy Optimization (GRPO) and How Does It Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="8">
+<summary><span class="nav-module-title">8. Prompt Engineering and Context Engineering</span><span class="nav-count" data-nav-count="8">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0801" data-module="8" aria-label="Mark How does Chain-of-Thought (CoT) Prompting work? as read"></label><a href="../lessons/m08-l0801-how-does-chain-of-thought-cot-prompting-work.html">8.1 How does Chain-of-Thought (CoT) Prompting work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0802" data-module="8" aria-label="Mark How does Tree of Thoughts work? as read"></label><a href="../lessons/m08-l0802-how-does-tree-of-thoughts-work.html">8.2 How does Tree of Thoughts work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0803" data-module="8" aria-label="Mark How does Prompt Chaining work? as read"></label><a href="../lessons/m08-l0803-how-does-prompt-chaining-work.html">8.3 How does Prompt Chaining work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0804" data-module="8" aria-label="Mark How does Prompt Caching work? as read"></label><a href="../lessons/m08-l0804-how-does-prompt-caching-work.html">8.4 How does Prompt Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0805" data-module="8" aria-label="Mark What is Context Engineering? as read"></label><a href="../lessons/m08-l0805-what-is-context-engineering.html">8.5 What is Context Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0806" data-module="8" aria-label="Mark How does context compaction work? as read"></label><a href="../lessons/m08-l0806-how-does-context-compaction-work.html">8.6 How does context compaction work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="9">
+<summary><span class="nav-module-title">9. Vector Search and Retrieval-Augmented Generation (RAG)</span><span class="nav-count" data-nav-count="9">0/15</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0901" data-module="9" aria-label="Mark How does a Vector Database work? as read"></label><a href="../lessons/m09-l0901-how-does-a-vector-database-work.html">9.1 How does a Vector Database work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0902" data-module="9" aria-label="Mark How does Approximate Nearest Neighbor (ANN) search work? as read"></label><a href="../lessons/m09-l0902-how-does-approximate-nearest-neighbor-ann-search-work.html">9.2 How does Approximate Nearest Neighbor (ANN) search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0903" data-module="9" aria-label="Mark How does Semantic Search work? as read"></label><a href="../lessons/m09-l0903-how-does-semantic-search-work.html">9.3 How does Semantic Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0904" data-module="9" aria-label="Mark How does Hybrid Search work? as read"></label><a href="../lessons/m09-l0904-how-does-hybrid-search-work.html">9.4 How does Hybrid Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0905" data-module="9" aria-label="Mark How does a Reranker work? as read"></label><a href="../lessons/m09-l0905-how-does-a-reranker-work.html">9.5 How does a Reranker work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0906" data-module="9" aria-label="Mark What is ColBERT? Late Interaction Retrieval Explained as read"></label><a href="../lessons/m09-l0906-what-is-colbert-late-interaction-retrieval-explained.html">9.6 What is ColBERT? Late Interaction Retrieval Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0907" data-module="9" aria-label="Mark How to Chunk Documents for RAG? Chunking Strategies Explained as read"></label><a href="../lessons/m09-l0907-how-to-chunk-documents-for-rag-chunking-strategies-explained.html">9.7 How to Chunk Documents for RAG? Chunking Strategies Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0908" data-module="9" aria-label="Mark How does Contextual Retrieval work? as read"></label><a href="../lessons/m09-l0908-how-does-contextual-retrieval-work.html">9.8 How does Contextual Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0909" data-module="9" aria-label="Mark How does HyDE work in RAG? as read"></label><a href="../lessons/m09-l0909-how-does-hyde-work-in-rag.html">9.9 How does HyDE work in RAG?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0910" data-module="9" aria-label="Mark How do Query Rewriting and Multi-Query Retrieval work? as read"></label><a href="../lessons/m09-l0910-how-do-query-rewriting-and-multi-query-retrieval-work.html">9.10 How do Query Rewriting and Multi-Query Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0911" data-module="9" aria-label="Mark How does an Embedding Cache work? as read"></label><a href="../lessons/m09-l0911-how-does-an-embedding-cache-work.html">9.11 How does an Embedding Cache work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0912" data-module="9" aria-label="Mark How does Semantic Caching work? as read"></label><a href="../lessons/m09-l0912-how-does-semantic-caching-work.html">9.12 How does Semantic Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0913" data-module="9" aria-label="Mark What is Agentic RAG? How It Works and When to Use It as read"></label><a href="../lessons/m09-l0913-what-is-agentic-rag-how-it-works-and-when-to-use-it.html">9.13 What is Agentic RAG? How It Works and When to Use It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0914" data-module="9" aria-label="Mark What is GraphRAG? How Knowledge Graphs Improve RAG as read"></label><a href="../lessons/m09-l0914-what-is-graphrag-how-knowledge-graphs-improve-rag.html">9.14 What is GraphRAG? How Knowledge Graphs Improve RAG</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0915" data-module="9" aria-label="Mark What is Vectorless RAG? RAG Without Embeddings or a Vector Database as read"></label><a href="../lessons/m09-l0915-what-is-vectorless-rag-rag-without-embeddings-or-a-vector-database.html">9.15 What is Vectorless RAG? RAG Without Embeddings or a Vector Database</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="10">
+<summary><span class="nav-module-title">10. AI Agents and Agentic Systems</span><span class="nav-count" data-nav-count="10">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1001" data-module="10" aria-label="Mark What is an AI Agent? How It Works as read"></label><a href="../lessons/m10-l1001-what-is-an-ai-agent-how-it-works.html">10.1 What is an AI Agent? How It Works</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1002" data-module="10" aria-label="Mark How does Function Calling work in LLMs? as read"></label><a href="../lessons/m10-l1002-how-does-function-calling-work-in-llms.html">10.2 How does Function Calling work in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1003" data-module="10" aria-label="Mark What is an AI Agent Loop? as read"></label><a href="../lessons/m10-l1003-what-is-an-ai-agent-loop.html">10.3 What is an AI Agent Loop?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1004" data-module="10" aria-label="Mark What is a ReAct Agent? How It Thinks and Acts, Explained as read"></label><a href="../lessons/m10-l1004-what-is-a-react-agent-how-it-thinks-and-acts-explained.html">10.4 What is a ReAct Agent? How It Thinks and Acts, Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1005" data-module="10" aria-label="Mark What is a Plan-and-Execute Agent and How Does It Work? as read"></label><a href="../lessons/m10-l1005-what-is-a-plan-and-execute-agent-and-how-does-it-work.html">10.5 What is a Plan-and-Execute Agent and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1006" data-module="10" aria-label="Mark What is a Reflection Agent? How It Generates, Critiques, and Revises as read"></label><a href="../lessons/m10-l1006-what-is-a-reflection-agent-how-it-generates-critiques-and-revises.html">10.6 What is a Reflection Agent? How It Generates, Critiques, and Revises</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1007" data-module="10" aria-label="Mark How Does AI Agent Memory Work? The Memory Stack Explained as read"></label><a href="../lessons/m10-l1007-how-does-ai-agent-memory-work-the-memory-stack-explained.html">10.7 How Does AI Agent Memory Work? The Memory Stack Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1008" data-module="10" aria-label="Mark How does ChatGPT remember you? as read"></label><a href="../lessons/m10-l1008-how-does-chatgpt-remember-you.html">10.8 How does ChatGPT remember you?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1009" data-module="10" aria-label="Mark What is MCP (Model Context Protocol)? as read"></label><a href="../lessons/m10-l1009-what-is-mcp-model-context-protocol.html">10.9 What is MCP (Model Context Protocol)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1010" data-module="10" aria-label="Mark What are Agent Skills? as read"></label><a href="../lessons/m10-l1010-what-are-agent-skills.html">10.10 What are Agent Skills?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1011" data-module="10" aria-label="Mark What is OKF (Open Knowledge Format)? as read"></label><a href="../lessons/m10-l1011-what-is-okf-open-knowledge-format.html">10.11 What is OKF (Open Knowledge Format)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1012" data-module="10" aria-label="Mark What are Multi-Agent Systems and When Should We Use Them? as read"></label><a href="../lessons/m10-l1012-what-are-multi-agent-systems-and-when-should-we-use-them.html">10.12 What are Multi-Agent Systems and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1013" data-module="10" aria-label="Mark What are AI SubAgents? Why We Need Them and How They Work as read"></label><a href="../lessons/m10-l1013-what-are-ai-subagents-why-we-need-them-and-how-they-work.html">10.13 What are AI SubAgents? Why We Need Them and How They Work</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1014" data-module="10" aria-label="Mark How AI Agents Communicate as read"></label><a href="../lessons/m10-l1014-how-ai-agents-communicate.html">10.14 How AI Agents Communicate</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1015" data-module="10" aria-label="Mark What is AI Orchestration? How It Works and the Common Patterns as read"></label><a href="../lessons/m10-l1015-what-is-ai-orchestration-how-it-works-and-the-common-patterns.html">10.15 What is AI Orchestration? How It Works and the Common Patterns</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1016" data-module="10" aria-label="Mark What is Sakana Fugu? The Technical Report Explained as read"></label><a href="../lessons/m10-l1016-what-is-sakana-fugu-the-technical-report-explained.html">10.16 What is Sakana Fugu? The Technical Report Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1017" data-module="10" aria-label="Mark How do Computer-Use Agents work? as read"></label><a href="../lessons/m10-l1017-how-do-computer-use-agents-work.html">10.17 How do Computer-Use Agents work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1018" data-module="10" aria-label="Mark How do Browser Agents work? as read"></label><a href="../lessons/m10-l1018-how-do-browser-agents-work.html">10.18 How do Browser Agents work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="11">
+<summary><span class="nav-module-title">11. Agentic Engineering and Agent Frameworks</span><span class="nav-count" data-nav-count="11">0/8</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1101" data-module="11" aria-label="Mark What is Harness Engineering? as read"></label><a href="../lessons/m11-l1101-what-is-harness-engineering.html">11.1 What is Harness Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1102" data-module="11" aria-label="Mark What is Loop Engineering? as read"></label><a href="../lessons/m11-l1102-what-is-loop-engineering.html">11.2 What is Loop Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1103" data-module="11" aria-label="Mark What is Graph Engineering? as read"></label><a href="../lessons/m11-l1103-what-is-graph-engineering.html">11.3 What is Graph Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1104" data-module="11" aria-label="Mark AI Is Only as Good as Our Definition of Done as read"></label><a href="../lessons/m11-l1104-ai-is-only-as-good-as-our-definition-of-done.html">11.4 AI Is Only as Good as Our Definition of Done</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1105" data-module="11" aria-label="Mark How does LangChain work? as read"></label><a href="../lessons/m11-l1105-how-does-langchain-work.html">11.5 How does LangChain work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1106" data-module="11" aria-label="Mark How does LangGraph work? as read"></label><a href="../lessons/m11-l1106-how-does-langgraph-work.html">11.6 How does LangGraph work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1107" data-module="11" aria-label="Mark How does Claude Code work? as read"></label><a href="../lessons/m11-l1107-how-does-claude-code-work.html">11.7 How does Claude Code work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1108" data-module="11" aria-label="Mark How does Cursor work? as read"></label><a href="../lessons/m11-l1108-how-does-cursor-work.html">11.8 How does Cursor work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="12">
+<summary><span class="nav-module-title">12. LLM Inference Engineering</span><span class="nav-count" data-nav-count="12">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1201" data-module="12" aria-label="Mark LLM Inference Optimization as read"></label><a href="../lessons/m12-l1201-llm-inference-optimization.html">12.1 LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1202" data-module="12" aria-label="Mark Prefill vs Decode: LLM Inference Optimization as read"></label><a href="../lessons/m12-l1202-prefill-vs-decode-llm-inference-optimization.html">12.2 Prefill vs Decode: LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1203" data-module="12" aria-label="Mark What is Prefill-Decode Disaggregation in LLM Inference? as read"></label><a href="../lessons/m12-l1203-what-is-prefill-decode-disaggregation-in-llm-inference.html">12.3 What is Prefill-Decode Disaggregation in LLM Inference?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1204" data-module="12" aria-label="Mark KV Cache in LLMs as read"></label><a href="../lessons/m12-l1204-kv-cache-in-llms.html">12.4 KV Cache in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1205" data-module="12" aria-label="Mark What is KV Cache Compression? as read"></label><a href="../lessons/m12-l1205-what-is-kv-cache-compression.html">12.5 What is KV Cache Compression?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1206" data-module="12" aria-label="Mark What is Paged Attention in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1206-what-is-paged-attention-in-llms-and-how-does-it-work.html">12.6 What is Paged Attention in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1207" data-module="12" aria-label="Mark What is Continuous Batching in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1207-what-is-continuous-batching-in-llms-and-how-does-it-work.html">12.7 What is Continuous Batching in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1208" data-module="12" aria-label="Mark What is Speculative Decoding and How Does It Make LLMs Faster? as read"></label><a href="../lessons/m12-l1208-what-is-speculative-decoding-and-how-does-it-make-llms-faster.html">12.8 What is Speculative Decoding and How Does It Make LLMs Faster?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1209" data-module="12" aria-label="Mark What is N-gram Speculation in LLMs and How Does It Speed Up Generation? as read"></label><a href="../lessons/m12-l1209-what-is-n-gram-speculation-in-llms-and-how-does-it-speed-up-generation.html">12.9 What is N-gram Speculation in LLMs and How Does It Speed Up Generation?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1210" data-module="12" aria-label="Mark What is Medusa? Multi-Head Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1210-what-is-medusa-multi-head-speculative-decoding-explained.html">12.10 What is Medusa? Multi-Head Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1211" data-module="12" aria-label="Mark What is EAGLE? Feature-Level Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1211-what-is-eagle-feature-level-speculative-decoding-explained.html">12.11 What is EAGLE? Feature-Level Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1212" data-module="12" aria-label="Mark How does Model Quantization work? as read"></label><a href="../lessons/m12-l1212-how-does-model-quantization-work.html">12.12 How does Model Quantization work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1213" data-module="12" aria-label="Mark How does GGUF work? as read"></label><a href="../lessons/m12-l1213-how-does-gguf-work.html">12.13 How does GGUF work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1214" data-module="12" aria-label="Mark How does llama.cpp run LLMs on everyday hardware? as read"></label><a href="../lessons/m12-l1214-how-does-llama-cpp-run-llms-on-everyday-hardware.html">12.14 How does llama.cpp run LLMs on everyday hardware?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1215" data-module="12" aria-label="Mark How does Ollama work? as read"></label><a href="../lessons/m12-l1215-how-does-ollama-work.html">12.15 How does Ollama work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1216" data-module="12" aria-label="Mark How does vLLM work? as read"></label><a href="../lessons/m12-l1216-how-does-vllm-work.html">12.16 How does vLLM work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1217" data-module="12" aria-label="Mark How does SGLang work? as read"></label><a href="../lessons/m12-l1217-how-does-sglang-work.html">12.17 How does SGLang work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1218" data-module="12" aria-label="Mark How does TensorRT-LLM work? as read"></label><a href="../lessons/m12-l1218-how-does-tensorrt-llm-work.html">12.18 How does TensorRT-LLM work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="13">
+<summary><span class="nav-module-title">13. Evaluation and Observability</span><span class="nav-count" data-nav-count="13">0/4</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1301" data-module="13" aria-label="Mark What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained as read"></label><a href="../lessons/m13-l1301-what-is-llm-evaluation-metrics-benchmarks-and-methods-explained.html">13.1 What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1302" data-module="13" aria-label="Mark What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs as read"></label><a href="../lessons/m13-l1302-what-is-llm-as-a-judge-how-to-use-an-llm-to-evaluate-llm-outputs.html">13.2 What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1303" data-module="13" aria-label="Mark How to Evaluate AI Agents? Metrics, Methods, and Best Practices as read"></label><a href="../lessons/m13-l1303-how-to-evaluate-ai-agents-metrics-methods-and-best-practices.html">13.3 How to Evaluate AI Agents? Metrics, Methods, and Best Practices</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1304" data-module="13" aria-label="Mark What is AI Agent Observability? Traces, Spans, and Metrics Explained as read"></label><a href="../lessons/m13-l1304-what-is-ai-agent-observability-traces-spans-and-metrics-explained.html">13.4 What is AI Agent Observability? Traces, Spans, and Metrics Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="14">
+<summary><span class="nav-module-title">14. AI Safety and Security</span><span class="nav-count" data-nav-count="14">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1401" data-module="14" aria-label="Mark How do LLM guardrails work? as read"></label><a href="../lessons/m14-l1401-how-do-llm-guardrails-work.html">14.1 How do LLM guardrails work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1402" data-module="14" aria-label="Mark What is Prompt Injection in LLMs and How Do We Defend Against It? as read"></label><a href="../lessons/m14-l1402-what-is-prompt-injection-in-llms-and-how-do-we-defend-against-it.html">14.2 What is Prompt Injection in LLMs and How Do We Defend Against It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1403" data-module="14" aria-label="Mark How Does LLM Watermarking Work? as read"></label><a href="../lessons/m14-l1403-how-does-llm-watermarking-work.html">14.3 How Does LLM Watermarking Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="15">
+<summary><span class="nav-module-title">15. Multimodal AI and Generative Models</span><span class="nav-count" data-nav-count="15">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1501" data-module="15" aria-label="Mark What is Multimodal AI? How It Works and Where It Is Used as read"></label><a href="../lessons/m15-l1501-what-is-multimodal-ai-how-it-works-and-where-it-is-used.html">15.1 What is Multimodal AI? How It Works and Where It Is Used</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1502" data-module="15" aria-label="Mark What is a Vision Transformer (ViT) and How Does It Work? as read"></label><a href="../lessons/m15-l1502-what-is-a-vision-transformer-vit-and-how-does-it-work.html">15.2 What is a Vision Transformer (ViT) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1503" data-module="15" aria-label="Mark How do Image Embeddings work? as read"></label><a href="../lessons/m15-l1503-how-do-image-embeddings-work.html">15.3 How do Image Embeddings work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1504" data-module="15" aria-label="Mark What are Diffusion Models and How Do They Generate Images? as read"></label><a href="../lessons/m15-l1504-what-are-diffusion-models-and-how-do-they-generate-images.html">15.4 What are Diffusion Models and How Do They Generate Images?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1505" data-module="15" aria-label="Mark What are Generative Adversarial Networks (GANs) and How Do They Work? as read"></label><a href="../lessons/m15-l1505-what-are-generative-adversarial-networks-gans-and-how-do-they-work.html">15.5 What are Generative Adversarial Networks (GANs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1506" data-module="15" aria-label="Mark What are Variational Autoencoders (VAEs) and How Do They Work? as read"></label><a href="../lessons/m15-l1506-what-are-variational-autoencoders-vaes-and-how-do-they-work.html">15.6 What are Variational Autoencoders (VAEs) and How Do They Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="16">
+<summary><span class="nav-module-title">16. AI Infrastructure, Deployment, and System Design</span><span class="nav-count" data-nav-count="16">0/17</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1601" data-module="16" aria-label="Mark How does a GPU work for Deep Learning? as read"></label><a href="../lessons/m16-l1601-how-does-a-gpu-work-for-deep-learning.html">16.1 How does a GPU work for Deep Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1602" data-module="16" aria-label="Mark How do CUDA Kernels work? as read"></label><a href="../lessons/m16-l1602-how-do-cuda-kernels-work.html">16.2 How do CUDA Kernels work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1603" data-module="16" aria-label="Mark How does a Google TPU work? as read"></label><a href="../lessons/m16-l1603-how-does-a-google-tpu-work.html">16.3 How does a Google TPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1604" data-module="16" aria-label="Mark How does an LPU work? as read"></label><a href="../lessons/m16-l1604-how-does-an-lpu-work.html">16.4 How does an LPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1605" data-module="16" aria-label="Mark Cloud vs On-device Model Deployment as read"></label><a href="../lessons/m16-l1605-cloud-vs-on-device-model-deployment.html">16.5 Cloud vs On-device Model Deployment</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1606" data-module="16" aria-label="Mark Android TensorFlow Lite Machine Learning Example as read"></label><a href="../lessons/m16-l1606-android-tensorflow-lite-machine-learning-example.html">16.6 Android TensorFlow Lite Machine Learning Example</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1607" data-module="16" aria-label="Mark What is LLM Routing? How to Send Each Query to the Right LLM as read"></label><a href="../lessons/m16-l1607-what-is-llm-routing-how-to-send-each-query-to-the-right-llm.html">16.7 What is LLM Routing? How to Send Each Query to the Right LLM</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1608" data-module="16" aria-label="Mark Design a Real-Time Voice AI Agent as read"></label><a href="../lessons/m16-l1608-design-a-real-time-voice-ai-agent.html">16.8 Design a Real-Time Voice AI Agent</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1609" data-module="16" aria-label="Mark What is turn-taking in a voice AI agent? as read"></label><a href="../lessons/m16-l1609-what-is-turn-taking-in-a-voice-ai-agent.html">16.9 What is turn-taking in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1610" data-module="16" aria-label="Mark What is barge-in in a voice AI agent? as read"></label><a href="../lessons/m16-l1610-what-is-barge-in-in-a-voice-ai-agent.html">16.10 What is barge-in in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1611" data-module="16" aria-label="Mark Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture? as read"></label><a href="../lessons/m16-l1611-cascaded-vs-speech-to-speech-how-to-choose-the-right-voice-agent-architecture.html">16.11 Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1612" data-module="16" aria-label="Mark How do you build a latency budget for a voice AI agent? as read"></label><a href="../lessons/m16-l1612-how-do-you-build-a-latency-budget-for-a-voice-ai-agent.html">16.12 How do you build a latency budget for a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1613" data-module="16" aria-label="Mark How does the voice-to-voice latency of a voice agent get measured? as read"></label><a href="../lessons/m16-l1613-how-does-the-voice-to-voice-latency-of-a-voice-agent-get-measured.html">16.13 How does the voice-to-voice latency of a voice agent get measured?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1614" data-module="16" aria-label="Mark Why does the time-to-first-audio matter more than total response time? as read"></label><a href="../lessons/m16-l1614-why-does-the-time-to-first-audio-matter-more-than-total-response-time.html">16.14 Why does the time-to-first-audio matter more than total response time?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1615" data-module="16" aria-label="Mark What is System Design? as read"></label><a href="../lessons/m16-l1615-what-is-system-design.html">16.15 What is System Design?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1616" data-module="16" aria-label="Mark HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events as read"></label><a href="../lessons/m16-l1616-http-request-vs-http-long-polling-vs-websocket-vs-server-sent-events.html">16.16 HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1617" data-module="16" aria-label="Mark How do Voice And Video Call Work? as read"></label><a href="../lessons/m16-l1617-how-do-voice-and-video-call-work.html">16.17 How do Voice And Video Call Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="17">
+<summary><span class="nav-module-title">17. Frontier Ideas in AI</span><span class="nav-count" data-nav-count="17">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1701" data-module="17" aria-label="Mark What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work? as read"></label><a href="../lessons/m17-l1701-what-is-joint-embedding-predictive-architecture-jepa-and-how-does-it-work.html">17.1 What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1702" data-module="17" aria-label="Mark How do World Models work? as read"></label><a href="../lessons/m17-l1702-how-do-world-models-work.html">17.2 How do World Models work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1703" data-module="17" aria-label="Mark What is Recursive Self-Improvement (RSI)? as read"></label><a href="../lessons/m17-l1703-what-is-recursive-self-improvement-rsi.html">17.3 What is Recursive Self-Improvement (RSI)?</a></li>
+</ul>
+</details>
+<a class="nav-module-single" href="../modules/m18.html">18. Prepare for AI Engineering Interviews</a>
+</nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="content-wrap">
+    <main class="content" id="content">
+      
+<article>
+  <header class="lesson-header">
+    <p class="breadcrumb">
+      <a href="../index.html">Course</a> /
+      <a href="../modules/m07.html">Module 7</a> /
+      Lesson 7.3
+    </p>
+    <h1>How does Prefix Tuning work?</h1>
+    <div class="lesson-meta">
+      <span>Lesson 7.3 · ~24 min · Published August 24, 2026</span>
+      <a href="https://outcomeschool.com/blog/how-does-prefix-tuning-work" target="_blank" rel="noopener noreferrer">Original article</a>
+    </div>
+    <div class="lesson-tags"><span class="tag">llm</span> <span class="tag">ai</span> <span class="tag">machine-learning</span></div>
+    <label class="read-toggle">
+      <input type="checkbox" data-lesson="m07-l0703" data-module="7">
+      Mark as read
+    </label>
+    
+  </header>
+  <details class="toc">
+<summary>On this page</summary>
+<ul>
+<li><a href="#what-is-a-large-language-model">What is a large language model?</a></li>
+<li><a href="#the-problem-why-full-fine-tuning-is-expensive">The problem: why full fine-tuning is expensive</a></li>
+<li><a href="#what-is-prefix-tuning">What is Prefix Tuning?</a></li>
+<li><a href="#prefix-tuning-prefix-tuning">Prefix Tuning = Prefix + Tuning</a></li>
+<li><a href="#how-does-prefix-tuning-work">How does Prefix Tuning work?</a></li>
+<li><a href="#the-prefix-is-not-real-words">The prefix is not real words</a></li>
+<li><a href="#where-the-prefix-is-added">Where the prefix is added</a></li>
+<li><a href="#how-the-prefix-is-trained">How the prefix is trained</a></li>
+<li><a href="#how-small-is-the-prefix-really">How small is the prefix really?</a></li>
+<li><a href="#a-simple-code-example">A simple code example</a></li>
+<li><a href="#prefix-tuning-vs-full-fine-tuning">Prefix Tuning vs Full Fine-Tuning</a></li>
+<li><a href="#prefix-tuning-vs-prompt-tuning">Prefix Tuning vs Prompt Tuning</a></li>
+<li><a href="#advantages-of-prefix-tuning">Advantages of Prefix Tuning</a></li>
+<li><a href="#limitations-of-prefix-tuning">Limitations of Prefix Tuning</a></li>
+<li><a href="#where-prefix-tuning-is-used">Where Prefix Tuning is used</a></li>
+<li><a href="#frequently-asked-questions">Frequently Asked Questions</a>
+<ul>
+<li><a href="#should-we-use-prefix-tuning-or-lora">Should we use Prefix Tuning or LoRA?</a></li>
+<li><a href="#does-prefix-tuning-make-training-faster">Does Prefix Tuning make training faster?</a></li>
+<li><a href="#how-many-virtual-tokens-should-the-prefix-have">How many virtual tokens should the prefix have?</a></li>
+<li><a href="#why-does-the-trainable-parameter-count-look-bigger-with-prefix-projection-turned">Why does the trainable parameter count look bigger with prefix_projection turned on?</a></li>
+</ul>
+</li>
+</ul>
+</details>
+  <p><img alt="How does Prefix Tuning work?" decoding="async" loading="lazy" src="../assets/images/07-07-03-how-does-prefix-tuning-work/how-does-prefix-tuning-work.png"/></p>
+<p>Prefix Tuning is a method where we keep the entire large language model frozen and only train a small set of extra numbers, called the prefix, that every layer of the model looks at while it works.</p>
+<p>In this blog, we will learn about Prefix Tuning, a cheap way to adapt a large language model to a new task without changing the model itself. It saves memory, saves money, and lets one big model serve many different tasks at once. We will also see why full fine-tuning is so expensive, how the prefix is added and trained without changing the model, how Prefix Tuning differs from full fine-tuning and prompt tuning and when to use which one based on our use case, where it falls short and how it compares with LoRA, and where it is used in the real world.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is a large language model?</li>
+<li>The problem: why full fine-tuning is expensive</li>
+<li>What is Prefix Tuning?</li>
+<li>Prefix Tuning = Prefix + Tuning</li>
+<li>How does Prefix Tuning work?</li>
+<li>The prefix is not real words</li>
+<li>Where the prefix is added</li>
+<li>How the prefix is trained</li>
+<li>How small is the prefix really?</li>
+<li>A simple code example</li>
+<li>Prefix Tuning vs Full Fine-Tuning</li>
+<li>Prefix Tuning vs Prompt Tuning</li>
+<li>Advantages of Prefix Tuning</li>
+<li>Limitations of Prefix Tuning</li>
+<li>Where Prefix Tuning is used</li>
+</ul>
+<p>Let's get started.</p>
+<h3 id="what-is-a-large-language-model">What is a large language model? <a aria-hidden="true" class="anchor" href="#what-is-a-large-language-model">#</a></h3>
+<p>Before jumping into Prefix Tuning, we must know what a large language model is.</p>
+<p>A <strong>large language model</strong>, also called an <strong>LLM</strong>, is an AI model that has read a huge amount of text and learned to predict the next word.</p>
+<p>In simple words, it is a system that understands and writes human language. Tools like ChatGPT, Claude, and Gemini are all built on large language models.</p>
+<p>The model has learned its skills by adjusting billions of internal numbers. We call these numbers the <strong>parameters</strong>, or the <strong>weights</strong>. These numbers are the model's brain. They hold everything the model knows.</p>
+<p>So, remember this one idea. A large language model is just a giant collection of numbers that together know how to handle language. Keep this "giant collection of numbers" picture in mind, because it will help us in the next section.</p>
+<h3 id="the-problem-why-full-fine-tuning-is-expensive">The problem: why full fine-tuning is expensive <a aria-hidden="true" class="anchor" href="#the-problem-why-full-fine-tuning-is-expensive">#</a></h3>
+<p>Now, let's understand the problem that Prefix Tuning solves.</p>
+<p>Suppose we have a big model, and we want it to become very good at one specific task. For example, we want it to write polite customer support replies. The model is already good at general language, but we want to specialize it.</p>
+<p>One of the ways to do this is called <strong><a href="https://outcomeschool.com/blog/how-does-fine-tuning-work" rel="noopener noreferrer" target="_blank">fine-tuning</a></strong>.</p>
+<p><strong>Fine-tuning means we take the trained model and continue training it on our own task, so its parameters get updated for that task.</strong></p>
+<p>In simple words, we keep teaching the model with our own examples until it gets good at our task.</p>
+<p>But here is the catch. When we do <strong>full fine-tuning</strong>, we change every single one of the model's parameters. A modern model can have billions of parameters. Changing all of them needs powerful machines, a lot of time, and a lot of money.</p>
+<p>And there is a bigger problem. Suppose we have ten different tasks. With full fine-tuning, we get ten full copies of the model, one for each task. Each copy is huge.</p>
+<p>Let's picture this problem like below:</p>
+<pre><code>            Full Fine-Tuning
+   task 1  ---&gt;  [ full model copy 1 ]   (billions of numbers)
+   task 2  ---&gt;  [ full model copy 2 ]   (billions of numbers)
+   task 3  ---&gt;  [ full model copy 3 ]   (billions of numbers)
+   ten tasks = ten giant copies = huge storage and cost
+</code></pre>
+<p>Here, we can see that every new task forces us to store one more giant copy of the model. This does not scale. It is slow, costly, and wasteful.</p>
+<p>So, here comes Prefix Tuning to the rescue.</p>
+<h3 id="what-is-prefix-tuning">What is Prefix Tuning? <a aria-hidden="true" class="anchor" href="#what-is-prefix-tuning">#</a></h3>
+<p><strong>Prefix Tuning is a method where we keep the entire large language model frozen and only train a small set of extra numbers, called the prefix, that every layer of the model gets to look at while it works.</strong></p>
+<p>In simple words, we do not touch the big model at all. We only learn a tiny add-on for each task.</p>
+<p>One thing to be clear about right from the start, because this is where most explanations go wrong. The prefix is not text that we paste in front of our sentence. It is not part of our input at all. It is a block of numbers that we hand to the machinery inside the model, in every single layer. We will see exactly where it goes and how it works in a moment.</p>
+<p>The word <strong>frozen</strong> is important here. Frozen means we do not change the model's numbers at all. They stay exactly as they were. We lock them.</p>
+<p>So, instead of training billions of numbers, we train a tiny fraction of them, often well under one percent. The big model stays the same and is shared across every task. Only the small prefix changes from task to task.</p>
+<p>This is why Prefix Tuning belongs to a family of methods called <strong>Parameter-Efficient Fine-Tuning</strong>, often shortened to <strong>PEFT</strong>. The name simply means we get the benefit of fine-tuning while training only a very small number of parameters.</p>
+<h3 id="prefix-tuning-prefix-tuning">Prefix Tuning = Prefix + Tuning <a aria-hidden="true" class="anchor" href="#prefix-tuning-prefix-tuning">#</a></h3>
+<p>Let's decompose the term to understand it better.</p>
+<blockquote>
+<p>Prefix Tuning = Prefix + Tuning</p>
+</blockquote>
+<p><strong>Prefix</strong> means something we place at the beginning, in front of something else. For example, in the word "rewrite", the part "re" is a prefix added in front of "write".</p>
+<p><strong>Tuning</strong> means adjusting something little by little until it works well, just like tuning a guitar until it sounds right.</p>
+<p>So, Prefix Tuning means we add a small piece in front of the material that each layer of the model looks at, and we tune only that piece until the model performs our task well.</p>
+<p>The big model never gets tuned. Only the prefix gets tuned. This is the whole idea in one line.</p>
+<p>So, now we have the right mental picture. Let's see how it actually works inside the model.</p>
+<h3 id="how-does-prefix-tuning-work">How does Prefix Tuning work? <a aria-hidden="true" class="anchor" href="#how-does-prefix-tuning-work">#</a></h3>
+<p>Let's understand the flow step by step.</p>
+<p><strong>Step 1:</strong> We freeze the entire large language model. None of its billions of numbers will change during training.</p>
+<p><strong>Step 2:</strong> We create a small set of new numbers. This small set is the <strong>prefix</strong>. We do not put it into our text. We hand it to the model's inner machinery, and we do this in every layer.</p>
+<p><strong>Step 3:</strong> While the model processes our real text, every layer also gets to look at the prefix sitting alongside it. The prefix steers the model's output toward our task.</p>
+<p><strong>Step 4:</strong> We train only the prefix on our task examples, while the big model stays frozen.</p>
+<p>Let's picture the whole idea like below:</p>
+<pre><code>            Prefix Tuning
+                  [ frozen big model ]   &lt;- never changes, shared by all tasks
+                          ^
+                          |
+   task 1  ---&gt;  [ prefix 1 ]  (a few small numbers)
+   task 2  ---&gt;  [ prefix 2 ]  (a few small numbers)
+   task 3  ---&gt;  [ prefix 3 ]  (a few small numbers)
+   one shared giant model + one tiny prefix per task
+</code></pre>
+<p>Here, we can see the big win. We store the giant model only once. For each new task, we add only a tiny prefix. Ten tasks no longer mean ten giant copies. They mean one giant model plus ten tiny prefixes.</p>
+<p>This is how Prefix Tuning saves so much storage and cost.</p>
+<h3 id="the-prefix-is-not-real-words">The prefix is not real words <a aria-hidden="true" class="anchor" href="#the-prefix-is-not-real-words">#</a></h3>
+<p>When we think of a prefix, we imagine words like "Please write a polite reply:". But the prefix in Prefix Tuning is <strong>not</strong> made of real words. It is made of pure numbers.</p>
+<p>To understand this, we must know one small thing about how a model reads text. A model does not understand letters directly. It first turns every word into a list of numbers. This list of numbers that represents a word is called an <strong><a href="https://outcomeschool.com/blog/what-are-embeddings" rel="noopener noreferrer" target="_blank">embedding</a></strong>.</p>
+<p>So, real text first becomes embeddings, and only then does the model process it. We can picture it like below:</p>
+<pre><code>   real words   -&gt;   embeddings (numbers)   -&gt;   model processes them
+   "polite reply"  -&gt;  [ 0.2  0.8  ... ]
+                       [ 0.5  0.1  ... ]
+</code></pre>
+<p>Here, we can see that even normal words become numbers before the model uses them.</p>
+<p>Now, the prefix skips the words completely. It is a block of free numbers that the model can work with directly, but it does not map back to any real word. We call these the <strong>virtual tokens</strong>, because they act like extra positions that the real words can look at, but they are not real tokens and they never come from our text.</p>
+<p>Because words are limited, but free numbers are not, the model can learn a prefix that captures the task far better than any sentence we could write by hand. We let training discover the right task-specific numbers, and that too without us guessing the right words.</p>
+<p>So, remember this. The prefix is a small block of learnable numbers, not a human sentence. In the next section, we will see exactly which numbers inside the model it becomes.</p>
+<h3 id="where-the-prefix-is-added">Where the prefix is added <a aria-hidden="true" class="anchor" href="#where-the-prefix-is-added">#</a></h3>
+<p>Now, let's go one level deeper, because this is what makes Prefix Tuning special compared to simpler methods.</p>
+<p>A large language model is built from many stacked layers. Each layer processes the text and passes its result to the next layer. We have a detailed blog on <a href="https://outcomeschool.com/blog/decoding-transformer-architecture" rel="noopener noreferrer" target="_blank">Decoding Transformer Architecture</a> that explains how this stack is put together. Inside each layer, there is an important part called <strong><a href="https://outcomeschool.com/blog/self-attention-in-transformers" rel="noopener noreferrer" target="_blank">attention</a></strong>, which is how the model decides which words to focus on.</p>
+<p>To understand where the prefix goes, we must first understand how attention works, in simple words. Inside attention, every position makes three things.</p>
+<ul>
+<li>The <strong>query</strong> is what this position is looking for. Think of it as the question this word is asking.</li>
+<li>The <strong>key</strong> is a label that says what this position is about. Think of it as a signboard.</li>
+<li>The <strong>value</strong> is the actual information this position hands over to whoever looks at it.</li>
+</ul>
+<p>The way attention works is simple. Each word takes its query, compares it against all the keys, and decides which places are worth looking at. Then it picks up the values from those places. So, queries do the asking, and keys and values do the answering. We have a detailed blog on <a href="https://outcomeschool.com/blog/math-behind-attention-qkv" rel="noopener noreferrer" target="_blank">Math behind Attention - Q, K, and V</a> that covers this with a step-by-step numeric example.</p>
+<p>Now, here is the heart of Prefix Tuning.</p>
+<p><strong>The prefix does not ask anything. It only answers. At every layer, the prefix supplies extra keys and extra values, and nothing else. All the queries still come from our real words.</strong></p>
+<p>So, the real words keep asking their own questions exactly as before. We simply give them some extra places to look, and those extra places are the ones we trained.</p>
+<p>Let's picture one layer like below:</p>
+<pre><code>              one frozen layer
+   real words  ----&gt;  queries        (the asking)
+               ----&gt;  keys, values   (the usual answering)
+   learned prefix --&gt;  extra keys, extra values
+                attention looks at
+                   [ prefix keys + real keys ]
+                   [ prefix values + real values ]
+                            |
+                            v
+                    output of this layer
+</code></pre>
+<p>Here, we can see the whole idea in one picture. The prefix never becomes a word and never asks a question. It quietly sits in the answering side of attention, offering extra places for the real words to look.</p>
+<p>And we do this in every layer, not only at the entrance. Each layer has its own separate prefix keys and values. They are not produced by passing one prefix from Layer 1 into Layer 2. Every layer gets its own trained block.</p>
+<p>Let's picture the full stack like below:</p>
+<pre><code>   Layer 1   [ prefix keys/values ]  +  real words  -&gt;  attention
+   Layer 2   [ prefix keys/values ]  +  real words  -&gt;  attention
+   Layer 3   [ prefix keys/values ]  +  real words  -&gt;  attention
+</code></pre>
+<p>Because the prefix is present at every layer, it steers the model's behavior steadily from start to finish. This is one big reason Prefix Tuning works so well even though it trains so few numbers.</p>
+<p>And since the prefix lives on the key and value side of attention, it is worth knowing how a model already handles keys and values while generating text. We have a detailed blog on <a href="https://outcomeschool.com/blog/kv-cache-in-llms" rel="noopener noreferrer" target="_blank">KV Cache in LLMs</a> that explains this step by step.</p>
+<p>Now, one small thing that matters when we count the numbers later. Since each virtual token supplies a key and a value, and no query, one virtual token is not one list of numbers per layer. It is exactly two lists of numbers per layer.</p>
+<pre><code>   one virtual token, inside one layer
+        [ key part   ]   &lt;- helps the real words decide to look here
+        [ value part ]   &lt;- the information they pick up
+        ( no query part, because the prefix never asks )
+</code></pre>
+<p>Here, we can see why we will multiply by 2 when we count. Let's keep this in mind, we will use it in the very next section.</p>
+<p><strong>Note:</strong> Even with a prefix at every layer, the total number of trained numbers is still tiny compared to the full model. We are adding small blocks, not full layers.</p>
+<h3 id="how-the-prefix-is-trained">How the prefix is trained <a aria-hidden="true" class="anchor" href="#how-the-prefix-is-trained">#</a></h3>
+<p>Now, the question is: how do we find the right numbers for the prefix? The answer is that we learn them, the same way a model learns anything.</p>
+<p>Let's understand the training loop step by step.</p>
+<p><strong>Step 1:</strong> We start with a prefix filled with random numbers. At this point, the prefix is useless and the model's answers for our task are mostly poor.</p>
+<p><strong>Step 2:</strong> We take a training example, run it through the frozen model with the prefix supplying its extra keys and values at every layer, and the model produces an answer.</p>
+<p><strong>Step 3:</strong> We compare the model's answer with the correct answer. The difference between them is called the <strong><a href="https://outcomeschool.com/blog/math-behind-cross-entropy-loss" rel="noopener noreferrer" target="_blank">loss</a></strong>, which simply measures how wrong the answer was. A big loss means very wrong. A small loss means almost correct.</p>
+<p><strong>Step 4:</strong> We adjust only the prefix numbers a little to reduce the loss. The big model is frozen, so it is never touched. Only the prefix learns.</p>
+<p><strong>Step 5:</strong> We repeat this many times with many examples. Each round, the loss gets a little smaller and the prefix gets a little better.</p>
+<p>Let's picture the training loop like below:</p>
+<pre><code>   supply prefix k/v -&gt; run frozen model -&gt; measure loss -&gt; adjust ONLY the prefix -&gt; repeat
+                         |
+                    (model frozen)
+</code></pre>
+<p>Here, we can see that the whole learning happens inside the small prefix. The giant model just sits frozen and does its usual work. Slowly, the random prefix turns into a powerful task instruction made of numbers.</p>
+<p><strong>Note:</strong> In practice, adjusting the prefix numbers directly like this can be unstable, which means the training does not settle down nicely. So, the original paper uses a <strong>reparameterization</strong> trick to make training stable. Reparameterization simply means we produce the same numbers in a different way instead of learning them directly. Here, it trains a smaller block of numbers, passes that block through a small network to produce the actual prefix keys and values, and once the training is over, it throws that small network away and keeps only the final prefix. In the <code>peft</code> library, this trick is the <code>prefix_projection</code> option, and it is off by default. One thing to watch out for here. When we turn it on, the trainable count printed during training is much bigger than the prefix we finally save, because that temporary network is counted too.</p>
+<p>This is how the prefix is trained.</p>
+<h3 id="how-small-is-the-prefix-really">How small is the prefix really? <a aria-hidden="true" class="anchor" href="#how-small-is-the-prefix-really">#</a></h3>
+<p>Now, let's put some numbers on this, just for the sake of understanding, so we can feel how big the saving is.</p>
+<p>Suppose our big model has about 1.3 billion parameters, with a hidden size of 2048 and 24 layers.</p>
+<p>Two of those words need a quick explanation before we use them.</p>
+<p>The <strong>hidden size</strong> is simply how many numbers the model uses to represent one position inside itself. Here it is 2048, so every position is a list of 2048 numbers. The <strong>layers</strong> are the stacked steps the text passes through, and here there are 24 of them.</p>
+<p>With full fine-tuning, we would train all 1.3 billion parameters.</p>
+<p>Now, let's count the prefix. Suppose we use 20 virtual tokens, and we add the prefix at every layer. And, as we learned just above, every virtual token carries two lists in each layer, one for the key and one for the value.</p>
+<p><strong>Note:</strong> For this calculation, we are assuming that the prefix directly stores the key and value numbers for every layer. This is the simplest way to set it up, and it is the default. Some setups produce those same key and value numbers in a different way, and then the count during training comes out different. The <code>prefix_projection</code> setup we just saw above is exactly one such case.</p>
+<p>Let's calculate step by step.</p>
+<p><strong>Step 1:</strong> Numbers in one list = 2048, which is the model's hidden size.</p>
+<p><strong>Step 2:</strong> Numbers for one virtual token in one layer = 2 * 2048 = 4,096, because we need a key part and a value part.</p>
+<p><strong>Step 3:</strong> Numbers for 20 tokens in one layer = 20 * 4,096 = 81,920.</p>
+<p><strong>Step 4:</strong> Numbers across all 24 layers = 81,920 * 24 = 1,966,080.</p>
+<p>So, we train about 1,966,080 numbers. Let's compare this with the full model:</p>
+<pre><code>   Full fine-tuning  :  1,300,000,000 numbers trained
+   Prefix Tuning     :      1,966,080 numbers trained
+   that is roughly 0.15% of the full model
+</code></pre>
+<p>Here, we can see that Prefix Tuning trains only a tiny fraction of the model. The other 99.85% stays frozen and shared. This is exactly why Prefix Tuning is so cheap and so easy to store.</p>
+<h3 id="a-simple-code-example">A simple code example <a aria-hidden="true" class="anchor" href="#a-simple-code-example">#</a></h3>
+<p>Now, let's see how simple this is in code. We will use the popular <code>peft</code> library from Hugging Face along with the <code>transformers</code> library. The code is as below:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoModelForCausalLM</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">peft</span><span class="w"> </span><span class="kn">import</span> <span class="n">PrefixTuningConfig</span><span class="p">,</span> <span class="n">get_peft_model</span>
+<span class="c1"># Load a pre-trained large language model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"gpt2"</span><span class="p">)</span>
+<span class="c1"># Set up Prefix Tuning: add 20 virtual tokens as the prefix</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">PrefixTuningConfig</span><span class="p">(</span>
+    <span class="n">task_type</span><span class="o">=</span><span class="s2">"CAUSAL_LM"</span><span class="p">,</span>
+    <span class="n">num_virtual_tokens</span><span class="o">=</span><span class="mi">20</span>
+<span class="p">)</span>
+<span class="c1"># Wrap the model so only the prefix will be trained</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">get_peft_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+<span class="c1"># See how few numbers we are actually training</span>
+<span class="n">model</span><span class="o">.</span><span class="n">print_trainable_parameters</span><span class="p">()</span>
+</code></pre>
+<p>Here, we have done a few simple things, and let me explain each part.</p>
+<ul>
+<li><code>AutoModelForCausalLM.from_pretrained("gpt2")</code> loads a ready-made large language model. This is the big model that we will keep frozen.</li>
+<li><code>PrefixTuningConfig(...)</code> sets up Prefix Tuning, where <code>num_virtual_tokens=20</code> means our prefix is made of 20 learnable virtual tokens.</li>
+<li><code>get_peft_model(model, config)</code> wraps the model so that only the prefix is trainable and the big model stays frozen.</li>
+<li><code>model.print_trainable_parameters()</code> prints how many numbers we are actually training.</li>
+</ul>
+<p>When we run this, it prints the following:</p>
+<pre><code>trainable params: 368,640 || all params: 124,808,448 || trainable%: 0.2954
+</code></pre>
+<p>Here, we can see the real numbers for <code>gpt2</code>. Out of about 124 million numbers, we are training only 368,640 of them, which is about 0.3%. The rest stays frozen.</p>
+<p>And notice that this number is not a mystery. The <code>gpt2</code> model has 12 layers and a hidden size of 768, so our formula from the previous section gives us 20 * 2 * 768 * 12 = 368,640, which is exactly what the library printed. It works perfectly.</p>
+<p>So, in just a few lines, we get a model that learns a new task by training only a small prefix.</p>
+<h3 id="prefix-tuning-vs-full-fine-tuning">Prefix Tuning vs Full Fine-Tuning <a aria-hidden="true" class="anchor" href="#prefix-tuning-vs-full-fine-tuning">#</a></h3>
+<p>Now that we have learned about Prefix Tuning, it's time to compare it with full fine-tuning, so we know when to use which one.</p>
+<p>In full fine-tuning, we change every parameter of the model and store a full copy for each task. In Prefix Tuning, we freeze the model and train only a small prefix per task.</p>
+<p>Let me tabulate the differences between Full Fine-Tuning and Prefix Tuning for your better understanding so that you can decide which one to use based on your use case.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Full Fine-Tuning</th>
+<th>Prefix Tuning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What changes</td>
+<td>Every parameter of the model</td>
+<td>Only the small prefix</td>
+</tr>
+<tr>
+<td>Storage per task</td>
+<td>One full giant copy</td>
+<td>One tiny prefix</td>
+</tr>
+<tr>
+<td>Training cost</td>
+<td>Very high</td>
+<td>Very low</td>
+</tr>
+<tr>
+<td>Best accuracy</td>
+<td>Higher, this is where it wins</td>
+<td>Close, but usually a little behind</td>
+</tr>
+<tr>
+<td>Switching tasks</td>
+<td>Load a whole new model</td>
+<td>Just swap the prefix</td>
+</tr>
+<tr>
+<td>Risk of forgetting</td>
+<td>Higher, the model can lose old skills</td>
+<td>Lower, the base model stays intact</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, we can see that Prefix Tuning is far cheaper and far more flexible for serving many tasks. Full fine-tuning can still squeeze out the best possible accuracy on a single task when we have plenty of data and compute, but for most real use cases, Prefix Tuning gives us most of the benefit at a tiny fraction of the cost.</p>
+<h3 id="prefix-tuning-vs-prompt-tuning">Prefix Tuning vs Prompt Tuning <a aria-hidden="true" class="anchor" href="#prefix-tuning-vs-prompt-tuning">#</a></h3>
+<p>There is one more closely related method called <strong>Prompt Tuning</strong>, from Lester et al., 2021, and people often confuse the two. Let's clear this up.</p>
+<p>In <strong>Prompt Tuning</strong>, we also add a block of learnable numbers, but we add it to the model's input, right at the entrance, before the first layer. Those numbers then flow through the model like any other input. The inner layers get nothing extra of their own.</p>
+<p>In <strong>Prefix Tuning</strong>, we do not touch the input at all. We inject learned keys and values straight into the attention of every layer, all the way through the model.</p>
+<p>Let's picture the difference like below:</p>
+<pre><code>   Prompt Tuning                        Prefix Tuning
+   [ prefix ] + real words              Layer 1   [ prefix keys/values ] + real words
+        |                               Layer 2   [ prefix keys/values ] + real words
+     Layer 1                            Layer 3   [ prefix keys/values ] + real words
+     Layer 2
+     Layer 3
+   (added once, to the input)           (injected into attention in every layer)
+</code></pre>
+<p>Here, we can see that Prefix Tuning steers the model at every layer, while Prompt Tuning steers it only once at the entrance. Because of this, Prefix Tuning often performs better, especially when the task is hard.</p>
+<p>Let's put a number on the difference, using the same model we used above, the one with a hidden size of 2048 and 24 layers. Prompt Tuning adds the block only once, to the input, so there is no key part and value part per layer to pay for. It trains 20 * 2048 = 40,960 numbers. Prefix Tuning trains 1,966,080 numbers. So, Prompt Tuning trains about 48 times fewer numbers.</p>
+<p>Here, we can see the trade-off clearly. Prompt Tuning is even simpler and far smaller, so it can be a good choice for very large models on easier tasks. Prefix Tuning costs more but steers the model much more strongly. We choose between them based on our use case.</p>
+<h3 id="advantages-of-prefix-tuning">Advantages of Prefix Tuning <a aria-hidden="true" class="anchor" href="#advantages-of-prefix-tuning">#</a></h3>
+<p>Now, let's quickly understand why Prefix Tuning is so useful.</p>
+<ul>
+<li><strong>Very cheap to train:</strong> We train only a tiny prefix, so we do not have to keep <a href="https://outcomeschool.com/blog/math-behind-gradient-descent" rel="noopener noreferrer" target="_blank">gradients</a> and optimizer state for billions of frozen parameters, which saves a lot of memory.</li>
+<li><strong>Tiny storage per task:</strong> Each task needs only a small prefix, not a full copy of the model.</li>
+<li><strong>One model, many tasks:</strong> We keep one shared frozen model and simply swap the prefix to switch tasks instantly.</li>
+<li><strong>Lower risk of <a href="https://outcomeschool.com/blog/continual-learning-in-llms" rel="noopener noreferrer" target="_blank">forgetting</a>:</strong> Because the base model stays frozen, its original parameters are preserved exactly. The prefix can still change how the model behaves, but the general language skills baked into the weights are never overwritten.</li>
+<li><strong>Easy to deploy:</strong> We can serve many tasks from a single model loaded once, which saves a lot of memory in production.</li>
+</ul>
+<p><strong>Note:</strong> Let's be precise about that first point, because it is easy to read too much into it. The model still runs a full forward and backward pass on every step, because the learning signal has to travel back through all the layers to reach the prefix. So, the saving is mostly in memory and storage, and not in raw speed.</p>
+<h3 id="limitations-of-prefix-tuning">Limitations of Prefix Tuning <a aria-hidden="true" class="anchor" href="#limitations-of-prefix-tuning">#</a></h3>
+<p>Now, let's be honest about the other side, because no method is perfect.</p>
+<ul>
+<li><strong>It adds work to every attention step:</strong> The prefix adds extra keys and values at every layer, so attention now looks over a longer list at each step. That costs extra computing and extra memory, and the longer the prefix, the more it costs. How much this eats into the length of text we can actually feed the model depends on the implementation and the model, so it is something we must check for our own setup rather than assume.</li>
+<li><strong>A longer prefix is not always better:</strong> It is easy to think that adding more virtual tokens will keep making things better. It does not. The quality improves up to a point, and after that a longer prefix starts making things worse. So, the prefix length is one more setting we must tune by trying different values. To give us a starting range, the original paper found the sweet spot to be around 10 virtual tokens for turning tables into sentences, and around 200 for summarization. So, the harder the task, the longer the prefix it wants.</li>
+<li><strong>It is harder to train than LoRA:</strong> As we saw above, the prefix numbers do not settle down easily, which is why the original paper needed that extra trick during training. <strong><a href="https://outcomeschool.com/blog/lora-low-rank-adaptation-of-llms" rel="noopener noreferrer" target="_blank">LoRA</a></strong>, another Parameter-Efficient Fine-Tuning method, trains more smoothly, and its learned weights can be merged back into the model, so nothing extra is carried at the time of answering. This is one reason LoRA has become a much more common practical choice for Parameter-Efficient Fine-Tuning than Prefix Tuning.</li>
+</ul>
+<p>So, when do we still pick Prefix Tuning? It is a good fit when we want the steering to happen at every layer, and when the extra attention cost is acceptable for our prefix length and our input size. For everyday adaptation work, LoRA is usually the easier first thing to try.</p>
+<h3 id="where-prefix-tuning-is-used">Where Prefix Tuning is used <a aria-hidden="true" class="anchor" href="#where-prefix-tuning-is-used">#</a></h3>
+<p>Now, let's see where Prefix Tuning is used in the real world.</p>
+<ul>
+<li><strong>Many tasks, one model:</strong> A company that needs summarizing, translation, and support replies can serve all of them from one frozen model with three small prefixes.</li>
+<li><strong>Limited hardware:</strong> Teams without expensive machines can still adapt a big model, because the memory needed to train a small prefix is far smaller.</li>
+<li><strong>Quick experiments:</strong> Researchers can try a new task without setting up a full fine-tuning run, because only a small prefix has to be trained and saved.</li>
+<li><strong>Personalization:</strong> A separate small prefix can adapt the same model to a different writing style or domain for each customer.</li>
+</ul>
+<p>So, now we know where we can use Prefix Tuning.</p>
+<p>This was all about Prefix Tuning.</p>
+<p>Now we must have understood what Prefix Tuning is, why we need it, how it works step by step by training only a small prefix on top of a frozen model, where it falls short, and where it is used in the real world.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions <a aria-hidden="true" class="anchor" href="#frequently-asked-questions">#</a></h2>
+<h3 id="should-we-use-prefix-tuning-or-lora">Should we use Prefix Tuning or LoRA? <a aria-hidden="true" class="anchor" href="#should-we-use-prefix-tuning-or-lora">#</a></h3>
+<p>For everyday adaptation work, LoRA is usually the easier first thing to try. LoRA trains more smoothly, and its learned weights can be merged back into the model, so nothing extra is carried at answer time. Prefix Tuning is a good fit when we want steering at every layer and the extra attention cost is acceptable.</p>
+<h3 id="does-prefix-tuning-make-training-faster">Does Prefix Tuning make training faster? <a aria-hidden="true" class="anchor" href="#does-prefix-tuning-make-training-faster">#</a></h3>
+<p>Not much. The model still runs a full forward and backward pass on every step, because the learning signal has to travel back through all the layers to reach the prefix. So, the saving is mostly in memory and storage, and not in raw speed.</p>
+<h3 id="how-many-virtual-tokens-should-the-prefix-have">How many virtual tokens should the prefix have? <a aria-hidden="true" class="anchor" href="#how-many-virtual-tokens-should-the-prefix-have">#</a></h3>
+<p>There is no single right number, so we must tune it by trying different values. Quality improves up to a point, and after that a longer prefix starts making things worse. The original paper found the sweet spot around 10 virtual tokens for turning tables into sentences, and around 200 for summarization.</p>
+<h3 id="why-does-the-trainable-parameter-count-look-bigger-with-prefix-projection-turned">Why does the trainable parameter count look bigger with prefix_projection turned on? <a aria-hidden="true" class="anchor" href="#why-does-the-trainable-parameter-count-look-bigger-with-prefix-projection-turned">#</a></h3>
+<p>Because the temporary network is counted too. With <code>prefix_projection</code>, a smaller block of numbers passes through a small network to produce the prefix keys and values. That network is used only during training and thrown away afterward, so the prefix we finally save is much smaller than the printed trainable count.</p>
+
+  <nav class="prev-next" aria-label="Lesson navigation"><a href="m07-l0702-what-is-lora-low-rank-adaptation-and-how-does-it-fine-tune-llms.html"><span class="label">← Previous lesson</span>7.2 What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs?</a><a class="next" href="m07-l0704-how-does-knowledge-distillation-work.html"><span class="label">Next lesson →</span>7.4 How does Knowledge Distillation work?</a></nav>
+  <footer class="footer">
+    <p>Personal offline study copy · Content © Outcome School / Amit Shekhar ·
+    <a href="../notice.html">usage notice</a>.</p>
+    <p>Source: <a href="https://outcomeschool.com/blog/how-does-prefix-tuning-work" target="_blank" rel="noopener noreferrer">https://outcomeschool.com/blog/how-does-prefix-tuning-work</a></p>
+  </footer>
+</article>
+
+    </main>
+  </div>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

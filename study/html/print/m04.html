@@ -1,0 +1,2165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 4: How LLMs Generate Text</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/print.css">
+</head>
+<body class="print-body">
+<main class="print-document">
+
+<section class="print-cover">
+  <p class="kicker">AI Engineering Course</p>
+  <h1>Module 4</h1>
+  <h2>How LLMs Generate Text</h2>
+  <p class="meta">6 lessons · Personal offline study copy</p>
+  <p class="notice">Personal offline study copy. Content © Outcome School /
+  Amit Shekhar. Not for redistribution. See study/NOTICE.md.</p>
+</section>
+<section class="print-toc">
+<h1>Contents</h1>
+<ul>
+<li class="module-entry"><a href="#module-4">Module 4: How LLMs Generate Text</a>
+<ul class="toc-lessons">
+<li class="lesson-entry"><a href="#lesson-m04-l0401">4.1 How does Temperature control LLM output?</a></li>
+<li class="lesson-entry"><a href="#lesson-m04-l0402">4.2 How do Top-k and Top-p Sampling work?</a></li>
+<li class="lesson-entry"><a href="#lesson-m04-l0403">4.3 Stop Tokens in LLMs</a></li>
+<li class="lesson-entry"><a href="#lesson-m04-l0404">4.4 How does Token Streaming work?</a></li>
+<li class="lesson-entry"><a href="#lesson-m04-l0405">4.5 What is the Lost in the Middle Problem in LLMs and How to Fix It?</a></li>
+<li class="lesson-entry"><a href="#lesson-m04-l0406">4.6 Why Do LLMs Hallucinate? The Token-Level Explanation</a></li>
+</ul>
+</li>
+</ul>
+</section>
+<section class="print-module" id="module-4">
+  <section class="print-module-title">
+    <p class="kicker">Module 4</p>
+    <h1>How LLMs Generate Text</h1>
+    <p class="meta">6 lessons · ~1 min overview</p>
+  </section>
+  <div class="print-module-intro"><p>In this module, we will learn how an LLM picks the next token, how we control its creativity, how it knows when to stop, how the output reaches the user token by token, and where the context window fails.</p>
+<p>By the end of this module, we will know exactly what happens between the prompt and the final answer, and which knobs change the output.</p>
+</div>
+  
+<section class="print-lesson" id="lesson-m04-l0401">
+  <p class="print-lesson-kicker">Lesson 4.1</p>
+  <h1>How does Temperature control LLM output?</h1>
+  <p class="print-lesson-meta">Lesson 4.1 · ~16 min · Published September 15, 2026 · <a href="https://outcomeschool.com/blog/how-does-temperature-control-llm-output">https://outcomeschool.com/blog/how-does-temperature-control-llm-output</a></p>
+  <p><img alt="How does Temperature control LLM output?" src="../assets/images/04-04-01-how-does-temperature-control-llm-output/how-does-temperature-control-llm-output.png"/></p>
+<p>Temperature is a single number that controls how an LLM picks the next token. A low Temperature gives us safe and predictable answers, and a high Temperature gives us creative and surprising ones.</p>
+<p>In this blog, we will learn about how Temperature controls LLM output, the single number that decides whether an AI model gives us a safe and predictable answer or a creative and surprising one. We will also see how an LLM picks one token at a time, how it gives a score to every possible next token, how those scores become probabilities, how Temperature quietly changes those probabilities before the pick happens, what happens at low, high, and zero Temperature, why it is called Temperature, and when to use which value based on our use case.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is Temperature in LLMs?</li>
+<li>How does an LLM pick the next token?</li>
+<li>From scores to probabilities</li>
+<li>Where does Temperature come into the picture?</li>
+<li>Step-by-step example with numbers</li>
+<li>Low Temperature</li>
+<li>High Temperature</li>
+<li>Temperature = 1 and Temperature = 0</li>
+<li>Why is it called Temperature?</li>
+<li>When to use which Temperature?</li>
+<li>Common mistakes while using Temperature</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="what-is-temperature-in-llms">What is Temperature in LLMs?</h2>
+<p>Before jumping into Temperature, we must know what an LLM is.</p>
+<p><strong>LLM</strong> stands for Large Language Model. It is the AI model behind tools like ChatGPT. We give it some text, and it writes the next part of the text for us. That is all an LLM does. It writes text, one small piece at a time.</p>
+<p>Now, let's understand Temperature.</p>
+<p><strong>Temperature is a number that controls how random or how predictable the output of an LLM is.</strong></p>
+<p>In simple words, Temperature is like a knob. When we turn the knob down, the model plays safe and picks the most expected words. When we turn the knob up, the model takes risks and picks surprising words.</p>
+<ul>
+<li>Low Temperature gives us focused and predictable answers.</li>
+<li>High Temperature gives us creative and varied answers.</li>
+</ul>
+<p>Usually, the value is between 0 and 2. Many tools keep 1 as the default.</p>
+<p>But, to really understand how this knob works, we must first understand how an LLM picks the next word. This is the most important part, so let's go slowly. Do not worry, we will see all of this with real numbers.</p>
+<h2 id="how-does-an-llm-pick-the-next-token">How does an LLM pick the next token?</h2>
+<p>An LLM does not write a full sentence at once. It writes one small piece at a time, and then the next piece, and then the next.</p>
+<p>This small piece is called a <strong><a href="https://outcomeschool.com/blog/tokenization-in-llms" rel="noopener noreferrer" target="_blank">token</a></strong>. A token is a word or a part of a word. For the sake of understanding, let's assume that one token is one word.</p>
+<p>Let's say we give the model this text:</p>
+<p>"The sky is"</p>
+<p>Now, the model has to pick the next token. It does not "think" of the next word like we do. Instead, it looks at every token it knows and gives each one a score. A higher score means that token is a better fit as the next token.</p>
+<p>Let's say, for the sake of example, the model knows only four tokens: "blue", "clear", "falling", and "banana". In reality, a model knows more than 100,000 tokens, but four is enough for us to understand.</p>
+<p>The model gives a score to each of them, like below:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>blue</td>
+<td>4.0</td>
+</tr>
+<tr>
+<td>clear</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>falling</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>banana</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, "blue" has the highest score because "The sky is blue" is the most common sentence. "banana" has the lowest score because "The sky is banana" makes no sense.</p>
+<p>These raw scores are called <strong>logits</strong>. Do not worry about the name. Just remember, logits are the raw scores that the model gives to every possible next token.</p>
+<p>Now, the question is, does the model simply pick the token with the highest score?</p>
+<p>The answer is, not always. Let's see why.</p>
+<h2 id="from-scores-to-probabilities">From scores to probabilities</h2>
+<p>The model does not directly pick the highest score. First, it converts these scores into probabilities.</p>
+<p>A <strong>probability</strong> is just a chance. If a token has a probability of 0.70, it means there is a 70% chance that this token gets picked.</p>
+<p>The model uses a small formula called <strong>softmax</strong> to convert scores into probabilities. Softmax does two things:</p>
+<ul>
+<li>It turns every score into a positive number.</li>
+<li>It makes all the probabilities add up to 1, which means 100%.</li>
+</ul>
+<p>Let's not go into the math of softmax. Just remember, a higher score gives a higher probability, and a lower score gives a lower probability.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/math-behind-cross-entropy-loss" rel="noopener noreferrer" target="_blank">Cross-Entropy Loss</a> that explains logits and softmax in depth.</p>
+<p>After softmax, our four tokens look like below:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Score</th>
+<th>Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>blue</td>
+<td>4.0</td>
+<td>0.70</td>
+</tr>
+<tr>
+<td>clear</td>
+<td>3.0</td>
+<td>0.26</td>
+</tr>
+<tr>
+<td>falling</td>
+<td>1.0</td>
+<td>0.03</td>
+</tr>
+<tr>
+<td>banana</td>
+<td>0.0</td>
+<td>0.01</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, we can see that "blue" has a 70% chance, "clear" has a 26% chance, "falling" has a 3% chance, and "banana" has a 1% chance. All four add up to 100%.</p>
+<p>Now, the model picks one token based on these chances. This is like a lucky draw. Think of a box with 100 slips of paper. 70 slips say "blue", 26 slips say "clear", 3 slips say "falling", and 1 slip says "banana". The model puts its hand in the box and picks one slip without looking.</p>
+<p>Most of the time, it will pick "blue". Sometimes, it will pick "clear". And very rarely, it will pick "banana".</p>
+<p>This picking process is called <strong><a href="https://outcomeschool.com/blog/how-do-top-k-and-top-p-sampling-work" rel="noopener noreferrer" target="_blank">sampling</a></strong>.</p>
+<p>So, this is how an LLM picks the next token. Score, then probability, then lucky draw.</p>
+<p>After picking one token, the model adds it to the text and repeats the whole process for the next token. This goes on till the answer is complete. This way of writing, one token at a time while looking back at everything written so far, is called autoregressive generation, and we have a detailed blog on <a href="https://outcomeschool.com/blog/autoregressive-models" rel="noopener noreferrer" target="_blank">Autoregressive Models</a> that explains it step by step.</p>
+<p>Now, here comes the Temperature into the picture.</p>
+<h2 id="where-does-temperature-come-into-the-picture">Where does Temperature come into the picture?</h2>
+<p>Temperature works on the scores, just before softmax converts them into probabilities.</p>
+<p>The idea is very simple. <strong>The model divides every score by the Temperature before converting them into probabilities.</strong></p>
+<p>New Score = Score / Temperature</p>
+<p>That's it. This one small division is the whole trick.</p>
+<p>Let's see what this division does:</p>
+<ul>
+<li>When Temperature is 1, every score gets divided by 1. Nothing changes.</li>
+<li>When Temperature is less than 1, like 0.5, every score gets divided by 0.5, which means every score gets doubled. The gap between the high and low scores becomes bigger.</li>
+<li>When Temperature is more than 1, like 2, every score gets divided by 2, which means every score gets halved. The gap between the high and low scores becomes smaller.</li>
+</ul>
+<p>Now, the next big question is: why does the gap matter?</p>
+<p>The answer is, softmax cares about the gap. Softmax looks at how far apart the scores are. If one score is far ahead of the others, it gets almost all the probability. If all the scores are close together, the probability gets shared among them.</p>
+<p>Means, Temperature changes the number of slips in our lucky draw box. Low Temperature gives the top token almost all the slips. High Temperature spreads the slips more evenly among all the tokens.</p>
+<p>The best way to learn this is by taking an example.</p>
+<h2 id="step-by-step-example-with-numbers">Step-by-step example with numbers</h2>
+<p>Let's take the same four tokens with the same scores and see what happens at different Temperatures.</p>
+<p><strong>Step 1: Temperature = 1</strong></p>
+<p>Every score is divided by 1. So, the scores stay the same.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Score / 1</th>
+<th>Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>blue</td>
+<td>4.0</td>
+<td>0.70</td>
+</tr>
+<tr>
+<td>clear</td>
+<td>3.0</td>
+<td>0.26</td>
+</tr>
+<tr>
+<td>falling</td>
+<td>1.0</td>
+<td>0.03</td>
+</tr>
+<tr>
+<td>banana</td>
+<td>0.0</td>
+<td>0.01</td>
+</tr>
+</tbody>
+</table></div>
+<p>This is the original behavior of the model. Nothing is changed.</p>
+<p><strong>Step 2: Temperature = 0.5</strong></p>
+<p>Every score is divided by 0.5, which doubles it.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Score / 0.5</th>
+<th>Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>blue</td>
+<td>8.0</td>
+<td>0.88</td>
+</tr>
+<tr>
+<td>clear</td>
+<td>6.0</td>
+<td>0.12</td>
+</tr>
+<tr>
+<td>falling</td>
+<td>2.0</td>
+<td>0.00</td>
+</tr>
+<tr>
+<td>banana</td>
+<td>0.0</td>
+<td>0.00</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, we can notice that "blue" went up from 70% to 88%. And "falling" and "banana" have almost zero chance now. The gap became bigger. The model became more sure about its top choice.</p>
+<p><strong>Step 3: Temperature = 0.1</strong></p>
+<p>Every score is divided by 0.1, which multiplies it by 10.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Score / 0.1</th>
+<th>Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>blue</td>
+<td>40.0</td>
+<td>1.00</td>
+</tr>
+<tr>
+<td>clear</td>
+<td>30.0</td>
+<td>0.00</td>
+</tr>
+<tr>
+<td>falling</td>
+<td>10.0</td>
+<td>0.00</td>
+</tr>
+<tr>
+<td>banana</td>
+<td>0.0</td>
+<td>0.00</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, "blue" has almost a 100% chance. The model will pick "blue" every single time.</p>
+<p><strong>Step 4: Temperature = 2</strong></p>
+<p>Every score is divided by 2, which halves it.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Score / 2</th>
+<th>Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>blue</td>
+<td>2.0</td>
+<td>0.51</td>
+</tr>
+<tr>
+<td>clear</td>
+<td>1.5</td>
+<td>0.31</td>
+</tr>
+<tr>
+<td>falling</td>
+<td>0.5</td>
+<td>0.11</td>
+</tr>
+<tr>
+<td>banana</td>
+<td>0.0</td>
+<td>0.07</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, "blue" dropped from 70% to 51%. And "banana" went up from 1% to 7%. The gap became smaller. Now, the weak tokens have a real chance of getting picked.</p>
+<p>Let me put all of this in one table for your better understanding:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Temperature</th>
+<th>blue</th>
+<th>clear</th>
+<th>falling</th>
+<th>banana</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.1</td>
+<td>1.00</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr>
+<td>0.5</td>
+<td>0.88</td>
+<td>0.12</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0.70</td>
+<td>0.26</td>
+<td>0.03</td>
+<td>0.01</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.51</td>
+<td>0.31</td>
+<td>0.11</td>
+<td>0.07</td>
+</tr>
+</tbody>
+</table></div>
+<p>We found the pattern here. As Temperature goes down, the top token takes everything. As Temperature goes up, the chances spread out and every token gets a fair share.</p>
+<p><strong>Note:</strong> Temperature does not change the order of the tokens. "blue" is always the top choice at every Temperature. Temperature only changes how far ahead "blue" is from the rest.</p>
+<p>Let's see the code for this, so that we can try it ourselves:</p>
+<pre><code class="language-python">import math
+def softmax_with_temperature(scores, temperature):
+    scaled = [score / temperature for score in scores]
+    exps = [math.exp(score) for score in scaled]
+    total = sum(exps)
+    return [round(e / total, 2) for e in exps]
+scores = [4.0, 3.0, 1.0, 0.0]  # blue, clear, falling, banana
+print(softmax_with_temperature(scores, 1.0))
+print(softmax_with_temperature(scores, 0.5))
+print(softmax_with_temperature(scores, 2.0))
+</code></pre>
+<p>Here, we have done the following:</p>
+<ul>
+<li>First, we divide every score by the Temperature. This is the Temperature step.</li>
+<li>Then, we apply <code>math.exp</code> on each scaled score. This turns every score into a positive number. This is the first part of softmax.</li>
+<li>After that, we divide each number by the total. This makes them all add up to 1. This is the second part of softmax.</li>
+<li>Finally, we round the result to two decimal places so that it is easy to read.</li>
+</ul>
+<p>It will print the following:</p>
+<pre><code>[0.7, 0.26, 0.03, 0.01]
+[0.88, 0.12, 0.0, 0.0]
+[0.51, 0.31, 0.11, 0.07]
+</code></pre>
+<p>These are the same numbers we saw in our tables. It works perfectly.</p>
+<p>This was all about how Temperature works inside the model. Now, let's understand what this means for the actual text we get from the model.</p>
+<h2 id="low-temperature">Low Temperature</h2>
+<p>A low Temperature is a value close to 0, like 0.1 or 0.2.</p>
+<p>At low Temperature, the model almost always picks the top token. So, the output is:</p>
+<ul>
+<li>Focused and predictable.</li>
+<li>Same or nearly the same every time we ask.</li>
+<li>Safe and to the point.</li>
+</ul>
+<p>Let's say we ask the model, "Write one line about the sky." At low Temperature, we will get "The sky is blue." almost every time.</p>
+<p><strong>Advantage:</strong> The answers are reliable. We can trust that the model is not going off track.</p>
+<p><strong>Disadvantage:</strong> The answers can become boring and repetitive. If we ask for ten different story ideas, we can get ten very similar ideas.</p>
+<h2 id="high-temperature">High Temperature</h2>
+<p>A high Temperature is a value above 1, like 1.5 or 2.</p>
+<p>At high Temperature, the weak tokens get a real chance. So, the output is:</p>
+<ul>
+<li>Creative and surprising.</li>
+<li>Different every time we ask.</li>
+<li>Sometimes strange or wrong.</li>
+</ul>
+<p>Let's say we ask the same question, "Write one line about the sky." At high Temperature, we can get "The sky is clear." or "The sky is falling." or even "The sky is banana."</p>
+<p><strong>Advantage:</strong> The answers are varied and creative. This is great for brainstorming and stories.</p>
+<p><strong>Disadvantage:</strong> The model can pick a bad token, and one bad token can spoil the whole answer.</p>
+<p>Here, one thing is very important to understand. Remember, the model picks one token at a time, and it uses the tokens already picked to pick the next one. So, if a high Temperature makes the model pick "banana", now the model has to continue the sentence "The sky is banana". The model picks every next token based on this strange start, and things go downhill from there. Hence, a very high Temperature often gives us nonsense.</p>
+<h2 id="temperature-1-and-temperature-0">Temperature = 1 and Temperature = 0</h2>
+<p>Two values are special.</p>
+<p><strong>Temperature = 1</strong> means no change. The model uses its original probabilities. This is the natural behavior of the model, exactly as it was trained.</p>
+<p><strong>Temperature = 0</strong> means the model always picks the token with the highest score. No lucky draw at all. This is called <strong>greedy decoding</strong>, because the model greedily grabs the best token every time.</p>
+<p>Strictly speaking, we cannot divide by 0. So, when we set Temperature to 0, the software behind the model does not actually divide. It simply skips the lucky draw and picks the top token directly.</p>
+<p><strong>Note:</strong> Even at Temperature 0, the output can sometimes differ a little between two runs. This happens because of tiny rounding differences inside the computer chips that run the model, not because of Temperature. So, Temperature 0 gives us "almost always the same", not "guaranteed the same".</p>
+<h2 id="why-is-it-called-temperature">Why is it called Temperature?</h2>
+<p>The name comes from physics.</p>
+<p>Think of water. When water is cold, its tiny particles move very less and stay fixed in their place, like ice. When water is hot, the particles move a lot and jump around freely, like steam.</p>
+<p>The same thing happens with our tokens. At low Temperature, the model stays fixed on its top choice, like ice. At high Temperature, the model jumps around between many choices, like steam.</p>
+<p>Researchers borrowed this idea from a formula in physics, and the name Temperature stayed with it.</p>
+<h2 id="when-to-use-which-temperature">When to use which Temperature?</h2>
+<p>Now, we know what Temperature does. So, which value must we use? The answer is, it depends on our use case.</p>
+<p>Let me tabulate the common use cases for your better understanding so that you can decide which value to use based on your use case.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Use case</th>
+<th>Temperature</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Writing code</td>
+<td>0 to 0.2</td>
+<td>Code must be correct, not creative</td>
+</tr>
+<tr>
+<td>Maths and facts</td>
+<td>0 to 0.2</td>
+<td>There is only one right answer</td>
+</tr>
+<tr>
+<td>Summarizing a document</td>
+<td>0.2 to 0.5</td>
+<td>Must stay close to the original</td>
+</tr>
+<tr>
+<td>Customer support chat</td>
+<td>0.3 to 0.7</td>
+<td>Friendly, but still accurate</td>
+</tr>
+<tr>
+<td>General chat</td>
+<td>0.7 to 1</td>
+<td>Natural and human-like</td>
+</tr>
+<tr>
+<td>Story writing and poems</td>
+<td>0.8 to 1.2</td>
+<td>Creative and surprising</td>
+</tr>
+<tr>
+<td>Brainstorming ideas</td>
+<td>1 to 1.5</td>
+<td>We want many different ideas</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, we can see the pattern. When there is one correct answer, keep the Temperature low. When there are many good answers, keep the Temperature high.</p>
+<p>These ranges are just a starting point. The right value depends on our use case, so we must try a few values and see which one works best.</p>
+<p>When developers use an LLM inside their own app, they send a request to the model, and this request has a place for Temperature. We can set it like below:</p>
+<pre><code class="language-python">response = model.generate(
+    prompt="Write one line about the sky.",
+    temperature=0.2
+)
+</code></pre>
+<p>Here, <code>prompt</code> is the text we give to the model, and <code>temperature</code> is our knob. We have passed <code>temperature=0.2</code>, so the model will give a focused and predictable answer. If we change it to <code>temperature=1.2</code>, the same prompt will give a creative and varied answer. Nothing else changes, only this one number.</p>
+<h2 id="common-mistakes-while-using-temperature">Common mistakes while using Temperature</h2>
+<p>Most of the time, we do mistakes while using Temperature. Let's see the common ones.</p>
+<p><strong>Mistake 1: Thinking that Temperature makes the model smarter.</strong></p>
+<p>Temperature does not add any knowledge to the model. It does not make the model more correct. It only changes how the model picks from what it already knows. If the model does not know the answer, no Temperature can fix that.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/why-do-llms-hallucinate-the-token-level-explanation" rel="noopener noreferrer" target="_blank">why LLMs hallucinate</a> that explains this at the token level.</p>
+<p><strong>Mistake 2: Setting a very high Temperature to get creativity.</strong></p>
+<p>Above 1.5 or so, the output quickly turns into nonsense. Creativity comes from a slightly high Temperature, not a very high one.</p>
+<p><strong>Mistake 3: Expecting Temperature 0 to give exactly the same output every time.</strong></p>
+<p>As we learned, tiny rounding differences can still change the output a little. If we need exactly the same output, we must save it and reuse it, not ask the model again.</p>
+<p><strong>Mistake 4: Changing Temperature and Top-p together.</strong></p>
+<p><strong><a href="https://outcomeschool.com/blog/how-do-top-k-and-top-p-sampling-work" rel="noopener noreferrer" target="_blank">Top-p</a></strong> is another setting that controls randomness. It works by removing the weak tokens from the lucky draw box, so that only the strong tokens remain. Both Temperature and Top-p change the randomness of the output. So, if we change both at the same time, we will not know which one caused the change.</p>
+<p>Now, we must have understood how Temperature controls LLM output. It is just one small division before the lucky draw, but that one division decides whether the model gives us a safe answer or a creative one.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="does-temperature-change-which-token-the-model-ranks-highest">Does Temperature change which token the model ranks highest?</h3>
+<p>No. Temperature does not change the order of the tokens. The top token stays the top choice at every Temperature. Temperature only changes how far ahead the top token is from the rest, which changes how likely the weaker tokens are to get picked.</p>
+<h3 id="what-is-the-difference-between-temperature-and-top-p">What is the difference between Temperature and Top-p?</h3>
+<p>Both control the randomness of the output, but in different ways. Temperature divides every score before softmax, which makes the chances sharper or more spread out. Top-p removes the weak tokens from the pick, so only the strong tokens remain. We should not change both together, or we will not know which one caused the change.</p>
+<h3 id="can-a-lower-temperature-make-the-model-more-accurate">Can a lower Temperature make the model more accurate?</h3>
+<p>No. Temperature does not add any knowledge to the model or make it more correct. It only changes how the model picks from what it already knows. A low Temperature only makes the answer more focused and predictable.</p>
+<h3 id="what-temperature-value-is-the-default">What Temperature value is the default?</h3>
+<p>Many tools keep 1 as the default. At Temperature 1, every score is divided by 1, so nothing changes and the model uses its original probabilities, exactly as it was trained. Usually, the value we can set is between 0 and 2.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m04-l0402">
+  <p class="print-lesson-kicker">Lesson 4.2</p>
+  <h1>How do Top-k and Top-p Sampling work?</h1>
+  <p class="print-lesson-meta">Lesson 4.2 · ~18 min · Published September 19, 2026 · <a href="https://outcomeschool.com/blog/how-do-top-k-and-top-p-sampling-work">https://outcomeschool.com/blog/how-do-top-k-and-top-p-sampling-work</a></p>
+  <p><img alt="How do Top-k and Top-p Sampling work?" src="../assets/images/04-04-02-how-do-top-k-and-top-p-sampling-work/how-do-top-k-and-top-p-sampling-work.png"/></p>
+<p>Top-k Sampling keeps only the k most likely tokens and picks randomly from them, whereas Top-p Sampling keeps the smallest group of top tokens whose probabilities add up to at least p, and picks randomly from that group.</p>
+<p>In this blog, we will learn about how Top-k and Top-p Sampling work, the two most common ways an LLM decides which word to write next when it is replying to us. We will also see how an LLM picks one token at a time, why always picking the best token gives boring text, why picking from every token gives silly text, how Top-k keeps a fixed number of tokens, how Top-p keeps tokens based on their total probability, how both of them work with temperature, and when to use which one.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>How an LLM picks the next token</li>
+<li>The problem with always picking the best token</li>
+<li>The problem with picking from every token</li>
+<li>What is Top-k Sampling?</li>
+<li>Step-by-step example of Top-k Sampling</li>
+<li>The problem with Top-k Sampling</li>
+<li>What is Top-p Sampling?</li>
+<li>Step-by-step example of Top-p Sampling</li>
+<li>Top-k vs Top-p Sampling</li>
+<li>How Top-k and Top-p work with Temperature</li>
+<li>When to use which one</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="how-an-llm-picks-the-next-token">How an LLM picks the next token</h2>
+<p>Before jumping into Top-k and Top-p Sampling, we must know how an LLM writes text.</p>
+<p>An LLM does not write a full sentence in one go. It writes one token at a time.</p>
+<p>A <strong><a href="https://outcomeschool.com/blog/tokenization-in-llms" rel="noopener noreferrer" target="_blank">token</a></strong> is a small piece of text. It can be a full word like "cat", a part of a word like "ing", or even a comma. For the sake of understanding, we can think of a token as a word.</p>
+<p>Let's say we give the LLM the text "The cat sat on the". Now, the LLM has to decide the next token.</p>
+<p>Inside the LLM, there is a list of every token it knows. This list is called the <strong>vocabulary</strong>. It is huge, it contains tens of thousands of tokens.</p>
+<p>For every token in the vocabulary, the LLM gives a score. A higher score means the LLM thinks that token is a better fit as the next token. These raw scores are called <strong>logits</strong>.</p>
+<p>Then, the LLM converts these scores into probabilities using a function called <strong>softmax</strong>. Do not worry, we do not need to go deep into softmax here. In simple words, softmax takes all the scores and turns them into percentages that add up to 100%. A probability is just the chance of that token being the next one. 40% means 40 chances out of 100.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/math-behind-cross-entropy-loss" rel="noopener noreferrer" target="_blank">Cross-Entropy Loss</a> that explains logits and softmax step by step.</p>
+<p>So, for "The cat sat on the", the LLM gives probabilities like below:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mat</td>
+<td>40%</td>
+</tr>
+<tr>
+<td>floor</td>
+<td>25%</td>
+</tr>
+<tr>
+<td>sofa</td>
+<td>15%</td>
+</tr>
+<tr>
+<td>bed</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>roof</td>
+<td>5%</td>
+</tr>
+<tr>
+<td>every other token</td>
+<td>5% in total</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, we can see that "mat" has the highest probability, and thousands of other tokens together share the remaining 5%.</p>
+<p><strong>Note:</strong> We are showing only a few tokens in the table just for the sake of understanding. In a real LLM, this table has one row for every token in the vocabulary.</p>
+<p>Now, the LLM has to pick one token from this list. This picking step is called <strong>sampling</strong>. The rule we follow while picking is called the <strong>decoding strategy</strong>.</p>
+<p>Once a token is picked, it is added to the text, and the whole process repeats for the next token. This continues till the reply is complete. This way of writing, one token at a time, is called autoregressive generation, and we have a detailed blog on <a href="https://outcomeschool.com/blog/autoregressive-models" rel="noopener noreferrer" target="_blank">Autoregressive Models</a> that explains it in depth.</p>
+<p>So, Top-k and Top-p Sampling are all about one question: from this list of probabilities, which token do we pick?</p>
+<p>Let's see the simple approaches first, and then we will see why we need Top-k and Top-p.</p>
+<h2 id="the-problem-with-always-picking-the-best-token">The problem with always picking the best token</h2>
+<p>The simplest approach is to always pick the token with the highest probability. This is called <strong>Greedy Decoding</strong>.</p>
+<p>In our example, it will always pick "mat".</p>
+<p><strong>Advantage:</strong> It is simple and fast.</p>
+<p><strong>Disadvantage:</strong> The text becomes boring and repetitive. Ask the same question twice, and we get the exact same answer. Many times, the LLM gets stuck in a loop like "I think that I think that I think that".</p>
+<p>And, the most likely token at every step does not always give the most natural sentence overall. We humans do not always use the most common word. A little variety makes the text feel natural.</p>
+<p>The issue with this approach is that there is no variety at all. Let's see how the next approach solve this issue.</p>
+<h2 id="the-problem-with-picking-from-every-token">The problem with picking from every token</h2>
+<p>The opposite approach is to pick randomly from every token in the vocabulary based on its probability. This is called <strong>Pure Sampling</strong>.</p>
+<p>Picking randomly based on probability is like a lottery. Suppose we have a box with 100 tickets. "mat" gets 40 tickets, "floor" gets 25 tickets, "sofa" gets 15 tickets, "bed" gets 10 tickets, "roof" gets 5 tickets, and the remaining 5 tickets are shared by every other token. We close our eyes and pick one ticket. The token written on that ticket is our next token.</p>
+<p>Means, "mat" gets picked 40% of the time, "floor" gets picked 25% of the time, and so on.</p>
+<p><strong>Advantage:</strong> The text has variety. Every reply is different.</p>
+<p><strong>Disadvantage:</strong> Remember that thousands of other tokens together share 5%. Each one of them has a very tiny probability. But there are so many of them that together, one of them gets picked 5% of the time.</p>
+<p>So, the LLM writes "The cat sat on the banana" or "The cat sat on the democracy". This looks silly.</p>
+<p>And, this is not a one-time problem. The LLM writes hundreds of tokens in a reply. If even one silly token gets picked, the LLM builds the rest of the sentence on top of that silly token, and the whole reply goes off track.</p>
+<p>The issue with this approach is that we let the LLM pick from the bad tokens at the bottom of the list. We need a way to keep the variety but cut off the bad tokens.</p>
+<p>So, here comes the Top-k Sampling to the rescue.</p>
+<h2 id="what-is-top-k-sampling">What is Top-k Sampling?</h2>
+<p><strong>Top-k Sampling is a decoding strategy in which we keep only the k tokens with the highest probability, throw away all the others, and then pick randomly from those k tokens.</strong></p>
+<p>Top-k = Top + k</p>
+<ul>
+<li>Top: the tokens with the highest probability</li>
+<li>k: how many of them we keep</li>
+</ul>
+<p>In simple words, we cut the list down to a fixed size k, and we run our lottery only on that short list.</p>
+<p>Let's say we go to a restaurant and ask the waiter to pick a dish for us. A greedy waiter always picks the number one dish, every single time. A pure sampling waiter picks from the whole menu, even the dishes that nobody orders. Top-k is like a waiter who looks only at the 3 most popular dishes and picks one of them. The dishes that nobody orders are never picked.</p>
+<p>Here, k is a number that we choose. It is a setting, not something the LLM learns. Common values are between 10 and 50.</p>
+<h2 id="step-by-step-example-of-top-k-sampling">Step-by-step example of Top-k Sampling</h2>
+<p>The best way to learn this is by taking an example.</p>
+<p>Let's take our example "The cat sat on the" with k = 3.</p>
+<p><strong>Step 1: Sort the tokens by probability, from highest to lowest.</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mat</td>
+<td>40%</td>
+</tr>
+<tr>
+<td>floor</td>
+<td>25%</td>
+</tr>
+<tr>
+<td>sofa</td>
+<td>15%</td>
+</tr>
+<tr>
+<td>bed</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>roof</td>
+<td>5%</td>
+</tr>
+<tr>
+<td>every other token</td>
+<td>5% in total</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Step 2: Keep only the top k tokens.</strong></p>
+<p>With k = 3, we keep "mat", "floor", and "sofa". Everything else is thrown away.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mat</td>
+<td>40%</td>
+</tr>
+<tr>
+<td>floor</td>
+<td>25%</td>
+</tr>
+<tr>
+<td>sofa</td>
+<td>15%</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Step 3: Re-scale the probabilities so that they add up to 100% again.</strong></p>
+<p>Now, the three tokens add up to only 80%. So, we take each one as a share of that 80%. This is called <strong>renormalization</strong>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>New Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mat</td>
+<td>40 / 80 = 50%</td>
+</tr>
+<tr>
+<td>floor</td>
+<td>25 / 80 = 31.25%</td>
+</tr>
+<tr>
+<td>sofa</td>
+<td>15 / 80 = 18.75%</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Step 4: Pick one token randomly based on the new probabilities.</strong></p>
+<p>So, "mat" gets picked half of the time, "floor" gets picked around one-third of the time, and "sofa" gets picked around one-fifth of the time.</p>
+<p>"banana" and "democracy" can never be picked. Problem Solved!</p>
+<p>Let's see the code for Top-k Sampling, as below:</p>
+<pre><code class="language-python">import torch
+def top_k_sampling(logits, k):
+    # keep only the k highest scores
+    top_values, top_indices = torch.topk(logits, k)
+    # convert the kept scores into probabilities
+    probs = torch.softmax(top_values, dim=-1)
+    # pick one token randomly based on the probabilities
+    chosen = torch.multinomial(probs, num_samples=1)
+    return top_indices[chosen]
+</code></pre>
+<p>Here, we have:</p>
+<ul>
+<li><code>torch.topk</code> gives us the k highest scores and their positions in the vocabulary.</li>
+<li><code>torch.softmax</code> converts those k scores into probabilities that add up to 100%. This does the renormalization for us.</li>
+<li><code>torch.multinomial</code> runs the lottery and picks one token based on the probabilities.</li>
+<li>Finally, we return the position of the chosen token in the vocabulary.</li>
+</ul>
+<p><strong>Note:</strong> Here, we apply softmax only on the k kept scores instead of all the scores. This gives exactly the same result as applying softmax on all the scores and then re-scaling the top k. So, we get the renormalization for free.</p>
+<p>This is how Top-k Sampling works.</p>
+<h2 id="the-problem-with-top-k-sampling">The problem with Top-k Sampling</h2>
+<p>Top-k Sampling works well in our example. But, here is the catch.</p>
+<p>The value of k is fixed. It does not change based on the situation. And, the situation changes at every token.</p>
+<p>Let's see two very different situations.</p>
+<p><strong>Situation 1: The next token is obvious.</strong></p>
+<p>Let's say the text is "The capital of France is". The LLM is very sure here.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Paris</td>
+<td>95%</td>
+</tr>
+<tr>
+<td>the</td>
+<td>2%</td>
+</tr>
+<tr>
+<td>a</td>
+<td>1%</td>
+</tr>
+<tr>
+<td>located</td>
+<td>1%</td>
+</tr>
+<tr>
+<td>every other token</td>
+<td>1% in total</td>
+</tr>
+</tbody>
+</table></div>
+<p>With k = 3, we keep "Paris", "the", and "a". But, "the" and "a" are weak choices here. We are forcing weak tokens into the list just because k says we need three. So, once in a while, the LLM writes "The capital of France is the", which is a poor start.</p>
+<p><strong>Situation 2: The next token has many good options.</strong></p>
+<p>Let's say the text is "My favourite colour is". Many answers are equally good.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>blue</td>
+<td>12%</td>
+</tr>
+<tr>
+<td>red</td>
+<td>11%</td>
+</tr>
+<tr>
+<td>green</td>
+<td>11%</td>
+</tr>
+<tr>
+<td>black</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>purple</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>yellow</td>
+<td>9%</td>
+</tr>
+<tr>
+<td>white</td>
+<td>9%</td>
+</tr>
+<tr>
+<td>pink</td>
+<td>8%</td>
+</tr>
+<tr>
+<td>every other token</td>
+<td>20% in total</td>
+</tr>
+</tbody>
+</table></div>
+<p>With k = 3, we keep only "blue", "red", and "green". But, "black", "purple", and "yellow" are just as good. We are cutting off good tokens just because k says we can keep only three. So, the LLM never says "black", "purple", or "yellow", and its answers feel limited.</p>
+<p>So, the same k = 3 is too many in Situation 1 and too few in Situation 2.</p>
+<p>The issue with this approach is that a fixed number k cannot adapt to how confident the LLM is. Let's see how the next approach solve this issue.</p>
+<p>Here comes the Top-p Sampling into the picture.</p>
+<h2 id="what-is-top-p-sampling">What is Top-p Sampling?</h2>
+<p><strong>Top-p Sampling is a decoding strategy in which we keep the smallest group of top tokens whose probabilities add up to at least p, throw away all the others, and then pick randomly from that group.</strong></p>
+<p>Top-p = Top + p</p>
+<ul>
+<li>Top: the tokens with the highest probability</li>
+<li>p: the total probability we want to cover</li>
+</ul>
+<p>In simple words, instead of saying "keep 3 tokens", we say "keep enough tokens to cover 90% of the probability".</p>
+<p>Top-p Sampling is also called <strong>Nucleus Sampling</strong>. Nucleus means the core or the center of something. The small group of tokens that we keep is the core of the list, hence the name. It was introduced in 2019 in a research paper named "The Curious Case of Neural Text Degeneration".</p>
+<p>Let's go back to our restaurant. Top-p is like a waiter who looks at the dishes that together make up 90% of all the orders. On a day when almost everyone orders one dish, that is just one dish. On a day when the orders are spread out, that is many dishes. The waiter adapts to the day.</p>
+<p>Here, p is a number between 0 and 1 that we choose. Common values are between 0.9 and 0.95.</p>
+<p>The size of the group is not fixed anymore. It becomes small when the LLM is sure and big when the LLM is unsure. This is the key difference from Top-k.</p>
+<h2 id="step-by-step-example-of-top-p-sampling">Step-by-step example of Top-p Sampling</h2>
+<p>Let's take our example "The cat sat on the" with p = 0.9, which means 90%.</p>
+<p><strong>Step 1: Sort the tokens by probability, from highest to lowest.</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mat</td>
+<td>40%</td>
+</tr>
+<tr>
+<td>floor</td>
+<td>25%</td>
+</tr>
+<tr>
+<td>sofa</td>
+<td>15%</td>
+</tr>
+<tr>
+<td>bed</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>roof</td>
+<td>5%</td>
+</tr>
+<tr>
+<td>every other token</td>
+<td>5% in total</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Step 2: Add the probabilities from the top, one by one, till the total reaches p.</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Probability</th>
+<th>Running Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mat</td>
+<td>40%</td>
+<td>40%</td>
+</tr>
+<tr>
+<td>floor</td>
+<td>25%</td>
+<td>65%</td>
+</tr>
+<tr>
+<td>sofa</td>
+<td>15%</td>
+<td>80%</td>
+</tr>
+<tr>
+<td>bed</td>
+<td>10%</td>
+<td>90%</td>
+</tr>
+</tbody>
+</table></div>
+<p>The total reaches 90% at "bed". So, we stop here.</p>
+<p><strong>Step 3: Keep the tokens up to that point and throw away all the others.</strong></p>
+<p>We keep "mat", "floor", "sofa", and "bed". "roof" and every other token is thrown away.</p>
+<p><strong>Step 4: Re-scale the probabilities so that they add up to 100% again.</strong></p>
+<p>The four tokens add up to 90%. So, we take each one as a share of that 90%.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>New Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mat</td>
+<td>40 / 90 = 44.4%</td>
+</tr>
+<tr>
+<td>floor</td>
+<td>25 / 90 = 27.8%</td>
+</tr>
+<tr>
+<td>sofa</td>
+<td>15 / 90 = 16.7%</td>
+</tr>
+<tr>
+<td>bed</td>
+<td>10 / 90 = 11.1%</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Step 5: Pick one token randomly based on the new probabilities.</strong></p>
+<p>This is how Top-p Sampling works.</p>
+<p>Now, let's see how the same p = 0.9 handles the two situations where Top-k struggled.</p>
+<p><strong>Situation 1: "The capital of France is"</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Probability</th>
+<th>Running Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Paris</td>
+<td>95%</td>
+<td>95%</td>
+</tr>
+</tbody>
+</table></div>
+<p>"Paris" alone crosses 90%. So, we keep only "Paris". The weak tokens "the" and "a" are thrown away. The group has just one token.</p>
+<p><strong>Situation 2: "My favourite colour is"</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Probability</th>
+<th>Running Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>blue</td>
+<td>12%</td>
+<td>12%</td>
+</tr>
+<tr>
+<td>red</td>
+<td>11%</td>
+<td>23%</td>
+</tr>
+<tr>
+<td>green</td>
+<td>11%</td>
+<td>34%</td>
+</tr>
+<tr>
+<td>black</td>
+<td>10%</td>
+<td>44%</td>
+</tr>
+<tr>
+<td>purple</td>
+<td>10%</td>
+<td>54%</td>
+</tr>
+<tr>
+<td>yellow</td>
+<td>9%</td>
+<td>63%</td>
+</tr>
+<tr>
+<td>white</td>
+<td>9%</td>
+<td>72%</td>
+</tr>
+<tr>
+<td>pink</td>
+<td>8%</td>
+<td>80%</td>
+</tr>
+</tbody>
+</table></div>
+<p>These eight tokens reach only 80%. So, we keep going into the tokens below "pink" till the total reaches 90%. The group has many tokens. All the good colours stay in the list.</p>
+<p>So, the same p = 0.9 gave one token in Situation 1 and many tokens in Situation 2. The group size adapted itself to how confident the LLM was. All problems got solved.</p>
+<p>Let's see the code for Top-p Sampling, as below:</p>
+<pre><code class="language-python">import torch
+def top_p_sampling(logits, p):
+    # convert all the scores into probabilities
+    probs = torch.softmax(logits, dim=-1)
+    # sort from highest to lowest
+    sorted_probs, sorted_indices = torch.sort(probs, descending=True)
+    # running total of the probabilities
+    cumulative = torch.cumsum(sorted_probs, dim=-1)
+    # running total before this token
+    before = cumulative - sorted_probs
+    # if the total before this token already reached p, we do not need it
+    sorted_probs[before &gt;= p] = 0.0
+    # re-scale so that the kept probabilities add up to 1
+    sorted_probs = sorted_probs / sorted_probs.sum()
+    # pick one token randomly based on the probabilities
+    chosen = torch.multinomial(sorted_probs, num_samples=1)
+    return sorted_indices[chosen]
+</code></pre>
+<p>Here, we have:</p>
+<ul>
+<li><code>torch.softmax</code> converts all the scores into probabilities.</li>
+<li><code>torch.sort</code> puts the probabilities in order from highest to lowest.</li>
+<li><code>torch.cumsum</code> gives the running total, just like the "Running Total" column in our table.</li>
+<li><code>before</code> is the running total without the current token. If that total has already reached p, then the current token is not needed, so we set its probability to zero. This keeps the token which makes the total reach p and removes everything after it.</li>
+<li>We divide by the sum to re-scale the kept probabilities. This is the renormalization.</li>
+<li><code>torch.multinomial</code> runs the lottery and picks one token.</li>
+<li>Finally, we return the position of the chosen token in the vocabulary.</li>
+</ul>
+<p>This was all about Top-p Sampling. Now, let's compare both of them.</p>
+<h2 id="top-k-vs-top-p-sampling">Top-k vs Top-p Sampling</h2>
+<p>Let me tabulate the differences between Top-k and Top-p Sampling for your better understanding so that you can decide which one to use based on your use case.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>Top-k Sampling</th>
+<th>Top-p Sampling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What we fix</td>
+<td>The number of tokens to keep</td>
+<td>The total probability to cover</td>
+</tr>
+<tr>
+<td>Size of the kept group</td>
+<td>Always exactly k</td>
+<td>Changes at every token</td>
+</tr>
+<tr>
+<td>When the LLM is very sure</td>
+<td>Still keeps k tokens, some of them weak</td>
+<td>Keeps very few tokens, sometimes just one</td>
+</tr>
+<tr>
+<td>When the LLM is unsure</td>
+<td>Still keeps only k tokens, cuts off good ones</td>
+<td>Keeps many tokens</td>
+</tr>
+<tr>
+<td>Other name</td>
+<td>No other name</td>
+<td>Nucleus Sampling</td>
+</tr>
+<tr>
+<td>Common values</td>
+<td>10 to 50</td>
+<td>0.9 to 0.95</td>
+</tr>
+<tr>
+<td>Work needed</td>
+<td>Less, only find the top k</td>
+<td>More, sort everything and keep a running total</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="how-top-k-and-top-p-work-with-temperature">How Top-k and Top-p work with Temperature</h2>
+<p>Many of you must be knowing about <strong><a href="https://outcomeschool.com/blog/how-does-temperature-control-llm-output" rel="noopener noreferrer" target="_blank">Temperature</a></strong>. Temperature is another setting that controls how random the output of an LLM is.</p>
+<p>Temperature divides all the scores by the temperature value before they are converted into probabilities. A low temperature like 0.2 makes the top token even more likely, so the probabilities become sharp. Means, one token stands out clearly. A high temperature like 1.5 brings all the tokens closer to each other, so the probabilities become flat. Means, many tokens look almost equally likely.</p>
+<p>Top-k and Top-p do not change the shape of the probabilities. They only cut the list.</p>
+<p>So, they do different jobs:</p>
+<ul>
+<li>Temperature decides how sharp or how flat the probabilities are.</li>
+<li>Top-k and Top-p decide how many tokens stay in the list.</li>
+</ul>
+<p>Now, the question is: can we use all three together? Yes, we can. Inside the LLM, they are usually applied in the below order:</p>
+<p>Scores -&gt; Temperature -&gt; Top-k -&gt; Top-p -&gt; Convert to probabilities -&gt; Pick one token</p>
+<p>First, temperature reshapes the scores. Then, Top-k cuts the list to k tokens. Then, Top-p cuts it further if needed. Finally, we run the lottery on whatever is left. Many tools set k = 50 and p = 0.95 by default.</p>
+<p>When we call an LLM API, we pass these as settings named <code>top_k</code>, <code>top_p</code>, and <code>temperature</code> along with our prompt. We do not have to write the sampling code ourselves. The code we saw above is what runs behind these settings.</p>
+<p><strong>Note:</strong> If we set k to a very large number or p to 1.0, then that filter does nothing, and we get Pure Sampling back. If we set k = 1 or p very close to 0, then only the top token survives, and we get Greedy Decoding back. So, Greedy Decoding and Pure Sampling are just the two ends of the same idea. Top-k and Top-p let us pick any point in between.</p>
+<h2 id="when-to-use-which-one">When to use which one</h2>
+<ul>
+<li>For tasks where the answer must be correct, like answering a factual question, writing code, or summarizing a document, we want less randomness. Use a small k like 10, or a p like 0.9, along with a low temperature. The LLM must not take chances here.</li>
+<li>For creative tasks, like writing a story or a poem, we want more variety. Use a larger k like 50, or a p like 0.95, along with a slightly higher temperature.</li>
+<li>When we are not sure, Top-p is the safer default because it adapts itself at every token. This is why almost every LLM API exposes Top-p as a setting, while Top-k is not always available.</li>
+</ul>
+<p>Now we must have understood how Top-k and Top-p Sampling work.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="can-we-use-top-k-and-top-p-together">Can we use Top-k and Top-p together?</h3>
+<p>Yes. Inside the LLM, they are usually applied in order: temperature reshapes the scores, Top-k cuts the list to k tokens, and then Top-p cuts it further if needed. Finally, one token is picked from whatever is left. Many tools set k = 50 and p = 0.95 by default.</p>
+<h3 id="what-happens-if-we-set-top-p-to-1-0">What happens if we set top_p to 1.0?</h3>
+<p>The Top-p filter does nothing, and we get Pure Sampling back. The same happens when we set k to a very large number. On the other side, if we set k = 1 or p very close to 0, only the top token survives, and we get Greedy Decoding back.</p>
+<h3 id="is-top-p-better-than-top-k">Is Top-p better than Top-k?</h3>
+<p>Top-p is the safer default when we are not sure, because it adapts itself at every token. It keeps very few tokens when the LLM is sure and many tokens when the LLM is unsure. This is why almost every LLM API exposes Top-p as a setting, while Top-k is not always available. Top-k does need less work, since it only finds the top k.</p>
+<h3 id="is-top-p-the-same-as-temperature">Is Top-p the same as temperature?</h3>
+<p>No. Temperature decides how sharp or how flat the probabilities are by dividing the scores before they become probabilities. Top-k and Top-p do not change the shape of the probabilities. They only decide how many tokens stay in the list.</p>
+<h3 id="do-we-need-to-write-top-k-or-top-p-code-when-we-use-an-llm-api">Do we need to write Top-k or Top-p code when we use an LLM API?</h3>
+<p>No. When we call an LLM API, we pass settings named <code>top_k</code>, <code>top_p</code>, and <code>temperature</code> along with our prompt. The sampling code runs behind these settings, so we do not have to write it ourselves.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m04-l0403">
+  <p class="print-lesson-kicker">Lesson 4.3</p>
+  <h1>Stop Tokens in LLMs</h1>
+  <p class="print-lesson-meta">Lesson 4.3 · ~17 min · Published October 4, 2026 · <a href="https://outcomeschool.com/blog/stop-tokens-in-llms">https://outcomeschool.com/blog/stop-tokens-in-llms</a></p>
+  <p><img alt="Stop Tokens in LLMs" src="../assets/images/04-04-03-stop-tokens-in-llms/stop-tokens-in-llms.png"/></p>
+<p>A Stop Token is a special token in the vocabulary of an LLM that means the text ends here. When the model produces it, the generation loop stops writing.</p>
+<p>In this blog, we will learn about Stop Tokens in LLMs. We will also see why an LLM needs to be told when to stop, how the model learns to produce the stop token during training, how it is different from a stop sequence that we set ourselves, what happens when the model never stops, how chat models use it, and the common mistakes we do while using it.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is a Token?</li>
+<li>How does an LLM generate text?</li>
+<li>Why does an LLM need to stop?</li>
+<li>What is a Stop Token?</li>
+<li>How does the model learn to produce a Stop Token?</li>
+<li>Stop Token vs Stop Sequence</li>
+<li>What happens if the model never stops?</li>
+<li>Stop Tokens in Chat Models</li>
+<li>Common mistakes with Stop Tokens</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="what-is-a-token">What is a Token?</h2>
+<p>Before jumping into Stop Tokens, we must know what a token is.</p>
+<p><strong>A token is a small piece of text that an LLM (Large Language Model) reads and writes.</strong></p>
+<p>An LLM does not read text letter by letter, and it does not read text word by word. It reads text in small pieces called tokens.</p>
+<p>A token can be a full word, a part of a word, a single character, a space, or a punctuation mark.</p>
+<p>Let's say we have a sentence as below:</p>
+<pre><code>I love learning.
+</code></pre>
+<p>An LLM breaks it into tokens like below:</p>
+<pre><code>["I", " love", " learning", "."]
+</code></pre>
+<p>Here, we can see that each piece is one token. The space before "love" is part of the token itself. This is how the model keeps track of where one word ends and the next one begins.</p>
+<p>Every token has a number attached to it. The model does not work with the text directly, it works with these numbers. The full list of all the tokens that a model knows is called its <strong>vocabulary</strong>.</p>
+<p>For the sake of understanding, think of the vocabulary as a big dictionary where every entry has a serial number. The model only sees the serial numbers.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/tokenization-in-llms" rel="noopener noreferrer" target="_blank">Tokenization in LLMs</a> that explains step by step how text is broken into tokens.</p>
+<p>Now that we know what a token is, let's see how an LLM uses tokens to write text.</p>
+<h2 id="how-does-an-llm-generate-text">How does an LLM generate text?</h2>
+<p><strong>An LLM writes text one token at a time.</strong> This writing is called generation.</p>
+<p>It does not write the full answer in one go. It picks one token, adds it to the text, and then picks the next token by looking at everything written so far.</p>
+<p>The best way to learn this is by taking an example.</p>
+<p>The text we give to the model is called a <strong>prompt</strong>. Let's say our prompt is as below:</p>
+<pre><code>The capital of India is
+</code></pre>
+<p>The model works like below:</p>
+<p><strong>Step 1:</strong> It looks at "The capital of India is" and picks the next token: " New"</p>
+<p><strong>Step 2:</strong> It looks at "The capital of India is New" and picks the next token: " Delhi"</p>
+<p><strong>Step 3:</strong> It looks at "The capital of India is New Delhi" and picks the next token: "."</p>
+<p>At every step, the model does the same thing. It looks at the full text so far and gives a score to every token in its vocabulary. A token with a high score is more likely to come next. Then one token is <a href="https://outcomeschool.com/blog/how-do-top-k-and-top-p-sampling-work" rel="noopener noreferrer" target="_blank">picked based on these scores</a> and added to the text.</p>
+<p>This loop has a name, <strong><a href="https://outcomeschool.com/blog/autoregressive-models" rel="noopener noreferrer" target="_blank">autoregressive generation</a></strong>.</p>
+<p>Autoregressive = Auto + Regressive</p>
+<p>Auto means self. Regressive here means going back to what has already been produced. So, the model feeds its own output back as its input, again and again.</p>
+<p>We can write this loop as below:</p>
+<pre><code class="language-python">tokens = tokenize(prompt)
+while True:
+    next_token = model.predict_next(tokens)
+    tokens.append(next_token)
+</code></pre>
+<p>Here, <code>tokenize</code> breaks the prompt into tokens. <code>while True</code> means the loop runs again and again without any end. Inside the loop, we ask the model for the next token, add it to the list, and ask again.</p>
+<p>Look at the loop carefully. When does it end?</p>
+<h2 id="why-does-an-llm-need-to-stop">Why does an LLM need to stop?</h2>
+<p>The loop we just saw has no exit. There is nothing in it that says "you are done".</p>
+<p>If nothing stops it, the model will keep going. After "New Delhi." it will pick another token, and another, and another. It will start writing about the history of Delhi, then about the weather, then about something else. It will never stop on its own.</p>
+<p>So, we need a way to tell the model when the answer is complete.</p>
+<p>There are two ways to stop the loop:</p>
+<ul>
+<li>We set a fixed limit. Say, stop after 100 tokens.</li>
+<li>We let the model itself say "I am done".</li>
+</ul>
+<p>The first way is simple, but it is not enough on its own. If the answer needs only 5 tokens, we waste time and money producing 95 more tokens of junk. And if the answer needs 200 tokens, we cut it in the middle.</p>
+<p>The second way is much better. The model knows when the answer is complete. It just needs a way to say so.</p>
+<p>So, here comes the Stop Token to the rescue.</p>
+<h2 id="what-is-a-stop-token">What is a Stop Token?</h2>
+<p><strong>A Stop Token is a special token in the vocabulary of the model that means "the text ends here".</strong></p>
+<p>It is not a normal word. It is not part of the answer that we read. It is a hidden marker that the model produces when it believes the answer is complete.</p>
+<p>When the generation loop sees this token, it stops. No more tokens are produced.</p>
+<p>A normal full stop "." ends a sentence. A stop token ends the entire response.</p>
+<p>Different models give different names to this token. Some common ones are:</p>
+<ul>
+<li><code>&lt;|endoftext|&gt;</code> used by GPT-2 and many older models</li>
+<li><code>&lt;/s&gt;</code> used by Llama 2 and many models built on top of it</li>
+<li><code>&lt;|eot_id|&gt;</code> used by Llama 3</li>
+<li><code>&lt;|im_end|&gt;</code> used by Qwen and many other chat models</li>
+<li><code>&lt;end_of_turn&gt;</code> used by Gemma</li>
+</ul>
+<p>The name of the token does not matter. What matters is that it is one token in the vocabulary with its own number, and the generation loop treats it as a signal to stop.</p>
+<p>Many people also call it the <strong>EOS token</strong>. EOS stands for End Of Sequence. A sequence is just the full piece of text. So, End Of Sequence means the end of the text. Stop Token and EOS token are often used to mean the same thing.</p>
+<p>Our updated loop with the stop token:</p>
+<pre><code class="language-python">tokens = tokenize(prompt)
+while True:
+    next_token = model.predict_next(tokens)
+    if next_token == STOP_TOKEN:
+        break
+    tokens.append(next_token)
+print(detokenize(tokens))
+</code></pre>
+<p>Here, we have added a check. Before adding the token to the list, we see if it is the stop token. If yes, we <code>break</code>, which means we come out of the loop and it stops. The stop token is never added to the list, so it never shows up in the final text. At the end, <code>detokenize</code> joins the tokens back into text.</p>
+<p>Let's see our example again with the stop token.</p>
+<p><strong>Step 1:</strong> " New"</p>
+<p><strong>Step 2:</strong> " Delhi"</p>
+<p><strong>Step 3:</strong> "."</p>
+<p><strong>Step 4:</strong> <code>&lt;|endoftext|&gt;</code> and the loop stops.</p>
+<p>The output shown to us: "The capital of India is New Delhi."</p>
+<p>It works perfectly.</p>
+<p>Here, we can notice that the stop token is produced by the model just like any other token. It gets a score at every step. At Step 1, the stop token gets a very low score, because "The capital of India is" is clearly not complete. At Step 4, it gets the highest score, because the answer is complete now.</p>
+<p>Now, the next big question is: how does the model know when to produce this token?</p>
+<h2 id="how-does-the-model-learn-to-produce-a-stop-token">How does the model learn to produce a Stop Token?</h2>
+<p>The model is not given a rule like "stop after answering the question". The model learns this from data, just like it learns everything else.</p>
+<p>Let's understand how.</p>
+<p>An LLM is trained on a huge amount of text. This text is made of many separate documents like articles, books, web pages, code files, conversations, and etc.</p>
+<p>Before training, a stop token is attached at the end of every document. So, the training data looks like below:</p>
+<pre><code>This is the full text of document one. &lt;|endoftext|&gt;
+This is the full text of document two. &lt;|endoftext|&gt;
+This is the full text of document three. &lt;|endoftext|&gt;
+</code></pre>
+<p>During training, the model has only one job. It looks at the text so far and tries to guess the next token. When it guesses wrong, it gets corrected a little. This happens billions of times.</p>
+<p>Now, think about what happens at the end of each document. The text so far is the full document, and the correct next token is the stop token. Every time the model fails to guess the stop token here, it gets corrected.</p>
+<p>The stop token also does one more job here. It marks where one document ends and the next one begins. So, the model learns that the text after the stop token is a fresh start.</p>
+<p>Slowly, the model learns a pattern. When a piece of text feels complete, which means the story has ended, or the question is answered, or the code file is closed, the next token is very likely the stop token.</p>
+<p><strong>This is why the model can stop on its own. It has seen millions of endings, and it has learned what an ending looks like.</strong></p>
+<p>For the sake of understanding, think of a child who has been read thousands of stories. After a while, the child knows that "and they lived happily ever after" is followed by closing the book. Nobody taught this rule directly. The child picked it up from seeing it many times.</p>
+<p>The stop token works the same way. It is learned, not written as a fixed rule.</p>
+<p>For chat models, there is one more round of training where the data looks like a conversation between a user and an assistant. Every assistant reply ends with a stop token. So, the model learns to produce the stop token when its reply is done, and this hands the turn back to the user. We will see this in detail in a later section.</p>
+<p>Now that we know how the model learns to produce the stop token, let's see one more concept that is very often confused with it.</p>
+<h2 id="stop-token-vs-stop-sequence">Stop Token vs Stop Sequence</h2>
+<p>Many times, people use these two terms as if they are the same. They are not.</p>
+<p><strong>A Stop Token is a single special token built into the vocabulary of the model. The model learns to produce it during training.</strong></p>
+<p><strong>A Stop Sequence is any piece of text that we, as users of the model, ask the system to watch for. When that text appears in the output, generation stops.</strong></p>
+<p>Let's say we are using an LLM through an API. Most LLM APIs allow us to pass a list of stop sequences as below:</p>
+<pre><code class="language-python">response = client.completions.create(
+    model="some-model",
+    prompt="Q: What is 2 + 2?\nA:",
+    stop=["\n", "Q:"]
+)
+</code></pre>
+<p>Here, <code>\n</code> means a new line. We have passed <code>stop=["\n", "Q:"]</code>. This tells the system: if the model writes a new line or writes "Q:", stop right there.</p>
+<p>The model does not know anything about our stop sequence. It keeps producing tokens as usual. The system around the model checks the output after every token, and when it finds a match, it cuts the generation.</p>
+<p>Why do we need this? Because sometimes the model does not produce a stop token where we want it to.</p>
+<p>In the above example, without a stop sequence, the model often answers "4" and then keeps going. It starts writing "Q: What is 3 + 3?" on its own, because it is just continuing the pattern it sees. In its training data, a list of questions and answers usually continues with more questions. So, the stop token does not get a high score here.</p>
+<p>The stop sequence "Q:" catches this and stops it.</p>
+<p>We can add this check to our loop as below:</p>
+<pre><code class="language-python">tokens = tokenize(prompt)
+while True:
+    next_token = model.predict_next(tokens)
+    if next_token == STOP_TOKEN:
+        break
+    tokens.append(next_token)
+    text = detokenize(tokens)
+    if ends_with_any(text, stop_sequences):
+        break
+</code></pre>
+<p>Here, after adding each token, we convert the tokens back to text. Then <code>ends_with_any</code> checks if the text ends with any one of our stop sequences. If yes, we break out of the loop.</p>
+<p>Let me tabulate the differences between Stop Token and Stop Sequence for your better understanding.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>Stop Token</th>
+<th>Stop Sequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What is it?</td>
+<td>One special token in the vocabulary</td>
+<td>Any piece of text we choose</td>
+</tr>
+<tr>
+<td>Who decides it?</td>
+<td>Decided during the training of the model</td>
+<td>Decided by us at the time of use</td>
+</tr>
+<tr>
+<td>Who produces it?</td>
+<td>The model itself</td>
+<td>The model does not know about it</td>
+</tr>
+<tr>
+<td>Who checks it?</td>
+<td>The generation loop</td>
+<td>The code around the model</td>
+</tr>
+<tr>
+<td>Shown in output?</td>
+<td>No, it is removed</td>
+<td>Usually removed from the output</td>
+</tr>
+<tr>
+<td>Example</td>
+<td><code>&lt;/s&gt;</code>, <code>&lt;end_of_turn&gt;</code></td>
+<td><code>"\n"</code>, <code>"Q:"</code>, <code>"###"</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>In practice, both work together. The stop token is always active. The stop sequence is an extra check that we add based on our use case.</p>
+<h2 id="what-happens-if-the-model-never-stops">What happens if the model never stops?</h2>
+<p>Now, let's think about a bad case. What if the model never produces the stop token, and no stop sequence appears either?</p>
+<p>This can happen. Sometimes the model gets into a loop where it repeats the same phrase again and again. Sometimes it is a badly trained model. Sometimes the prompt is so unusual that the model never feels the text is complete.</p>
+<p>If we rely only on the stop token, the generation will run forever. It will waste time, memory, and money.</p>
+<p>Remember the fixed limit we set aside earlier? It comes back now, but as a backup, not as the main way to stop.</p>
+<p>This is why every system also sets a <strong>maximum token limit</strong>. It is usually called <code>max_tokens</code> or <code>max_new_tokens</code>.</p>
+<p>Our updated loop with all three checks:</p>
+<pre><code class="language-python">tokens = tokenize(prompt)
+generated = 0
+while generated &lt; max_tokens:
+    next_token = model.predict_next(tokens)
+    if next_token == STOP_TOKEN:
+        break
+    tokens.append(next_token)
+    generated += 1
+    text = detokenize(tokens)
+    if ends_with_any(text, stop_sequences):
+        break
+</code></pre>
+<p>Here, the loop now runs only while the count of generated tokens is less than <code>max_tokens</code>. So, generation stops when any one of the following happens first:</p>
+<ul>
+<li>The model produces the stop token.</li>
+<li>A stop sequence appears in the output.</li>
+<li>The maximum token limit is reached.</li>
+</ul>
+<p>So, there are three brakes on the generation loop. The stop token is the natural brake. The stop sequence is the brake we add. The maximum token limit is the emergency brake.</p>
+<p>Most APIs also tell us which brake was used. This is returned as <code>finish_reason</code> or <code>stop_reason</code>. A value like <code>stop</code> or <code>end_turn</code> means the model ended on its own with the stop token, or a stop sequence was found. A value like <code>length</code> or <code>max_tokens</code> means the limit cut it.</p>
+<p>If we see <code>length</code> too often, it means our limit is too small and the answers are getting cut in the middle. We must increase the limit.</p>
+<h2 id="stop-tokens-in-chat-models">Stop Tokens in Chat Models</h2>
+<p>Now, let's take a real use-case. When we chat with an AI assistant, how does it know when its turn is over?</p>
+<p>The chat is formatted with special tokens that mark who is speaking. A simplified version looks like below:</p>
+<pre><code>&lt;|user|&gt;
+What is the capital of India?
+&lt;|end|&gt;
+&lt;|assistant|&gt;
+The capital of India is New Delhi.
+&lt;|end|&gt;
+</code></pre>
+<p>Here, <code>&lt;|user|&gt;</code> and <code>&lt;|assistant|&gt;</code> mark who is speaking, and <code>&lt;|end|&gt;</code> marks the end of a turn. All three are special tokens in the vocabulary, just like the stop token we saw earlier.</p>
+<p>During training, the model sees many conversations in this format. Every assistant reply ends with <code>&lt;|end|&gt;</code>. So, when the model is answering, it produces <code>&lt;|end|&gt;</code> as soon as it feels the reply is complete. The system sees this token, stops the generation, removes the token, and shows the reply to us. Then it waits for our next message.</p>
+<p>Here, <code>&lt;|end|&gt;</code> is the stop token for this chat model. In Llama 3, it is <code>&lt;|eot_id|&gt;</code>. In Qwen, it is <code>&lt;|im_end|&gt;</code>. The idea is the same.</p>
+<p><strong>Note:</strong> Some models have more than one stop token. Llama 3 uses <code>&lt;|end_of_text|&gt;</code> to mark the end of a document and <code>&lt;|eot_id|&gt;</code> to mark the end of a turn in a chat. Both are treated as signals to stop.</p>
+<p>This is how a chat model knows when its turn is over. It does not keep talking forever, and it does not start writing our next question for us. It stops, because it has learned that its turn ends with this token.</p>
+<h2 id="common-mistakes-with-stop-tokens">Common mistakes with Stop Tokens</h2>
+<p>Most of the time, we do mistakes while using stop tokens. Let's see the common ones.</p>
+<p><strong>Mistake 1: Using the wrong stop token for the model.</strong></p>
+<p>When we download a model and run it on our own machine, we must use the stop token that the model was trained with. Let's say the model was trained to end its turn with <code>&lt;|eot_id|&gt;</code>, but our setup is waiting for <code>&lt;/s&gt;</code>. The model will produce <code>&lt;|eot_id|&gt;</code>, our setup will not recognize it, and the model will keep going. It will start writing the user's next message on its own.</p>
+<p>Many people faced this exact issue when Llama 3 was released. The fix is to set the correct stop token in the generation settings.</p>
+<p><strong>Mistake 2: Setting the maximum token limit too small.</strong></p>
+<p>If the limit is too small, the answer gets cut in the middle of a sentence. The model never gets the chance to produce the stop token. We must always check the <code>finish_reason</code>. If it says <code>length</code>, we must increase the limit.</p>
+<p><strong>Mistake 3: Forgetting the stop token in fine-tuning data.</strong></p>
+<p><strong><a href="https://outcomeschool.com/blog/how-does-fine-tuning-work" rel="noopener noreferrer" target="_blank">Fine-tuning</a></strong> means training an already trained model a little more on our own data. When we fine-tune a model, every training example must end with the stop token. If we forget it, the model never learns when to stop for our type of data. After fine-tuning, it will keep rambling after every answer.</p>
+<p><strong>Mistake 4: Showing the stop token to the user.</strong></p>
+<p>Sometimes the code that converts tokens back to text does not remove the special tokens. Then the user sees <code>&lt;|endoftext|&gt;</code> or <code>&lt;/s&gt;</code> at the end of every answer. Most tools have an option like <code>skip_special_tokens=True</code> to handle this. We must make sure it is turned on.</p>
+<p>Now we must have understood what Stop Tokens in LLMs are, how the model learns to produce them, and how they work together with stop sequences and the maximum token limit.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="is-the-stop-token-shown-in-the-final-answer">Is the stop token shown in the final answer?</h3>
+<p>No. The stop token is a hidden marker, not part of the answer we read. The generation loop stops when it sees the token and does not add it to the text. If the code that converts tokens back to text does not remove special tokens, the user may see it, so an option like <code>skip_special_tokens=True</code> must be turned on.</p>
+<h3 id="is-a-stop-token-the-same-as-an-eos-token">Is a Stop Token the same as an EOS token?</h3>
+<p>Yes. Stop Token and EOS token are often used to mean the same thing. EOS stands for End Of Sequence, and a sequence is just the full piece of text. Different models give this token different names, like <code>&lt;|endoftext|&gt;</code>, <code>&lt;/s&gt;</code>, or <code>&lt;|eot_id|&gt;</code>, but the name does not matter.</p>
+<h3 id="why-does-an-llm-keep-writing-the-user-s-next-message-on-its-own">Why does an LLM keep writing the user's next message on its own?</h3>
+<p>This usually happens when our setup waits for the wrong stop token. If the model ends its turn with <code>&lt;|eot_id|&gt;</code> but our setup waits for <code>&lt;/s&gt;</code>, the model's stop token is not recognized and it keeps going. Many people faced this when Llama 3 was released. The fix is to set the correct stop token in the generation settings.</p>
+<h3 id="can-a-model-have-more-than-one-stop-token">Can a model have more than one stop token?</h3>
+<p>Yes. Some models have more than one stop token. Llama 3 uses <code>&lt;|end_of_text|&gt;</code> to mark the end of a document and <code>&lt;|eot_id|&gt;</code> to mark the end of a turn in a chat. Both are treated as signals to stop the generation.</p>
+<h3 id="what-does-a-finish-reason-of-length-mean">What does a finish_reason of length mean?</h3>
+<p>It means the maximum token limit cut the answer, not the model. The model never got the chance to produce the stop token, so the answer may end in the middle of a sentence. If we see <code>length</code> too often, our limit is too small and we must increase it.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m04-l0404">
+  <p class="print-lesson-kicker">Lesson 4.4</p>
+  <h1>How does Token Streaming work?</h1>
+  <p class="print-lesson-meta">Lesson 4.4 · ~19 min · Published June 10, 2026 · <a href="https://outcomeschool.com/blog/how-does-token-streaming-work">https://outcomeschool.com/blog/how-does-token-streaming-work</a></p>
+  <p><img alt="How does Token Streaming work?" src="../assets/images/04-04-04-how-does-token-streaming-work/how-does-token-streaming-work.png"/></p>
+<p>Token Streaming is a technique where the server sends the model's reply to us piece by piece, as each piece is produced, instead of waiting for the whole reply to be ready.</p>
+<p>In this blog, we will learn about how Token Streaming works. We will also see why we need it, how the server and the browser talk to each other to make it happen, and where it is used in real systems like ChatGPT and Claude.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is token streaming?</li>
+<li>A quick recap of how an LLM generates text</li>
+<li>Why we need streaming at all</li>
+<li>What is SSE?</li>
+<li>How the HTTP connection stays open</li>
+<li>The format of a streamed message</li>
+<li>A full walkthrough from server to screen</li>
+<li>The [DONE] marker that ends the stream</li>
+<li>SSE vs WebSockets</li>
+<li>Token streaming in the real world</li>
+</ul>
+<p>Let's get started.</p>
+<h3 id="what-is-token-streaming">What is token streaming?</h3>
+<p>Before we talk about how it works, we must first understand what token streaming is.</p>
+<p><strong>Token streaming is a technique where the server sends the model's reply to us piece by piece, as each piece is produced, instead of waiting for the whole reply to be ready.</strong></p>
+<p>In simple words, streaming means we start receiving the answer while it is still being written, not after it is fully finished.</p>
+<p>Let's say we ask ChatGPT a question. We have all seen the words appear on the screen one small chunk at a time, like someone is typing the answer live. That live typing effect is token streaming in action.</p>
+<p>So, token streaming is the model handing us the reply gradually, word by word, the moment each word is ready.</p>
+<p>Now, to understand why this is even possible, we must understand one thing about how an LLM writes text. Let's see that next.</p>
+<h3 id="a-quick-recap-of-how-an-llm-generates-text">A quick recap of how an LLM generates text</h3>
+<p>To understand streaming, we must understand how a large language model writes its reply.</p>
+<p>A large language model, or <strong>LLM</strong>, is the technology behind tools like ChatGPT and Claude. We give it some text, and it gives us back some text.</p>
+<p>Here is the key thing to know. The model does not write the whole reply in one shot. It writes the reply one <strong>token</strong> at a time. A token is a small chunk of text, roughly a word or part of a word. For example, a short word like <code>cat</code> is usually one token, while a longer word like <code>running</code> is often split into two tokens.</p>
+<p>How text is broken into these tokens is called <a href="https://outcomeschool.com/blog/tokenization-in-llms" rel="noopener noreferrer" target="_blank">tokenization</a>, and we have a blog on <a href="https://outcomeschool.com/blog/bpe-in-llms" rel="noopener noreferrer" target="_blank">Byte Pair Encoding (BPE)</a> that explains how it works.</p>
+<p>The model writes the first token, then looks at everything so far and writes the next token, then looks again and writes the next one, and so on. This way of writing, where each new token is produced based on all the tokens that came before it, is called <strong><a href="https://outcomeschool.com/blog/autoregressive-models" rel="noopener noreferrer" target="_blank">autoregressive decoding</a></strong>.</p>
+<p>Let's decompose it.</p>
+<blockquote>
+<p>Autoregressive = Auto + Regressive</p>
+</blockquote>
+<p>In simple words, "auto" means it does this on its own, step by step, and "regressive" means each new step looks back at the steps that came before. So the model keeps looking back at what it has already written to decide the next word.</p>
+<p>We can picture it as below:</p>
+<pre><code>Step 1:  The
+Step 2:  The cat
+Step 3:  The cat sat
+Step 4:  The cat sat on
+Step 5:  The cat sat on the
+Step 6:  The cat sat on the mat
+</code></pre>
+<p>Here, we can see that the model produces one token at each step, and each step builds on the previous one. The full sentence is ready only at the last step.</p>
+<p>This is the foundation we needed. Since the model is already producing the reply one token at a time, we have a choice. We can wait for all the tokens and send the full reply at the end, or we can send each token to the user the moment it is generated. Streaming is the second choice.</p>
+<p>Not every model writes one token at a time, though. We have a detailed blog on <a href="https://outcomeschool.com/blog/how-do-diffusion-language-models-dlms-work" rel="noopener noreferrer" target="_blank">Diffusion Language Models (DLMs)</a> that explains how some models generate the whole sentence in parallel instead.</p>
+<p>Now, the question is, why do we even want to send tokens one by one? Let's see.</p>
+<h3 id="why-we-need-streaming-at-all">Why we need streaming at all</h3>
+<p>Let's understand the problem with sending the reply only at the end.</p>
+<p>Suppose we ask the model to write a long answer of 500 tokens. If we wait for the whole reply, the user stares at a blank screen until all 500 tokens are produced. Producing 500 tokens takes time. So the user waits, sees nothing, and starts to feel that the app is stuck or broken.</p>
+<p>This brings us to a very important idea called <strong>time to first token</strong>.</p>
+<p><strong>Time to first token is the time the user waits before seeing the very first piece of the reply on the screen.</strong></p>
+<p>In simple words, it is how long the user stares at nothing before words start showing up.</p>
+<p>Without streaming, the time to first token is large, because the first word the user sees is actually the last word the model produces. The user has to wait for the entire answer.</p>
+<p>With streaming, the time to first token is tiny. The very first token is sent the instant it is ready. The user starts reading immediately while the rest of the reply is still being written.</p>
+<p>The time to first token is set mainly by the prefill phase, where the model reads the whole prompt before producing the first token. We have a detailed blog on <a href="https://outcomeschool.com/blog/prefill-vs-decode-llm-inference-optimization" rel="noopener noreferrer" target="_blank">Prefill vs Decode</a> that explains this end to end.</p>
+<p>Let's put the two side by side as below:</p>
+<pre><code>WITHOUT streaming:
+  user asks  --&gt;  [ model writes all 500 tokens ]  --&gt;  full reply appears at once
+                  user sees a blank screen this whole time (long wait)
+WITH streaming:
+  user asks  --&gt;  token 1 appears  --&gt;  token 2  --&gt;  token 3  --&gt;  ...  --&gt;  done
+                  user starts reading almost instantly (short wait)
+</code></pre>
+<p>Here, we can see that without streaming the user waits through the entire generation before seeing anything, while with streaming the user sees the first word almost immediately and keeps reading as more words arrive.</p>
+<p>So, streaming gives us two big wins. The user sees words as they are generated, and the wait before the first word is very short. The app feels alive and fast. That's the beauty of streaming.</p>
+<p>So, here comes SSE to the rescue. Now, the next big question is: how does the server actually push these tokens to the browser one by one? The answer is a technique called SSE. Let's understand it.</p>
+<h3 id="what-is-sse">What is SSE?</h3>
+<p>Now, it's time to learn about SSE, the technique that actually carries the tokens to the user.</p>
+<p><strong>SSE is a simple way for a server to keep sending new data to the browser over a single connection that stays open.</strong></p>
+<p>Let's decompose the term.</p>
+<blockquote>
+<p>SSE = Server-Sent Events</p>
+</blockquote>
+<p>In simple words, the <strong>server</strong> is the computer that has the answer, the browser is the program in front of the user, and an <strong>event</strong> is just one small piece of data being sent. So "Server-Sent Events" literally means events that the server sends to the browser, on its own, one after another.</p>
+<p>Before we go further, let's understand one normal idea first. Usually, on the web, the browser asks the server a question and the server gives back one answer, and then the conversation is over. The browser asks, the server replies, done. This is the request-response model.</p>
+<p>But for streaming, one single reply at the end is not enough. We want the server to keep sending small pieces over time. SSE is built exactly for this. With SSE, the browser asks once, and then the server is allowed to keep sending piece after piece for as long as it wants, all over that same single connection.</p>
+<p>Let's put the two models side by side as below:</p>
+<pre><code>NORMAL request-response:
+  browser  --- asks once ---&gt;  server
+  browser  &lt;-- one reply ----  server
+  (connection closed, conversation over)
+SSE (Server-Sent Events):
+  browser  --- asks once ---&gt;  server
+  browser  &lt;-- piece 1 ------  server
+  browser  &lt;-- piece 2 ------  server
+  browser  &lt;-- piece 3 ------  server
+  (connection stays open, server keeps sending)
+</code></pre>
+<p>Here, we can see that in the normal model the browser asks once and gets back a single reply, and then the connection is closed. In the SSE model the browser still asks only once, but the server keeps sending piece after piece over the same connection that stays open.</p>
+<p>So, SSE is the channel through which the tokens flow from the server to the browser, one event at a time.</p>
+<p>Now, to make this work, two things must be set up correctly. The connection must stay open, and the data must be sent in a special format. Let's understand both, starting with the open connection.</p>
+<h3 id="how-the-http-connection-stays-open">How the HTTP connection stays open</h3>
+<p>Let's understand the connection first.</p>
+<p>When the browser talks to a server on the web, it uses <strong>HTTP</strong>. HTTP is simply the set of rules that browsers and servers follow to talk to each other. Every time we open a website, HTTP is being used behind the scenes.</p>
+<p>Normally, the flow is short. The browser opens a connection, sends a request, the server sends back the full response, and then the connection is closed. It is like making one phone call, getting one answer, and hanging up.</p>
+<p>For streaming, we do not want to hang up after one answer. We want to keep the line open so the server can keep talking. It is like making one phone call and staying on the line while the other person reads out a long message to us, sentence by sentence.</p>
+<p><strong>With SSE, the HTTP connection is opened once and kept open. The server holds the line and keeps pushing new pieces of data through it until the reply is complete.</strong></p>
+<p>So, the browser opens one connection, and that single connection stays alive for the entire reply. The server does not close it after the first token. It sends token 1, keeps the line open, sends token 2, keeps it open, and so on.</p>
+<p>How does the server tell the browser "this is going to be a stream, do not expect just one answer"? It does this using something called the <strong>Content-Type</strong>.</p>
+<p>The Content-Type is a small label the server attaches to its response to say what kind of data is coming. For example, a normal web page has the Content-Type <code>text/html</code>. A normal data response often has <code>application/json</code>.</p>
+<p>For SSE, the server sets the Content-Type to a special value as below:</p>
+<pre><code>Content-Type: text/event-stream
+</code></pre>
+<p>Here, we can see the value is <code>text/event-stream</code>. The word <code>stream</code> is the important part. This label tells the browser, "Do not wait for one complete answer. Keep this connection open and read the pieces as they arrive." The browser sees this label and switches into streaming mode.</p>
+<p>So, the open connection plus the <code>text/event-stream</code> label together set the stage. Now the server can start pushing data. But the data must be sent in a specific shape so the browser can read it correctly. Let's understand that shape next.</p>
+<h3 id="the-format-of-a-streamed-message">The format of a streamed message</h3>
+<p>Now, let's understand how each piece of data is actually written when the server sends it.</p>
+<p>SSE uses a very simple text format. Each piece of data is sent as a line that starts with the word <code>data:</code>, followed by the actual content. After each piece, the server sends a blank line to mark the end of that piece.</p>
+<p>So the rule is simple.</p>
+<p><strong>Each event is a line starting with <code>data:</code>, and each event is separated from the next one by a blank line.</strong></p>
+<p>Let's see what the server sends when the model produces the words "The cat sat". The raw stream looks like below:</p>
+<pre><code>data: The
+data: cat
+data: sat
+</code></pre>
+<p>Here, we can see three events. The first event carries the word <code>The</code>, the second carries <code>cat</code>, and the third carries <code>sat</code>. Notice the blank line after each one. That blank line is how the browser knows where one event ends and the next one begins.</p>
+<p>In real systems, the content after <code>data:</code> is usually not a plain word but a small piece of structured data called JSON, which holds the token along with a little extra information. For the sake of understanding, we are keeping it as plain words here so the idea is crystal clear. The important point stays the same. Every token is wrapped in a <code>data:</code> line and followed by a blank line.</p>
+<p>So, this simple format is the language the server and browser agree to speak. Every token travels as one <code>data:</code> line.</p>
+<p>Now we have all the pieces. We know the connection stays open, we know the Content-Type, and we know the format. Let's put it all together in a full walkthrough.</p>
+<h3 id="a-full-walkthrough-from-server-to-screen">A full walkthrough from server to screen</h3>
+<p>Let's walk through the entire journey of a streamed reply, from the moment the user asks to the moment words fill the screen. Suppose the user asks a question and the model is about to reply with "The cat sat".</p>
+<p><strong>Step 1:</strong> The browser opens one HTTP connection to the server and sends the user's question. This connection will stay open for the whole reply.</p>
+<p><strong>Step 2:</strong> The server starts the response and sets the Content-Type to <code>text/event-stream</code>. This tells the browser that a stream is coming and the connection must stay open.</p>
+<p><strong>Step 3:</strong> The model produces its first token, <code>The</code>, using autoregressive decoding, which we learned means producing one token at a time while looking back at what came before. The server does not wait. It immediately wraps this token in a <code>data:</code> line and pushes it through the open connection.</p>
+<p><strong>Step 4:</strong> The browser reads that <code>data:</code> line, takes out the word <code>The</code>, and appends it to the screen. The user sees the first word almost instantly. This is the small time to first token we wanted.</p>
+<p><strong>Step 5:</strong> The model produces the next token, <code>cat</code>. The server pushes it as another <code>data:</code> line. The browser appends <code>cat</code> to the screen, right after <code>The</code>. The user now sees "The cat".</p>
+<p><strong>Step 6:</strong> The model produces <code>sat</code>. The server pushes it, and the browser appends it. The user now sees "The cat sat", and the whole thing looks like it is being typed live.</p>
+<p>Let's see the whole flow in one diagram as below:</p>
+<pre><code>   MODEL                 SERVER                         BROWSER (screen)
+   -----                 ------                         ----------------
+   token "The"   ---&gt;    data: The      ---[open]---&gt;   The
+   token "cat"   ---&gt;    data: cat      ---[open]---&gt;   The cat
+   token "sat"   ---&gt;    data: sat      ---[open]---&gt;   The cat sat
+                         data: [DONE]   ---[open]---&gt;   (stop, close)
+</code></pre>
+<p>Here, we can see that each token travels from the model, to the server, through the single open connection, and onto the screen, one at a time. The connection stays open the whole way down, which is why the server can keep pushing without reopening anything. The browser appends each new piece to what is already on the screen, and this constant appending is what creates the live typing effect.</p>
+<p>The problem is solved. The user reads the reply as it is being written, instead of waiting for the full answer.</p>
+<p>But there is one last thing. The server needs a way to say, "I am finished, there are no more tokens." Let's see how it does that.</p>
+<h3 id="the-done-marker-that-ends-the-stream">The [DONE] marker that ends the stream</h3>
+<p>Now, here is a small but important question. The connection is open and tokens are flowing. How does the browser know when the reply is complete and it can stop listening?</p>
+<p>The answer is a special final message called the <strong>[DONE] marker</strong>.</p>
+<p><strong>After the very last token, the server sends one final event that contains <code>[DONE]</code>. This is a signal that means the stream is over.</strong></p>
+<p>In simple words, <code>[DONE]</code> is the server saying "that was the last piece, you can stop now."</p>
+<p>The end of the stream looks like below:</p>
+<pre><code>data: sat
+data: [DONE]
+</code></pre>
+<p>Here, we can see that after the last real token <code>sat</code>, the server sends one more event with <code>[DONE]</code>. The browser reads this, understands that no more tokens are coming, stops listening, and the connection is closed.</p>
+<p>So, the <code>[DONE]</code> marker is the clean ending of the stream. Without it, the browser would not know whether the reply is finished or whether the next token is still on its way.</p>
+<p>This is how the full streaming cycle begins, runs, and ends. Now, let's compare SSE with another technology people often confuse it with.</p>
+<h3 id="sse-vs-websockets">SSE vs WebSockets</h3>
+<p>When we talk about a server sending live data, many people immediately think of WebSockets. So let's understand the difference, because choosing the right tool matters.</p>
+<p>A <strong>WebSocket</strong> is a technology that opens a two-way connection between the browser and the server. Over that connection, both sides can send messages to each other at any time, freely, in both directions.</p>
+<p>SSE is different. <strong>SSE is one-way only, from the server to the browser.</strong> The server can keep pushing data to the browser, but the browser cannot send messages back over that same SSE stream.</p>
+<p>Now, the natural question is, if WebSockets can do two-way and SSE can only do one-way, why use SSE at all?</p>
+<p>The answer is that for token streaming, we do not need two-way traffic during the reply. The browser asks its question once at the start, and after that it only needs to receive tokens. The whole job is the server pushing data to the browser. That is exactly the one-way job SSE is built for.</p>
+<p>And SSE is much simpler. Let me tabulate the differences between SSE and WebSockets for your better understanding so that you can decide which one to use based on your use case.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Point</th>
+<th>SSE (Server-Sent Events)</th>
+<th>WebSockets</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Direction</td>
+<td>One-way, server to browser only</td>
+<td>Two-way, both sides can send</td>
+</tr>
+<tr>
+<td>Built on</td>
+<td>Plain HTTP</td>
+<td>A separate set of rules added on top of HTTP</td>
+</tr>
+<tr>
+<td>Setup</td>
+<td>Simple, uses normal HTTP</td>
+<td>More complex</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>Streaming a reply, live updates</td>
+<td>Chat rooms, games, live collaboration</td>
+</tr>
+<tr>
+<td>Reconnect</td>
+<td>Reconnects automatically</td>
+<td>We handle reconnection ourselves</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, we can see that SSE runs over plain HTTP, which means it uses the same simple web rules we already use everywhere, with nothing extra to set up. WebSockets need a separate, more complex setup because they support full two-way traffic.</p>
+<p>So, for token streaming, where the server simply needs to push tokens to the browser, SSE is the simpler and very natural fit. We use WebSockets when we genuinely need both sides to talk freely at the same time, like in a live chat room or a multiplayer game.</p>
+<p>So, now we know when to use which one.</p>
+<h3 id="token-streaming-in-the-real-world">Token streaming in the real world</h3>
+<p>Now, let's see where token streaming is used in real systems.</p>
+<p>The most familiar example is right in front of us. When we use ChatGPT or Claude and watch the reply appear word by word, like it is being typed live, that is token streaming over SSE. The server is producing tokens one at a time with autoregressive decoding, wrapping each one in a <code>data:</code> line, and pushing it through a single open <code>text/event-stream</code> connection. The browser appends each piece to the screen, and we get that smooth typing effect.</p>
+<p>Behind these streamed replies sits a serving engine that has to produce those tokens fast and serve many users at once. We have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-vllm-work" rel="noopener noreferrer" target="_blank">vLLM</a> that explains how high-throughput LLM serving works.</p>
+<p>This is not just a nice visual trick. It is a real improvement to the experience. The user sees that the system is working, starts reading right away, and never sits in front of a frozen blank screen. The time to first token is tiny, so the whole app feels fast and responsive.</p>
+<p>The same pattern is used far beyond chat windows. Any application built on top of an LLM, such as a coding assistant that writes code as we watch, a writing tool that drafts text live, or a customer support bot that types out its answer, uses this exact streaming approach to feel quick and alive.</p>
+<p>So, anywhere a model produces a reply and we want the user to start reading it immediately, token streaming over SSE is the technique that makes it happen.</p>
+<p>This is how token streaming over SSE works. The model produces the reply one token at a time, the server keeps a single HTTP connection open with the Content-Type <code>text/event-stream</code>, it pushes each token the moment it is ready as a <code>data:</code> line followed by a blank line, the browser appends each piece to the screen to create the live typing effect, and a final <code>[DONE]</code> marker tells the browser the reply is complete.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="does-token-streaming-change-how-the-model-generates-the-reply">Does token streaming change how the model generates the reply?</h3>
+<p>No. The model still writes the reply one token at a time using autoregressive decoding. Streaming only changes when each token is sent to the user. Instead of waiting for all the tokens, the server sends each token the moment it is generated, so the time to first token becomes tiny.</p>
+<h3 id="is-each-streamed-piece-a-plain-word">Is each streamed piece a plain word?</h3>
+<p>Usually not. In real systems, the content after <code>data:</code> is usually a small piece of structured data called JSON. It holds the token along with a little extra information. The rule stays the same, as every token is wrapped in a <code>data:</code> line and followed by a blank line.</p>
+<h3 id="what-would-happen-if-the-server-did-not-send-the-done-marker">What would happen if the server did not send the [DONE] marker?</h3>
+<p>The browser would not know whether the reply is finished or whether the next token is still on its way. The <code>[DONE]</code> marker is the clean ending of the stream. When the browser reads it, it stops listening, and the connection is closed.</p>
+<h3 id="does-sse-reconnect-automatically-if-the-connection-drops">Does SSE reconnect automatically if the connection drops?</h3>
+<p>Yes. SSE reconnects automatically, while with WebSockets we have to handle reconnection ourselves. SSE is also built on plain HTTP, so it is simpler to set up.</p>
+<h3 id="is-token-streaming-used-only-in-chat-apps">Is token streaming used only in chat apps?</h3>
+<p>No. Any application built on top of an LLM can use it. A coding assistant that writes code as we watch, a writing tool that drafts text live, or a customer support bot that types out its answer all use the same streaming approach to feel quick and alive.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m04-l0405">
+  <p class="print-lesson-kicker">Lesson 4.5</p>
+  <h1>What is the Lost in the Middle Problem in LLMs and How to Fix It?</h1>
+  <p class="print-lesson-meta">Lesson 4.5 · ~22 min · Published August 19, 2026 · <a href="https://outcomeschool.com/blog/lost-in-the-middle-problem-in-llms">https://outcomeschool.com/blog/lost-in-the-middle-problem-in-llms</a></p>
+  <p><img alt="The Lost in the Middle Problem in LLMs" src="../assets/images/04-04-05-what-is-the-lost-in-the-middle-problem-in-llms-and-how-to-fix-it/lost-in-the-middle-problem-in-llms.png"/></p>
+<p>The Lost in the Middle problem is the behaviour where an LLM pays strong attention to the information at the beginning and at the end of a long input, and pays very less attention to the information in the middle.</p>
+<p>In this blog, we will learn about the Lost in the Middle problem in LLMs, the strange behaviour where a model reads a very long text, uses the beginning and the end very well, and quietly ignores whatever is sitting in the middle. We will also see what a context window really means, how the accuracy forms a U-shaped curve, why the middle gets forgotten, how this silently breaks RAG systems and long conversations, how we can test our own model for it, and what we can do to fix it.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is a context window?</li>
+<li>What is the Lost in the Middle problem?</li>
+<li>Let's understand it with an example</li>
+<li>The U-shaped curve</li>
+<li>Why does this happen</li>
+<li>Where this hurts us in real life</li>
+<li>How to test for the Lost in the Middle problem</li>
+<li>How to solve the Lost in the Middle problem</li>
+<li>Key points to remember</li>
+</ul>
+<p>Let's get started.</p>
+<h3 id="what-is-a-context-window">What is a context window?</h3>
+<p>Before jumping into the Lost in the Middle problem, we must know what a context window is.</p>
+<p>An <strong>LLM</strong> which means <strong>Large Language Model</strong> is a model that reads text and predicts what comes next. But it can not read unlimited text at once. There is a limit.</p>
+<p><strong>A context window is the maximum amount of text that a model can look at in one go.</strong></p>
+<p>Let's break the term itself.</p>
+<p><strong>Context Window = Context + Window</strong></p>
+<p>Context means all the text that we hand over to the model, and window means the fixed opening through which it is allowed to look. So, the context window is the fixed opening through which the model sees whatever we have given.</p>
+<p>In simple words, the context window is the working desk of the model. Whatever we place on that desk, the model can see. Whatever we keep outside the desk, the model can not see at all.</p>
+<p>Whatever we place on that desk is called the <strong>prompt</strong>. The prompt is simply everything that we send to the model in one request, which includes our instruction, the documents that we are giving, and our actual question.</p>
+<p>Let's say a model has a context window of 100,000 tokens. A <strong><a href="https://outcomeschool.com/blog/tokenization-in-llms" rel="noopener noreferrer" target="_blank">token</a></strong> is a small piece of text, roughly three-fourth of a word. So, this model can look at around 75,000 words at once.</p>
+<p>Now, here is where the confusion starts. Most of us assume that if the text fits inside the context window, the model reads all of it equally well.</p>
+<p>That assumption is wrong. And that is exactly the Lost in the Middle problem.</p>
+<h3 id="what-is-the-lost-in-the-middle-problem">What is the Lost in the Middle problem?</h3>
+<p><strong>The Lost in the Middle problem is the behaviour where an LLM pays strong attention to the information placed at the beginning and at the end of a long input, and pays very less attention to the information placed in the middle.</strong></p>
+<p>In simple words, the model reads the start, the model reads the end, and the middle just slips away.</p>
+<p>Let's take a real world comparison. Think about a meeting that ran for three hours. The next day, we clearly remember how the meeting started, and we clearly remember the decision that was taken at the end. The discussion that happened in the ninetieth minute is almost gone from our memory. We were present the whole time. We heard every single word. Still, the middle faded away.</p>
+<p>An LLM does exactly the same thing with a long prompt.</p>
+<p>This behaviour was studied by researchers who took the same answer and kept moving it to different positions inside a long input. They found the same weakness again and again, across many models, and the name Lost in the Middle stuck because it describes exactly what happens.</p>
+<p>The important thing to notice here is that the information is present. We did give it to the model. It is sitting nicely inside the context window. The model simply fails to use it.</p>
+<p><strong>Very important:</strong> This is not the same as our text getting cut off. When the text is too big for the context window, some part of it gets removed before it ever reaches the model, and that is a completely different problem. Here, nothing is removed. Everything reaches the model. The model still behaves as if the middle was never there.</p>
+<p>This is what makes the problem dangerous. There is no error. There is no warning. The model answers confidently with a wrong or incomplete answer, and we have no idea that the correct answer was already sitting right in front of it.</p>
+<h3 id="let-s-understand-it-with-an-example">Let's understand it with an example</h3>
+<p>The best way to learn this is by taking an example.</p>
+<p>Let's say we are building an app that answers questions about our company. We have 20 documents about the company. We put all 20 documents into the prompt and then ask a question as below:</p>
+<pre><code class="language-text">Here are 20 documents about our company.
+Document 1: ...
+Document 2: ...
+...
+Document 20: ...
+Question: What is our refund policy?
+</code></pre>
+<p>Let say the refund policy is written inside Document 2. The model reads Document 2 early, because it is sitting close to the top, and it answers correctly.</p>
+<p>Now, let's move the same document to a different place. Let say the refund policy is now written inside Document 10, right in the middle of the pile. Everything else is exactly the same. The same 20 documents, the same question, the same model.</p>
+<p>This time the model replies with something like "I could not find the refund policy in the given documents."</p>
+<p>Nothing changed except the position. The content was identical. Only the seat number changed.</p>
+<p>Let's move it once more, this time into Document 19, near the end. The model answers correctly again.</p>
+<p>Same information. Same model. Same question. Three different positions, and two correct answers with one silent failure in the middle.</p>
+<p>This is the Lost in the Middle problem.</p>
+<h3 id="the-u-shaped-curve">The U-shaped curve</h3>
+<p>Now, let's understand this behaviour in a slightly more measurable way.</p>
+<p>If we take one small fact, keep moving it from the first position to the last position, and note down the accuracy at every position, we get a very clear shape.</p>
+<ul>
+<li>When the fact sits at the <strong>beginning</strong>, accuracy is high</li>
+<li>When the fact moves towards the <strong>middle</strong>, accuracy keeps dropping</li>
+<li>When the fact reaches the <strong>end</strong>, accuracy goes high again</li>
+</ul>
+<p>If we draw this on a graph with the position on one side and the accuracy on the other side, the line goes down and then comes back up. It looks like the letter <strong>U</strong>.</p>
+<p>Let's see it visually as below:</p>
+<pre><code class="language-text">Accuracy
+  high  |  *                                   *
+        |     *                             *
+        |         *                     *
+        |             *     *     *
+  low   |________________________________________
+          start          middle             end
+                  Position of the answer
+</code></pre>
+<p><strong>This is called the U-shaped performance curve.</strong></p>
+<p>Two very well known human behaviours explain this nicely:</p>
+<ul>
+<li><strong>Primacy bias</strong>: we remember the first thing very well</li>
+<li><strong>Recency bias</strong>: we remember the last thing very well</li>
+</ul>
+<p>The model behaves in the same way. It is strong at the first thing, strong at the last thing, and weak in between.</p>
+<p><strong>Note:</strong> The dip in the middle becomes deeper as the input becomes longer. With a short prompt, we may not notice anything at all. With a very long prompt, the middle almost disappears.</p>
+<h3 id="why-does-this-happen">Why does this happen</h3>
+<p>Now, the next big question is: why does a model that can technically see all the text still ignore the middle?</p>
+<p>There is no single reason. There are four reasons working together. Do not worry, we will learn about each of them in detail.</p>
+<p><strong>Reason 1: Attention gets spread very thin</strong></p>
+<p>An LLM uses a mechanism called <strong><a href="https://outcomeschool.com/blog/self-attention-in-transformers" rel="noopener noreferrer" target="_blank">attention</a></strong>. In simple words, attention decides how much importance every word should give to every other word while producing the answer.</p>
+<p>Attention works by distributing a fixed budget of importance. Let's say the model has one full unit of importance to give away. If there are 10 other words, each one can get a healthy share. If there are 100,000 other words, each one gets a tiny share.</p>
+<p>Let's take a simple comparison. Think about a torch light in a dark room. If the room is small, the light falls strongly on every corner. If the room is very big, the same torch has to cover a much larger area, so everything becomes dim. Attention behaves in exactly the same way.</p>
+<p>So, as the input grows, the importance given to any single token becomes very small. The loudest tokens still win, and the ones sitting quietly in the middle get crushed.</p>
+<p><strong>Reason 2: The way position is handled</strong></p>
+<p>A model does not naturally know the order of the words. We have to tell it. We do this using <strong><a href="https://outcomeschool.com/blog/math-behind-rope-rotary-position-embedding" rel="noopener noreferrer" target="_blank">positional encoding</a></strong>, which is a way of tagging every token with information about where it sits.</p>
+<p>Many modern models use a scheme where tokens that are far away from each other get a weaker connection than tokens that are close to each other. This is very useful in general, because nearby words are usually more related to each other.</p>
+<p>But this creates a side effect. The last part of the input sits very close to the place where the model is writing the answer, so it stays strong. The first part usually holds the instruction, and the model gets trained again and again to respect it, so it also stays strong. The middle is far from the answer and it is not anchored by anything, so it becomes the weakest region. The very first tokens get one more pull on top of this, because the model uses them as <a href="https://outcomeschool.com/blog/how-do-attention-sinks-work" rel="noopener noreferrer" target="_blank">attention sinks</a>, a dumping ground for the attention it does not need anywhere else.</p>
+<p><strong>Reason 3: Human writing teaches this habit</strong></p>
+<p>Models learn from human text. And human text has a very strong structure.</p>
+<p>Think about an article, a research paper, an email, or a report. The important thing is usually stated at the beginning as the introduction, and repeated at the end as the conclusion. The middle carries the supporting details.</p>
+<p>The model learns this pattern from millions of documents. So, it slowly develops a habit of trusting the start and the end more than the middle. It is doing exactly what we taught it to do.</p>
+<p><strong>Reason 4: Training rarely uses the full length</strong></p>
+<p>A model may support a context window of 128,000 tokens, but most of the examples it learned from were much shorter than that. The long window is usually added in a later stage of training, where the model is taught to handle much bigger inputs than it originally saw.</p>
+<p>So, the model has a lot of practice with short inputs and very less practice with genuinely long inputs where the answer is buried deep inside. It supports the long window, but it is not equally skilled across the entire window.</p>
+<p>It is like a student who studied five page chapters for years and is now handed a five hundred page book. The student can turn every page, but the attention is not evenly spread across the book.</p>
+<p>These four reasons together create the dip in the middle.</p>
+<h3 id="where-this-hurts-us-in-real-life">Where this hurts us in real life</h3>
+<p>Till now, we have learned about what the problem is and why it happens. Now, it is time to see where it actually bites us. Let's take a few real use cases.</p>
+<p><strong>RAG systems</strong></p>
+<p><strong><a href="https://outcomeschool.com/blog/agentic-rag" rel="noopener noreferrer" target="_blank">RAG</a></strong> which means <strong>Retrieval Augmented Generation</strong> is a very common setup. We take all our documents, cut them into small pieces called <strong><a href="https://outcomeschool.com/blog/chunking-strategies-for-rag" rel="noopener noreferrer" target="_blank">chunks</a></strong>, and store them. When a question comes, a <strong><a href="https://outcomeschool.com/blog/how-does-semantic-search-work" rel="noopener noreferrer" target="_blank">retriever</a></strong> searches through those chunks, picks the ones that look most related to the question, puts them into the prompt, and asks the model to answer using them.</p>
+<p>But, here is the catch. Most of us stuff 20 or 50 chunks into the prompt, thinking that more context means a better answer. The chunks sitting in the middle get ignored. So, we retrieve the right answer, we place it in the prompt, and the model still fails.</p>
+<p>The retrieval was perfect. The generation failed. And when we debug this, we usually blame the retriever, which was never the problem in the first place.</p>
+<p><strong>Note:</strong> If our retriever puts the correct chunk at rank 12 out of 30, we have technically retrieved it. But rank 12 sits deep in the middle of the prompt, so the model behaves as if we never retrieved it at all.</p>
+<p><strong>Long chat history</strong></p>
+<p>In a long conversation, the early messages and the latest messages stay strong. The instruction that we gave somewhere in the middle of the conversation quietly loses its power.</p>
+<p>This is why a chatbot often follows a rule for some time and then starts breaking it. The rule did not get deleted. It just moved into the weak middle region.</p>
+<p>This is also the reason why a long chat gets shrunk as it grows. We have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-context-compaction-work" rel="noopener noreferrer" target="_blank">How does context compaction work?</a> that explains how the older part of a conversation is summarized without losing the important points.</p>
+<p><strong>Long document analysis</strong></p>
+<p>When we give a 200 page contract or a huge log file and ask the model to find every issue, it reliably catches the issues near the start and near the end. The issues sitting in the middle sections get missed.</p>
+<p>This is very dangerous, because the output looks complete. The model never says "I skipped the middle." It just gives a confident partial answer.</p>
+<p><strong>Multi-document comparison</strong></p>
+<p>When we ask the model to compare 10 reports, the reports placed in the middle get a very shallow treatment. The summary looks balanced, but it is quietly weighted towards the first and the last reports.</p>
+<p><strong>AI agents</strong></p>
+<p>An <a href="https://outcomeschool.com/blog/ai-agent" rel="noopener noreferrer" target="_blank">AI agent</a> works step by step. It thinks, it uses a tool, it reads the result, and then it repeats. Every step adds its own output into the context.</p>
+<p>After 30 steps, the goal that we gave at the very beginning is still safe, and the most recent step is still safe. But everything that the agent discovered in between starts fading away. This is why a long running agent slowly drifts away from what we originally asked it to do.</p>
+<h3 id="how-to-test-for-the-lost-in-the-middle-problem">How to test for the Lost in the Middle problem</h3>
+<p>This was all about the places where the problem hurts us. Now, let's learn how to catch it inside our own system.</p>
+<p>Before fixing something, we must be able to measure it. There is a very simple and popular test for this, called the <strong>Needle in a Haystack</strong> test.</p>
+<p>Here is how it works.</p>
+<p><strong>Step 1:</strong> Take a very long text that has nothing to do with our question. This is the haystack. It can be any long filler content.</p>
+<p><strong>Step 2:</strong> Write one small unique fact. This is the needle. For the sake of understanding, let's take "The secret code for the Mumbai office is BLUE-4471."</p>
+<p><strong>Step 3:</strong> Insert the needle at a chosen depth inside the haystack, for example at 10 percent depth.</p>
+<p><strong>Step 4:</strong> Ask the model a question whose answer is present only in the needle, for example "What is the secret code for the Mumbai office?"</p>
+<p><strong>Step 5:</strong> Note down whether the model found it or not.</p>
+<p>After that, we repeat the whole thing by placing the needle at 0 percent, 10 percent, 20 percent, and so on, till 100 percent. We also repeat it at different input lengths.</p>
+<p>Once we put all these results into a grid, we get a very clear picture. We can see exactly where our model becomes weak, and how long the input can become before the middle starts collapsing.</p>
+<p><strong>Note:</strong> We must run this test with our own model, our own prompt format, and our own kind of content. Every model has a different weak zone, and it changes with every new model version.</p>
+<h3 id="how-to-solve-the-lost-in-the-middle-problem">How to solve the Lost in the Middle problem</h3>
+<p>Now that we have learned about the problem and we know how to measure it, it is time to learn how to solve it.</p>
+<p>We will go through the approaches one by one, starting from the naive one.</p>
+<p><strong>Approach 1: Put everything into the context</strong></p>
+<p>This is what most of us do first. The model supports a huge context window, so we simply push everything into it and hope that the model will figure it out.</p>
+<p>The issue with this approach is that a large context window is a capacity number, not a quality guarantee. The middle still gets lost, and on top of that we pay for every single token and we wait longer for the response. Let's see how the next approach solve this issue.</p>
+<p><strong>Approach 2: Send less, but send the right thing</strong></p>
+<p>Here comes the simplest and the most effective fix into the picture. Instead of sending 50 chunks, we send 5 good chunks.</p>
+<p>A short and precise context has a very small middle, so there is almost nothing left to lose. The model reads all of it properly.</p>
+<p>To do this well, we improve the retrieval step using a <strong><a href="https://outcomeschool.com/blog/how-does-a-reranker-work" rel="noopener noreferrer" target="_blank">reranker</a></strong>. A reranker is a smaller model that takes the retrieved chunks and scores how well each chunk actually answers our question. We keep only the top few and we throw away the rest.</p>
+<p>The issue with this approach is that sometimes we genuinely need many chunks, because the answer is spread across several documents. Let's see how the next approach solve this issue.</p>
+<p><strong>Approach 3: Order the chunks smartly</strong></p>
+<p>If we must send many chunks, then we must decide their seating arrangement very carefully. This is the cheapest fix of all, because we are not removing anything, we are only changing the order.</p>
+<p>We already know the shape of the curve. The beginning is strong, the end is strong, and the middle is weak. So, we place the most relevant chunk at the very beginning, the second most relevant chunk at the very end, the third one just after the first, the fourth one just before the last, and we keep folding inwards like this.</p>
+<p>The weakest chunks land in the middle, which is exactly where we can afford to lose them.</p>
+<p>Let's see it visually as below:</p>
+<pre><code class="language-text">Ranked chunks:   1   2   3   4   5   6   7
+Final order:     1   3   5   7   6   4   2
+                 ^                       ^
+              strongest              strongest
+              position                position
+</code></pre>
+<p>This simple reordering costs us nothing and it gives a real improvement.</p>
+<p><strong>Note:</strong> We must also keep the actual question at the very end of the prompt, right before the answer begins. That is the strongest position in the whole prompt.</p>
+<p>One more thing to notice here. If we have a critical instruction, such as "answer only from the given documents", then we must write it twice, once at the very beginning and once again at the very end. Repeating it costs a few tokens, and it makes sure that the instruction never falls into the weak middle.</p>
+<p>Deciding what goes into the prompt, and in which order, is a skill of its own. We have a detailed blog on <a href="https://outcomeschool.com/blog/context-engineering" rel="noopener noreferrer" target="_blank">Context Engineering</a> that covers it end to end.</p>
+<p>The issue with this approach is that it only reduces the damage, it does not remove it. If the answer needs a chunk that landed in the middle, we still fail. Let's see how the next approach solve this issue.</p>
+<p><strong>Approach 4: Break the big job into small jobs</strong></p>
+<p>Instead of asking one question over one giant prompt, we break the input into small pieces and we process each piece separately.</p>
+<p>We take each chunk, ask the model the same question on that chunk alone, and collect a small answer from each one. After that, we take all these small answers, which are now very short, and ask the model to combine them into the final answer.</p>
+<p>Here, every chunk gets its own turn to sit at the beginning and at the end of a short prompt. There is no weak middle, because there is no long input at all.</p>
+<p>This is often called the map and reduce style of processing. Map means we run the same small job on every piece, and reduce means we join all those small results into one final result.</p>
+<p>For the sake of understanding, let's say we have 30 documents. Instead of one call with 30 documents, we make 30 small calls with one document each, and then one final call with the 30 short answers. The final call is tiny, so nothing gets buried in it.</p>
+<p>There is a smarter version of this idea, where the model itself decides how to split the input and what to ask for every piece. We have a detailed blog on <a href="https://outcomeschool.com/blog/recursive-language-models" rel="noopener noreferrer" target="_blank">Recursive Language Models (RLMs)</a> that explains how that works.</p>
+<p><strong>Advantage:</strong> Nothing gets ignored, because every piece is read inside a short context.</p>
+<p><strong>Disadvantage:</strong> We make many model calls, so it costs more and it takes more time.</p>
+<p><strong>Approach 5: Force the model to look before it answers</strong></p>
+<p>Sometimes we can fix a lot by simply changing the instruction.</p>
+<p>Instead of asking the model to answer directly, we first ask it to go through the documents and copy out the lines that are relevant, along with the document number. After that, we ask it to answer using only those copied lines.</p>
+<p>This works because copying is a much easier job than reasoning. The model scans and extracts, and the extracted lines then become a short and fresh context where nothing is buried.</p>
+<p>We can write the instruction as below:</p>
+<pre><code class="language-text">First, list the document number and the exact sentences that are relevant
+to the question. Do not answer the question yet.
+Then, using only the sentences that you have listed above, write the
+final answer.
+</code></pre>
+<p>Here, we have split one hard job into two easy jobs, which is a simple form of <a href="https://outcomeschool.com/blog/how-does-prompt-chaining-work" rel="noopener noreferrer" target="_blank">prompt chaining</a>. The first job pulls the buried information up to the surface, and the second job works on a clean and short input.</p>
+<p><strong>Approach 6: Choose the model carefully</strong></p>
+<p>Every model has a different weak zone. Some models hold the middle very well up to 30,000 tokens and then collapse after that. Some models hold it much longer.</p>
+<p>So, we must never pick a model by looking at the advertised context window size. We must pick it by running the Needle in a Haystack test at the length that we actually use, with the kind of content that we actually have.</p>
+<p><strong>A model that advertises a one million token window is not promising that it understands one million tokens equally well. It is only promising that it will accept them.</strong></p>
+<p>This way we can use these simple approaches to solve the interesting problem, and it makes our life easy, because we stop fighting the model and we start working with the way it actually reads.</p>
+<h3 id="key-points-to-remember">Key points to remember</h3>
+<p>Let me summarize the important points for our better understanding:</p>
+<ul>
+<li>The context window tells us how much text the model will accept, not how well it understands every part of it</li>
+<li>The accuracy is high at the beginning, it drops in the middle, and it rises again at the end, which gives us the U-shaped curve</li>
+<li>The problem becomes worse as the input becomes longer</li>
+<li>It happens because attention gets spread thin, position handling favours the nearby and the starting tokens, and human writing trains the model to trust the start and the end</li>
+<li>It fails silently, so we get a confident wrong answer instead of an error message</li>
+<li>The best fix is to send less context and better context</li>
+<li>If we must send a lot, then we must put the most important content at the start and at the end</li>
+<li>Breaking the work into small pieces removes the weak middle completely</li>
+<li>It is not only a RAG problem, it hits long chats and long running AI agents in exactly the same way</li>
+<li>We must test our own model using the Needle in a Haystack test instead of trusting the advertised numbers</li>
+</ul>
+<p>Now, we have understood the Lost in the Middle problem in LLMs.</p>
+<p>The next time our system gives a wrong answer even though the correct information was present in the prompt, we must not assume that the model failed to understand it. We must first check where that information was sitting.</p>
+<p>Most of the time, the answer was already there. It was just sitting in the middle.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="is-the-lost-in-the-middle-problem-the-same-as-text-getting-cut-off">Is the Lost in the Middle problem the same as text getting cut off?</h3>
+<p>No. When text is too big for the context window, some part of it gets removed before it ever reaches the model. In the Lost in the Middle problem, nothing is removed and everything reaches the model. The model still behaves as if the middle was never there.</p>
+<h3 id="does-a-bigger-context-window-fix-the-lost-in-the-middle-problem">Does a bigger context window fix the Lost in the Middle problem?</h3>
+<p>No. A large context window is a capacity number, not a quality guarantee. It tells us how much text the model will accept, not how well it understands every part of it. The middle still gets lost, and we also pay for every token and wait longer for the response.</p>
+<h3 id="where-should-we-put-the-question-in-a-long-prompt">Where should we put the question in a long prompt?</h3>
+<p>We should keep the question at the very end of the prompt, right before the answer begins. That is the strongest position in the whole prompt. If we have a critical instruction, we should write it twice, once at the very beginning and once again at the very end.</p>
+<h3 id="why-does-a-chatbot-follow-a-rule-for-some-time-and-then-start-breaking-it">Why does a chatbot follow a rule for some time and then start breaking it?</h3>
+<p>Because the rule moved into the weak middle region of the conversation. In a long chat, the early messages and the latest messages stay strong, while an instruction given somewhere in the middle quietly loses its power. The rule did not get deleted.</p>
+<h3 id="is-the-lost-in-the-middle-problem-only-a-rag-problem">Is the Lost in the Middle problem only a RAG problem?</h3>
+<p>No. It also hits long chats, long document analysis, multi-document comparison, and long running AI agents. After many steps, an agent still remembers its original goal and its most recent step, but what it discovered in between starts fading away.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m04-l0406">
+  <p class="print-lesson-kicker">Lesson 4.6</p>
+  <h1>Why Do LLMs Hallucinate? The Token-Level Explanation</h1>
+  <p class="print-lesson-meta">Lesson 4.6 · ~18 min · Published October 14, 2026 · <a href="https://outcomeschool.com/blog/why-do-llms-hallucinate-the-token-level-explanation">https://outcomeschool.com/blog/why-do-llms-hallucinate-the-token-level-explanation</a></p>
+  <p><img alt="Why Do LLMs Hallucinate? The Token-Level Explanation" src="../assets/images/04-04-06-why-do-llms-hallucinate-the-token-level-explanation/why-do-llms-hallucinate-the-token-level-explanation.png"/></p>
+<p>LLMs hallucinate because they write an answer one token, a small piece of text, at a time by picking a likely next token, and when they do not know the right token, they still have to pick one, so a confident-looking guess comes out.</p>
+<p>In this blog, we will learn about why LLMs hallucinate, explained at the level of tokens. We will also see what a token is, how an LLM picks the next token, how a sharp guess differs from a flat guess, why the model can never skip a token or take one back, how one wrong token leads to a full wrong answer, and how we can reduce hallucinations in the real world.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is a hallucination?</li>
+<li>What is a token?</li>
+<li>How does an LLM pick the next token?</li>
+<li>Easy tokens and fact tokens</li>
+<li>When the model knows: a sharp guess</li>
+<li>When the model does not know: a flat guess</li>
+<li>Picking a token in code</li>
+<li>Reason 1: There is no "skip" option</li>
+<li>Reason 2: Randomness picks a token from the flat guess</li>
+<li>Reason 3: A token cannot be taken back</li>
+<li>Reason 4: One wrong token leads to more wrong tokens</li>
+<li>Reason 5: Likely tokens can combine into something that does not exist</li>
+<li>Reason 6: The final text hides the uncertainty</li>
+<li>How can we reduce hallucinations at the token level?</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="what-is-a-hallucination">What is a hallucination?</h2>
+<p><strong>A hallucination is when an AI gives an answer that sounds correct and confident, but is actually wrong or made up.</strong></p>
+<p>The AI is not lying on purpose. It just produces something that looks like a real answer, and that too with full confidence.</p>
+<p>In this blog, AI means an LLM (Large Language Model).</p>
+<p>Let's say we ask an AI: "In which year was the author Meera Joshi born?"</p>
+<p>For the sake of example, assume that Meera Joshi is a little-known author, and the AI has never read anything about her. A careful human would say "I do not know." But the AI replies: "Meera Joshi was born in 1962."</p>
+<p>The sentence sounds confident, but the year is a guess. This is a hallucination.</p>
+<p>We will look at the exact moment, one token at a time, where the wrong answer is generated. For that, we must first understand what a token is.</p>
+<h2 id="what-is-a-token">What is a token?</h2>
+<p><strong>A token is a small piece of text that an LLM reads and writes.</strong></p>
+<p>An LLM does not see full words the way we do. It breaks text into small pieces. A token can be a full word, a part of a word, a number, or even a space with a word.</p>
+<p>Let's see how our sentence can be broken into tokens, just for the sake of understanding:</p>
+<pre><code>"Meera Joshi was born in 1962"
+→ "Me" | "era" | " Joshi" | " was" | " born" | " in" | " 19" | "62"
+</code></pre>
+<p>Here, we can see that:</p>
+<ul>
+<li>"Meera" got broken into two tokens: "Me" and "era".</li>
+<li>Common words like " was", " born", and " in" are one token each.</li>
+<li>The year "1962" got broken into two tokens: " 19" and "62".</li>
+</ul>
+<p>The exact way of breaking depends on the model, but the idea is the same everywhere. The model writes its answer token by token.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/tokenization-in-llms" rel="noopener noreferrer" target="_blank">Tokenization in LLMs</a> that explains how this breaking works step by step.</p>
+<p><strong>Note:</strong> In the rest of this blog, we will treat a full year like " 1962" as one token, just for the sake of understanding. The idea stays exactly the same.</p>
+<p>Now, let's see how the model decides which token comes next.</p>
+<h2 id="how-does-an-llm-pick-the-next-token">How does an LLM pick the next token?</h2>
+<p>An LLM does only one thing again and again: <strong>it looks at all the text so far and predicts the next token.</strong></p>
+<p>But it does not predict just one token. It gives a score to every token it knows, and these scores become chances. Means, the model creates a list of guesses, where each guess has a percentage.</p>
+<p>Let's take a simple example. Suppose the text so far is:</p>
+<p>"The capital of France is"</p>
+<p>The model creates a list of guesses for the next token like below:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Next token</th>
+<th>Chance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>" Paris"</td>
+<td>92%</td>
+</tr>
+<tr>
+<td>" a"</td>
+<td>3%</td>
+</tr>
+<tr>
+<td>" the"</td>
+<td>2%</td>
+</tr>
+<tr>
+<td>" located"</td>
+<td>1%</td>
+</tr>
+<tr>
+<td>All other tokens</td>
+<td>2%</td>
+</tr>
+</tbody>
+</table></div>
+<p>Then, the model picks one token from this list. Here, it picks " Paris". Now, " Paris" gets added to the text, and the whole process repeats for the next token.</p>
+<p>So, writing one answer looks like below:</p>
+<ul>
+<li><strong>Step 1:</strong> The model looks at the text so far.</li>
+<li><strong>Step 2:</strong> It creates a list of guesses with chances for the next token.</li>
+<li><strong>Step 3:</strong> It picks one token from the list.</li>
+<li><strong>Step 4:</strong> It adds that token to the text.</li>
+<li><strong>Step 5:</strong> It goes back to Step 1.</li>
+</ul>
+<p>This loop runs until the answer is complete.</p>
+<p><strong>Very important:</strong> In this whole loop, there is no step called "check if this is true." There is only "pick a likely next token." This is the root of the problem.</p>
+<h2 id="easy-tokens-and-fact-tokens">Easy tokens and fact tokens</h2>
+<p>Now, let's look closely at our hallucinated sentence again:</p>
+<p>"Meera Joshi was born in 1962."</p>
+<p>Not every token in this sentence is equally hard.</p>
+<ul>
+<li>" was", " born", " in" are <strong>easy tokens</strong>. They follow the rules of language. Any sentence about a birth year will have them. The model is almost always right about them.</li>
+<li>" 1962" is a <strong>fact token</strong>. It carries the actual information. To get it right, the model must truly know the fact.</li>
+</ul>
+<p>Most tokens in any answer are easy tokens. Only a few tokens are fact tokens. But those few tokens decide whether the answer is true or false.</p>
+<p><strong>The model uses the exact same loop for both kinds of tokens.</strong> It does not slow down for a fact token. It does not switch to a "careful mode." It just creates a list of guesses and picks one, the same way it picked " was".</p>
+<p>So, the confident grammar around the fact makes the wrong fact look confident too.</p>
+<h2 id="when-the-model-knows-a-sharp-guess">When the model knows: a sharp guess</h2>
+<p>When the model has seen a fact many times during training, its list of guesses becomes <strong>sharp</strong>. Means, one token gets almost all the chance.</p>
+<p>Let's say the text so far is:</p>
+<p>"Albert Einstein was born in the year"</p>
+<p>The list of guesses for the next token looks like below:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Next token</th>
+<th>Chance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>" 1879"</td>
+<td>95%</td>
+</tr>
+<tr>
+<td>" 1878"</td>
+<td>2%</td>
+</tr>
+<tr>
+<td>" 1880"</td>
+<td>1%</td>
+</tr>
+<tr>
+<td>All other tokens</td>
+<td>2%</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, we can see that one token is far ahead of all the others. The model has read about Einstein thousands of times. So, the fact is strongly stored inside it.</p>
+<p>When the guess is sharp, the model picks the right token almost every time.</p>
+<h2 id="when-the-model-does-not-know-a-flat-guess">When the model does not know: a flat guess</h2>
+<p>Now, let's go back to our little-known author. The text so far is:</p>
+<p>"Meera Joshi was born in the year"</p>
+<p>The model has never read about her. So, its list of guesses looks like below:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Next token</th>
+<th>Chance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>" 1962"</td>
+<td>14%</td>
+</tr>
+<tr>
+<td>" 1958"</td>
+<td>13%</td>
+</tr>
+<tr>
+<td>" 1971"</td>
+<td>13%</td>
+</tr>
+<tr>
+<td>" 1965"</td>
+<td>12%</td>
+</tr>
+<tr>
+<td>" 1960"</td>
+<td>12%</td>
+</tr>
+<tr>
+<td>" 1968"</td>
+<td>12%</td>
+</tr>
+<tr>
+<td>" 1955"</td>
+<td>12%</td>
+</tr>
+<tr>
+<td>" 1974"</td>
+<td>12%</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, we can notice that the chances are spread out almost evenly. No token is far ahead. This is called a <strong>flat</strong> guess.</p>
+<p>A flat guess is the model's way of saying "I am not sure." The model knows the next token must be a year, because that is how such sentences work. But it has no idea which year.</p>
+<p>Let's understand this with a simple analogy. Suppose there is a class of 100 students who have all read about Einstein many times. We ask them, "In which year was Einstein born?" Almost all of them shout "1879" together. That is a sharp guess. Now, we ask the same class, "In which year was Meera Joshi born?" Nobody knows, so each student shouts a different year. That is a flat guess.</p>
+<p>So, at the token level:</p>
+<ul>
+<li><strong>Sharp guess</strong> = the model knows.</li>
+<li><strong>Flat guess</strong> = the model does not know.</li>
+</ul>
+<p>The model has some sense of its uncertainty. It is hidden inside these chances. But now, the question is: what does the model do with a flat guess?</p>
+<p>The answer is: it still picks one token. Let's see it in action.</p>
+<h2 id="picking-a-token-in-code">Picking a token in code</h2>
+<p>The best way to learn this is by taking an example. Let's write Python code that picks a token from a list of guesses, the same way an LLM does.</p>
+<p>We can write the code as below:</p>
+<pre><code class="language-python">import random
+sharp_guess = {"1879": 0.95, "1878": 0.02, "1880": 0.01, "other": 0.02}
+flat_guess = {"1962": 0.14, "1958": 0.13, "1971": 0.13, "1965": 0.12,
+              "1960": 0.12, "1968": 0.12, "1955": 0.12, "1974": 0.12}
+def pick_next_token(guesses):
+    tokens = list(guesses.keys())
+    chances = list(guesses.values())
+    # pick one token, where a higher chance means picked more often
+    return random.choices(tokens, weights=chances)[0]
+print(pick_next_token(sharp_guess))
+print(pick_next_token(flat_guess))
+</code></pre>
+<p>Here, we have:</p>
+<ul>
+<li><code>sharp_guess</code>: the list of guesses for Einstein. One token has 95% chance, and "other" stands for all other tokens together.</li>
+<li><code>flat_guess</code>: the list of guesses for Meera Joshi. The chances are spread out.</li>
+<li><code>pick_next_token</code>: a function that picks one token, where a token with a higher chance gets picked more often.</li>
+</ul>
+<p>It will print something like the following:</p>
+<pre><code>1879
+1971
+</code></pre>
+<p>If we run this code many times, the first <code>print</code> shows "1879" almost every time. But the second <code>print</code> keeps changing its answer, for example "1962" once, "1971" next time, and "1955" after that.</p>
+<p>Here, we can see that <strong>the function always returns a token.</strong> It never returns "I do not know." Even for the flat guess, it gives us a year. And when that year is written into a sentence, it looks exactly as confident as "1879".</p>
+<p>This is how a hallucination is generated at the level of a single token.</p>
+<p>Now, let's understand each reason in detail.</p>
+<h2 id="reason-1-there-is-no-skip-option">Reason 1: There is no "skip" option</h2>
+<p>At every step, the model must pick a token from its list. The list contains tokens like " 1962", " 1958", and so on. There is no special button that says "stop, I do not know this one."</p>
+<p>Let's say a student is given a fill-in-the-blank test, and the rule is that they must write something in every blank. Even when they have no idea, they must write a word. Many of their answers will look correct but be wrong.</p>
+<p>The LLM is in the same situation for every single token.</p>
+<p>Now, the question is: the words "I do not know" are also made of tokens, so why does the model not pick them?</p>
+<p>The model writes them only if they are the likely next tokens. But there are two problems:</p>
+<ul>
+<li>During training, the model has seen far more text where a question is followed by an answer than text where a question is followed by "I do not know."</li>
+<li>Many training and testing methods often give a better score to a confident guess than to an honest "I do not know."</li>
+</ul>
+<p>So, the "I do not know" tokens usually get a small chance.</p>
+<p>Hence, when the guess for a fact token is flat, the model still picks a year, a name, or a number. It fills the blank.</p>
+<h2 id="reason-2-randomness-picks-a-token-from-the-flat-guess">Reason 2: Randomness picks a token from the flat guess</h2>
+<p>When an LLM picks the next token, there is usually some randomness. It does not always pick the top token. A setting called <strong><a href="https://outcomeschool.com/blog/how-does-temperature-control-llm-output" rel="noopener noreferrer" target="_blank">temperature</a></strong> controls how much randomness is used.</p>
+<p>So:</p>
+<ul>
+<li><strong>Low temperature</strong> = the model almost always picks the top token.</li>
+<li><strong>High temperature</strong> = the model picks other tokens more often.</li>
+</ul>
+<p>With a sharp guess, randomness does not matter much. " 1879" has 95% chance, so it wins almost every time.</p>
+<p>But with a flat guess, randomness decides the answer. Every year has about 12% to 14% chance. So, if we ask the same question five times, we can get different years each time, like below:</p>
+<pre><code>Run 1: Meera Joshi was born in 1962.
+Run 2: Meera Joshi was born in 1971.
+Run 3: Meera Joshi was born in 1955.
+Run 4: Meera Joshi was born in 1962.
+Run 5: Meera Joshi was born in 1968.
+</code></pre>
+<p>Here, we can see that every answer is written with full confidence, but the answers do not agree with each other. This disagreement is a strong sign that the model is guessing.</p>
+<p>Now, someone can ask: "Then let's just set temperature to zero. The model will always pick the top token."</p>
+<p>Yes, it will always pick " 1962" now. But " 1962" had only 14% chance. It is still a guess. Now, it is just the same guess every time.</p>
+<p>Hence, a low temperature makes the answer the same every time, but it does not make it correct.</p>
+<h2 id="reason-3-a-token-cannot-be-taken-back">Reason 3: A token cannot be taken back</h2>
+<p>When we write something by hand and notice a mistake, we use an eraser.</p>
+<p>An LLM has no eraser. Once a token is picked and added to the text, it stays there forever. The model can only move forward and add the next token.</p>
+<p>Let's take an example. Suppose we ask the model:</p>
+<p>"Is 3,827 a prime number?"</p>
+<p>The very first token of the answer is a big decision. For the sake of example, let say the list of guesses looks like below:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Next token</th>
+<th>Chance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Yes"</td>
+<td>52%</td>
+</tr>
+<tr>
+<td>"No"</td>
+<td>48%</td>
+</tr>
+</tbody>
+</table></div>
+<p>The two chances are almost equal. Let's say the model picks "Yes".</p>
+<p>But 3,827 is not a prime number. It is 43 * 89.</p>
+<p>The model cannot go back and change "Yes" to "No". The wrong token is already written. Everything that comes after is built on top of this "Yes".</p>
+<h2 id="reason-4-one-wrong-token-leads-to-more-wrong-tokens">Reason 4: One wrong token leads to more wrong tokens</h2>
+<p>Remember, at every step, the model looks at <strong>all the text so far</strong>, including the tokens it wrote itself. It does not go back to doubt its own tokens. It simply treats them as part of the text that it must continue.</p>
+<p>So, after writing "Yes", the text so far is:</p>
+<p>"Is 3,827 a prime number? Yes"</p>
+<p>Now, the model predicts the next token based on this. And the most likely continuation of "Yes" is a reason that supports "Yes". So, it writes something like:</p>
+<p>"Yes, 3,827 is a prime number because it cannot be divided by any number other than 1 and itself."</p>
+<p>Each new token is a good, likely token given the text before it. The grammar is correct. The explanation sounds logical. But the whole answer is built on one wrong token at the start.</p>
+<p>The same happens with our author:</p>
+<p>"Meera Joshi was born in 1962. She grew up in the 1970s and published her first book in the late 1980s."</p>
+<p>Here, we can see that the model did not stop at one wrong year. It used " 1962" to build more details: she grew up in the 1970s, published in the late 1980s. All of these follow nicely from 1962, and all of them are made up.</p>
+<p><strong>One wrong fact token becomes the base for the next tokens, and a small guess grows into a full made-up story.</strong></p>
+<h2 id="reason-5-likely-tokens-can-combine-into-something-that-does-not-exist">Reason 5: Likely tokens can combine into something that does not exist</h2>
+<p>Now, let's see a special type of hallucination: fake names, fake titles, and fake references.</p>
+<p>Suppose we ask the model to suggest a research paper on a topic. The model writes something like below:</p>
+<p>"Sharma, A. and Patel, R. (2019). Using AI to Detect Crop Diseases. Journal of Agricultural AI."</p>
+<p>Let's look at it token by token:</p>
+<ul>
+<li>"Sharma" is a common author name. A likely token.</li>
+<li>"Patel" is also a common author name. A likely token.</li>
+<li>"2019" is a common year for such papers. A likely token.</li>
+<li>"Using AI to Detect Crop Diseases" is a natural title for this topic. Each token in it is likely.</li>
+<li>"Journal of Agricultural AI" sounds like a real journal name. Likely tokens.</li>
+</ul>
+<p>Each token, on its own, is a reasonable pick. But assume that this exact paper, with these exact authors, this exact year, and this exact journal, does not exist anywhere.</p>
+<p>The only thing that mattered to the model was that each token fits well with the tokens before it. Nothing in the loop checked that the full combination exists in the real world. Hence, it combined likely tokens into a reference that does not exist.</p>
+<p>This is why LLMs are very good at producing references that look real, but are not.</p>
+<h2 id="reason-6-the-final-text-hides-the-uncertainty">Reason 6: The final text hides the uncertainty</h2>
+<p>We already learned that the model has some sense of its uncertainty. A flat guess means "I am not sure."</p>
+<p>After the model picks a token, only the token remains in the text. The chance behind it is thrown away.</p>
+<p>So, when we read the final answer, both of these look exactly the same:</p>
+<ul>
+<li>" 1879", which had 95% chance.</li>
+<li>" 1962", which had 14% chance.</li>
+</ul>
+<p>Both are just numbers in a sentence. Both are written in the same confident tone. There is no small "14%" written next to the second one.</p>
+<p>Means, the model was unsure inside, but its words look sure outside. As readers, we see only the words. Hence, we have no way to tell the sure parts from the guessed parts just by reading.</p>
+<h2 id="how-can-we-reduce-hallucinations-at-the-token-level">How can we reduce hallucinations at the token level?</h2>
+<p>Now, let's see how we can reduce hallucinations. Each fix addresses one of the reasons we learned.</p>
+<p><strong>Fix 1: Give the model the fact.</strong></p>
+<p>If we put the correct information inside the question itself, for example by pasting a document, the fact is now part of the text so far. The model can see it. So, the flat guess becomes a sharp guess.</p>
+<p>Here comes the <strong><a href="https://outcomeschool.com/blog/agentic-rag" rel="noopener noreferrer" target="_blank">RAG</a></strong> into the picture. RAG stands for Retrieval-Augmented Generation. In simple words, first find the right information, then give it to the model along with the question.</p>
+<p><strong>Fix 2: Make "I do not know" a likely token.</strong></p>
+<p>The companies that build these models can train them to say "I do not know" when they are unsure, and give a better score to an honest "I do not know" than to a confident wrong guess. Then, the "I do not know" tokens get a bigger chance when the guess for a fact token is flat. This addresses Reason 1.</p>
+<p><strong>Fix 3: Look at the chances behind the tokens.</strong></p>
+<p>Many AI tools can show the chance behind each token. If a fact token like a year or a name was picked with a low chance, we can flag it as "likely a guess." This brings back the uncertainty that the final text was hiding.</p>
+<p>Similarly, we can ask the same question a few times, like we saw in Reason 2. If the fact tokens keep changing between the answers, the model is guessing. This addresses Reason 6.</p>
+<p><strong>Fix 4: Ask the model to think before answering.</strong></p>
+<p>If the model first <a href="https://outcomeschool.com/blog/how-does-chain-of-thought-prompting-work" rel="noopener noreferrer" target="_blank">writes its thinking step by step</a>, the important decision does not depend on a single uncertain token at the very start. For example, the model can first try dividing 3,827 by small numbers, find 43 * 89, and only then write "No". It does not fully solve the problem, but it gives the model a better chance to reach the right token. This addresses Reason 3 and Reason 4.</p>
+<p><strong>Fix 5: Use low temperature for facts.</strong></p>
+<p>For factual tasks, a low temperature reduces random jumps to unlikely tokens. But remember, it makes the answer the same every time, not correct. So, use it along with the other fixes, not alone. This addresses Reason 2.</p>
+<p><strong>Fix 6: Always verify fact tokens.</strong></p>
+<p>As users, we now know that names, numbers, dates, and references are the fact tokens. Hallucinations mostly appear in these tokens. So, these are the places we must double-check before trusting the answer.</p>
+<p><strong>Note:</strong> None of these fixes remove hallucinations completely. As long as a model writes by picking the next likely token, there will always be some chance of a confident guess.</p>
+<p>Now we must have understood why LLMs hallucinate at the token level: the model picks one likely token at a time, and when it does not know the answer, it still has to pick one.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="is-an-llm-lying-when-it-hallucinates">Is an LLM lying when it hallucinates?</h3>
+<p>No. An LLM is not lying on purpose when it hallucinates. It picks a likely next token at every step, and when it does not know the right token, it still has to pick one. The result is a guess that sounds correct and confident, but is actually wrong or made up.</p>
+<h3 id="which-parts-of-an-llm-answer-are-most-likely-to-be-hallucinated">Which parts of an LLM answer are most likely to be hallucinated?</h3>
+<p>The fact tokens, such as names, numbers, dates, and references, are the most likely to be hallucinated. Easy tokens like " was" and " in" follow the rules of language, so the model is almost always right about them. Fact tokens need the model to truly know the fact, so these are the places we must double-check.</p>
+<h3 id="how-can-we-tell-when-an-llm-is-guessing">How can we tell when an LLM is guessing?</h3>
+<p>We can look at the chance behind each token, because many AI tools can show it. If a fact token like a year or a name was picked with a low chance, it is likely a guess. We can also ask the same question a few times, and if the fact tokens keep changing between the answers, the model is guessing.</p>
+<h3 id="does-setting-temperature-to-zero-stop-hallucinations">Does setting temperature to zero stop hallucinations?</h3>
+<p>No. Setting temperature to zero makes the model always pick the top token, so the answer is the same every time. But if the top token had only a small chance, it is still a guess, just the same guess every time. A low temperature makes the answer the same, not correct.</p>
+<h3 id="can-we-remove-hallucinations-completely">Can we remove hallucinations completely?</h3>
+<p>No. Fixes like RAG, training the model to say "I do not know", and checking the chances behind tokens reduce hallucinations, but none of them remove hallucinations completely. As long as a model writes by picking the next likely token, there will always be some chance of a confident guess.</p>
+
+</section>
+
+</section>
+<p class="print-footer">Personal offline study copy · Content © Outcome School / Amit Shekhar</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Evolution of LLM Architecture Module 5 · Lesson 5.1 Source: Outcome School · Published: September 21, 2026 · Reading time: 30 min · Tags: llm , ai , machine learning LLM architectu">
+<title>Evolution of LLM Architecture · AI Engineering Course</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/pygments.css">
+</head>
+<body class="">
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="topbar">
+  <button id="menu-toggle" class="icon-btn" type="button" aria-label="Toggle navigation">☰</button>
+  <a class="brand" href="../index.html">AI Engineering Course</a>
+  <div class="search-wrap">
+    <input id="search" type="search" placeholder="Search lessons…" autocomplete="off" aria-label="Search lessons">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+  <div class="progress-mini" title="Course progress"><span id="progress-text">0%</span></div>
+  <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle light/dark theme">🌙</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="progress-box">
+      <div class="progress-bar"><span id="progress-fill"></span></div>
+      <div class="progress-label" id="progress-label">0 of 0 lessons read</div>
+    </div>
+    <nav class="course-nav" aria-label="Course modules">
+<a class="nav-home" href="../index.html">Course home</a>
+<a class="nav-module-single" href="../modules/m00.html">0. Must Know</a>
+<details class="nav-module" data-module="1">
+<summary><span class="nav-module-title">1. Machine Learning Foundations</span><span class="nav-count" data-nav-count="1">0/9</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0101" data-module="1" aria-label="Mark What is Machine Learning? as read"></label><a href="../lessons/m01-l0101-what-is-machine-learning.html">1.1 What is Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0102" data-module="1" aria-label="Mark Supervised vs Unsupervised Learning as read"></label><a href="../lessons/m01-l0102-supervised-vs-unsupervised-learning.html">1.2 Supervised vs Unsupervised Learning</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0103" data-module="1" aria-label="Mark Linear Regression vs Logistic Regression as read"></label><a href="../lessons/m01-l0103-linear-regression-vs-logistic-regression.html">1.3 Linear Regression vs Logistic Regression</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0104" data-module="1" aria-label="Mark What is Feature Engineering in Machine Learning? as read"></label><a href="../lessons/m01-l0104-what-is-feature-engineering-in-machine-learning.html">1.4 What is Feature Engineering in Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0105" data-module="1" aria-label="Mark Precision vs Recall as read"></label><a href="../lessons/m01-l0105-precision-vs-recall.html">1.5 Precision vs Recall</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0106" data-module="1" aria-label="Mark What Are L1 and L2 Loss Functions? as read"></label><a href="../lessons/m01-l0106-what-are-l1-and-l2-loss-functions.html">1.6 What Are L1 and L2 Loss Functions?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0107" data-module="1" aria-label="Mark What is Regularization in Machine Learning? L1 vs L2 Explained as read"></label><a href="../lessons/m01-l0107-what-is-regularization-in-machine-learning-l1-vs-l2-explained.html">1.7 What is Regularization in Machine Learning? L1 vs L2 Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0108" data-module="1" aria-label="Mark What is Reinforcement Learning? as read"></label><a href="../lessons/m01-l0108-what-is-reinforcement-learning.html">1.8 What is Reinforcement Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0109" data-module="1" aria-label="Mark What is Contrastive Learning? How It Works Step by Step as read"></label><a href="../lessons/m01-l0109-what-is-contrastive-learning-how-it-works-step-by-step.html">1.9 What is Contrastive Learning? How It Works Step by Step</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="2">
+<summary><span class="nav-module-title">2. Deep Learning and Neural Networks</span><span class="nav-count" data-nav-count="2">0/12</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0201" data-module="2" aria-label="Mark What is a Neural Network and How Does It Work? as read"></label><a href="../lessons/m02-l0201-what-is-a-neural-network-and-how-does-it-work.html">2.1 What is a Neural Network and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0202" data-module="2" aria-label="Mark What is Bias In Artificial Neural Network? as read"></label><a href="../lessons/m02-l0202-what-is-bias-in-artificial-neural-network.html">2.2 What is Bias In Artificial Neural Network?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0203" data-module="2" aria-label="Mark How Does Matrix Multiplication Work in Neural Networks? as read"></label><a href="../lessons/m02-l0203-how-does-matrix-multiplication-work-in-neural-networks.html">2.3 How Does Matrix Multiplication Work in Neural Networks?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0204" data-module="2" aria-label="Mark How Does Gradient Descent Work? as read"></label><a href="../lessons/m02-l0204-how-does-gradient-descent-work.html">2.4 How Does Gradient Descent Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0205" data-module="2" aria-label="Mark How Does Backpropagation Work? The Math Explained Step by Step as read"></label><a href="../lessons/m02-l0205-how-does-backpropagation-work-the-math-explained-step-by-step.html">2.5 How Does Backpropagation Work? The Math Explained Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0206" data-module="2" aria-label="Mark What is Cross-Entropy Loss? as read"></label><a href="../lessons/m02-l0206-what-is-cross-entropy-loss.html">2.6 What is Cross-Entropy Loss?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0207" data-module="2" aria-label="Mark What is Dropout in Neural Networks and How Does It Work? as read"></label><a href="../lessons/m02-l0207-what-is-dropout-in-neural-networks-and-how-does-it-work.html">2.7 What is Dropout in Neural Networks and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0208" data-module="2" aria-label="Mark Batch Normalization vs Layer Normalization as read"></label><a href="../lessons/m02-l0208-batch-normalization-vs-layer-normalization.html">2.8 Batch Normalization vs Layer Normalization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0209" data-module="2" aria-label="Mark What is RMSNorm? Root Mean Square Layer Normalization Explained as read"></label><a href="../lessons/m02-l0209-what-is-rmsnorm-root-mean-square-layer-normalization-explained.html">2.9 What is RMSNorm? Root Mean Square Layer Normalization Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0210" data-module="2" aria-label="Mark What is a Recurrent Neural Network (RNN)? as read"></label><a href="../lessons/m02-l0210-what-is-a-recurrent-neural-network-rnn.html">2.10 What is a Recurrent Neural Network (RNN)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0211" data-module="2" aria-label="Mark How does PyTorch work? as read"></label><a href="../lessons/m02-l0211-how-does-pytorch-work.html">2.11 How does PyTorch work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0212" data-module="2" aria-label="Mark How Does The Machine Learning Library TensorFlow Work? as read"></label><a href="../lessons/m02-l0212-how-does-the-machine-learning-library-tensorflow-work.html">2.12 How Does The Machine Learning Library TensorFlow Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="3">
+<summary><span class="nav-module-title">3. Generative AI and the Transformer Architecture</span><span class="nav-count" data-nav-count="3">0/16</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0301" data-module="3" aria-label="Mark What is Generative AI? as read"></label><a href="../lessons/m03-l0301-what-is-generative-ai.html">3.1 What is Generative AI?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0302" data-module="3" aria-label="Mark What are Autoregressive Models? as read"></label><a href="../lessons/m03-l0302-what-are-autoregressive-models.html">3.2 What are Autoregressive Models?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0303" data-module="3" aria-label="Mark Tokenization in LLMs as read"></label><a href="../lessons/m03-l0303-tokenization-in-llms.html">3.3 Tokenization in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0304" data-module="3" aria-label="Mark What is Byte Pair Encoding (BPE) in LLMs? as read"></label><a href="../lessons/m03-l0304-what-is-byte-pair-encoding-bpe-in-llms.html">3.4 What is Byte Pair Encoding (BPE) in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0305" data-module="3" aria-label="Mark What are Embeddings? as read"></label><a href="../lessons/m03-l0305-what-are-embeddings.html">3.5 What are Embeddings?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0306" data-module="3" aria-label="Mark How do RNNs and Transformers differ? as read"></label><a href="../lessons/m03-l0306-how-do-rnns-and-transformers-differ.html">3.6 How do RNNs and Transformers differ?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0307" data-module="3" aria-label="Mark How Does the Transformer Architecture Work? as read"></label><a href="../lessons/m03-l0307-how-does-the-transformer-architecture-work.html">3.7 How Does the Transformer Architecture Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0308" data-module="3" aria-label="Mark Encoder vs Decoder in Transformers as read"></label><a href="../lessons/m03-l0308-encoder-vs-decoder-in-transformers.html">3.8 Encoder vs Decoder in Transformers</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0309" data-module="3" aria-label="Mark What is Self Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0309-what-is-self-attention-in-transformers-and-how-does-it-work.html">3.9 What is Self Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0310" data-module="3" aria-label="Mark How Does Attention Work? The Math Behind Q, K, and V Step by Step as read"></label><a href="../lessons/m03-l0310-how-does-attention-work-the-math-behind-q-k-and-v-step-by-step.html">3.10 How Does Attention Work? The Math Behind Q, K, and V Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0311" data-module="3" aria-label="Mark Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor as read"></label><a href="../lessons/m03-l0311-why-do-we-scale-attention-by-dk-the-math-behind-the-scaling-factor.html">3.11 Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0312" data-module="3" aria-label="Mark What is Causal Masking in Attention and Why Do LLMs Need It? as read"></label><a href="../lessons/m03-l0312-what-is-causal-masking-in-attention-and-why-do-llms-need-it.html">3.12 What is Causal Masking in Attention and Why Do LLMs Need It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0313" data-module="3" aria-label="Mark What is Multi-Head Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0313-what-is-multi-head-attention-in-transformers-and-how-does-it-work.html">3.13 What is Multi-Head Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0314" data-module="3" aria-label="Mark What is Cross Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0314-what-is-cross-attention-in-transformers-and-how-does-it-work.html">3.14 What is Cross Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0315" data-module="3" aria-label="Mark What is RoPE (Rotary Position Embedding)? The Math Behind It as read"></label><a href="../lessons/m03-l0315-what-is-rope-rotary-position-embedding-the-math-behind-it.html">3.15 What is RoPE (Rotary Position Embedding)? The Math Behind It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0316" data-module="3" aria-label="Mark What is the Feed-Forward Network in LLMs and What Does It Do? as read"></label><a href="../lessons/m03-l0316-what-is-the-feed-forward-network-in-llms-and-what-does-it-do.html">3.16 What is the Feed-Forward Network in LLMs and What Does It Do?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="4">
+<summary><span class="nav-module-title">4. How LLMs Generate Text</span><span class="nav-count" data-nav-count="4">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0401" data-module="4" aria-label="Mark How does Temperature control LLM output? as read"></label><a href="../lessons/m04-l0401-how-does-temperature-control-llm-output.html">4.1 How does Temperature control LLM output?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0402" data-module="4" aria-label="Mark How do Top-k and Top-p Sampling work? as read"></label><a href="../lessons/m04-l0402-how-do-top-k-and-top-p-sampling-work.html">4.2 How do Top-k and Top-p Sampling work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0403" data-module="4" aria-label="Mark Stop Tokens in LLMs as read"></label><a href="../lessons/m04-l0403-stop-tokens-in-llms.html">4.3 Stop Tokens in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0404" data-module="4" aria-label="Mark How does Token Streaming work? as read"></label><a href="../lessons/m04-l0404-how-does-token-streaming-work.html">4.4 How does Token Streaming work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0405" data-module="4" aria-label="Mark What is the Lost in the Middle Problem in LLMs and How to Fix It? as read"></label><a href="../lessons/m04-l0405-what-is-the-lost-in-the-middle-problem-in-llms-and-how-to-fix-it.html">4.5 What is the Lost in the Middle Problem in LLMs and How to Fix It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0406" data-module="4" aria-label="Mark Why Do LLMs Hallucinate? The Token-Level Explanation as read"></label><a href="../lessons/m04-l0406-why-do-llms-hallucinate-the-token-level-explanation.html">4.6 Why Do LLMs Hallucinate? The Token-Level Explanation</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="5" open>
+<summary><span class="nav-module-title">5. Modern LLM Architecture</span><span class="nav-count" data-nav-count="5">0/7</span></summary>
+<ul>
+<li class="nav-lesson active"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0501" data-module="5" aria-label="Mark Evolution of LLM Architecture as read"></label><a href="../lessons/m05-l0501-evolution-of-llm-architecture.html">5.1 Evolution of LLM Architecture</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0502" data-module="5" aria-label="Mark What is Mixture of Experts (MoE) and How Does It Work? as read"></label><a href="../lessons/m05-l0502-what-is-mixture-of-experts-moe-and-how-does-it-work.html">5.2 What is Mixture of Experts (MoE) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0503" data-module="5" aria-label="Mark What is Grouped Query Attention (GQA) and Why Do LLMs Use It? as read"></label><a href="../lessons/m05-l0503-what-is-grouped-query-attention-gqa-and-why-do-llms-use-it.html">5.3 What is Grouped Query Attention (GQA) and Why Do LLMs Use It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0504" data-module="5" aria-label="Mark How does Sliding Window Attention work? as read"></label><a href="../lessons/m05-l0504-how-does-sliding-window-attention-work.html">5.4 How does Sliding Window Attention work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0505" data-module="5" aria-label="Mark How do Attention Sinks work? as read"></label><a href="../lessons/m05-l0505-how-do-attention-sinks-work.html">5.5 How do Attention Sinks work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0506" data-module="5" aria-label="Mark What is Flash Attention and Why Is It So Fast? as read"></label><a href="../lessons/m05-l0506-what-is-flash-attention-and-why-is-it-so-fast.html">5.6 What is Flash Attention and Why Is It So Fast?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0507" data-module="5" aria-label="Mark What is DeepSeek-V4 and How Does It Work? Architecture Explained as read"></label><a href="../lessons/m05-l0507-what-is-deepseek-v4-and-how-does-it-work-architecture-explained.html">5.7 What is DeepSeek-V4 and How Does It Work? Architecture Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="6">
+<summary><span class="nav-module-title">6. Types of Language Models</span><span class="nav-count" data-nav-count="6">0/5</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0601" data-module="6" aria-label="Mark What are Small Language Models (SLMs) and When Should We Use Them? as read"></label><a href="../lessons/m06-l0601-what-are-small-language-models-slms-and-when-should-we-use-them.html">6.1 What are Small Language Models (SLMs) and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0602" data-module="6" aria-label="Mark What are Large Reasoning Models (LRMs) and How Are They Different from LLMs? as read"></label><a href="../lessons/m06-l0602-what-are-large-reasoning-models-lrms-and-how-are-they-different-from-llms.html">6.2 What are Large Reasoning Models (LRMs) and How Are They Different from LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0603" data-module="6" aria-label="Mark What are Recursive Language Models (RLMs) and How Do They Work? as read"></label><a href="../lessons/m06-l0603-what-are-recursive-language-models-rlms-and-how-do-they-work.html">6.3 What are Recursive Language Models (RLMs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0604" data-module="6" aria-label="Mark How do Diffusion Language Models (DLMs) work? as read"></label><a href="../lessons/m06-l0604-how-do-diffusion-language-models-dlms-work.html">6.4 How do Diffusion Language Models (DLMs) work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0605" data-module="6" aria-label="Mark Jev and System One Models Explained as read"></label><a href="../lessons/m06-l0605-jev-and-system-one-models-explained.html">6.5 Jev and System One Models Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="7">
+<summary><span class="nav-module-title">7. Training, Fine-Tuning, and Alignment</span><span class="nav-count" data-nav-count="7">0/11</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0701" data-module="7" aria-label="Mark How does fine-tuning work? as read"></label><a href="../lessons/m07-l0701-how-does-fine-tuning-work.html">7.1 How does fine-tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0702" data-module="7" aria-label="Mark What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs? as read"></label><a href="../lessons/m07-l0702-what-is-lora-low-rank-adaptation-and-how-does-it-fine-tune-llms.html">7.2 What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0703" data-module="7" aria-label="Mark How does Prefix Tuning work? as read"></label><a href="../lessons/m07-l0703-how-does-prefix-tuning-work.html">7.3 How does Prefix Tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0704" data-module="7" aria-label="Mark How does Knowledge Distillation work? as read"></label><a href="../lessons/m07-l0704-how-does-knowledge-distillation-work.html">7.4 How does Knowledge Distillation work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0705" data-module="7" aria-label="Mark What is Continual Learning in LLMs? Solving Catastrophic Forgetting as read"></label><a href="../lessons/m07-l0705-what-is-continual-learning-in-llms-solving-catastrophic-forgetting.html">7.5 What is Continual Learning in LLMs? Solving Catastrophic Forgetting</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0706" data-module="7" aria-label="Mark What is Deep RL from Human Preferences? The Paper That Started RLHF as read"></label><a href="../lessons/m07-l0706-what-is-deep-rl-from-human-preferences-the-paper-that-started-rlhf.html">7.6 What is Deep RL from Human Preferences? The Paper That Started RLHF</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0707" data-module="7" aria-label="Mark What is InstructGPT? How GPT-3 Learned to Follow Instructions as read"></label><a href="../lessons/m07-l0707-what-is-instructgpt-how-gpt-3-learned-to-follow-instructions.html">7.7 What is InstructGPT? How GPT-3 Learned to Follow Instructions</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0708" data-module="7" aria-label="Mark What is RLHF? Reinforcement Learning from Human Feedback Explained as read"></label><a href="../lessons/m07-l0708-what-is-rlhf-reinforcement-learning-from-human-feedback-explained.html">7.8 What is RLHF? Reinforcement Learning from Human Feedback Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0709" data-module="7" aria-label="Mark What is Proximal Policy Optimization (PPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0709-what-is-proximal-policy-optimization-ppo-and-how-does-it-work.html">7.9 What is Proximal Policy Optimization (PPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0710" data-module="7" aria-label="Mark What is Direct Preference Optimization (DPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0710-what-is-direct-preference-optimization-dpo-and-how-does-it-work.html">7.10 What is Direct Preference Optimization (DPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0711" data-module="7" aria-label="Mark What is Group Relative Policy Optimization (GRPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0711-what-is-group-relative-policy-optimization-grpo-and-how-does-it-work.html">7.11 What is Group Relative Policy Optimization (GRPO) and How Does It Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="8">
+<summary><span class="nav-module-title">8. Prompt Engineering and Context Engineering</span><span class="nav-count" data-nav-count="8">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0801" data-module="8" aria-label="Mark How does Chain-of-Thought (CoT) Prompting work? as read"></label><a href="../lessons/m08-l0801-how-does-chain-of-thought-cot-prompting-work.html">8.1 How does Chain-of-Thought (CoT) Prompting work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0802" data-module="8" aria-label="Mark How does Tree of Thoughts work? as read"></label><a href="../lessons/m08-l0802-how-does-tree-of-thoughts-work.html">8.2 How does Tree of Thoughts work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0803" data-module="8" aria-label="Mark How does Prompt Chaining work? as read"></label><a href="../lessons/m08-l0803-how-does-prompt-chaining-work.html">8.3 How does Prompt Chaining work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0804" data-module="8" aria-label="Mark How does Prompt Caching work? as read"></label><a href="../lessons/m08-l0804-how-does-prompt-caching-work.html">8.4 How does Prompt Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0805" data-module="8" aria-label="Mark What is Context Engineering? as read"></label><a href="../lessons/m08-l0805-what-is-context-engineering.html">8.5 What is Context Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0806" data-module="8" aria-label="Mark How does context compaction work? as read"></label><a href="../lessons/m08-l0806-how-does-context-compaction-work.html">8.6 How does context compaction work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="9">
+<summary><span class="nav-module-title">9. Vector Search and Retrieval-Augmented Generation (RAG)</span><span class="nav-count" data-nav-count="9">0/15</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0901" data-module="9" aria-label="Mark How does a Vector Database work? as read"></label><a href="../lessons/m09-l0901-how-does-a-vector-database-work.html">9.1 How does a Vector Database work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0902" data-module="9" aria-label="Mark How does Approximate Nearest Neighbor (ANN) search work? as read"></label><a href="../lessons/m09-l0902-how-does-approximate-nearest-neighbor-ann-search-work.html">9.2 How does Approximate Nearest Neighbor (ANN) search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0903" data-module="9" aria-label="Mark How does Semantic Search work? as read"></label><a href="../lessons/m09-l0903-how-does-semantic-search-work.html">9.3 How does Semantic Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0904" data-module="9" aria-label="Mark How does Hybrid Search work? as read"></label><a href="../lessons/m09-l0904-how-does-hybrid-search-work.html">9.4 How does Hybrid Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0905" data-module="9" aria-label="Mark How does a Reranker work? as read"></label><a href="../lessons/m09-l0905-how-does-a-reranker-work.html">9.5 How does a Reranker work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0906" data-module="9" aria-label="Mark What is ColBERT? Late Interaction Retrieval Explained as read"></label><a href="../lessons/m09-l0906-what-is-colbert-late-interaction-retrieval-explained.html">9.6 What is ColBERT? Late Interaction Retrieval Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0907" data-module="9" aria-label="Mark How to Chunk Documents for RAG? Chunking Strategies Explained as read"></label><a href="../lessons/m09-l0907-how-to-chunk-documents-for-rag-chunking-strategies-explained.html">9.7 How to Chunk Documents for RAG? Chunking Strategies Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0908" data-module="9" aria-label="Mark How does Contextual Retrieval work? as read"></label><a href="../lessons/m09-l0908-how-does-contextual-retrieval-work.html">9.8 How does Contextual Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0909" data-module="9" aria-label="Mark How does HyDE work in RAG? as read"></label><a href="../lessons/m09-l0909-how-does-hyde-work-in-rag.html">9.9 How does HyDE work in RAG?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0910" data-module="9" aria-label="Mark How do Query Rewriting and Multi-Query Retrieval work? as read"></label><a href="../lessons/m09-l0910-how-do-query-rewriting-and-multi-query-retrieval-work.html">9.10 How do Query Rewriting and Multi-Query Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0911" data-module="9" aria-label="Mark How does an Embedding Cache work? as read"></label><a href="../lessons/m09-l0911-how-does-an-embedding-cache-work.html">9.11 How does an Embedding Cache work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0912" data-module="9" aria-label="Mark How does Semantic Caching work? as read"></label><a href="../lessons/m09-l0912-how-does-semantic-caching-work.html">9.12 How does Semantic Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0913" data-module="9" aria-label="Mark What is Agentic RAG? How It Works and When to Use It as read"></label><a href="../lessons/m09-l0913-what-is-agentic-rag-how-it-works-and-when-to-use-it.html">9.13 What is Agentic RAG? How It Works and When to Use It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0914" data-module="9" aria-label="Mark What is GraphRAG? How Knowledge Graphs Improve RAG as read"></label><a href="../lessons/m09-l0914-what-is-graphrag-how-knowledge-graphs-improve-rag.html">9.14 What is GraphRAG? How Knowledge Graphs Improve RAG</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0915" data-module="9" aria-label="Mark What is Vectorless RAG? RAG Without Embeddings or a Vector Database as read"></label><a href="../lessons/m09-l0915-what-is-vectorless-rag-rag-without-embeddings-or-a-vector-database.html">9.15 What is Vectorless RAG? RAG Without Embeddings or a Vector Database</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="10">
+<summary><span class="nav-module-title">10. AI Agents and Agentic Systems</span><span class="nav-count" data-nav-count="10">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1001" data-module="10" aria-label="Mark What is an AI Agent? How It Works as read"></label><a href="../lessons/m10-l1001-what-is-an-ai-agent-how-it-works.html">10.1 What is an AI Agent? How It Works</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1002" data-module="10" aria-label="Mark How does Function Calling work in LLMs? as read"></label><a href="../lessons/m10-l1002-how-does-function-calling-work-in-llms.html">10.2 How does Function Calling work in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1003" data-module="10" aria-label="Mark What is an AI Agent Loop? as read"></label><a href="../lessons/m10-l1003-what-is-an-ai-agent-loop.html">10.3 What is an AI Agent Loop?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1004" data-module="10" aria-label="Mark What is a ReAct Agent? How It Thinks and Acts, Explained as read"></label><a href="../lessons/m10-l1004-what-is-a-react-agent-how-it-thinks-and-acts-explained.html">10.4 What is a ReAct Agent? How It Thinks and Acts, Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1005" data-module="10" aria-label="Mark What is a Plan-and-Execute Agent and How Does It Work? as read"></label><a href="../lessons/m10-l1005-what-is-a-plan-and-execute-agent-and-how-does-it-work.html">10.5 What is a Plan-and-Execute Agent and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1006" data-module="10" aria-label="Mark What is a Reflection Agent? How It Generates, Critiques, and Revises as read"></label><a href="../lessons/m10-l1006-what-is-a-reflection-agent-how-it-generates-critiques-and-revises.html">10.6 What is a Reflection Agent? How It Generates, Critiques, and Revises</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1007" data-module="10" aria-label="Mark How Does AI Agent Memory Work? The Memory Stack Explained as read"></label><a href="../lessons/m10-l1007-how-does-ai-agent-memory-work-the-memory-stack-explained.html">10.7 How Does AI Agent Memory Work? The Memory Stack Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1008" data-module="10" aria-label="Mark How does ChatGPT remember you? as read"></label><a href="../lessons/m10-l1008-how-does-chatgpt-remember-you.html">10.8 How does ChatGPT remember you?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1009" data-module="10" aria-label="Mark What is MCP (Model Context Protocol)? as read"></label><a href="../lessons/m10-l1009-what-is-mcp-model-context-protocol.html">10.9 What is MCP (Model Context Protocol)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1010" data-module="10" aria-label="Mark What are Agent Skills? as read"></label><a href="../lessons/m10-l1010-what-are-agent-skills.html">10.10 What are Agent Skills?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1011" data-module="10" aria-label="Mark What is OKF (Open Knowledge Format)? as read"></label><a href="../lessons/m10-l1011-what-is-okf-open-knowledge-format.html">10.11 What is OKF (Open Knowledge Format)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1012" data-module="10" aria-label="Mark What are Multi-Agent Systems and When Should We Use Them? as read"></label><a href="../lessons/m10-l1012-what-are-multi-agent-systems-and-when-should-we-use-them.html">10.12 What are Multi-Agent Systems and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1013" data-module="10" aria-label="Mark What are AI SubAgents? Why We Need Them and How They Work as read"></label><a href="../lessons/m10-l1013-what-are-ai-subagents-why-we-need-them-and-how-they-work.html">10.13 What are AI SubAgents? Why We Need Them and How They Work</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1014" data-module="10" aria-label="Mark How AI Agents Communicate as read"></label><a href="../lessons/m10-l1014-how-ai-agents-communicate.html">10.14 How AI Agents Communicate</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1015" data-module="10" aria-label="Mark What is AI Orchestration? How It Works and the Common Patterns as read"></label><a href="../lessons/m10-l1015-what-is-ai-orchestration-how-it-works-and-the-common-patterns.html">10.15 What is AI Orchestration? How It Works and the Common Patterns</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1016" data-module="10" aria-label="Mark What is Sakana Fugu? The Technical Report Explained as read"></label><a href="../lessons/m10-l1016-what-is-sakana-fugu-the-technical-report-explained.html">10.16 What is Sakana Fugu? The Technical Report Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1017" data-module="10" aria-label="Mark How do Computer-Use Agents work? as read"></label><a href="../lessons/m10-l1017-how-do-computer-use-agents-work.html">10.17 How do Computer-Use Agents work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1018" data-module="10" aria-label="Mark How do Browser Agents work? as read"></label><a href="../lessons/m10-l1018-how-do-browser-agents-work.html">10.18 How do Browser Agents work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="11">
+<summary><span class="nav-module-title">11. Agentic Engineering and Agent Frameworks</span><span class="nav-count" data-nav-count="11">0/8</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1101" data-module="11" aria-label="Mark What is Harness Engineering? as read"></label><a href="../lessons/m11-l1101-what-is-harness-engineering.html">11.1 What is Harness Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1102" data-module="11" aria-label="Mark What is Loop Engineering? as read"></label><a href="../lessons/m11-l1102-what-is-loop-engineering.html">11.2 What is Loop Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1103" data-module="11" aria-label="Mark What is Graph Engineering? as read"></label><a href="../lessons/m11-l1103-what-is-graph-engineering.html">11.3 What is Graph Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1104" data-module="11" aria-label="Mark AI Is Only as Good as Our Definition of Done as read"></label><a href="../lessons/m11-l1104-ai-is-only-as-good-as-our-definition-of-done.html">11.4 AI Is Only as Good as Our Definition of Done</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1105" data-module="11" aria-label="Mark How does LangChain work? as read"></label><a href="../lessons/m11-l1105-how-does-langchain-work.html">11.5 How does LangChain work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1106" data-module="11" aria-label="Mark How does LangGraph work? as read"></label><a href="../lessons/m11-l1106-how-does-langgraph-work.html">11.6 How does LangGraph work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1107" data-module="11" aria-label="Mark How does Claude Code work? as read"></label><a href="../lessons/m11-l1107-how-does-claude-code-work.html">11.7 How does Claude Code work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1108" data-module="11" aria-label="Mark How does Cursor work? as read"></label><a href="../lessons/m11-l1108-how-does-cursor-work.html">11.8 How does Cursor work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="12">
+<summary><span class="nav-module-title">12. LLM Inference Engineering</span><span class="nav-count" data-nav-count="12">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1201" data-module="12" aria-label="Mark LLM Inference Optimization as read"></label><a href="../lessons/m12-l1201-llm-inference-optimization.html">12.1 LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1202" data-module="12" aria-label="Mark Prefill vs Decode: LLM Inference Optimization as read"></label><a href="../lessons/m12-l1202-prefill-vs-decode-llm-inference-optimization.html">12.2 Prefill vs Decode: LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1203" data-module="12" aria-label="Mark What is Prefill-Decode Disaggregation in LLM Inference? as read"></label><a href="../lessons/m12-l1203-what-is-prefill-decode-disaggregation-in-llm-inference.html">12.3 What is Prefill-Decode Disaggregation in LLM Inference?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1204" data-module="12" aria-label="Mark KV Cache in LLMs as read"></label><a href="../lessons/m12-l1204-kv-cache-in-llms.html">12.4 KV Cache in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1205" data-module="12" aria-label="Mark What is KV Cache Compression? as read"></label><a href="../lessons/m12-l1205-what-is-kv-cache-compression.html">12.5 What is KV Cache Compression?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1206" data-module="12" aria-label="Mark What is Paged Attention in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1206-what-is-paged-attention-in-llms-and-how-does-it-work.html">12.6 What is Paged Attention in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1207" data-module="12" aria-label="Mark What is Continuous Batching in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1207-what-is-continuous-batching-in-llms-and-how-does-it-work.html">12.7 What is Continuous Batching in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1208" data-module="12" aria-label="Mark What is Speculative Decoding and How Does It Make LLMs Faster? as read"></label><a href="../lessons/m12-l1208-what-is-speculative-decoding-and-how-does-it-make-llms-faster.html">12.8 What is Speculative Decoding and How Does It Make LLMs Faster?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1209" data-module="12" aria-label="Mark What is N-gram Speculation in LLMs and How Does It Speed Up Generation? as read"></label><a href="../lessons/m12-l1209-what-is-n-gram-speculation-in-llms-and-how-does-it-speed-up-generation.html">12.9 What is N-gram Speculation in LLMs and How Does It Speed Up Generation?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1210" data-module="12" aria-label="Mark What is Medusa? Multi-Head Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1210-what-is-medusa-multi-head-speculative-decoding-explained.html">12.10 What is Medusa? Multi-Head Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1211" data-module="12" aria-label="Mark What is EAGLE? Feature-Level Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1211-what-is-eagle-feature-level-speculative-decoding-explained.html">12.11 What is EAGLE? Feature-Level Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1212" data-module="12" aria-label="Mark How does Model Quantization work? as read"></label><a href="../lessons/m12-l1212-how-does-model-quantization-work.html">12.12 How does Model Quantization work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1213" data-module="12" aria-label="Mark How does GGUF work? as read"></label><a href="../lessons/m12-l1213-how-does-gguf-work.html">12.13 How does GGUF work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1214" data-module="12" aria-label="Mark How does llama.cpp run LLMs on everyday hardware? as read"></label><a href="../lessons/m12-l1214-how-does-llama-cpp-run-llms-on-everyday-hardware.html">12.14 How does llama.cpp run LLMs on everyday hardware?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1215" data-module="12" aria-label="Mark How does Ollama work? as read"></label><a href="../lessons/m12-l1215-how-does-ollama-work.html">12.15 How does Ollama work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1216" data-module="12" aria-label="Mark How does vLLM work? as read"></label><a href="../lessons/m12-l1216-how-does-vllm-work.html">12.16 How does vLLM work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1217" data-module="12" aria-label="Mark How does SGLang work? as read"></label><a href="../lessons/m12-l1217-how-does-sglang-work.html">12.17 How does SGLang work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1218" data-module="12" aria-label="Mark How does TensorRT-LLM work? as read"></label><a href="../lessons/m12-l1218-how-does-tensorrt-llm-work.html">12.18 How does TensorRT-LLM work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="13">
+<summary><span class="nav-module-title">13. Evaluation and Observability</span><span class="nav-count" data-nav-count="13">0/4</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1301" data-module="13" aria-label="Mark What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained as read"></label><a href="../lessons/m13-l1301-what-is-llm-evaluation-metrics-benchmarks-and-methods-explained.html">13.1 What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1302" data-module="13" aria-label="Mark What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs as read"></label><a href="../lessons/m13-l1302-what-is-llm-as-a-judge-how-to-use-an-llm-to-evaluate-llm-outputs.html">13.2 What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1303" data-module="13" aria-label="Mark How to Evaluate AI Agents? Metrics, Methods, and Best Practices as read"></label><a href="../lessons/m13-l1303-how-to-evaluate-ai-agents-metrics-methods-and-best-practices.html">13.3 How to Evaluate AI Agents? Metrics, Methods, and Best Practices</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1304" data-module="13" aria-label="Mark What is AI Agent Observability? Traces, Spans, and Metrics Explained as read"></label><a href="../lessons/m13-l1304-what-is-ai-agent-observability-traces-spans-and-metrics-explained.html">13.4 What is AI Agent Observability? Traces, Spans, and Metrics Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="14">
+<summary><span class="nav-module-title">14. AI Safety and Security</span><span class="nav-count" data-nav-count="14">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1401" data-module="14" aria-label="Mark How do LLM guardrails work? as read"></label><a href="../lessons/m14-l1401-how-do-llm-guardrails-work.html">14.1 How do LLM guardrails work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1402" data-module="14" aria-label="Mark What is Prompt Injection in LLMs and How Do We Defend Against It? as read"></label><a href="../lessons/m14-l1402-what-is-prompt-injection-in-llms-and-how-do-we-defend-against-it.html">14.2 What is Prompt Injection in LLMs and How Do We Defend Against It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1403" data-module="14" aria-label="Mark How Does LLM Watermarking Work? as read"></label><a href="../lessons/m14-l1403-how-does-llm-watermarking-work.html">14.3 How Does LLM Watermarking Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="15">
+<summary><span class="nav-module-title">15. Multimodal AI and Generative Models</span><span class="nav-count" data-nav-count="15">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1501" data-module="15" aria-label="Mark What is Multimodal AI? How It Works and Where It Is Used as read"></label><a href="../lessons/m15-l1501-what-is-multimodal-ai-how-it-works-and-where-it-is-used.html">15.1 What is Multimodal AI? How It Works and Where It Is Used</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1502" data-module="15" aria-label="Mark What is a Vision Transformer (ViT) and How Does It Work? as read"></label><a href="../lessons/m15-l1502-what-is-a-vision-transformer-vit-and-how-does-it-work.html">15.2 What is a Vision Transformer (ViT) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1503" data-module="15" aria-label="Mark How do Image Embeddings work? as read"></label><a href="../lessons/m15-l1503-how-do-image-embeddings-work.html">15.3 How do Image Embeddings work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1504" data-module="15" aria-label="Mark What are Diffusion Models and How Do They Generate Images? as read"></label><a href="../lessons/m15-l1504-what-are-diffusion-models-and-how-do-they-generate-images.html">15.4 What are Diffusion Models and How Do They Generate Images?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1505" data-module="15" aria-label="Mark What are Generative Adversarial Networks (GANs) and How Do They Work? as read"></label><a href="../lessons/m15-l1505-what-are-generative-adversarial-networks-gans-and-how-do-they-work.html">15.5 What are Generative Adversarial Networks (GANs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1506" data-module="15" aria-label="Mark What are Variational Autoencoders (VAEs) and How Do They Work? as read"></label><a href="../lessons/m15-l1506-what-are-variational-autoencoders-vaes-and-how-do-they-work.html">15.6 What are Variational Autoencoders (VAEs) and How Do They Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="16">
+<summary><span class="nav-module-title">16. AI Infrastructure, Deployment, and System Design</span><span class="nav-count" data-nav-count="16">0/17</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1601" data-module="16" aria-label="Mark How does a GPU work for Deep Learning? as read"></label><a href="../lessons/m16-l1601-how-does-a-gpu-work-for-deep-learning.html">16.1 How does a GPU work for Deep Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1602" data-module="16" aria-label="Mark How do CUDA Kernels work? as read"></label><a href="../lessons/m16-l1602-how-do-cuda-kernels-work.html">16.2 How do CUDA Kernels work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1603" data-module="16" aria-label="Mark How does a Google TPU work? as read"></label><a href="../lessons/m16-l1603-how-does-a-google-tpu-work.html">16.3 How does a Google TPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1604" data-module="16" aria-label="Mark How does an LPU work? as read"></label><a href="../lessons/m16-l1604-how-does-an-lpu-work.html">16.4 How does an LPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1605" data-module="16" aria-label="Mark Cloud vs On-device Model Deployment as read"></label><a href="../lessons/m16-l1605-cloud-vs-on-device-model-deployment.html">16.5 Cloud vs On-device Model Deployment</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1606" data-module="16" aria-label="Mark Android TensorFlow Lite Machine Learning Example as read"></label><a href="../lessons/m16-l1606-android-tensorflow-lite-machine-learning-example.html">16.6 Android TensorFlow Lite Machine Learning Example</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1607" data-module="16" aria-label="Mark What is LLM Routing? How to Send Each Query to the Right LLM as read"></label><a href="../lessons/m16-l1607-what-is-llm-routing-how-to-send-each-query-to-the-right-llm.html">16.7 What is LLM Routing? How to Send Each Query to the Right LLM</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1608" data-module="16" aria-label="Mark Design a Real-Time Voice AI Agent as read"></label><a href="../lessons/m16-l1608-design-a-real-time-voice-ai-agent.html">16.8 Design a Real-Time Voice AI Agent</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1609" data-module="16" aria-label="Mark What is turn-taking in a voice AI agent? as read"></label><a href="../lessons/m16-l1609-what-is-turn-taking-in-a-voice-ai-agent.html">16.9 What is turn-taking in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1610" data-module="16" aria-label="Mark What is barge-in in a voice AI agent? as read"></label><a href="../lessons/m16-l1610-what-is-barge-in-in-a-voice-ai-agent.html">16.10 What is barge-in in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1611" data-module="16" aria-label="Mark Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture? as read"></label><a href="../lessons/m16-l1611-cascaded-vs-speech-to-speech-how-to-choose-the-right-voice-agent-architecture.html">16.11 Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1612" data-module="16" aria-label="Mark How do you build a latency budget for a voice AI agent? as read"></label><a href="../lessons/m16-l1612-how-do-you-build-a-latency-budget-for-a-voice-ai-agent.html">16.12 How do you build a latency budget for a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1613" data-module="16" aria-label="Mark How does the voice-to-voice latency of a voice agent get measured? as read"></label><a href="../lessons/m16-l1613-how-does-the-voice-to-voice-latency-of-a-voice-agent-get-measured.html">16.13 How does the voice-to-voice latency of a voice agent get measured?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1614" data-module="16" aria-label="Mark Why does the time-to-first-audio matter more than total response time? as read"></label><a href="../lessons/m16-l1614-why-does-the-time-to-first-audio-matter-more-than-total-response-time.html">16.14 Why does the time-to-first-audio matter more than total response time?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1615" data-module="16" aria-label="Mark What is System Design? as read"></label><a href="../lessons/m16-l1615-what-is-system-design.html">16.15 What is System Design?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1616" data-module="16" aria-label="Mark HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events as read"></label><a href="../lessons/m16-l1616-http-request-vs-http-long-polling-vs-websocket-vs-server-sent-events.html">16.16 HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1617" data-module="16" aria-label="Mark How do Voice And Video Call Work? as read"></label><a href="../lessons/m16-l1617-how-do-voice-and-video-call-work.html">16.17 How do Voice And Video Call Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="17">
+<summary><span class="nav-module-title">17. Frontier Ideas in AI</span><span class="nav-count" data-nav-count="17">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1701" data-module="17" aria-label="Mark What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work? as read"></label><a href="../lessons/m17-l1701-what-is-joint-embedding-predictive-architecture-jepa-and-how-does-it-work.html">17.1 What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1702" data-module="17" aria-label="Mark How do World Models work? as read"></label><a href="../lessons/m17-l1702-how-do-world-models-work.html">17.2 How do World Models work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1703" data-module="17" aria-label="Mark What is Recursive Self-Improvement (RSI)? as read"></label><a href="../lessons/m17-l1703-what-is-recursive-self-improvement-rsi.html">17.3 What is Recursive Self-Improvement (RSI)?</a></li>
+</ul>
+</details>
+<a class="nav-module-single" href="../modules/m18.html">18. Prepare for AI Engineering Interviews</a>
+</nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="content-wrap">
+    <main class="content" id="content">
+      
+<article>
+  <header class="lesson-header">
+    <p class="breadcrumb">
+      <a href="../index.html">Course</a> /
+      <a href="../modules/m05.html">Module 5</a> /
+      Lesson 5.1
+    </p>
+    <h1>Evolution of LLM Architecture</h1>
+    <div class="lesson-meta">
+      <span>Lesson 5.1 · ~30 min · Published September 21, 2026</span>
+      <a href="https://outcomeschool.com/blog/evolution-of-llm-architecture" target="_blank" rel="noopener noreferrer">Original article</a>
+    </div>
+    <div class="lesson-tags"><span class="tag">llm</span> <span class="tag">ai</span> <span class="tag">machine-learning</span></div>
+    <label class="read-toggle">
+      <input type="checkbox" data-lesson="m05-l0501" data-module="5">
+      Mark as read
+    </label>
+    
+  </header>
+  <details class="toc">
+<summary>On this page</summary>
+<ul>
+<li><a href="#what-is-an-llm-architecture">What is an LLM Architecture?</a>
+</li>
+<li><a href="#stage-1-reading-one-word-at-a-time-rnn">Stage 1: Reading one word at a time (RNN)</a>
+</li>
+<li><a href="#stage-2-attention">Stage 2: Attention</a>
+<ul>
+<li><a href="#how-attention-decides-where-to-focus">How attention decides where to focus</a></li>
+<li><a href="#query-key-and-value">Query, Key, and Value</a></li>
+<li><a href="#self-attention">Self-Attention</a></li>
+<li><a href="#multi-head-attention">Multi-Head Attention</a></li>
+</ul>
+</li>
+<li><a href="#stage-3-the-transformer">Stage 3: The Transformer</a>
+<ul>
+<li><a href="#what-is-inside-a-transformer">What is inside a Transformer</a></li>
+<li><a href="#the-word-order-problem">The word order problem</a></li>
+<li><a href="#encoder-decoder-and-decoder-only">Encoder, Decoder, and Decoder-only</a></li>
+<li><a href="#why-the-transformer-won">Why the Transformer won</a></li>
+</ul>
+</li>
+<li><a href="#stage-4-scaling">Stage 4: Scaling</a>
+<ul>
+<li><a href="#the-surprising-discovery">The surprising discovery</a></li>
+<li><a href="#balancing-data-and-size">Balancing data and size</a></li>
+<li><a href="#the-cost-problem">The cost problem</a></li>
+</ul>
+</li>
+<li><a href="#stage-5-mixture-of-experts-moe">Stage 5: Mixture of Experts (MoE)</a>
+<ul>
+<li><a href="#how-moe-works-inside-the-transformer">How MoE works inside the Transformer</a></li>
+<li><a href="#total-parameters-vs-active-parameters">Total parameters vs active parameters</a></li>
+<li><a href="#what-each-expert-learns">What each expert learns</a></li>
+<li><a href="#the-problems-with-moe">The problems with MoE</a></li>
+</ul>
+</li>
+<li><a href="#stage-6-new-directions">Stage 6: New Directions</a>
+<ul>
+<li><a href="#the-long-context-problem">The long context problem</a></li>
+<li><a href="#a-new-kind-of-memory-state-space-models">A new kind of memory: State Space Models</a></li>
+<li><a href="#one-model-for-text-images-and-audio">One model for text, images, and audio</a></li>
+<li><a href="#thinking-longer-instead-of-growing-bigger">Thinking longer instead of growing bigger</a></li>
+</ul>
+</li>
+<li><a href="#summary-of-the-evolution">Summary of the evolution</a>
+</li>
+<li><a href="#frequently-asked-questions">Frequently Asked Questions</a>
+<ul>
+<li><a href="#does-a-mixture-of-experts-model-use-less-memory-than-a-dense-model">Does a Mixture of Experts model use less memory than a dense model?</a></li>
+<li><a href="#is-mixtral-8x7b-a-56-billion-parameter-model">Is Mixtral 8x7B a 56 billion parameter model?</a></li>
+<li><a href="#is-a-bigger-model-always-better-than-a-smaller-one">Is a bigger model always better than a smaller one?</a></li>
+<li><a href="#does-a-transformer-write-the-whole-answer-in-parallel">Does a Transformer write the whole answer in parallel?</a></li>
+<li><a href="#is-mamba-just-an-rnn">Is Mamba just an RNN?</a></li>
+</ul>
+</li>
+</ul>
+</details>
+  <p><img alt="Evolution of LLM Architecture" decoding="async" loading="lazy" src="../assets/images/05-05-01-evolution-of-llm-architecture/evolution-of-llm-architecture.png"/></p>
+<p>LLM architecture evolved in stages: from RNNs that read one word at a time, to Attention, to the Transformer, to making models bigger, and then to Mixture of Experts (MoE) that makes big models cheaper to run.</p>
+<p>In this blog, we will learn about the Evolution of LLM Architecture, the step-by-step journey of how the design of large language models changed from simple word-by-word readers to the massive AI models we use today. We will also see why the early models kept forgetting, how attention solved that problem, how the Transformer removed the slow parts, how making models bigger made them smarter, how Mixture of Experts made big models cheaper to run, what problems still remain, and what is coming next.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is an LLM Architecture?</li>
+<li>Stage 1: Reading one word at a time (RNN)</li>
+<li>Stage 2: Attention</li>
+<li>Stage 3: The Transformer</li>
+<li>Stage 4: Scaling</li>
+<li>Stage 5: Mixture of Experts (MoE)</li>
+<li>Stage 6: New Directions</li>
+<li>Summary of the evolution</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="what-is-an-llm-architecture">What is an LLM Architecture? <a aria-hidden="true" class="anchor" href="#what-is-an-llm-architecture">#</a></h2>
+<p><strong>An LLM Architecture is the blueprint of a large language model. It describes how the model reads text, how it remembers what it has read, and how it produces the next word.</strong></p>
+<p>Let's break the name.</p>
+<p><strong>LLM = Large + Language + Model</strong></p>
+<ul>
+<li><strong>Language</strong>: it works with text, the words we read and write every day.</li>
+<li><strong>Model</strong>: it is a computer program that has learned patterns from a huge amount of text.</li>
+<li><strong>Large</strong>: it has learned from a very large amount of text and has a very large number of internal settings.</li>
+</ul>
+<p><strong>Architecture</strong> is simply the design. Let's say we are building a house. The architecture is the plan that tells us where the rooms go, how big the doors are, and how the water flows. The bricks and cement are the same for every house, but the plan decides how good the house is.</p>
+<p>Similarly, in an LLM, the numbers and the math are similar across models, but the architecture decides how the model reads, remembers, and answers.</p>
+<p>Every big step in LLM architecture happened because the previous design had a problem.</p>
+<ul>
+<li>The first models forgot what they read.</li>
+<li>Then attention solved forgetting, but the models were still slow.</li>
+<li>Then the Transformer made them fast, but nobody knew how big to make them.</li>
+<li>Then scaling made them smart, but too costly to run.</li>
+<li>Then Mixture of Experts made them cheaper.</li>
+<li>And the story is still going on.</li>
+</ul>
+<p>So, the best way to understand today's LLM is to walk through this timeline, one problem and one solution at a time.</p>
+<p>Do not worry, we will learn about each of them in detail.</p>
+<h2 id="stage-1-reading-one-word-at-a-time-rnn">Stage 1: Reading one word at a time (RNN) <a aria-hidden="true" class="anchor" href="#stage-1-reading-one-word-at-a-time-rnn">#</a></h2>
+<p>Before Transformers, the most popular design for reading text was the <strong><a href="https://outcomeschool.com/blog/recurrent-neural-network" rel="noopener noreferrer" target="_blank">Recurrent Neural Network (RNN)</a></strong>.</p>
+<p>A neural network is a computer program made of a very large number of connected numbers that learns patterns from examples. Showing it a lot of examples so that it learns from them is called <strong>training</strong>. Do not worry about the internal details. For this blog, we only need to know how each design reads text.</p>
+<p><strong>Note:</strong> A model does not read whole words. It first cuts the text into small pieces called <strong><a href="https://outcomeschool.com/blog/tokenization-in-llms" rel="noopener noreferrer" target="_blank">tokens</a></strong>. A token can be a full word, a part of a word, or a punctuation mark. For the sake of understanding, we will say word everywhere in this blog, but wherever we say word, the model is really working with a token.</p>
+<p>Suppose we give an RNN the sentence: "The cat sat on the mat."</p>
+<p>An RNN reads it one word at a time, from left to right. After reading each word, it updates a single small memory and then moves to the next word. The memory is like a tiny note. After reading "The", the note has something about "The". After "cat", the note is rewritten to remember "The cat". And so on, till the end.</p>
+<p>At the end, the whole sentence is squeezed into that one small note.</p>
+<p>Let's understand this with a picture:</p>
+<pre><code class="language-text"> Word:     The       cat       sat       on        the       mat
+            |         |         |         |         |         |
+            v         v         v         v         v         v
+ Note:   [note] -&gt; [note] -&gt; [note] -&gt; [note] -&gt; [note] -&gt; [note]
+                                                              |
+                                                              v
+                                                   the whole sentence
+                                                   lives in this one note
+</code></pre>
+<p>Here, there is only one note. The arrow from one note to the next shows that the same note is rewritten after every word. The only thing carried forward from the past is this note, nothing else.</p>
+<p>This worked for short sentences. But, here is the catch.</p>
+<p><strong>Problem 1: It forgets.</strong></p>
+<p>Let's say the text is very long, like a full paragraph. By the time the model reaches the end, the note has been rewritten so many times that the early words are almost gone. If the paragraph starts with "Riya went to the market" and ends with "and then she bought", the model struggles to remember that "she" means Riya.</p>
+<pre><code class="language-text"> Riya  went  to  the  market  and  then  she  bought
+  |                                       |
+  |   the note is rewritten again and     |
+  |   again between these two words       |
+  v                                       v
+ "Riya" is written into       by now "Riya" has mostly
+ the note at the very start   faded out of the note
+</code></pre>
+<p>Here, we can see that "Riya" entered the note at the start, but every word after it overwrote the note a little more. By the time the model reaches "she", very less of "Riya" is left.</p>
+<p><strong>Problem 2: It is slow to train.</strong></p>
+<p>The model must read word 1 before word 2, and word 2 before word 3. Means, it cannot read all the words at the same time. So, even if we have a very powerful computer that can do thousands of things in parallel, the RNN uses it one step at a time.</p>
+<p>Improved versions of RNN, called LSTM and GRU, reduced the forgetting a lot, but they did not remove it, and the slow one-by-one reading remained.</p>
+<p>The issue with this approach is forgetting and slow training. Let's see how the next approach solve this issue.</p>
+<h2 id="stage-2-attention">Stage 2: Attention <a aria-hidden="true" class="anchor" href="#stage-2-attention">#</a></h2>
+<p>Here comes the <strong>Attention</strong> into the picture.</p>
+<p><strong>Attention is a mechanism that lets the model look back at every word in the input and decide how much to focus on each one while processing the current word.</strong></p>
+<p>In simple words, instead of keeping one tiny note, we keep the whole page open in front of us. When we need to understand a word, we look at whichever earlier words matter for it.</p>
+<p>Let's see the difference with a picture:</p>
+<pre><code class="language-text"> RNN:
+   Riya -&gt; went -&gt; to -&gt; the -&gt; market -&gt; and -&gt; then -&gt; she
+   (one small note passed along the chain, rewritten at each step)
+ Attention:
+   Riya   went   to   the   market   and   then   she
+    ^      ^      ^    ^      ^       ^      ^     |
+    |      |      |    |      |       |      |     |
+    +------+------+----+------+-------+------+-----+
+             "she" looks directly at every earlier word
+</code></pre>
+<p>Here, in the RNN, "she" can only see the note that reached it through the chain. In attention, "she" has a direct line to every earlier word. Nothing is lost on the way.</p>
+<p><strong>Attention = Look at every word + Decide how much each one matters + Mix them accordingly</strong></p>
+<p>Let's take the example again: "Riya went to the market and then she bought mangoes."</p>
+<p>When the model is processing the word "she", attention lets it look at all the words before it and ask: which words help me understand "she"? The answer is "Riya". So, the model gives high attention to "Riya" and low attention to words like "to" and "the".</p>
+<h3 id="how-attention-decides-where-to-focus">How attention decides where to focus <a aria-hidden="true" class="anchor" href="#how-attention-decides-where-to-focus">#</a></h3>
+<p>The best way to learn this is by taking an example.</p>
+<p>Suppose the model is processing "she". For the sake of understanding, let's look at only 4 of the earlier words. Attention gives each word a score that tells how important it is. Then it converts those scores into weights that add up to 1.</p>
+<ul>
+<li>Riya: 0.70</li>
+<li>went: 0.10</li>
+<li>market: 0.15</li>
+<li>then: 0.05</li>
+</ul>
+<p>Here, we can see that "Riya" gets 70 percent of the focus. The model then builds its understanding of "she" mostly from "Riya", a little from "market", and very less from the others.</p>
+<p>Let's see how the model builds "she" from these weights:</p>
+<pre><code class="language-text">   0.70 x Riya    ----+
+   0.10 x went    ----+
+   0.15 x market  ----+----&gt; understanding of "she"
+   0.05 x then    ----+
+   ----
+   1.00  (the weights add up to 1)
+</code></pre>
+<p>Here, each earlier word is multiplied by its weight and then all of them are added together. Since "Riya" has the biggest weight, the result is mostly "Riya".</p>
+<p>That is all attention is. <strong>A weighted mix of the other words, where the weights say how much each word matters.</strong></p>
+<p>This simple idea is the heart of every modern LLM.</p>
+<h3 id="query-key-and-value">Query, Key, and Value <a aria-hidden="true" class="anchor" href="#query-key-and-value">#</a></h3>
+<p>Inside attention, every word plays three roles. Let's take an analogy of a library.</p>
+<ul>
+<li><strong>Query</strong>: the question we are asking. When we are at "she", the query is "who is this person?"</li>
+<li><strong>Key</strong>: the label on every book. Each earlier word carries a label that says what it is about. The word "Riya" carries a label like "a person's name".</li>
+<li><strong>Value</strong>: the content inside the book. The actual information that the word carries.</li>
+</ul>
+<p>The model compares the query with every key. The keys that match well get high scores. Then it collects the values, weighted by those scores. That gives us the weighted mix we saw above.</p>
+<p>Here is how the flow looks:</p>
+<pre><code class="language-text"> Query from "she": who is this person?
+          |
+          v
+ Compare the query with every key:
+   Key of "Riya"   : a person's name  -&gt; strong match
+   Key of "went"   : an action        -&gt; weak match
+   Key of "market" : a place          -&gt; weak match
+          |
+          v
+ Collect the values, weighted by the match
+          |
+          v
+ Understanding of "she", built mostly from the value of "Riya"
+</code></pre>
+<p>Here, the query is the question, the keys decide which words answer it well, and the values are the information we finally collect. The key only helps in matching. The actual content comes from the value.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/math-behind-attention-qkv" rel="noopener noreferrer" target="_blank">the math behind Q, K, and V</a> that explains this step by step with real numbers.</p>
+<h3 id="self-attention">Self-Attention <a aria-hidden="true" class="anchor" href="#self-attention">#</a></h3>
+<p>When the words of a sentence pay attention to other words of the same sentence, we call it as <strong><a href="https://outcomeschool.com/blog/self-attention-in-transformers" rel="noopener noreferrer" target="_blank">Self-Attention</a></strong>. The sentence is looking at itself. This is the form of attention used inside LLMs.</p>
+<h3 id="multi-head-attention">Multi-Head Attention <a aria-hidden="true" class="anchor" href="#multi-head-attention">#</a></h3>
+<p>One attention can focus on one kind of relationship at a time. But a sentence has many relationships. "she" relates to "Riya" by meaning, "bought" relates to "mangoes" by grammar, and so on.</p>
+<p>So, instead of one attention, we run several attentions side by side. Each one is called a <strong>head</strong>. One head learns to track names, another learns to track grammar, another learns to track position, and etc. Then we combine what all the heads found.</p>
+<p>This is called <strong><a href="https://outcomeschool.com/blog/multi-head-attention-in-transformers" rel="noopener noreferrer" target="_blank">Multi-Head Attention</a></strong>. It is like having a team of readers where each reader is looking for a different thing in the same sentence.</p>
+<pre><code class="language-text">                   The sentence
+                        |
+         +--------------+--------------+
+         |              |              |
+         v              v              v
+    +----------+   +----------+   +----------+
+    |  Head 1  |   |  Head 2  |   |  Head 3  |
+    |  tracks  |   |  tracks  |   |  tracks  |
+    |  names   |   |  grammar |   | position |
+    +----------+   +----------+   +----------+
+         |              |              |
+         +--------------+--------------+
+                        |
+                        v
+               Combine all the heads
+</code></pre>
+<p>Here, all the heads read the same sentence at the same time, but each head is looking for a different kind of relationship. At the end, we combine what all of them found into one result.</p>
+<p>Attention solved the forgetting problem, because now no word in the input is ever squeezed out of memory. Every word can be looked at directly.</p>
+<p>But, in the beginning, attention was added on top of RNNs. The RNN still read the input one word at a time, and attention only helped the model look back at what the RNN had already read. So, the one-by-one slow reading was still there.</p>
+<p>The issue with this approach is that the model still read slowly, one word at a time. Let's see how the next approach solve this issue.</p>
+<h2 id="stage-3-the-transformer">Stage 3: The Transformer <a aria-hidden="true" class="anchor" href="#stage-3-the-transformer">#</a></h2>
+<p>In 2017, a research paper with the title "Attention Is All You Need" asked a bold question: if attention is doing the real work, why keep the RNN at all?</p>
+<p>So, they removed the RNN completely and built a model only from attention and a few simple pieces of math. That model is called the <strong><a href="https://outcomeschool.com/blog/decoding-transformer-architecture" rel="noopener noreferrer" target="_blank">Transformer</a></strong>.</p>
+<p><strong>A Transformer is a model that reads all the words of the input at the same time and uses attention to understand how they relate to each other.</strong></p>
+<h3 id="what-is-inside-a-transformer">What is inside a Transformer <a aria-hidden="true" class="anchor" href="#what-is-inside-a-transformer">#</a></h3>
+<p>A Transformer is made of blocks stacked on top of each other. Each block has two main parts:</p>
+<ul>
+<li><strong>Multi-Head Attention</strong>: the words look at each other and gather information. This is the looking step.</li>
+<li><strong><a href="https://outcomeschool.com/blog/feed-forward-networks-in-llms" rel="noopener noreferrer" target="_blank">Feed-Forward Network</a></strong>: a simple layer of math that each word passes through on its own to process what it gathered. This is the thinking step.</li>
+</ul>
+<p>We stack many such blocks. Early blocks learn simple things like grammar. Deeper blocks learn bigger things like meaning and reasoning. A small model has around 12 blocks. A large model has 100 or more.</p>
+<p>Here is how the blocks are stacked:</p>
+<pre><code class="language-text">             Input words
+                  |
+                  v
+   +-----------------------------+
+   |  Block 1                    |
+   |   Multi-Head Attention      |  &lt;- looking step
+   |   Feed-Forward Network      |  &lt;- thinking step
+   +-----------------------------+
+                  |
+                  v
+   +-----------------------------+
+   |  Block 2                    |
+   |   Multi-Head Attention      |
+   |   Feed-Forward Network      |
+   +-----------------------------+
+                  |
+                  v
+                . . .
+                  |
+                  v
+   +-----------------------------+
+   |  Block N                    |
+   |   Multi-Head Attention      |
+   |   Feed-Forward Network      |
+   +-----------------------------+
+                  |
+                  v
+        Predict the next word
+</code></pre>
+<p>Here, the words enter at the top, pass through every block one after another, and the last block predicts the next word. Every block does the same two steps: look, then think.</p>
+<h3 id="the-word-order-problem">The word order problem <a aria-hidden="true" class="anchor" href="#the-word-order-problem">#</a></h3>
+<p>There is one interesting problem. Since the Transformer reads all the words at once, it does not naturally know which word came first. "Dog bites man" and "Man bites dog" would look the same to it.</p>
+<p>So, here comes the <strong>Positional Encoding</strong> to the rescue. Before the words enter the model, we add a small signal to each word that says its position: word 1, word 2, word 3, and so on. Now, the model knows the order.</p>
+<p>The original Transformer used a fixed signal for this. Modern LLMs use newer ways to do the same job, like <strong><a href="https://outcomeschool.com/blog/math-behind-rope-rotary-position-embedding" rel="noopener noreferrer" target="_blank">Rotary Position Embedding (RoPE)</a></strong>, which is used in LLaMA and many other models. The method changed, but the idea is the same: tell the model where each word sits.</p>
+<h3 id="encoder-decoder-and-decoder-only">Encoder, Decoder, and Decoder-only <a aria-hidden="true" class="anchor" href="#encoder-decoder-and-decoder-only">#</a></h3>
+<p>The original Transformer had two halves.</p>
+<ul>
+<li><strong>Encoder</strong>: reads the input and understands it.</li>
+<li><strong>Decoder</strong>: writes the output one word at a time, looking at what the encoder understood and at what it has already written.</li>
+</ul>
+<p>This was built for translation. Read English, write French.</p>
+<p>Later, researchers found that for generating text, we only need the decoder half. Give it some words, and it predicts the next word. Then add that word to the input, and predict the next. This is the <strong><a href="https://outcomeschool.com/blog/encoder-vs-decoder-in-transformers" rel="noopener noreferrer" target="_blank">Decoder-only Transformer</a></strong>, and it is the design used by GPT and almost every chat model today.</p>
+<pre><code class="language-text"> Encoder-Decoder (built for translation):
+   "The cat sat"  ---&gt;  [ Encoder ]  ---&gt;  [ Decoder ]  ---&gt;  "Le chat s'est assis"
+ Decoder-only (used by chat models):
+   "The capital of India is"      ---&gt;  [ Decoder ]  ---&gt;  "New"
+   "The capital of India is New"  ---&gt;  [ Decoder ]  ---&gt;  "Delhi"
+</code></pre>
+<p>Here, the decoder-only model has a single stream. The word it produces is added back to the input, and it predicts again. This loop continues till the answer is complete.</p>
+<p>This loop is called autoregressive generation, and we have a detailed blog on <a href="https://outcomeschool.com/blog/autoregressive-models" rel="noopener noreferrer" target="_blank">Autoregressive Models</a> that explains how it works.</p>
+<h3 id="why-the-transformer-won">Why the Transformer won <a aria-hidden="true" class="anchor" href="#why-the-transformer-won">#</a></h3>
+<p>The Transformer processes all the words in parallel. This matched perfectly with <a href="https://outcomeschool.com/blog/how-does-a-gpu-work-for-deep-learning" rel="noopener noreferrer" target="_blank">GPUs</a>, which are chips built to do thousands of small calculations at the same time. Training that took weeks on RNNs took days on Transformers.</p>
+<pre><code class="language-text"> RNN (one word per step):
+   Step 1    Step 2    Step 3    Step 4    Step 5    Step 6
+    The   -&gt;  cat   -&gt;  sat   -&gt;  on    -&gt;  the   -&gt;  mat
+ Transformer (all words in one step):
+   Step 1
+    The     cat     sat     on      the     mat
+     |       |       |       |       |       |
+     +-------+-------+-------+-------+-------+
+                  all processed together
+</code></pre>
+<p>Here, the RNN needs 6 steps for 6 words, and each step must wait for the previous one to finish. The Transformer handles all 6 words in a single step, so all the GPU cores stay busy at the same time.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/how-do-rnns-and-transformers-differ" rel="noopener noreferrer" target="_blank">how RNNs and Transformers differ</a> that covers this comparison end to end.</p>
+<p><strong>Note:</strong> This parallel reading applies to the input and to training. While writing the answer, the model still produces one word at a time, as we saw in the decoder-only loop above. Reading is parallel, writing is one by one. Keep this in mind, it will matter when we reach the KV Cache later.</p>
+<p>And that speed opened the door to the next stage. If training is fast, why not train a bigger model on more data?</p>
+<p>This was all about the Transformer. It solved slow training. Now, the next big question is: how big do we make it?</p>
+<h2 id="stage-4-scaling">Stage 4: Scaling <a aria-hidden="true" class="anchor" href="#stage-4-scaling">#</a></h2>
+<p><strong>Scaling means making the model bigger in three ways: more parameters, more training data, and more compute.</strong></p>
+<p>Let's understand each.</p>
+<ul>
+<li><strong>Parameters</strong>: the internal settings of the model. Let's say a model is a giant board with billions of tiny knobs. Training turns each knob a little to make the predictions better. The number of knobs is the number of parameters.</li>
+<li><strong>Data</strong>: the text the model learns from. Books, websites, articles, code, and etc.</li>
+<li><strong>Compute</strong>: the total amount of calculation done during training. More compute means more GPUs running for more time.</li>
+</ul>
+<h3 id="the-surprising-discovery">The surprising discovery <a aria-hidden="true" class="anchor" href="#the-surprising-discovery">#</a></h3>
+<p>Around 2020, researchers noticed something surprising. When they increased parameters, data, and compute together, the model got better in a smooth and predictable way. There was no sudden wall. Bigger kept getting better.</p>
+<p>These are called <strong>Scaling Laws</strong>. They gave a formula that said: if we spend this much compute, the model will reach roughly this much quality.</p>
+<p>Hence, models grew very fast.</p>
+<ul>
+<li>GPT-2 had about 1.5 billion parameters.</li>
+<li>GPT-3 had about 175 billion parameters, more than 100 times bigger, just one year later.</li>
+</ul>
+<p>And GPT-3 did things that GPT-2 could not. It could write essays, answer questions, and even write code, that too without being trained for those specific tasks. These new abilities that appear only at a large size are called <strong>emergent abilities</strong>.</p>
+<p><strong>Note:</strong> Some researchers argue that these abilities do not appear suddenly. They grow smoothly with size and only look sudden because of how we measure them. The term is still widely used, so it is good to know it.</p>
+<h3 id="balancing-data-and-size">Balancing data and size <a aria-hidden="true" class="anchor" href="#balancing-data-and-size">#</a></h3>
+<p>Then came a correction. In 2022, a research paper called Chinchilla found that many big models were undertrained. They had too many parameters and too little data.</p>
+<p>The lesson was simple: <strong>for the best result, grow the data along with the parameters.</strong> A smaller model trained on much more data can beat a bigger model trained on less data. This is why later models like LLaMA were trained on trillions of tokens.</p>
+<h3 id="the-cost-problem">The cost problem <a aria-hidden="true" class="anchor" href="#the-cost-problem">#</a></h3>
+<p>Scaling worked, but it created a new problem.</p>
+<p>In a normal Transformer, every parameter is used for every single word. If a model has 175 billion parameters and we ask it a question of 100 words, all 175 billion parameters do work for each of those 100 words. This is called a <strong>dense</strong> model, because everything is active all the time.</p>
+<pre><code class="language-text"> Dense model:
+   word 1    ---&gt;  all 175 billion parameters work  ---&gt;  output
+   word 2    ---&gt;  all 175 billion parameters work  ---&gt;  output
+   word 3    ---&gt;  all 175 billion parameters work  ---&gt;  output
+    ...
+   word 100  ---&gt;  all 175 billion parameters work  ---&gt;  output
+</code></pre>
+<p>Here, whether the word is a simple "the" or a difficult technical term, the full model works on it. There is no way to do less work for an easy word.</p>
+<p>So, doubling the size of the model doubles the cost of every answer. Training became very costly, and running the model for millions of users became even more costly.</p>
+<p>The issue with this approach is that every increase in size brings the same increase in running cost. Let's see how the next approach solve this issue.</p>
+<h2 id="stage-5-mixture-of-experts-moe">Stage 5: Mixture of Experts (MoE) <a aria-hidden="true" class="anchor" href="#stage-5-mixture-of-experts-moe">#</a></h2>
+<p>Here comes the <strong><a href="https://outcomeschool.com/blog/mixture-of-experts" rel="noopener noreferrer" target="_blank">Mixture of Experts (MoE)</a></strong> to the rescue.</p>
+<p><strong>Mixture of Experts is an architecture where the model is divided into many smaller parts called experts, and for each word, only a few experts are used.</strong></p>
+<p>Let's decompose it.</p>
+<p><strong>Mixture of Experts = Many Experts + A Router that picks a few of them</strong></p>
+<p>Let's say we go to a big hospital. The hospital has a heart specialist, a bone specialist, a skin specialist, and an eye specialist. When we walk in, the receptionist listens to our problem and sends us to one or two relevant doctors. All four doctors do not examine every patient.</p>
+<ul>
+<li>The doctors are the <strong>experts</strong>.</li>
+<li>The receptionist is the <strong>router</strong>, also called the gate.</li>
+<li>Sending each patient to only a few doctors is called <strong>sparse activation</strong>.</li>
+</ul>
+<h3 id="how-moe-works-inside-the-transformer">How MoE works inside the Transformer <a aria-hidden="true" class="anchor" href="#how-moe-works-inside-the-transformer">#</a></h3>
+<p>Remember the Feed-Forward Network inside every Transformer block, the thinking step after attention? In an MoE model, that single feed-forward network is replaced by many feed-forward networks, the experts. A small router sits in front of them.</p>
+<p>For every word:</p>
+<ul>
+<li>The router looks at the word and gives a score to each expert.</li>
+<li>It picks the top few experts, usually the top 1 or top 2.</li>
+<li>Only those experts process the word.</li>
+<li>Their outputs are combined and passed forward.</li>
+</ul>
+<p>The attention part stays the same. Only the thinking step becomes a team of specialists.</p>
+<p>Let's understand this with a picture:</p>
+<pre><code class="language-text">             Word comes in
+                    |
+                    v
+ +--------------------------------------+
+ |         Multi-Head Attention         |   same as before
+ +--------------------------------------+
+                    |
+                    v
+ +--------------------------------------+
+ |                Router                |   gives a score to each expert
+ +--------------------------------------+
+   |    |    |    |    |    |    |    |
+  0.4  0.1  0.3  0.0  0.1  0.0  0.1  0.0     scores
+   |         |
+   v         v
+ [E1] [E2] [E3] [E4] [E5] [E6] [E7] [E8]     8 experts
+  on   off  on   off  off  off  off  off     only the top 2 work
+   |         |
+   +----+----+
+        |
+        v
+ Combine the two outputs and pass forward
+</code></pre>
+<p>Here, the router gave the highest scores to Expert 1 and Expert 3, so only those two do the work for this word. The other six sit idle for this word. For the next word, the router can pick a different pair.</p>
+<h3 id="total-parameters-vs-active-parameters">Total parameters vs active parameters <a aria-hidden="true" class="anchor" href="#total-parameters-vs-active-parameters">#</a></h3>
+<p>This is the key idea, so let's take numbers.</p>
+<p>Suppose we start with a model of about 7 billion parameters and, in each block, replace its single Feed-Forward Network (the thinking step) with 8 expert Feed-Forward Networks. This is the basic design of Mixtral 8x7B. The name means 8 experts built on the architecture of a 7 billion base model. The model does not become 8 x 7 = 56 billion, because the attention part and the other shared pieces are not copied. Only the Feed-Forward Network is copied 8 times. Together with the shared parts, the model has about 47 billion parameters in total.</p>
+<p><strong>Note:</strong> The numbers here are rounded for the sake of understanding.</p>
+<p>Now, for each word, the router picks only 2 of the 8 experts. So, the work done for each word uses about 13 billion parameters.</p>
+<ul>
+<li><strong>Total parameters</strong>: about 47 billion. This is the knowledge the model holds.</li>
+<li><strong>Active parameters</strong>: about 13 billion. This is the work done per word.</li>
+</ul>
+<pre><code class="language-text"> Total parameters (what the model knows):
+   [ shared parts ] [E1] [E2] [E3] [E4] [E5] [E6] [E7] [E8]   = about 47 billion
+ Active parameters (what works for one word):
+   [ shared parts ] [E1]      [E3]                            = about 13 billion
+</code></pre>
+<p>Here, all 8 experts live inside the model, but for any one word, only 2 of them wake up along with the shared parts.</p>
+<p>Means, the model has the knowledge of a 47 billion model but a running cost close to that of a 13 billion model. It is not exactly equal, because the router and the shared parts also do some work, but it is far cheaper than running all 47 billion. That's the beauty of MoE.</p>
+<p>This way we can use MoE to solve the interesting problem of cost without giving up knowledge.</p>
+<p>Bigger models like DeepSeek-V3 push this much further. It has about 671 billion total parameters, but only about 37 billion are active for each word.</p>
+<h3 id="what-each-expert-learns">What each expert learns <a aria-hidden="true" class="anchor" href="#what-each-expert-learns">#</a></h3>
+<p>One more thing to notice: we do not tell the experts what to specialize in. During training, the router and the experts learn together. Some experts end up handling punctuation, some handle numbers, some handle parts of code, and some handle a particular kind of word. The split is not always clean, but it happens on its own.</p>
+<h3 id="the-problems-with-moe">The problems with MoE <a aria-hidden="true" class="anchor" href="#the-problems-with-moe">#</a></h3>
+<p>MoE is not free. It has its own issues.</p>
+<ul>
+<li><strong>Memory</strong>: even though only 2 experts work per word, all 8 must be loaded in memory, because the next word can go to a different pair. So, MoE saves compute but not memory.</li>
+<li><strong>Load balancing</strong>: if the router keeps sending everything to the same two experts, the other experts never learn. So, we add a small extra rule during training that pushes the router to spread the work. Without this, MoE fails.</li>
+<li><strong>Training complexity</strong>: routing decisions make training less stable and harder to get right.</li>
+</ul>
+<p>Still, MoE is the reason we can have models with hundreds of billions of parameters that respond in reasonable time. Most of the biggest models today use MoE in some form.</p>
+<p>This was all about Mixture of Experts. It solved the cost of the thinking step. But the attention step has its own cost, and that brings us to what is happening now.</p>
+<h2 id="stage-6-new-directions">Stage 6: New Directions <a aria-hidden="true" class="anchor" href="#stage-6-new-directions">#</a></h2>
+<p>Researchers are now working in a few directions at the same time. Let's look at the important ones.</p>
+<h3 id="the-long-context-problem">The long context problem <a aria-hidden="true" class="anchor" href="#the-long-context-problem">#</a></h3>
+<p>The text we give to the model at one time is called the <strong>context</strong>. Today, we want to give it whole books, long conversations, and big codebases. That creates a problem.</p>
+<p>Attention compares every word with every other word. If the input has 1,000 words, that is 1,000 x 1,000 = 1 million comparisons. If the input has 100,000 words, that is 10 billion comparisons. Doubling the input makes these comparisons four times costlier.</p>
+<pre><code class="language-text"> 4 words  -&gt;  4 x 4 = 16 comparisons
+          The   cat   sat   on
+   The     x     x     x     x
+   cat     x     x     x     x
+   sat     x     x     x     x
+   on      x     x     x     x
+ 8 words  -&gt;  8 x 8 = 64 comparisons   (2 times the words, 4 times the cost)
+</code></pre>
+<p>Here, every row is a word looking at every column. Adding one word adds a full new row and a full new column, so the grid grows much faster than the input.</p>
+<p>Also, while generating the answer, the model stores the keys and values of every earlier word so that it does not calculate them again. This storage is called the <strong><a href="https://outcomeschool.com/blog/kv-cache-in-llms" rel="noopener noreferrer" target="_blank">KV Cache</a></strong>. For long inputs, the KV Cache becomes huge and eats up memory.</p>
+<p>A few designs came to fix this:</p>
+<ul>
+<li><strong><a href="https://outcomeschool.com/blog/grouped-query-attention" rel="noopener noreferrer" target="_blank">Grouped Query Attention (GQA)</a></strong>: many attention heads share the same keys and values instead of each head having its own. This shrinks the KV Cache a lot with very less loss in quality. Used in LLaMA 3 and many other models.</li>
+<li><strong><a href="https://outcomeschool.com/blog/kv-cache-compression" rel="noopener noreferrer" target="_blank">Multi-Head Latent Attention (MLA)</a></strong>: compresses the keys and values into a small form before storing them, and expands them back when needed. Used in DeepSeek models.</li>
+<li><strong><a href="https://outcomeschool.com/blog/how-does-sliding-window-attention-work" rel="noopener noreferrer" target="_blank">Sliding Window Attention</a></strong>: each word looks only at a fixed window of nearby words instead of everything. Information still travels far by passing through many blocks. Used in Mistral.</li>
+</ul>
+<p>Let's see each of them with a picture. First, GQA:</p>
+<pre><code class="language-text"> Multi-Head Attention:                Grouped Query Attention:
+   Head 1 -&gt; own Key + Value            Head 1 --+
+   Head 2 -&gt; own Key + Value            Head 2 --+--&gt; shared Key + Value (group A)
+   Head 3 -&gt; own Key + Value            Head 3 --+
+   Head 4 -&gt; own Key + Value            Head 4 --+
+   Head 5 -&gt; own Key + Value            Head 5 --+
+   Head 6 -&gt; own Key + Value            Head 6 --+--&gt; shared Key + Value (group B)
+   Head 7 -&gt; own Key + Value            Head 7 --+
+   Head 8 -&gt; own Key + Value            Head 8 --+
+   8 sets stored in the KV Cache        2 sets stored in the KV Cache
+</code></pre>
+<p>Here, the heads are divided into groups, and all the heads in one group share one set of keys and values. With 8 heads in 2 groups, the KV Cache becomes four times smaller. Each head still asks its own query, so the quality stays almost the same.</p>
+<p>Now, let's see MLA:</p>
+<pre><code class="language-text"> Normal attention:
+   Key + Value (big)  -------------------------------&gt;  stored in KV Cache (big)
+ Multi-Head Latent Attention:
+   Key + Value (big)  --&gt; compress --&gt;  small form  --&gt;  stored in KV Cache (small)
+                                             |
+                                             v
+                          expand back to full size only when needed
+</code></pre>
+<p>Here, instead of storing the big keys and values, MLA stores a small compressed form. When the model needs them, it expands the small form back. So, the KV Cache holds much less, and the model still gets the full information when it looks back.</p>
+<p>Finally, let's see Sliding Window Attention:</p>
+<pre><code class="language-text"> Full attention:
+   w1   w2   w3   w4   w5   w6   w7   w8
+    ^    ^    ^    ^    ^    ^    ^    |
+    +----+----+----+----+----+----+----+
+          w8 looks at all 7 earlier words
+ Sliding Window Attention (window = 3):
+   w1   w2   w3   w4   w5   w6   w7   w8
+                        ^    ^    ^    |
+                        +----+----+----+
+          w8 looks only at the 3 nearest words
+ How information still travels far:
+   Block 1:  w5 gathers from w2, w3, w4
+   Block 2:  w8 gathers from w5, w6, w7, and w5 already carries w2, w3, w4
+</code></pre>
+<p>Here, in Block 1, w5 has already gathered information from w2, w3, and w4. In Block 2, when w8 looks at w5, it indirectly gets that information too. So, even with a small window, information from far away still reaches, one block at a time.</p>
+<p>Because of these ideas, models moved from reading about 2,000 tokens at a time to reading a million tokens at a time.</p>
+<h3 id="a-new-kind-of-memory-state-space-models">A new kind of memory: State Space Models <a aria-hidden="true" class="anchor" href="#a-new-kind-of-memory-state-space-models">#</a></h3>
+<p>Some researchers went back to the idea of reading one word at a time, but with a much smarter memory. These are called <strong>State Space Models</strong>, and the popular one is <strong>Mamba</strong>.</p>
+<p>In simple words, Mamba keeps a running memory like an RNN, so its cost grows in a straight line with the input length instead of squaring. But unlike the old RNN, it looks at each incoming word and decides what to keep and what to throw away from memory. So, important information from far back survives much better than it did in the old RNN.</p>
+<p>Here is a rough picture of how the cost grows. The numbers are only for comparison, not real measurements:</p>
+<pre><code class="language-text"> Input length:      1,000     2,000     4,000     8,000  words
+ Attention cost:    1 unit    4 units   16 units  64 units   (squares)
+ Mamba cost:        1 unit    2 units   4 units   8 units    (straight line)
+</code></pre>
+<p>Here, every time the input doubles, the attention cost becomes 4 times, but the Mamba cost only becomes 2 times. For very long inputs, this difference becomes huge.</p>
+<p>Today, we also see <strong>hybrid</strong> models that mix a few attention blocks with many Mamba blocks, in order to get the accuracy of attention with the speed of Mamba.</p>
+<h3 id="one-model-for-text-images-and-audio">One model for text, images, and audio <a aria-hidden="true" class="anchor" href="#one-model-for-text-images-and-audio">#</a></h3>
+<p>Early LLMs read only text. Now, the same Transformer design is being used for images, audio, and video. An image is <a href="https://outcomeschool.com/blog/decoding-vision-transformer-vit" rel="noopener noreferrer" target="_blank">cut into small patches</a>, each patch is turned into a token just like a word, and the same attention handles it. Audio and video are handled in a similar way. These are called <strong><a href="https://outcomeschool.com/blog/multimodal-ai" rel="noopener noreferrer" target="_blank">multimodal</a></strong> models.</p>
+<h3 id="thinking-longer-instead-of-growing-bigger">Thinking longer instead of growing bigger <a aria-hidden="true" class="anchor" href="#thinking-longer-instead-of-growing-bigger">#</a></h3>
+<p>For years, the way to a smarter model was a bigger model. Now, there is a second way. Let the model think for longer before answering.</p>
+<p><a href="https://outcomeschool.com/blog/large-reasoning-models" rel="noopener noreferrer" target="_blank">Reasoning models</a> generate a long chain of thinking steps before giving the final answer. In those steps, they often try different paths and check their own work. This is called scaling at <strong>inference time</strong>. Inference is just the word for the time when the model is answering. Means, we spend more compute when answering instead of only when training.</p>
+<p>So, the scaling story now has two directions: scale the training, and scale the thinking.</p>
+<h2 id="summary-of-the-evolution">Summary of the evolution <a aria-hidden="true" class="anchor" href="#summary-of-the-evolution">#</a></h2>
+<p>Here is the whole journey in one picture:</p>
+<pre><code class="language-text"> RNN  ---&gt;  Attention  ---&gt;  Transformer  ---&gt;  Scaling  ---&gt;  MoE  ---&gt;  New Directions
+ forgets    fixes            removes the        makes the      cuts the   long context,
+ and slow   forgetting       slow RNN           model smart    cost       Mamba, reasoning
+</code></pre>
+<p>Here, every arrow is a problem being solved. Each stage kept what worked in the previous stage and fixed the biggest thing that did not.</p>
+<p>Let me tabulate the whole journey for your better understanding.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Key idea</th>
+<th>Problem it solved</th>
+<th>Problem it left behind</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RNN</td>
+<td>Read one word at a time with a single memory</td>
+<td>Could read text of any length</td>
+<td>Forgot early words, slow to train</td>
+</tr>
+<tr>
+<td>Attention</td>
+<td>Look at every earlier word with weights</td>
+<td>Forgetting</td>
+<td>Still slow with RNN underneath</td>
+</tr>
+<tr>
+<td>Transformer</td>
+<td>Only attention, all words in parallel</td>
+<td>Slow training</td>
+<td>How big to make it</td>
+</tr>
+<tr>
+<td>Scaling</td>
+<td>More parameters, data, and compute</td>
+<td>Model quality</td>
+<td>Cost grows with size</td>
+</tr>
+<tr>
+<td>Mixture of Experts</td>
+<td>Use only a few experts per word</td>
+<td>Running cost of large models</td>
+<td>Memory, load balancing</td>
+</tr>
+<tr>
+<td>New Directions</td>
+<td>GQA, MLA, Mamba, multimodal, reasoning</td>
+<td>Long context, new inputs, smarter answers</td>
+<td>Still evolving</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here, we can see the pattern clearly. Every stage kept the good part of the previous stage and fixed its biggest problem.</p>
+<ul>
+<li>Attention kept the idea of reading text and fixed forgetting.</li>
+<li>Transformer kept attention and removed the slow part.</li>
+<li>Scaling kept the Transformer and made it bigger.</li>
+<li>MoE kept the size and cut the cost.</li>
+<li>The newer ideas keep all of it and push further, giving us longer context, new kinds of input, and smarter answers.</li>
+</ul>
+<p>Now we must have understood the evolution of LLM architecture, from attention to scaling to Mixture of Experts and beyond. The next time we hear about a new model, we can ask a simple question: which problem from this timeline is it trying to solve?</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions <a aria-hidden="true" class="anchor" href="#frequently-asked-questions">#</a></h2>
+<h3 id="does-a-mixture-of-experts-model-use-less-memory-than-a-dense-model">Does a Mixture of Experts model use less memory than a dense model? <a aria-hidden="true" class="anchor" href="#does-a-mixture-of-experts-model-use-less-memory-than-a-dense-model">#</a></h3>
+<p>No. MoE saves compute but not memory. Even though only a few experts work for each word, all the experts must be loaded in memory, because the next word can go to a different pair. So the running cost per word drops, but the full model still has to sit in memory.</p>
+<h3 id="is-mixtral-8x7b-a-56-billion-parameter-model">Is Mixtral 8x7B a 56 billion parameter model? <a aria-hidden="true" class="anchor" href="#is-mixtral-8x7b-a-56-billion-parameter-model">#</a></h3>
+<p>No. Mixtral 8x7B has about 47 billion parameters in total, not 56 billion. Only the Feed-Forward Network is copied 8 times, while the attention part and the other shared pieces are not copied. For each word, only 2 of the 8 experts are used, so about 13 billion parameters are active.</p>
+<h3 id="is-a-bigger-model-always-better-than-a-smaller-one">Is a bigger model always better than a smaller one? <a aria-hidden="true" class="anchor" href="#is-a-bigger-model-always-better-than-a-smaller-one">#</a></h3>
+<p>No. The Chinchilla paper found that many big models were undertrained, with too many parameters and too little data. A smaller model trained on much more data can beat a bigger model trained on less data. So, for the best result, we should grow the data along with the parameters.</p>
+<h3 id="does-a-transformer-write-the-whole-answer-in-parallel">Does a Transformer write the whole answer in parallel? <a aria-hidden="true" class="anchor" href="#does-a-transformer-write-the-whole-answer-in-parallel">#</a></h3>
+<p>No. The Transformer reads the input in parallel, and training is parallel too. But while writing the answer, the model still produces one word at a time. Each new word is added back to the input, and the model predicts again until the answer is complete.</p>
+<h3 id="is-mamba-just-an-rnn">Is Mamba just an RNN? <a aria-hidden="true" class="anchor" href="#is-mamba-just-an-rnn">#</a></h3>
+<p>No. Mamba keeps a running memory like an RNN, so its cost grows in a straight line with the input length. But unlike the old RNN, it looks at each incoming word and decides what to keep and what to throw away. So important information from far back survives much better.</p>
+
+  <nav class="prev-next" aria-label="Lesson navigation"><a href="m04-l0406-why-do-llms-hallucinate-the-token-level-explanation.html"><span class="label">← Previous lesson</span>4.6 Why Do LLMs Hallucinate? The Token-Level Explanation</a><a class="next" href="m05-l0502-what-is-mixture-of-experts-moe-and-how-does-it-work.html"><span class="label">Next lesson →</span>5.2 What is Mixture of Experts (MoE) and How Does It Work?</a></nav>
+  <footer class="footer">
+    <p>Personal offline study copy · Content © Outcome School / Amit Shekhar ·
+    <a href="../notice.html">usage notice</a>.</p>
+    <p>Source: <a href="https://outcomeschool.com/blog/evolution-of-llm-architecture" target="_blank" rel="noopener noreferrer">https://outcomeschool.com/blog/evolution-of-llm-architecture</a></p>
+  </footer>
+</article>
+
+    </main>
+  </div>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

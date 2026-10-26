@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 15: Multimodal AI and Generative Models</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/print.css">
+</head>
+<body class="print-body">
+<main class="print-document">
+
+<section class="print-cover">
+  <p class="kicker">AI Engineering Course</p>
+  <h1>Module 15</h1>
+  <h2>Multimodal AI and Generative Models</h2>
+  <p class="meta">6 lessons · Personal offline study copy</p>
+  <p class="notice">Personal offline study copy. Content © Outcome School /
+  Amit Shekhar. Not for redistribution. See study/NOTICE.md.</p>
+</section>
+<section class="print-toc">
+<h1>Contents</h1>
+<ul>
+<li class="module-entry"><a href="#module-15">Module 15: Multimodal AI and Generative Models</a>
+<ul class="toc-lessons">
+<li class="lesson-entry"><a href="#lesson-m15-l1501">15.1 What is Multimodal AI? How It Works and Where It Is Used</a></li>
+<li class="lesson-entry"><a href="#lesson-m15-l1502">15.2 What is a Vision Transformer (ViT) and How Does It Work?</a></li>
+<li class="lesson-entry"><a href="#lesson-m15-l1503">15.3 How do Image Embeddings work?</a></li>
+<li class="lesson-entry"><a href="#lesson-m15-l1504">15.4 What are Diffusion Models and How Do They Generate Images?</a></li>
+<li class="lesson-entry"><a href="#lesson-m15-l1505">15.5 What are Generative Adversarial Networks (GANs) and How Do They Work?</a></li>
+<li class="lesson-entry"><a href="#lesson-m15-l1506">15.6 What are Variational Autoencoders (VAEs) and How Do They Work?</a></li>
+</ul>
+</li>
+</ul>
+</section>
+<section class="print-module" id="module-15">
+  <section class="print-module-title">
+    <p class="kicker">Module 15</p>
+    <h1>Multimodal AI and Generative Models</h1>
+    <p class="meta">6 lessons · ~1 min overview</p>
+  </section>
+  <div class="print-module-intro"><p>In this module, we will learn how AI works with images and other types of data, and the generative models that create images from noise.</p>
+<p>By the end of this module, we will know how models see images and how they generate new ones.</p>
+</div>
+  
+<section class="print-lesson" id="lesson-m15-l1501">
+  <p class="print-lesson-kicker">Lesson 15.1</p>
+  <h1>What is Multimodal AI? How It Works and Where It Is Used</h1>
+  <p class="print-lesson-meta">Lesson 15.1 · ~14 min · Published May 10, 2026 · <a href="https://outcomeschool.com/blog/multimodal-ai">https://outcomeschool.com/blog/multimodal-ai</a></p>
+  <p><img alt="Multimodal AI" src="../assets/images/15-15-01-what-is-multimodal-ai-how-it-works-and-where-it-is-used/multimodal-ai.png"/></p>
+<p>Multimodal AI is AI that can understand and generate more than one type of data at the same time. A single multimodal model can read text, see images, hear audio, and watch video, and then respond in any of these forms.</p>
+<p>In this blog, we will learn about Multimodal AI, what it means, why it matters, how it works, and where we use it in the real world.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>The Big Picture</li>
+<li>What is a Modality?</li>
+<li>Unimodal AI vs Multimodal AI</li>
+<li>Why Multimodal AI?</li>
+<li>How Multimodal AI Works</li>
+<li>Three Common Types of Multimodal AI</li>
+<li>Real Examples of Multimodal AI</li>
+<li>Use Cases of Multimodal AI</li>
+<li>Common Mistakes to Avoid</li>
+<li>Quick Summary</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="the-big-picture">The Big Picture</h2>
+<p>For many years, AI models could only handle one type of data at a time. A text model could read text. An image model could see images. An audio model could listen to audio. Each model lived in its own small world, and these worlds did not talk to each other.</p>
+<p>Multimodal AI breaks these walls.</p>
+<p>In simple words:</p>
+<p><strong>Multimodal AI = AI that can understand and generate more than one type of data at the same time.</strong></p>
+<p>A single multimodal model can read text, see images, hear audio, and even watch video, all at once. Then it can respond in any of these forms.</p>
+<p>Let's decompose the name:</p>
+<p><strong>Multimodal = Multi + Modal</strong></p>
+<p>Here, "Multi" means many, and "Modal" comes from "modality", which is just a fancy word for a type of data. So, Multimodal AI is simply AI that works with many types of data together.</p>
+<p>The ability to create brand new content like this is what we call Generative AI, and we have a detailed blog on <a href="https://outcomeschool.com/blog/what-is-generative-ai" rel="noopener noreferrer" target="_blank">What is Generative AI?</a> that explains it in depth.</p>
+<h2 id="what-is-a-modality">What is a Modality?</h2>
+<p>Before going deeper, we must understand what a "modality" means.</p>
+<p><strong>Modality.</strong> A specific form or channel through which information reaches us.</p>
+<p>In simple words, a modality is just a type of data.</p>
+<p>Common modalities are:</p>
+<ul>
+<li><strong>Text.</strong> Words, sentences, source code, articles, chat messages.</li>
+<li><strong>Image.</strong> Photos, charts, diagrams, scanned documents.</li>
+<li><strong>Audio.</strong> Speech, music, ringtones, machine sounds.</li>
+<li><strong>Video.</strong> Moving images, often with sound, like films and reels.</li>
+<li><strong>Other.</strong> Sensor data, depth maps, 3D shapes, biometric signals.</li>
+</ul>
+<p>A human is a natural multimodal system. We see, we hear, we read, we touch, we smell, and we mix all of these signals into one understanding of the world. A doctor checking a patient is doing exactly this, every single day.</p>
+<p>Multimodal AI tries to do the same.</p>
+<h2 id="unimodal-ai-vs-multimodal-ai">Unimodal AI vs Multimodal AI</h2>
+<p>Let's understand the difference with a simple comparison.</p>
+<p><strong>Unimodal AI</strong> works with only one type of data.</p>
+<p>For example:</p>
+<ul>
+<li>A spam classifier that reads only text.</li>
+<li>A face detector that sees only images.</li>
+<li>An image classifier that sees only images and tells if it is a cat or a dog.</li>
+</ul>
+<p>Here, the output is just a label, a number, or a coordinate about the input. A label or a number is <strong>not</strong> a modality. The four modalities are text, image, audio, and video. So, even though the spam classifier prints the word "spam", it is not generating a piece of language - it is just attaching a tag to the input. The model is still unimodal.</p>
+<p><strong>Multimodal AI</strong> works with two or more types of data at the same time.</p>
+<p>For example:</p>
+<ul>
+<li>A model that takes a photo and a question, and answers the question.</li>
+<li>A model that watches a video and writes a summary in text.</li>
+<li>A model that listens to a song and generates an album cover image.</li>
+</ul>
+<p>Here is a simple picture of the difference:</p>
+<pre><code>       Unimodal AI                Multimodal AI
+   Text or Image or Audio      Text   Image   Audio
+   (only one at a time)            \    |     /
+            |                       \   |    /
+            v                     +-----v-----+
+        +-------+                 |   Model   |
+        | Model |                 +-----------+
+        +-------+                       |
+            |                           v
+            v                         Output
+          Output
+</code></pre>
+<p>Here, we can see that a unimodal model takes one type of input at a time, while a multimodal model takes many types of input together and produces one output.</p>
+<p>Let me tabulate the differences between Unimodal AI and Multimodal AI for your better understanding so that you can decide which one to use based on your use case.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Unimodal AI</th>
+<th>Multimodal AI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inputs</td>
+<td>One type (text or image or audio)</td>
+<td>Two or more types together</td>
+</tr>
+<tr>
+<td>Understanding</td>
+<td>Limited to one sense</td>
+<td>Combined across senses</td>
+</tr>
+<tr>
+<td>Use cases</td>
+<td>Narrow tasks</td>
+<td>Rich, real-world tasks</td>
+</tr>
+<tr>
+<td>Example</td>
+<td>Sentiment analysis on tweets</td>
+<td>"Describe this image" assistant</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>Lower</td>
+<td>Higher</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="why-multimodal-ai">Why Multimodal AI?</h2>
+<p>Now, the question is: why do we need Multimodal AI? The answer is simple - the real world is multimodal.</p>
+<p>Let's say we walk into a doctor's clinic. The doctor:</p>
+<ul>
+<li>Reads our medical history (text).</li>
+<li>Looks at our X-ray (image).</li>
+<li>Listens to our heartbeat (audio).</li>
+<li>Watches how we walk (video).</li>
+</ul>
+<p>The doctor combines all of these signals into one diagnosis. A doctor who could only read text would miss most of the picture.</p>
+<p>The same is true for AI.</p>
+<p>A model that can only read text cannot help us when we paste a screenshot of an error. A model that can only see images cannot answer a question about that image. A model that can only listen to audio cannot read the meeting notes that came along with the recording.</p>
+<p>This is when Multimodal AI comes into the picture. By combining modalities, the model gets a much fuller view of the world, just like the doctor.</p>
+<p>This is why Multimodal AI matters.</p>
+<h2 id="how-multimodal-ai-works">How Multimodal AI Works</h2>
+<p>At the core, every Multimodal AI system follows the same recipe.</p>
+<p>The idea behind Multimodal AI is simple: convert every type of input into a common numeric form the model can understand, and then process all of them together.</p>
+<p>Here is the high-level anatomy:</p>
+<pre><code>   +-------+    +-------+    +-------+
+   | Text  |    | Image |    | Audio |
+   +---+---+    +---+---+    +---+---+
+       |            |            |
+       v            v            v
+   +-------+    +-------+    +-------+
+   | Text  |    | Image |    | Audio |
+   |Encoder|    |Encoder|    |Encoder|
+   +---+---+    +---+---+    +---+---+
+       |            |            |
+       +-----+------+------+-----+
+             |
+             v
+       +-----------+
+       | Shared    |
+       | Embedding |
+       |   Space   |
+       +-----+-----+
+             |
+             v
+       +-----------+
+       | Multimodal|
+       |   Model   |
+       +-----+-----+
+             |
+             v
+       +-----------+
+       |  Output   |
+       | (text,    |
+       |  image,   |
+       |  audio)   |
+       +-----------+
+</code></pre>
+<p>Let's decode each step. We will keep our doctor analogy from the previous section to make every part easy to follow.</p>
+<p><strong>1. Encoders for each modality.</strong></p>
+<p>A model cannot understand raw text, raw pixels, or raw sound waves directly. It only understands numbers. So, we need a way to turn each input into numbers.</p>
+<p>Each type of input needs its own encoder. An <strong>encoder</strong> is a small model that turns raw data into a list of numbers, called a <strong>vector</strong>.</p>
+<p>Just like our doctor uses eyes for X-rays, ears for the heartbeat, and reading skills for the notes, the multimodal model uses different encoders for different modalities.</p>
+<ul>
+<li>A <strong>Text Encoder</strong> turns words into vectors.</li>
+<li>An <strong>Image Encoder</strong> turns pixels into vectors. This often uses a <a href="https://outcomeschool.com/blog/decoding-vision-transformer-vit" rel="noopener noreferrer" target="_blank">Vision Transformer</a>.</li>
+<li>An <strong>Audio Encoder</strong> turns sound waves into vectors.</li>
+</ul>
+<p>These vectors are called <strong><a href="https://outcomeschool.com/blog/what-are-embeddings" rel="noopener noreferrer" target="_blank">embeddings</a></strong>. An embedding is just a vector that captures the meaning of the input in a form the model can use.</p>
+<p><strong>2. Shared Embedding Space.</strong></p>
+<p>Here is the key trick of Multimodal AI.</p>
+<p>All the encoders are trained together so that their outputs land in the <strong>same vector space</strong>. The training pulls matching pairs (a photo of a cat and the word "cat") close to each other, and pushes mismatched pairs (a photo of a cat and the word "car") apart.</p>
+<p>So a photo of a cat and the word "cat" end up close to each other in this space, even though one came from pixels and the other came from letters.</p>
+<p>Let's see this with a simple picture:</p>
+<pre><code>   Shared Embedding Space (simplified)
+         ^
+         |
+         |   "cat"  *     * cat photo
+         |
+         |
+         |
+         |   "dog"  *     * dog photo
+         |
+         +-----------------------------&gt;
+</code></pre>
+<p>Here, we can see that the word "cat" and the photo of a cat sit near each other in the same space. Same for "dog" and the dog photo. The model now treats them as related, no matter the input type.</p>
+<p>This shared space is what lets the model "compare" a photo to a sentence, or align a sound to a video frame. In our doctor analogy, this is the moment when the doctor combines the X-ray, the notes, and the heartbeat into one mental picture of the patient.</p>
+<p><strong>3. The Multimodal Model.</strong></p>
+<p>The shared embeddings are passed into a single model, usually a <a href="https://outcomeschool.com/blog/decoding-transformer-architecture" rel="noopener noreferrer" target="_blank">Transformer</a>, which is a kind of neural network that learns relationships between pieces of data. The model can now reason across all the inputs at once.</p>
+<p>For example, if we give the model a photo of a kitchen and ask "How many chairs are there?", the model looks at both the <a href="https://outcomeschool.com/blog/how-do-image-embeddings-work" rel="noopener noreferrer" target="_blank">image embedding</a> and the text embedding, and produces an answer.</p>
+<p>Just like the doctor combines all the signals into one diagnosis, the multimodal model combines all the embeddings into one answer.</p>
+<p><strong>4. The Output.</strong></p>
+<p>The output can be text, image, audio, or even video, depending on the model and the task.</p>
+<p>So, the recipe is: <strong>encode every modality → align them in a shared space → reason → generate</strong>.</p>
+<p>Now, let's put this end to end with a quick example.</p>
+<p><strong>Step 1:</strong> We upload a photo of a kitchen and type the question "How many chairs are there?".</p>
+<p><strong>Step 2:</strong> The image encoder turns the photo into an image embedding. The text encoder turns the question into a text embedding.</p>
+<p><strong>Step 3:</strong> Both embeddings go into the multimodal model. The model looks at the image embedding and the text embedding together.</p>
+<p><strong>Step 4:</strong> The model produces the answer in text, for example "There are 4 chairs.".</p>
+<p>This is how Multimodal AI works under the hood.</p>
+<h2 id="three-common-types-of-multimodal-ai">Three Common Types of Multimodal AI</h2>
+<p>Now that we have learned how Multimodal AI works, it is time to learn the three common patterns we see in the real world.</p>
+<p><strong>1. Multimodal Understanding.</strong></p>
+<p>The model takes inputs in many modalities and replies in one modality, often text.</p>
+<p>For example, we send a photo and ask "What is in this image?", and the model replies in text. GPT-4V, Gemini, and Claude (with vision) follow this pattern.</p>
+<p><strong>2. Cross-Modal Generation.</strong></p>
+<p>The model takes input in one modality and produces output in another.</p>
+<p>For example, text in, image out (DALL-E, Midjourney). Text in, video out (Sora, Veo). Audio in, text out (Whisper).</p>
+<p><strong>3. Cross-Modal Alignment.</strong></p>
+<p>The model places two or more modalities in the same shared embedding space so we can compare them directly.</p>
+<p>For example, CLIP places text and images in a shared space, so we can search images using a text query.</p>
+<p>Every multimodal model uses a shared embedding space inside it. In Cross-Modal Alignment, that shared space is itself the product. The model is trained mainly to build this space and to expose it, so we can compare or search across modalities directly, without going through a generated answer.</p>
+<p>These three patterns cover most Multimodal AI systems we see today. Many real models mix two or more of these patterns together.</p>
+<h2 id="real-examples-of-multimodal-ai">Real Examples of Multimodal AI</h2>
+<p>Now, let's put names to the three patterns. Here are some well-known multimodal models we may already know.</p>
+<ul>
+<li><strong>GPT-4 with Vision (GPT-4V).</strong> Reads text and images, replies in text.</li>
+<li><strong>GPT-4o.</strong> Reads text, images, and audio, and replies in text or audio in real time.</li>
+<li><strong>Google Gemini.</strong> Reads text, images, audio, video, and code in one go.</li>
+<li><strong>Claude (with vision).</strong> Reads text and images, answers in text.</li>
+<li><strong>CLIP (<a href="https://outcomeschool.com/blog/contrastive-learning" rel="noopener noreferrer" target="_blank">Contrastive Language-Image Pretraining</a>).</strong> Connects text and images in a shared embedding space.</li>
+<li><strong>DALL-E and Midjourney.</strong> Take a text prompt and generate an image, powered by <a href="https://outcomeschool.com/blog/diffusion-models" rel="noopener noreferrer" target="_blank">diffusion models</a>.</li>
+<li><strong>Whisper.</strong> Listens to audio and produces text.</li>
+<li><strong>Sora and Veo.</strong> Take text and produce video.</li>
+</ul>
+<p>Each of these is a real-world Multimodal AI system already in use today.</p>
+<h2 id="use-cases-of-multimodal-ai">Use Cases of Multimodal AI</h2>
+<ul>
+<li><strong>Visual Question Answering (VQA).</strong> Upload a photo, ask a question, get an answer.</li>
+<li><strong>Document Understanding.</strong> Read a PDF that has text, tables, and charts together.</li>
+<li><strong>Medical Imaging.</strong> Combine X-rays, scans, and patient notes for better diagnosis.</li>
+<li><strong>Self-Driving Cars.</strong> Mix camera, radar, and <strong>LIDAR (Light Detection and Ranging)</strong> data to drive safely.</li>
+<li><strong>Accessibility.</strong> Describe images for people who cannot see them. Read text aloud for people who cannot read.</li>
+<li><strong>Content Creation.</strong> Generate images, videos, and music from a simple text prompt.</li>
+<li><strong>Customer Support.</strong> Let the user send a screenshot or a voice note instead of typing a long message.</li>
+<li><strong>Education.</strong> Explain a diagram, solve a handwritten math problem, or read a textbook page aloud.</li>
+<li><strong>Mobile Apps.</strong> Snap a photo of a foreign menu and get an instant translation, with the dish names spoken aloud.</li>
+</ul>
+<p>This is how Multimodal AI is quietly changing the way we use computers.</p>
+<p>Since these systems can now produce text, images, audio, and video that look completely real, we also need a way to check where a piece of content came from. We have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-llm-watermarking-work" rel="noopener noreferrer" target="_blank">How Does LLM Watermarking Work?</a> that explains how a hidden signal is placed inside generated content step by step.</p>
+<h2 id="common-mistakes-to-avoid">Common Mistakes to Avoid</h2>
+<p>Let's look at a few common mistakes people make when thinking about Multimodal AI.</p>
+<ul>
+<li><strong>Treating it as just "text + image".</strong> Multimodal means many modalities, not only two. Audio, video, sensor data, and 3D shapes also count.</li>
+<li><strong>Assuming one model fits all.</strong> Some tasks still need a focused unimodal model. Multimodal is not always better.</li>
+<li><strong>Ignoring data quality.</strong> A multimodal model is only as good as the alignment between its modalities. Bad pairings, like a wrong caption for a photo, lead to bad results.</li>
+<li><strong>Forgetting cost.</strong> Multimodal models are heavier and slower than unimodal ones. We must use them where the extra signal is worth the cost.</li>
+<li><strong>Skipping evaluation per modality.</strong> A model may be strong on text but weak on audio. We must test each modality on its own and also together.</li>
+<li><strong>Mixing too many modalities at once.</strong> More modalities is not always better. Each new modality adds noise, latency, and risk. We must add a modality only when it brings clear value to the task.</li>
+<li><strong>Forgetting about bias.</strong> Multimodal models can carry biases from each modality and from the training pairs. We must check the outputs for unfair patterns, just like we do for unimodal models.</li>
+</ul>
+<h2 id="quick-summary">Quick Summary</h2>
+<p>Let's recap what we have learned about Multimodal AI:</p>
+<ul>
+<li><strong>Multimodal AI</strong> is AI that can handle more than one type of data, like text, image, audio, and video, together.</li>
+<li>A <strong>modality</strong> is just a type of data.</li>
+<li><strong>Unimodal AI</strong> works with one type of data. <strong>Multimodal AI</strong> works with many types together.</li>
+<li>Real-world tasks are multimodal in nature, and Multimodal AI fits them better.</li>
+<li>Just like a doctor combines reports, X-rays, and heartbeats into one diagnosis, a multimodal model combines all the embeddings into one answer.</li>
+<li>The core recipe is: <strong>encode each modality → align in a shared space → reason → generate</strong>.</li>
+<li>The three common patterns are <strong>Multimodal Understanding</strong>, <strong>Cross-Modal Generation</strong>, and <strong>Cross-Modal Alignment</strong>.</li>
+<li>Models like GPT-4V, Gemini, Claude, CLIP, DALL-E, and Whisper are all examples of Multimodal AI.</li>
+</ul>
+<p>Now, we have understood Multimodal AI.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="is-a-spam-classifier-that-outputs-the-word-spam-multimodal">Is a spam classifier that outputs the word "spam" multimodal?</h3>
+<p>No. A spam classifier reads only text, and its output is just a label. A label or a number is not a modality. Even though it prints the word "spam", it is not generating a piece of language, it is only attaching a tag to the input.</p>
+<h3 id="is-multimodal-ai-always-better-than-unimodal-ai">Is Multimodal AI always better than Unimodal AI?</h3>
+<p>No. Some tasks still need a focused unimodal model. Multimodal models are heavier and slower than unimodal ones, so we must use them where the extra signal is worth the cost. More modalities also add noise, latency, and risk.</p>
+<h3 id="does-multimodal-just-mean-text-plus-images">Does multimodal just mean text plus images?</h3>
+<p>No. Multimodal means many modalities, not only two. Audio, video, sensor data, depth maps, and 3D shapes also count. For example, a self-driving car mixes camera, radar, and LIDAR data to drive safely.</p>
+<h3 id="how-does-a-model-know-that-a-photo-of-a-cat-and-the-word-cat-mean-the-same-thing">How does a model know that a photo of a cat and the word "cat" mean the same thing?</h3>
+<p>The encoders are trained together so that their outputs land in the same shared embedding space. The training pulls matching pairs, like a cat photo and the word "cat", close to each other, and pushes mismatched pairs apart. This shared space lets the model compare a photo to a sentence.</p>
+<h3 id="is-whisper-an-example-of-multimodal-ai">Is Whisper an example of Multimodal AI?</h3>
+<p>Yes. Whisper listens to audio and produces text. It follows the Cross-Modal Generation pattern, where the model takes input in one modality and produces output in another.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m15-l1502">
+  <p class="print-lesson-kicker">Lesson 15.2</p>
+  <h1>What is a Vision Transformer (ViT) and How Does It Work?</h1>
+  <p class="print-lesson-meta">Lesson 15.2 · ~14 min · Published April 15, 2026 · <a href="https://outcomeschool.com/blog/decoding-vision-transformer-vit">https://outcomeschool.com/blog/decoding-vision-transformer-vit</a></p>
+  <p><img alt="Decoding Vision Transformer (ViT)" src="../assets/images/15-15-02-what-is-a-vision-transformer-vit-and-how-does-it-work/decoding-vision-transformer-vit.png"/></p>
+<p>A Vision Transformer (ViT) treats an image the same way a transformer treats a sentence. It splits the image into small patches, treats each patch as a token, and processes them with a transformer to classify the image.</p>
+<p>In this blog, we will learn about the Vision Transformer (ViT) by decoding how it splits an image into patches, turns those patches into tokens, and processes them with a transformer to classify the image.</p>
+<p>Before Vision Transformers, image classification was dominated by <strong>Convolutional Neural Networks (CNNs)</strong> like ResNet, VGG, and etc. The transformer architecture was only used for text. Then, in 2020, Google researchers asked a simple question - "Can we apply the transformer architecture directly to images?" The answer was yes, and the <strong>Vision Transformer (ViT)</strong> was born in the paper titled "An Image is Worth 16x16 Words".</p>
+<p>When we hear "applying transformers to images", it sounds complex. But do not worry. If we break it down into its individual parts, every single piece is simple.</p>
+<p>Our goal is to decode ViT so clearly that by the end, we will be able to explain how ViT works to anyone.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>The Big Picture</li>
+<li>Decoding Step 1: Splitting the Image into Patches</li>
+<li>Decoding Step 2: Patch Embedding</li>
+<li>Decoding Step 3: The CLS Token</li>
+<li>Decoding Step 4: Position Embeddings</li>
+<li>Decoding Step 5: The Transformer Encoder</li>
+<li>Decoding Step 6: The Classification Head</li>
+<li>Putting It All Together</li>
+<li>ViT vs CNN</li>
+<li>Quick Summary</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="the-big-picture">The Big Picture</h2>
+<p>Before we go into the details, let's understand the big picture.</p>
+<p>ViT treats an image the same way a transformer treats a sentence. A sentence is a sequence of words (tokens). ViT splits an image into a sequence of small <strong>patches</strong> and treats each patch as a token. These patch tokens are then processed by a standard <a href="https://outcomeschool.com/blog/encoder-vs-decoder-in-transformers" rel="noopener noreferrer" target="_blank">transformer encoder</a>, just like text tokens.</p>
+<p>In simple words:</p>
+<p><strong>Vision Transformer = Split image into patches (like words) + Process patches with a transformer (like processing a sentence).</strong></p>
+<p>Think of a jigsaw puzzle. We take a complete image, cut it into small square pieces, line up the pieces in a row, and hand them to the transformer. The transformer then looks at all the pieces together, understands how they relate to each other, and tells us what the image is.</p>
+<p>The idea behind ViT is simple - if <a href="https://outcomeschool.com/blog/evolution-of-llm-architecture" rel="noopener noreferrer" target="_blank">transformers work well for sequences of text tokens</a>, they should also work for sequences of image patches.</p>
+<p>A sentence like "the cat sat on the mat" is a sequence of 6 tokens. In the same way, an image becomes a sequence of patches. For example, a 224x224 image cut into 16x16 patches gives us 196 patches. Each patch is treated as a "visual word". The transformer does not care whether the tokens are words or image patches. It just processes the sequence and learns the relationships.</p>
+<p>Now, let's decode ViT step by step.</p>
+<h2 id="decoding-step-1-splitting-the-image-into-patches">Decoding Step 1: Splitting the Image into Patches</h2>
+<p>The first thing ViT does is split the input image into small non-overlapping square patches.</p>
+<p>First, we take the input image. A standard ViT uses 224x224 pixel images. Then, we divide the image into non-overlapping square patches, each of size 16x16 pixels. Since 224 / 16 = 14, we get <strong>14 patches along each side</strong> of the image. So the image becomes a <strong>14 x 14 grid of patches</strong>, which gives us 14 x 14 = 196 patches in total.</p>
+<p>Think of it like a chessboard, but with 14 rows and 14 columns instead of 8. Each square of this 14 x 14 board is one patch.</p>
+<p>Now, a natural question arises - why 16x16? It is a sweet spot. Smaller patches (say 8x8) give us more tokens and finer detail, but the sequence length grows quickly and <a href="https://outcomeschool.com/blog/self-attention-in-transformers" rel="noopener noreferrer" target="_blank">self-attention</a> becomes very expensive. Bigger patches (say 32x32) give us fewer tokens and faster training, but the model loses fine-grained detail. 16x16 balances both, and that is why it became the default.</p>
+<pre><code>Original Image (224 x 224 pixels)
++----+----+----+----+----+ ... +----+
+|P1  |P2  |P3  |P4  |P5  |     |P14 |
++----+----+----+----+----+ ... +----+
+|P15 |P16 |P17 |P18 |P19 |     |P28 |
++----+----+----+----+----+ ... +----+
+|    |    |    |    |    |     |    |
+  ...  ...  ...  ...  ...       ...
++----+----+----+----+----+ ... +----+
+|P183|P184|P185|P186|P187|     |P196|
++----+----+----+----+----+ ... +----+
+Each patch is 16 x 16 pixels
+Total: 14 x 14 = 196 patches
+</code></pre>
+<p>Each patch captures a small region of the image. Some patches contain parts of the main object, some contain background, and some contain edges or textures.</p>
+<p>This is how the image is broken down into a sequence. Now, let's move to the next step.</p>
+<h2 id="decoding-step-2-patch-embedding">Decoding Step 2: Patch Embedding</h2>
+<p>Now, we have 196 patches. But the transformer does not understand raw pixels. It expects each token to be a fixed-size vector of numbers, called an <strong>embedding</strong>.</p>
+<p>Each patch is a 16x16 pixel region with 3 color channels (RGB). So each patch is a small 3D block of 16 x 16 x 3 = 768 numbers, which is then <strong>flattened</strong> into a single vector of 768 numbers.</p>
+<p>To turn each patch into a token that the transformer can process, we use a <strong>linear projection</strong> - a simple <a href="https://outcomeschool.com/blog/matrix-multiplication-in-neural-networks" rel="noopener noreferrer" target="_blank">matrix multiplication</a> that converts these 768 numbers into a vector of a fixed dimension (768 for ViT-Base). Even though the input and output dimensions are the same here, this is not an identity mapping. The projection matrix is <strong>learned during training</strong> so that the output embedding captures the useful visual features of the patch, not just raw pixel values.</p>
+<pre><code>Patch (16 x 16 x 3, a 3D block of pixels)
+        |
+        v
+[Flatten into a 768-dimensional vector]
+        |
+        v
+[Linear Projection (768 -&gt; 768)]
+        |
+        v
+Patch Embedding (768-dimensional vector)
+</code></pre>
+<p>In practice, this linear projection is implemented as a convolution with kernel size 16x16 and stride 16. Do not worry if this sounds heavy. It is just an implementation detail, not a new concept - it is mathematically the same as cutting the image into 16x16 patches and projecting each one.</p>
+<p>After this step, we have 196 patch embeddings, each of dimension 768. This is our sequence of "visual tokens", ready for the transformer.</p>
+<p>This was all about converting patches to embeddings. Now, let's decode the next piece.</p>
+<h2 id="decoding-step-3-the-cls-token">Decoding Step 3: The CLS Token</h2>
+<p>Now, a natural question arises - once the transformer has processed all 196 patch tokens, which token do we use to make the final prediction? Each patch only sees a small part of the image, so no single patch token fully represents the whole image.</p>
+<p>The answer is simple: we add a special learnable token called the <strong>CLS token</strong> (short for "classification token") to the beginning of the sequence.</p>
+<pre><code>Sequence: [CLS, Patch1, Patch2, Patch3, ..., Patch196]
+Total tokens: 197 (1 CLS + 196 patches)
+</code></pre>
+<p>The CLS token does not correspond to any image patch. It starts as a learnable vector of 768 numbers. As the transformer processes the sequence, the CLS token attends to every patch and gathers information from all of them. By the end of the transformer, the CLS token contains a global summary of the entire image.</p>
+<p>Think of the CLS token as a class representative. Every patch is like a student in a classroom. The CLS token listens to all the students, collects their information, and speaks on behalf of the whole class when the final answer is needed.</p>
+<p>Now, let's decode the next piece.</p>
+<h2 id="decoding-step-4-position-embeddings">Decoding Step 4: Position Embeddings</h2>
+<p>Here is the catch. When we split the image into patches and line them up as a sequence, the patches lose their spatial position. The transformer only sees a list of tokens. It does not know which patch was on the top-left and which was on the bottom-right.</p>
+<p>But the position of a patch matters. A patch containing an eye on the top of the image and a patch containing a tail on the bottom together tell us it is a cat. If we shuffle the patches randomly, the image no longer makes sense.</p>
+<p>So, here comes the <strong>position embedding</strong> to the rescue. For each position in the sequence (0 to 196), we add a learnable vector of 768 numbers. This vector acts like a tag that tells the transformer, "This patch came from position 5 in the original image."</p>
+<pre><code>Final input = Patch Embedding + Position Embedding
+Token 0:   CLS_embedding      + Position_0
+Token 1:   Patch1_embedding   + Position_1
+Token 2:   Patch2_embedding   + Position_2
+...
+Token 196: Patch196_embedding + Position_196
+</code></pre>
+<p>The position embedding is simply added (element-wise) to the patch embedding. Now every token carries both "what" the patch looks like and "where" it was in the image.</p>
+<p>Now, our sequence of 197 tokens is ready for the transformer. Let's move to the next step.</p>
+<h2 id="decoding-step-5-the-transformer-encoder">Decoding Step 5: The Transformer Encoder</h2>
+<p>The sequence of 197 tokens (CLS + 196 patches) is passed through a standard <strong>transformer encoder</strong>. We must be knowing how a transformer encoder works from text models - the same one comes into the picture here.</p>
+<p>We have a detailed blog on <a href="https://outcomeschool.com/blog/decoding-transformer-architecture" rel="noopener noreferrer" target="_blank">Decoding Transformer Architecture</a> that explains the transformer encoder in depth.</p>
+<p>The encoder consists of multiple layers, and each layer contains three main components.</p>
+<p><strong>1. <a href="https://outcomeschool.com/blog/multi-head-attention-in-transformers" rel="noopener noreferrer" target="_blank">Multi-Head Self-Attention</a>:</strong> Each token attends to every other token. This allows the model to learn relationships between different parts of the image. For example, a patch containing a cat's ear can attend to a patch containing a cat's eye, helping the model understand that they belong to the same object. This is the heart of ViT.</p>
+<p><strong>2. Feed-Forward Network:</strong> A two-layer neural network applied to each token independently. This adds non-linearity and increases the model's capacity. We have a detailed blog on <a href="https://outcomeschool.com/blog/feed-forward-networks-in-llms" rel="noopener noreferrer" target="_blank">Feed-Forward Networks in LLMs</a> that explains this in depth.</p>
+<p><strong>3. Layer Normalization and Residual Connections:</strong> Standard transformer components that help with training stability.</p>
+<pre><code>Input: 197 tokens (each 768-dimensional)
+        |
+        v
+[Layer 1: Multi-Head Self-Attention -&gt; Feed-Forward Network]
+        |
+        v
+[Layer 2: Multi-Head Self-Attention -&gt; Feed-Forward Network]
+        |
+        v
+... (12 layers in total)
+        |
+        v
+Output: 197 tokens (each 768-dimensional)
+</code></pre>
+<p>After all the layers, each token has been enriched with information from all other tokens. The CLS token, in particular, has gathered information from all 196 patches and now contains a global representation of the entire image.</p>
+<p>This is how the transformer encoder processes our sequence of visual tokens. Now, let's move to the final step.</p>
+<h2 id="decoding-step-6-the-classification-head">Decoding Step 6: The Classification Head</h2>
+<p>The final CLS token representation is passed through a <strong>classification head</strong>, which is a simple linear layer that maps the 768-dimensional vector to the number of classes.</p>
+<pre><code>CLS token output (768-dimensional)
+        |
+        v
+[Linear Layer (768 -&gt; 1000)]
+        |
+        v
+Class probabilities (1000 classes)
+        |
+        v
+Prediction: "Golden Retriever" (class with highest probability)
+</code></pre>
+<p>The class with the highest probability is the model's prediction. It works perfectly.</p>
+<p>Now, we have decoded every piece of ViT. Let's put them all together to see how ViT runs end to end.</p>
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+<p>Let's trace through the entire ViT pipeline end to end with concrete numbers for ViT-Base:</p>
+<pre><code>Input image (224 x 224 x 3 RGB)
+        |
+        v
+[Step 1: Split into 14 x 14 = 196 patches of 16 x 16]
+        |
+        v
+[Step 2: Patch embedding -&gt; 196 vectors, each 768-dim]
+        |
+        v
+[Step 3: Prepend CLS token -&gt; 197 vectors, each 768-dim]
+        |
+        v
+[Step 4: Add position embeddings -&gt; 197 vectors, each 768-dim]
+        |
+        v
+[Step 5: Transformer encoder (12 layers, 12 heads each)]
+        |
+        v
+[Step 6: Take CLS token -&gt; Linear (768 -&gt; 1000)]
+        |
+        v
+Prediction: "Golden Retriever"
+</code></pre>
+<p><strong>Total parameters for ViT-Base: ~86 million.</strong></p>
+<p>ViT comes in three standard sizes - <strong>ViT-Base</strong> (~86M parameters, 12 layers), <strong>ViT-Large</strong> (~307M parameters, 24 layers), and <strong>ViT-Huge</strong> (~632M parameters, 32 layers). The bigger the model, the more data it needs to train well, but the better it performs once trained.</p>
+<p>This is the complete flow of ViT from an input image to a final prediction.</p>
+<h2 id="vit-vs-cnn">ViT vs CNN</h2>
+<p>Now, a natural question arises - how does ViT compare to CNNs, which have been the standard for image classification for years?</p>
+<p>Let me tabulate the differences between ViT and CNN for your better understanding so that you can decide which one to use based on your use case.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>ViT</th>
+<th>CNN (e.g. ResNet)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Core operation</td>
+<td>Self-attention</td>
+<td>Convolution</td>
+</tr>
+<tr>
+<td>What each layer sees</td>
+<td>The whole image from the very first layer</td>
+<td>Only nearby pixels at first, more with depth</td>
+</tr>
+<tr>
+<td>Built-in assumptions</td>
+<td>Almost none, learns everything from data</td>
+<td>Strong, assumes nearby pixels are related</td>
+</tr>
+<tr>
+<td>Data requirement</td>
+<td>Needs large datasets</td>
+<td>Works with smaller datasets</td>
+</tr>
+<tr>
+<td>Scalability</td>
+<td>Scales well with data and compute</td>
+<td>Scales, but less steeply at very large scale</td>
+</tr>
+<tr>
+<td>Architecture</td>
+<td>Uniform (same attention blocks)</td>
+<td>Varied (different block types)</td>
+</tr>
+<tr>
+<td>Image understanding</td>
+<td>Understands global relationships</td>
+<td>Understands local patterns first</td>
+</tr>
+</tbody>
+</table></div>
+<p>CNNs come with a built-in assumption that nearby pixels are more related than distant pixels. This assumption acts like a <strong>head start</strong> - the CNN does not have to learn this from scratch. ViT does not have this head start. It learns all spatial relationships from the data itself. This is why ViT needs more data to train well, but once trained on enough data, it can outperform CNNs because it is not limited by any built-in assumption.</p>
+<p>Let's put this into perspective with real numbers:</p>
+<ul>
+<li>When trained only on ImageNet (~1.3 million images), ViT performs <strong>worse</strong> than a well-tuned ResNet of similar size.</li>
+<li>When pre-trained on JFT-300M (~300 million images) and then <a href="https://outcomeschool.com/blog/how-does-fine-tuning-work" rel="noopener noreferrer" target="_blank">fine-tuned</a> on ImageNet, ViT <strong>beats</strong> the best CNNs of the time.</li>
+<li>The lesson is simple - <strong>more data, more ViT wins</strong>. With small data, CNNs win because of their built-in head start.</li>
+</ul>
+<h2 id="quick-summary">Quick Summary</h2>
+<p>In one line:</p>
+<p><strong>ViT = image patches + transformer encoder.</strong></p>
+<p>Let's recap what we have decoded:</p>
+<ul>
+<li><strong>Vision Transformer (ViT)</strong> applies the transformer architecture to images by treating image patches as tokens, just like words in a sentence.</li>
+<li><strong>The process</strong> is - split the image into 16x16 patches, project each patch into an embedding, add a CLS token and position embeddings, process through a transformer encoder, and use the CLS token for classification.</li>
+<li><strong>Patch embedding</strong> converts each 16x16x3 patch into a 768-dimensional vector using a linear projection.</li>
+<li><strong>The CLS token</strong> aggregates information from all patches and is used for the final classification.</li>
+<li><strong>Position embeddings</strong> tell the transformer where each patch came from in the original image.</li>
+<li><strong>The transformer encoder</strong> uses multi-head self-attention so every patch can attend to every other patch, learning global relationships from the very first layer.</li>
+<li><strong>ViT vs CNN:</strong> ViT looks at the whole image from the very first layer, while CNNs look at nearby pixels first. ViT needs more data but scales better.</li>
+<li>ViT has become the foundation for many modern vision models, including CLIP, DINO, self-supervised methods like <a href="https://outcomeschool.com/blog/joint-embedding-predictive-architecture-jepa" rel="noopener noreferrer" target="_blank">I-JEPA</a>, and the vision encoders used in <a href="https://outcomeschool.com/blog/multimodal-ai" rel="noopener noreferrer" target="_blank">multimodal models</a>.</li>
+</ul>
+<p>So we have learned about the Vision Transformer (ViT), how it splits an image into patches, processes them with a transformer encoder, and uses the CLS token to make the final prediction. We have also seen how ViT compares to CNNs and why it scales so well with more data.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="does-vit-work-well-on-small-datasets">Does ViT work well on small datasets?</h3>
+<p>No. ViT needs large datasets to train well. When trained only on ImageNet, which has about 1.3 million images, ViT performs worse than a well-tuned ResNet of similar size. CNNs win with small data because they assume nearby pixels are related, which gives them a head start.</p>
+<h3 id="why-does-vit-use-16x16-patches">Why does ViT use 16x16 patches?</h3>
+<p>16x16 is a sweet spot between detail and cost. Smaller patches give more tokens and finer detail, but the sequence grows quickly and self-attention becomes very expensive. Bigger patches give fewer tokens and faster training, but the model loses fine-grained detail. That is why 16x16 became the default.</p>
+<h3 id="does-vit-use-a-transformer-decoder">Does ViT use a transformer decoder?</h3>
+<p>No. ViT uses a standard transformer encoder, the same one used for text tokens. The encoder lets every patch attend to every other patch. The final CLS token is then passed through a simple linear classification head to make the prediction.</p>
+<h3 id="does-vit-know-where-each-patch-came-from-in-the-image">Does ViT know where each patch came from in the image?</h3>
+<p>Only because of position embeddings. When the patches are lined up as a sequence, they lose their spatial position, so a learnable position vector is added to each patch embedding. Without it, the transformer would not know which patch was on the top-left and which was on the bottom-right.</p>
+<h3 id="which-modern-models-are-built-on-vit">Which modern models are built on ViT?</h3>
+<p>ViT has become the foundation for many modern vision models. These include CLIP, DINO, self-supervised methods like I-JEPA, and the vision encoders used in multimodal models.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m15-l1503">
+  <p class="print-lesson-kicker">Lesson 15.3</p>
+  <h1>How do Image Embeddings work?</h1>
+  <p class="print-lesson-meta">Lesson 15.3 · ~15 min · Published June 26, 2026 · <a href="https://outcomeschool.com/blog/how-do-image-embeddings-work">https://outcomeschool.com/blog/how-do-image-embeddings-work</a></p>
+  <p><img alt="How do Image Embeddings work?" src="../assets/images/15-15-03-how-do-image-embeddings-work/how-do-image-embeddings-work.png"/></p>
+<p>An image embedding is a list of numbers that represents the meaning of an image. A model converts the image into these numbers, and similar images get similar numbers, so the computer can compare them easily.</p>
+<p>In this blog, we will learn about how image embeddings work. We will also see why we need image embeddings, how a computer turns a picture into numbers, how we measure the similarity between two of them, and where they are used in the real world.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is an embedding?</li>
+<li>What is an image embedding?</li>
+<li>Why do we need image embeddings?</li>
+<li>How does a computer see an image?</li>
+<li>How are image embeddings created?</li>
+<li>A simple numeric walkthrough</li>
+<li>How do we measure similarity between two embeddings?</li>
+<li>A code example</li>
+<li>Where are image embeddings used?</li>
+<li>Summary</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="what-is-an-embedding">What is an embedding?</h2>
+<p>An <strong><a href="https://outcomeschool.com/blog/what-are-embeddings" rel="noopener noreferrer" target="_blank">embedding</a></strong> is a list of numbers that represents the meaning of something.</p>
+<p>In simple words, an embedding turns a real-world thing into a group of numbers. These numbers capture what the thing actually means.</p>
+<p>Let's say we have a word, a sentence, or an image. A computer cannot understand any of these directly. A computer only understands numbers. So, we convert the thing into a list of numbers. That list of numbers is called an embedding.</p>
+<p>This list of numbers is also called a <strong>vector</strong>. A vector is just a fixed-size list of numbers, like <code>[0.21, 0.87, 0.05, 0.64]</code>.</p>
+<p>So, here is the simple idea:</p>
+<blockquote>
+<p>An embedding is a list of numbers that captures the meaning of something.</p>
+</blockquote>
+<p>Now, we have understood what an embedding is. It is time to learn about what an image embedding is.</p>
+<h2 id="what-is-an-image-embedding">What is an image embedding?</h2>
+<p>An <strong>image embedding</strong> is a list of numbers that represents the meaning of an image.</p>
+<p>In simple words, we take an image, and we convert it into a list of numbers. That list of numbers captures what is inside the image.</p>
+<p>Let's say we have a photo of a cat. We pass this photo through a special model. This model gives us back a list of numbers, something like <code>[0.91, 0.12, 0.77, 0.03, ...]</code>. This list of numbers is the image embedding of the cat photo.</p>
+<p>The most important point is this:</p>
+<blockquote>
+<p>Two images that look similar in meaning will have embeddings that are close to each other.</p>
+</blockquote>
+<p>So, the embedding of one cat photo will be close to the embedding of another cat photo. But the embedding of a cat photo will be far from the embedding of a car photo.</p>
+<p>This is the whole magic of image embeddings. Similar images give similar numbers. Different images give different numbers.</p>
+<p>This was all about what an image embedding is. Now, the question is, why do we even need it.</p>
+<h2 id="why-do-we-need-image-embeddings">Why do we need image embeddings?</h2>
+<p>Let's say we are building an app like Google Photos. We have one million photos stored. Now, a user types "beach" in the search box. We must show all the beach photos.</p>
+<p>But here is the catch. The photos do not have any labels. Nobody has written "beach" under each photo. So, how do we find the beach photos?</p>
+<p>We cannot compare the raw photos pixel by pixel. That is slow, and it does not understand meaning. Two beach photos taken at different angles look completely different at the pixel level, but they mean the same thing.</p>
+<p>So, here comes the image embedding into the picture.</p>
+<p>We convert every photo into an embedding. We convert the word "beach" into an embedding too. Then we simply <a href="https://outcomeschool.com/blog/how-does-approximate-nearest-neighbor-ann-search-work" rel="noopener noreferrer" target="_blank">find the photo embeddings that are closest</a> to the "beach" embedding. Those are our beach photos.</p>
+<p>This way we can use image embeddings to solve the interesting problem of <a href="https://outcomeschool.com/blog/how-does-semantic-search-work" rel="noopener noreferrer" target="_blank">searching images by meaning</a>, not by exact pixels.</p>
+<p>Finding the closest embeddings quickly across millions of photos is exactly what a vector database is built for. We have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-a-vector-database-work" rel="noopener noreferrer" target="_blank">how a Vector Database works</a> that explains this end to end.</p>
+<p>Now, the next big question is, how does a computer even see an image in the first place.</p>
+<h2 id="how-does-a-computer-see-an-image">How does a computer see an image?</h2>
+<p>Before jumping into embeddings, we must know how a computer reads an image.</p>
+<p>An image is made up of tiny dots called <strong>pixels</strong>. A pixel is the smallest dot of color in an image. When we zoom into any photo a lot, we start seeing these small square dots. Each dot is a pixel.</p>
+<p>Each pixel is stored as numbers. For a color image, every pixel has three numbers, one for red, one for green, and one for blue. Each of these numbers usually goes from 0 to 255.</p>
+<p>So, for the sake of understanding, a small image of 100 by 100 pixels has 100 multiplied by 100, which is 10,000 pixels. And each pixel has 3 color numbers. So, the full image is 10,000 multiplied by 3, which is 30,000 numbers.</p>
+<p>We can picture a single pixel as below:</p>
+<pre><code class="language-text">        One pixel
+           |
+           v
+      +---------+
+      |  pixel  |
+      +---------+
+       /   |   \
+      v    v    v
+    Red  Green  Blue
+    210   180    90
+   (each value goes from 0 to 255)
+</code></pre>
+<p>Here, we can see that one single pixel is stored as three numbers, one for red, one for green, and one for blue. Every pixel in the image is stored in this same way, so the full image becomes a very big list of these color numbers.</p>
+<p>This is the raw image. It is just a big list of color numbers.</p>
+<p>But here is the problem. These raw numbers only tell us the color of each dot. They do not tell us the meaning. They do not tell us "this is a cat". Two cat photos can have totally different raw numbers because of lighting, angle, and background.</p>
+<p>So, we need to convert these raw color numbers into meaningful numbers. Those meaningful numbers are the image embedding.</p>
+<p><strong>Note:</strong> The raw pixels tell us how the image looks. The embedding tells us what the image means. This difference is the heart of the whole topic.</p>
+<p>Now that we understand raw pixels, it is time to learn how the embedding is actually created.</p>
+<h2 id="how-are-image-embeddings-created">How are image embeddings created?</h2>
+<p>Image embeddings are created using a <strong>neural network</strong>.</p>
+<p>In simple words, a neural network is a model that learns patterns from examples. We do not write rules for it by hand. Instead, we show it many examples, and it learns on its own.</p>
+<p>For images, we use a special type of neural network called a <strong>CNN</strong>, which stands for <strong>Convolutional Neural Network</strong>. We can also use a newer type called a <strong><a href="https://outcomeschool.com/blog/decoding-vision-transformer-vit" rel="noopener noreferrer" target="_blank">Vision Transformer</a></strong>. Do not worry about the exact names. The idea behind both is the same.</p>
+<p>Let's understand the idea with a simple analogy.</p>
+<p>Suppose a child has never seen a cat. We show the child thousands of cat photos. Slowly, the child learns the pattern. Cats have pointy ears, whiskers, fur, and a tail. Now the child can recognize a cat even in a brand new photo.</p>
+<p>A neural network learns in the same way. We show it millions of photos. It slowly learns the patterns, like edges, shapes, ears, eyes, and textures.</p>
+<p>Here is how it works step by step.</p>
+<p><strong>Step 1:</strong> The raw image, which is a big list of color numbers, goes into the neural network.</p>
+<p><strong>Step 2:</strong> The first layers of the network look for very simple patterns, like edges and corners.</p>
+<p><strong>Step 3:</strong> The next layers combine these simple patterns into bigger patterns, like an eye, an ear, or a wheel.</p>
+<p><strong>Step 4:</strong> The deeper layers combine these into full objects, like a full cat face or a full car.</p>
+<p><strong>Step 5:</strong> Near the end, the network produces a short list of numbers that summarizes everything it found in the image. This short list of numbers is the image embedding.</p>
+<p>Let's visualize this flow as below:</p>
+<pre><code class="language-text">   Raw image
+ (color numbers)
+       |
+       v
++-----------------+
+|  Early layers   |  finds edges and corners
++-----------------+
+       |
+       v
++-----------------+
+|  Middle layers  |  finds parts (eye, ear, wheel)
++-----------------+
+       |
+       v
++-----------------+
+|  Deep layers    |  finds full objects (cat, car)
++-----------------+
+       |
+       v
++-----------------+
+|  Final layer    |  summarizes everything found
++-----------------+
+       |
+       v
+   Embedding
+[0.91, 0.12, 0.77, ...]
+</code></pre>
+<p>Here, we can see that the raw image enters at the top, and each layer of the network understands a little more than the layer before it. The early layers see only simple edges, the middle layers see parts, and the deep layers see full objects. At the very end, the network turns all of this understanding into a short list of numbers, which is the image embedding.</p>
+<p>So, the embedding is the network's summary of the meaning of the image.</p>
+<p>Let me map this flow to our child analogy for your better understanding:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>In the neural network</th>
+<th>In the child analogy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Raw image (color numbers)</td>
+<td>Looking at the photo with eyes</td>
+</tr>
+<tr>
+<td>Early layers finding edges</td>
+<td>Noticing simple lines and corners</td>
+</tr>
+<tr>
+<td>Middle layers finding parts</td>
+<td>Noticing ears, eyes, and whiskers</td>
+</tr>
+<tr>
+<td>Deep layers finding objects</td>
+<td>Recognizing the full cat</td>
+</tr>
+<tr>
+<td>Final embedding</td>
+<td>The understanding "this is a cat"</td>
+</tr>
+</tbody>
+</table></div>
+<p>The best part is this. After the network is trained on millions of images, it learns to place similar images close together in the number space. This happens automatically during training, and that too without us writing any rule for it.</p>
+<p>Now, we have understood how embeddings are created. The best way to learn this further is by taking a simple numeric example.</p>
+<h2 id="a-simple-numeric-walkthrough">A simple numeric walkthrough</h2>
+<p>Let's say, just for the sake of understanding, that our embedding has only 3 numbers. In real life, an embedding has hundreds or even thousands of numbers, but 3 numbers are enough to learn the idea.</p>
+<p>Assume that we have three photos. We pass each photo through the neural network, and we get the following embeddings:</p>
+<ul>
+<li>Cat photo A: <code>[0.90, 0.10, 0.05]</code></li>
+<li>Cat photo B: <code>[0.88, 0.12, 0.07]</code></li>
+<li>Car photo C: <code>[0.10, 0.95, 0.85]</code></li>
+</ul>
+<p>Here, we can notice something very important. The two cat photos, A and B, have very similar numbers. The car photo C has very different numbers.</p>
+<p>We can picture where these embeddings sit as below:</p>
+<pre><code class="language-text">   Number space
+   Cat A  Cat B
+    (.)   (.)            &lt;-- close together
+                          (.) Car C    &lt;-- far away
+</code></pre>
+<p>Here, we can see that the embedding of Cat A and the embedding of Cat B land very close to each other because they mean the same thing. The embedding of Car C lands far away because it means something different. This is exactly how a computer keeps similar images near each other and different images apart, using only numbers.</p>
+<p>This is exactly what we wanted. Similar meaning gives similar numbers. Different meaning gives different numbers.</p>
+<p>So, if we ask the computer "which photo is most similar to Cat photo A", the computer will compare the numbers and answer "Cat photo B". It will not pick the car photo, because its numbers are far away.</p>
+<p>This is how a computer understands the meaning of images using only numbers.</p>
+<p>Now, the question is, how exactly does the computer measure that two lists of numbers are close or far. Let's understand that now.</p>
+<h2 id="how-do-we-measure-similarity-between-two-embeddings">How do we measure similarity between two embeddings?</h2>
+<p>To find how similar two embeddings are, we measure the distance between them.</p>
+<p>In simple words, if two lists of numbers are close to each other, the images are similar. If they are far apart, the images are different.</p>
+<p>The most common method to measure this is called <strong>cosine similarity</strong>.</p>
+<p>In simple words, cosine similarity checks whether two lists of numbers point in the same direction. If they point in the same direction, the similarity is high. If they point in different directions, the similarity is low.</p>
+<p>The cosine similarity value goes from -1 to 1.</p>
+<ul>
+<li>A value close to 1 means the two images are very similar.</li>
+<li>A value close to 0 means they are not related.</li>
+<li>A value close to -1 means they are opposite.</li>
+</ul>
+<p>Let's take our earlier example. Cat photo A is <code>[0.90, 0.10, 0.05]</code> and Cat photo B is <code>[0.88, 0.12, 0.07]</code>. These two point in almost the same direction, so the cosine similarity will be very close to 1. This tells us they are very similar.</p>
+<p>This is how we find similar images using their embeddings.</p>
+<p>Now that we have learned the theory, it is time to see a small code example.</p>
+<h2 id="a-code-example">A code example</h2>
+<p>Let's see the code for creating an image embedding and comparing two images. We will use Python, which is the most common language for machine learning.</p>
+<p>First, we load a ready-made model and create embeddings for two images as below:</p>
+<pre><code class="language-python">from sentence_transformers import SentenceTransformer
+from PIL import Image
+# Load a ready-made model that can create image embeddings
+model = SentenceTransformer("clip-ViT-B-32")
+# Open two images from our computer
+cat_image = Image.open("cat.jpg")
+dog_image = Image.open("dog.jpg")
+# Convert each image into an embedding (a list of numbers)
+cat_embedding = model.encode(cat_image)
+dog_embedding = model.encode(dog_image)
+print(cat_embedding.shape)
+</code></pre>
+<p>Here, we have done a few simple things.</p>
+<ul>
+<li>We loaded a ready-made model called <code>clip-ViT-B-32</code>. This model already knows how to turn images into embeddings, so we do not have to train anything ourselves.</li>
+<li>We opened two image files, one cat and one dog.</li>
+<li>We called <code>model.encode()</code> on each image. This gives us back the embedding, which is the list of numbers.</li>
+</ul>
+<p>This will print the following:</p>
+<pre><code>(512,)
+</code></pre>
+<p>Here, we can see that each embedding is a list of 512 numbers. So, this model summarizes the full image into 512 meaningful numbers.</p>
+<p>Now, let's compare these two embeddings to see how similar the images are as below:</p>
+<pre><code class="language-python">from sentence_transformers import util
+# Measure how similar the two embeddings are
+similarity = util.cos_sim(cat_embedding, dog_embedding)
+print(similarity)
+</code></pre>
+<p>Here, we have used <code>cos_sim</code>, which calculates the cosine similarity between the two embeddings. It tells us how close the two images are in meaning.</p>
+<p>A cat and a dog are both animals, so the value will be somewhat high. If we compared a cat with a car instead, the value would be much lower, because a cat and a car are very different in meaning.</p>
+<p>This is how, with only a few lines of code, we can convert images into numbers and compare their meaning. It works perfectly.</p>
+<p><strong>Note:</strong> The same <code>clip-ViT-B-32</code> model can also turn a word like "beach" into an embedding. So, we can compare a word embedding with image embeddings, and that is exactly how searching photos by typing words works.</p>
+<p>Models that connect text and images in the same embedding space like this are called multimodal models. We have a detailed blog on <a href="https://outcomeschool.com/blog/multimodal-ai" rel="noopener noreferrer" target="_blank">Multimodal AI</a> that explains how it works.</p>
+<p>Now, we have understood the full flow. Let's see where image embeddings are used in real life.</p>
+<h2 id="where-are-image-embeddings-used">Where are image embeddings used?</h2>
+<p>Image embeddings are used in many products that we use every day. Here are a few real use cases:</p>
+<ul>
+<li><strong>Image search:</strong> We search for photos by typing words like "beach" or "birthday", and the app finds matching photos by comparing embeddings.</li>
+<li><strong>Similar product search:</strong> On shopping apps, we upload a photo of a shoe, and the app shows similar shoes by comparing embeddings.</li>
+<li><strong>Duplicate photo detection:</strong> The phone gallery groups similar or duplicate photos together by comparing their embeddings.</li>
+<li><strong>Face grouping:</strong> Photo apps group all photos of the same person together using embeddings.</li>
+<li><strong>Recommendation systems:</strong> Apps recommend images or videos similar to the ones we liked, using embeddings.</li>
+</ul>
+<p>So, now we know where we can use image embeddings.</p>
+<h2 id="summary">Summary</h2>
+<p>Let's quickly recap everything in simple words.</p>
+<p>A computer cannot understand an image directly. It only understands numbers. The raw image is just a big list of color numbers, and these raw numbers do not capture meaning.</p>
+<p>So, we pass the image through a neural network. The network summarizes the image into a short list of meaningful numbers. This list of numbers is the image embedding.</p>
+<p>Similar images get similar embeddings, and different images get different embeddings. We measure how similar two embeddings are using cosine similarity. This lets us search, group, and compare images by their meaning, not by their exact pixels.</p>
+<p>This is how image embeddings work. They turn pictures into numbers that carry meaning, and that too in a way a computer can compare very easily.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="why-can-t-we-just-compare-raw-pixels-to-find-similar-images">Why can't we just compare raw pixels to find similar images?</h3>
+<p>Raw pixels only tell us the color of each dot, not the meaning of the image. Two cat photos can have totally different raw numbers because of lighting, angle, and background. Comparing pixel by pixel is also slow. An embedding captures what the image means, so similar images end up close to each other.</p>
+<h3 id="can-we-search-images-using-a-text-query">Can we search images using a text query?</h3>
+<p>Yes. A model like <code>clip-ViT-B-32</code> can turn both images and a word like "beach" into embeddings in the same space. We then compare the word embedding with the image embeddings and pick the closest ones. Models that connect text and images in the same embedding space like this are called multimodal models.</p>
+<h3 id="do-we-need-to-train-our-own-model-to-create-image-embeddings">Do we need to train our own model to create image embeddings?</h3>
+<p>No. We can load a ready-made model like <code>clip-ViT-B-32</code>, which already knows how to turn images into embeddings. With just a few lines of Python, we can encode images with <code>model.encode()</code> and compare them with cosine similarity, without training anything ourselves.</p>
+<h3 id="how-many-numbers-are-there-in-an-image-embedding">How many numbers are there in an image embedding?</h3>
+<p>In real life, an image embedding has hundreds or even thousands of numbers. For example, the <code>clip-ViT-B-32</code> model summarizes a full image into a list of 512 numbers. Small examples with only 3 numbers are used just to understand the idea.</p>
+<h3 id="do-photos-need-labels-to-be-searchable-with-image-embeddings">Do photos need labels to be searchable with image embeddings?</h3>
+<p>No. Photos do not need anyone to write labels like "beach" under them. We convert every photo into an embedding and the search word into an embedding too. Then we find the photo embeddings closest to the search embedding, which lets us search images by meaning.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m15-l1504">
+  <p class="print-lesson-kicker">Lesson 15.4</p>
+  <h1>What are Diffusion Models and How Do They Generate Images?</h1>
+  <p class="print-lesson-meta">Lesson 15.4 · ~16 min · Published June 3, 2026 · <a href="https://outcomeschool.com/blog/diffusion-models">https://outcomeschool.com/blog/diffusion-models</a></p>
+  <p><img alt="Diffusion Models" src="../assets/images/15-15-04-what-are-diffusion-models-and-how-do-they-generate-images/diffusion-models.png"/></p>
+<p>A Diffusion Model is a type of AI model that creates new data, such as images, by starting from pure random noise and slowly cleaning it up step by step until a clear image appears.</p>
+<p>In this blog, we will learn about Diffusion Models. We will understand what they are, why we need them, how they work step by step, and how they generate amazing images like the ones we see in tools such as DALL-E, Stable Diffusion, and Midjourney.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is a Diffusion Model?</li>
+<li>Why do we need Diffusion Models?</li>
+<li>The two processes: Forward and Reverse</li>
+<li>The Forward Process (adding noise)</li>
+<li>The Reverse Process (removing noise)</li>
+<li>A step-by-step example walk-through</li>
+<li>How the model is trained</li>
+<li>A simple code example</li>
+<li>Conditional Diffusion (text to image)</li>
+<li>Advantages of Diffusion Models</li>
+<li>Where Diffusion Models are used</li>
+</ul>
+<p>Let's get started.</p>
+<h3 id="what-is-a-diffusion-model">What is a Diffusion Model?</h3>
+<p><strong>A Diffusion Model is a type of AI model that learns to create new data, such as images, by starting from pure random noise and slowly cleaning it up step by step until a clear image appears.</strong></p>
+<p>In simple words, a Diffusion Model learns how to turn noise into something meaningful.</p>
+<p>So, where does the name come from? The word <strong>diffusion</strong> means spreading out, like a drop of ink spreading slowly in water until it mixes everywhere. A Diffusion Model first spreads noise into an image until the image is destroyed, and then learns to reverse this spreading to bring the image back.</p>
+<p>So, what is <strong>noise</strong>? Noise is just random dots, like the static we see on an old television screen when there is no signal. It carries no meaning. It is pure randomness.</p>
+<p>Now, the magic is this: a Diffusion Model takes this meaningless noise and gradually transforms it into a beautiful, meaningful image, one small step at a time.</p>
+<p>Let's say we have a screen full of random dots. The Diffusion Model looks at it and removes a little bit of the randomness. Then it looks again and removes a little more. It keeps repeating this until a clear picture of, for example, a cat appears.</p>
+<p>That is the core idea of a Diffusion Model.</p>
+<p>Diffusion Models are one family inside the bigger world of Generative AI, and we have a detailed blog on <a href="https://outcomeschool.com/blog/what-is-generative-ai" rel="noopener noreferrer" target="_blank">What is Generative AI?</a> that explains the whole idea from the ground up.</p>
+<h3 id="why-do-we-need-diffusion-models">Why do we need Diffusion Models?</h3>
+<p>The best way to learn this is by understanding the problem.</p>
+<p>We want computers to create new images, new art, new designs, and new pictures that have never existed before. This is called <strong>image generation</strong>.</p>
+<p>So, the question is: how can a computer create a brand new image from scratch?</p>
+<p>This is a very hard problem. An image is made of millions of pixels, and every pixel must have the right color and the right place. If even a few pixels are wrong, the image looks broken and unrealistic.</p>
+<p>Before Diffusion Models, we used models called <strong>GANs</strong>, which stands for <a href="https://outcomeschool.com/blog/generative-adversarial-networks" rel="noopener noreferrer" target="_blank"><strong>Generative Adversarial Networks</strong></a>. GANs were powerful, but they were very hard to train. They were unstable, which means they often failed to learn properly, and sometimes they produced the same image again and again.</p>
+<p>We needed a solution for that, and Diffusion Models were introduced to solve this problem.</p>
+<p>Diffusion Models are stable to train, they produce very high quality and diverse images, and they have a simple core idea that is easy to understand. This is why Diffusion Models have become the most popular method for image generation today.</p>
+<h3 id="the-two-processes-forward-and-reverse">The two processes: Forward and Reverse</h3>
+<p>A Diffusion Model is built on two processes that are opposite to each other.</p>
+<ul>
+<li><strong>Forward Process:</strong> We take a clean image and slowly add noise to it, step by step, until it becomes pure noise.</li>
+<li><strong>Reverse Process:</strong> We take pure noise and slowly remove the noise, step by step, until it becomes a clean image.</li>
+</ul>
+<p>We can visualize both processes on the same chain like below:</p>
+<pre><code>             ADD NOISE   (forward, easy)   ---------&gt;
+        +--------+--------+--------+-- ... --+--------+
+        |  x_0   |  x_1   |  x_2   |         |  x_T   |
+        +--------+--------+--------+-- ... --+--------+
+          clean    little    more               pure
+          image    noise     noise              noise
+        &lt;---------   (reverse, hard)   REMOVE NOISE
+</code></pre>
+<p>Here, we can see that the same chain runs in two opposite directions. Going left to right is the Forward Process, where we add a little noise at every step until the clean image <code>x_0</code> becomes pure noise <code>x_T</code>. Going right to left is the Reverse Process, where we remove a little noise at every step until the pure noise <code>x_T</code> becomes a clean image <code>x_0</code> again. The top arrow is easy and needs no learning. The bottom arrow is hard and is the part that the AI model must learn.</p>
+<p>So, here is the key insight. The Forward Process is easy because adding noise is simple. We do not need any learning for it. We just keep adding random noise.</p>
+<p>But the Reverse Process is the hard part. Removing noise to recover a real image is difficult. This is where the AI model comes into the picture. The model learns how to reverse the noise.</p>
+<p>Let's understand this with an analogy.</p>
+<p>Suppose we have a clear glass of water, and we slowly add drops of ink to it. Drop by drop, the water becomes more and more cloudy, until it is completely dark. This is the Forward Process. Adding ink is easy.</p>
+<p>Now, the Reverse Process is like cleaning the water drop by drop until it becomes perfectly clear again. This is very hard, and we need a skilled helper to do it. In a Diffusion Model, the AI model is that skilled helper.</p>
+<p>So, the model spends all its effort learning the Reverse Process. The Forward Process is only used during training to teach the model what noise looks like at every step.</p>
+<h3 id="the-forward-process-adding-noise">The Forward Process (adding noise)</h3>
+<p>Now, let's understand the Forward Process in detail.</p>
+<p>We start with a real image. Let's call it the image at time step <code>0</code>, written as <code>x_0</code>.</p>
+<p>Then, we add a small amount of random noise to it. Now we have a slightly noisy image at step <code>1</code>, called <code>x_1</code>.</p>
+<p>We add a little more noise. Now we have <code>x_2</code>, which is noisier.</p>
+<p>We keep repeating this for many steps, usually around <code>1000</code> steps. At the final step, called <code>x_T</code>, the image is completely destroyed and becomes pure random noise.</p>
+<p>So, the Forward Process looks like below:</p>
+<pre><code>   x_0   -&gt;   x_1   -&gt;   x_2   -&gt;   ...   -&gt;   x_T
+  clean      little     more                  pure
+  image      noise      noise                 noise
+</code></pre>
+<p>Here, we can see that we move from a clean image on the left to pure noise on the right, by adding a small amount of noise at every step.</p>
+<p>A very important point to understand is that the amount of noise added at each step is small and controlled. We use a schedule that decides how much noise to add at every step. This is called the <strong>noise schedule</strong>.</p>
+<p>The good thing about the Forward Process is that it needs no learning at all. It is just a simple, fixed mathematical process of adding random noise. The model does not even take part in the Forward Process.</p>
+<h3 id="the-reverse-process-removing-noise">The Reverse Process (removing noise)</h3>
+<p>Now, let's learn the Reverse Process, which is the heart of a Diffusion Model.</p>
+<p>The Reverse Process does the exact opposite of the Forward Process. It starts from pure noise <code>x_T</code> and slowly removes the noise, step by step, until it reaches a clean image <code>x_0</code>.</p>
+<p>So, the Reverse Process looks like below:</p>
+<pre><code>   x_T   -&gt;   ...   -&gt;   x_2   -&gt;   x_1   -&gt;   x_0
+  pure                  more       little     clean
+  noise                 noise      noise      image
+</code></pre>
+<p>Here, we can see that we move from pure noise on the left to a clean image on the right, by removing a small amount of noise at every step.</p>
+<p>But here is the catch. Removing noise is very hard. We cannot do it with a simple fixed rule. We need a model that has learned what a real image looks like.</p>
+<p>So, here comes the <strong>neural network</strong> to the rescue. A neural network is a model made of many connected layers that learns patterns from data.</p>
+<p>The job of this neural network is simple to state. At every step, it looks at the noisy image and predicts the noise that was added. Once we know the noise, we can subtract it and get a cleaner image.</p>
+<p>In simple words, the model is a <strong>noise predictor</strong>. We give it a noisy image, and it tells us, "Here is the noise that is hiding inside this image." We remove that noise and move one step closer to a clean image.</p>
+<p>The neural network used here is usually a special architecture called a <strong>U-Net</strong>. A U-Net is good at taking an image as input and producing an image as output of the same size, which is exactly what we need to predict noise.</p>
+<h3 id="a-step-by-step-example-walk-through">A step-by-step example walk-through</h3>
+<p>Let's take a small example to make this concrete.</p>
+<p>Suppose we want to generate a picture of a cat. We do not start with a cat. We start with pure noise.</p>
+<p><strong>Step 1:</strong> We begin with a screen full of random noise. This is <code>x_T</code>. It looks like the static on an old television screen when there is no signal. There is no cat anywhere in it.</p>
+<p><strong>Step 2:</strong> We pass this noise to the trained neural network. The model predicts the noise hidden inside it. We subtract a part of that noise. Now we have <code>x_(T-1)</code>, which is very slightly less noisy.</p>
+<p><strong>Step 3:</strong> We pass <code>x_(T-1)</code> to the model again. It predicts the noise again. We subtract it again. Now we have <code>x_(T-2)</code>. A very faint shape starts to appear.</p>
+<p><strong>Step 4:</strong> We keep repeating this process again and again. With every step, the image becomes cleaner. Slowly, the rough outline of a cat appears. Then the ears appear. Then the eyes. Then the fur details.</p>
+<p><strong>Step 5:</strong> After all the steps are done, we reach <code>x_0</code>. Now we have a clear, sharp image of a cat that never existed before.</p>
+<p>So, the journey looks like below:</p>
+<pre><code>   Pure Noise   -&gt;   Faint Shape   -&gt;   Rough Cat   -&gt;   Clear Cat
+      x_T               x_500             x_100             x_0
+</code></pre>
+<p>Here, we can see that each step removes a little noise, and the cat slowly emerges out of the randomness. The model never draws the cat in one shot. It reveals the cat gradually, like cleaning a foggy mirror wipe by wipe.</p>
+<h3 id="how-the-model-is-trained">How the model is trained</h3>
+<p>Now, the next big question is: how does the model learn to predict the noise?</p>
+<p>This is where the Forward Process becomes useful during training.</p>
+<p>Let's understand the training in simple steps.</p>
+<p><strong>Step 1:</strong> We take a real image from our training data. Let's say it is a real photo of a cat.</p>
+<p><strong>Step 2:</strong> We pick a random time step, for example step <code>400</code>. Then we add the exact amount of noise for step <code>400</code> to the image. Since we are the ones adding the noise, we know precisely what noise we added.</p>
+<p><strong>Step 3:</strong> We give this noisy image to the neural network and ask it to predict the noise.</p>
+<p><strong>Step 4:</strong> We compare the noise predicted by the model with the actual noise that we added. The difference between them is the <strong>error</strong>, also called the <strong>loss</strong>.</p>
+<p><strong>Step 5:</strong> We adjust the model so that next time its prediction is closer to the real noise. This adjustment is done using a method called <strong><a href="https://outcomeschool.com/blog/math-behind-backpropagation" rel="noopener noreferrer" target="_blank">backpropagation</a></strong>, which slowly improves the model.</p>
+<p>We repeat these steps millions of times with millions of images and random time steps. Over time, the model becomes an expert at predicting the noise at any step.</p>
+<p>So, the beauty of the training is this. We always know the correct answer, because we added the noise ourselves. This makes the training stable and reliable, which is the big advantage over GANs.</p>
+<h3 id="a-simple-code-example">A simple code example</h3>
+<p>Let's see a simple code example to make the idea concrete.</p>
+<p>First, let's see how we add noise in the Forward Process, as below:</p>
+<pre><code class="language-python">import torch
+def add_noise(image, noise, alpha_bar_t):
+    # alpha_bar_t controls how much original image remains
+    noisy_image = (alpha_bar_t ** 0.5) * image + ((1 - alpha_bar_t) ** 0.5) * noise
+    return noisy_image
+</code></pre>
+<p>Here, we have a function that takes a clean <code>image</code>, some random <code>noise</code>, and a value <code>alpha_bar_t</code> that controls how much of the original image stays. When <code>alpha_bar_t</code> is close to <code>1</code>, the image stays mostly clean. When it is close to <code>0</code>, the image becomes mostly noise. So, this single line mixes the clean image and the noise in the right proportion for that time step.</p>
+<p>Now, let's see the training step where the model learns to predict the noise, as below:</p>
+<pre><code class="language-python">def training_step(model, image):
+    t = torch.randint(0, 1000, (1,))          # pick a random time step
+    noise = torch.randn_like(image)           # create random noise
+    noisy_image = add_noise(image, noise, alpha_bar[t])
+    predicted_noise = model(noisy_image, t)   # model predicts the noise
+    loss = ((noise - predicted_noise) ** 2).mean()   # compare with real noise
+    return loss
+</code></pre>
+<p>Here, we can see the full training logic. First, we pick a random time step <code>t</code>. Then, we create random <code>noise</code> and add it to the image to get a <code>noisy_image</code>. After that, the <code>model</code> predicts the noise from the noisy image. Finally, we compute the <code>loss</code>, which is the difference between the real noise and the predicted noise. We want this loss to become as small as possible.</p>
+<p>Now, let's see how we generate a new image in the Reverse Process, as below:</p>
+<pre><code class="language-python">def generate(model):
+    x = torch.randn(1, 3, 64, 64)             # start from pure noise
+    for t in reversed(range(1000)):           # go from step 999 down to 0
+        predicted_noise = model(x, t)         # predict the noise
+        x = remove_noise(x, predicted_noise, t)   # subtract a part of it
+    return x                                   # final clean image
+</code></pre>
+<p>Here, we can see the generation logic. We start with pure random noise <code>x</code>. Then, we loop from the last step down to the first step. In every step, the <code>model</code> predicts the noise, and we remove a part of it using <code>remove_noise</code>. After the loop finishes, <code>x</code> becomes a clean, brand new image.</p>
+<p>This is how, in code, we add noise, train the model, and generate new images.</p>
+<h3 id="conditional-diffusion-text-to-image">Conditional Diffusion (text to image)</h3>
+<p>Till now, we have learned how a Diffusion Model generates a random image. But tools like DALL-E and Stable Diffusion do something more powerful. We type a sentence, and they create exactly that image.</p>
+<p>So, now the question is: how does the model know what to draw?</p>
+<p>This is where <strong>Conditional Diffusion</strong> comes into the picture.</p>
+<p>In Conditional Diffusion, we give the model an extra input called a <strong>condition</strong>. The condition tells the model what we want. For text to image, the condition is our text prompt, for example "a cat sitting on a red sofa".</p>
+<p>So, at every step of the Reverse Process, the model does not only look at the noisy image. It also looks at the meaning of our text. This way, it removes the noise in a direction that matches our text.</p>
+<p>The text is first converted into numbers that capture its meaning. This conversion is done by a text understanding model such as <strong>CLIP</strong>. These numbers are then fed into the U-Net at every step, so the noise removal stays guided by our words.</p>
+<p>In simple words, the text acts like a guide. Without the text, the model would create any random image. With the text, the model creates the specific image that we asked for.</p>
+<p>This is exactly how we type "a cat sitting on a red sofa" and get that exact image.</p>
+<h3 id="advantages-of-diffusion-models">Advantages of Diffusion Models</h3>
+<p>Now, let's understand why Diffusion Models have become so popular.</p>
+<ul>
+<li><strong>High quality:</strong> Diffusion Models produce very sharp, detailed, and realistic images.</li>
+<li><strong>Stable training:</strong> Unlike GANs, Diffusion Models are stable to train because we always know the correct noise during training. The model rarely fails to learn.</li>
+<li><strong>Diversity:</strong> Diffusion Models can produce a wide variety of different images. They do not get stuck producing the same image again and again.</li>
+<li><strong>Flexible control:</strong> We can guide the generation using text, sketches, or other images. This gives us a lot of control over the final result.</li>
+<li><strong>Simple core idea:</strong> The main idea, which is to add noise and then learn to remove it, is simple and easy to understand.</li>
+</ul>
+<p>That's the beauty of Diffusion Models.</p>
+<h3 id="where-diffusion-models-are-used">Where Diffusion Models are used</h3>
+<p>Now, let's see where Diffusion Models are used in the real world.</p>
+<ul>
+<li><strong>Text to image generation:</strong> Tools like DALL-E, Stable Diffusion, and Midjourney use Diffusion Models to create images from text prompts.</li>
+<li><strong>Image editing:</strong> We can change a part of an image, remove an object, or fill in a missing area. This is called inpainting.</li>
+<li><strong>Super resolution:</strong> We can take a low quality, blurry image and make it sharp and high resolution.</li>
+<li><strong>Video generation:</strong> Newer models extend the same idea to create short videos from text.</li>
+<li><strong>Audio generation:</strong> The same noise to signal idea is also used to generate music and speech.</li>
+<li><strong>Science and medicine:</strong> Diffusion Models are used to design new molecules and to improve medical images.</li>
+</ul>
+<p>Diffusion Models are the reason why we can now create stunning images just by typing a few words. The simple idea of adding noise and then learning to remove it has changed the way computers create art and content.</p>
+<p>The same add-noise-then-remove-noise idea has now been carried over to text, where it powers a new kind of model. We have a blog on <a href="https://outcomeschool.com/blog/how-do-diffusion-language-models-dlms-work" rel="noopener noreferrer" target="_blank">Diffusion Language Models (DLMs)</a> that explains how this works for words.</p>
+<p>This was all about Diffusion Models.</p>
+<p>Now we must have understood what Diffusion Models are, why we need them, how they work step by step, and where they are used.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="are-diffusion-models-better-than-gans">Are Diffusion Models better than GANs?</h3>
+<p>Yes, for most image generation today. GANs were powerful but hard to train, unstable, and sometimes produced the same image again and again. Diffusion Models are stable to train because we always know the correct noise during training, and they produce very high quality and diverse images.</p>
+<h3 id="does-a-diffusion-model-create-an-image-in-one-step">Does a Diffusion Model create an image in one step?</h3>
+<p>No. A Diffusion Model never draws the image in one shot. It starts from pure noise and removes a little noise at every step, usually over around 1000 steps. The image is revealed gradually, like cleaning a foggy mirror wipe by wipe.</p>
+<h3 id="does-the-model-have-to-learn-the-forward-process">Does the model have to learn the Forward Process?</h3>
+<p>No. The Forward Process needs no learning at all. It is a simple, fixed mathematical process of adding random noise, controlled by a noise schedule. The model spends all its effort learning the Reverse Process, and the Forward Process is only used during training to create noisy images.</p>
+<h3 id="can-diffusion-models-generate-things-other-than-images">Can Diffusion Models generate things other than images?</h3>
+<p>Yes. Newer models extend the same idea to create short videos from text, and the same noise to signal idea is used to generate music and speech. Diffusion Models are also used to design new molecules and improve medical images. The idea has even been carried over to text through Diffusion Language Models.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m15-l1505">
+  <p class="print-lesson-kicker">Lesson 15.5</p>
+  <h1>What are Generative Adversarial Networks (GANs) and How Do They Work?</h1>
+  <p class="print-lesson-meta">Lesson 15.5 · ~16 min · Published June 4, 2026 · <a href="https://outcomeschool.com/blog/generative-adversarial-networks">https://outcomeschool.com/blog/generative-adversarial-networks</a></p>
+  <p><img alt="Generative Adversarial Networks (GANs)" src="../assets/images/15-15-05-what-are-generative-adversarial-networks-gans-and-how-do-they-work/generative-adversarial-networks.png"/></p>
+<p>A Generative Adversarial Network (GAN) is a Machine Learning system where two neural networks compete against each other, and through this competition, one of them learns to create new data that looks real.</p>
+<p>In this blog, we will learn about Generative Adversarial Networks (GANs), one of the most fascinating ideas in Machine Learning that can create brand new images, faces, and art that never existed before.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is a Generative Adversarial Network (GAN)?</li>
+<li>The two players: Generator vs Discriminator</li>
+<li>The counterfeiter vs police analogy</li>
+<li>The adversarial training loop</li>
+<li>The loss function and the minimax game in simple words</li>
+<li>A tiny PyTorch-style code sketch</li>
+<li>The mode collapse problem</li>
+<li>Training stability</li>
+<li>Types of GANs (DCGAN, Conditional GAN, StyleGAN, CycleGAN)</li>
+<li>Real-world applications of GANs</li>
+</ul>
+<p>Let's get started.</p>
+<h3 id="what-is-a-generative-adversarial-network-gan">What is a Generative Adversarial Network (GAN)?</h3>
+<p>A <strong>Generative Adversarial Network (GAN)</strong> is a Machine Learning system where two <a href="https://outcomeschool.com/blog/neural-network" rel="noopener noreferrer" target="_blank">neural networks</a> compete against each other, and through this competition, one of them learns to create new data that looks real.</p>
+<p>In simple words, a GAN is a system that learns to create fake things so convincing that they look completely real.</p>
+<p>Let's break the name down:</p>
+<blockquote>
+<p>GAN = Generative + Adversarial + Network</p>
+</blockquote>
+<ul>
+<li><a href="https://outcomeschool.com/blog/what-is-generative-ai" rel="noopener noreferrer" target="_blank"><strong>Generative</strong></a> means it generates, which means it creates new things, like new images.</li>
+<li><strong>Adversarial</strong> means there is a fight, a competition between two sides.</li>
+<li><strong>Network</strong> means we are using neural networks, which are the brains of Machine Learning.</li>
+</ul>
+<p>So, a GAN is two neural networks fighting each other to learn how to create new data.</p>
+<p>Let's say we want a computer to draw new human faces that no one has ever seen. These faces should look like real photographs, but they belong to no real person. A GAN can do exactly this.</p>
+<p>The most interesting part is that a GAN learns to do this all by itself, just by looking at many real examples, and that too without anyone telling it exactly what to draw.</p>
+<h3 id="the-two-players-generator-vs-discriminator">The two players: Generator vs Discriminator</h3>
+<p>A GAN has two neural networks inside it. These are the two players of the game.</p>
+<p><strong>Generator:</strong> The first network is the <strong>Generator</strong>. Its job is to create fake data. It takes some random numbers as input and turns them into something, for example, a picture of a face.</p>
+<p><strong>Discriminator:</strong> The second network is the <strong>Discriminator</strong>. Its job is to look at a picture and decide one thing only, which means it answers a simple question: is this picture real or fake?</p>
+<p>So, we have one network that creates fakes, and another network that catches fakes.</p>
+<p>Here, the random numbers given to the Generator are very important. We call this random input the <strong>noise</strong> or the <a href="https://outcomeschool.com/blog/variational-autoencoders" rel="noopener noreferrer" target="_blank"><strong>latent vector</strong></a>. A latent vector is just a small list of random numbers that acts like a seed. The Generator turns this random noise into a meaningful image. By changing the noise, we get a different image every time.</p>
+<p>The Generator never sees the real images directly. It only learns from the feedback given by the Discriminator. This is the beauty of a GAN.</p>
+<h3 id="the-counterfeiter-vs-police-analogy">The counterfeiter vs police analogy</h3>
+<p>The best way to learn this is by taking an example.</p>
+<p>Let's say there is a <strong>counterfeiter</strong>, a person who makes fake currency notes. And there is the <strong>police</strong>, whose job is to catch fake notes.</p>
+<p>Here is how the story goes:</p>
+<ul>
+<li>In the beginning, the counterfeiter is very bad at making fake notes. The notes look obviously fake.</li>
+<li>The police easily catch every fake note. This is easy in the start.</li>
+<li>But, the counterfeiter learns from getting caught. He improves and makes slightly better notes.</li>
+<li>Now, the police must also become smarter to catch these better fakes.</li>
+<li>This back and forth continues. Both keep getting better and better.</li>
+<li>Finally, the counterfeiter becomes so good that the fake notes look exactly like real notes, and even the police cannot tell the difference.</li>
+</ul>
+<p>In our GAN:</p>
+<ul>
+<li>The counterfeiter is the <strong>Generator</strong>.</li>
+<li>The police is the <strong>Discriminator</strong>.</li>
+<li>The fake notes are the <strong>fake images</strong>.</li>
+</ul>
+<p>So, both networks push each other to improve. The Generator becomes better at creating, and the Discriminator becomes better at judging. When the Generator wins, which means the Discriminator can no longer tell real from fake, our GAN is ready.</p>
+<p>This is how two competing networks together produce something amazing.</p>
+<h3 id="the-adversarial-training-loop">The adversarial training loop</h3>
+<p>Now, let's understand how the training actually happens, step by step.</p>
+<p>Training a GAN means letting the two networks compete in repeated rounds. In each round, we train the Discriminator a little, and then we train the Generator a little.</p>
+<p><strong>Step 1:</strong> We take some real images from our dataset, for example, real photos of faces.</p>
+<p><strong>Step 2:</strong> The Generator takes random noise and creates some fake images.</p>
+<p><strong>Step 3:</strong> We show both the real images and the fake images to the Discriminator. We tell it which ones are real and which ones are fake. The Discriminator learns to tell them apart. So, the Discriminator gets better at catching fakes.</p>
+<p><strong>Step 4:</strong> Now, it is the Generator's turn. The Generator creates new fake images and shows them to the Discriminator. This time, the Generator wants to fool the Discriminator. If the Discriminator catches the fake, the Generator learns from this mistake and improves.</p>
+<p><strong>Step 5:</strong> We repeat these steps again and again, thousands of times.</p>
+<p>Let's see a simple diagram of this loop as below:</p>
+<pre><code>  Random Noise
+       |
+       v
+  [ Generator ] ----&gt; Fake Images
+                          |
+  Real Images ----------&gt; |
+                          v
+                  [ Discriminator ] ----&gt; Real or Fake?
+                          |
+                          v
+              Feedback to both networks
+</code></pre>
+<p>Here, we can see that the feedback goes back to both networks. The Discriminator uses the feedback to catch fakes better. The Generator uses the feedback to create better fakes.</p>
+<p>Over time, the Generator becomes so good that its fake images look just like real images. This is how the adversarial training loop works.</p>
+<h3 id="the-loss-function-and-the-minimax-game-in-simple-words">The loss function and the minimax game in simple words</h3>
+<p>Now, let's understand the maths part, but in very simple words. Do not worry, we will learn it slowly.</p>
+<p>In Machine Learning, a <strong>loss</strong> is a number that tells us how wrong a network is. A high loss means the network is doing a bad job. A low loss means it is doing a good job. The network learns by trying to reduce its own loss.</p>
+<p>In a GAN, the two networks have opposite goals. This is called a <strong>minimax game</strong>.</p>
+<p>In simple words:</p>
+<ul>
+<li>The Discriminator wants to <strong>maximize</strong> its success, which means it wants to correctly catch every fake and approve every real.</li>
+<li>The Generator wants to <strong>minimize</strong> the Discriminator's success, which means it wants the Discriminator to fail at catching fakes.</li>
+</ul>
+<p>So, one player is trying to win, and the other is trying to make the first player lose. This is why we call it a minimax game. One side maximizes, the other side minimizes.</p>
+<p>Let's understand with simple numbers. The Discriminator gives a score between 0 and 1 for each image:</p>
+<ul>
+<li>A score close to 1 means "I think this is real."</li>
+<li>A score close to 0 means "I think this is fake."</li>
+</ul>
+<p>Now:</p>
+<ul>
+<li>When the Discriminator sees a real image, it wants to give a score close to 1.</li>
+<li>When the Discriminator sees a fake image, it wants to give a score close to 0.</li>
+<li>But the Generator wants the Discriminator to give a score close to 1 for fake images, because that means the fake fooled the Discriminator.</li>
+</ul>
+<p>So, both are pulling in opposite directions. They reach a balance point when the Discriminator can no longer tell real from fake, which means it gives a score of around 0.5 for everything, which is just like guessing. At this point, the Generator has won, and the fake images look truly real.</p>
+<p>We can picture this tug-of-war on the score line as below:</p>
+<pre><code>  Discriminator pushes fake images this way
+  &lt;----------------------
+  0.0 ----------- 0.5 ----------- 1.0
+  "fake"        "unsure"        "real"
+                (balance
+                 point)
+                       ----------------------&gt;
+                       Generator pushes fake images this way
+</code></pre>
+<p>Here, we can see that the score line runs from 0.0, which means fake, to 1.0, which means real, with 0.5 in the middle as the unsure balance point. The Discriminator tries to push the score of fake images toward 0.0, while the Generator tries to push the score of those same fake images toward 1.0. They pull in opposite directions, and when they meet at the 0.5 balance point, the Discriminator is only guessing and the fakes look real.</p>
+<p>This is how the minimax game drives both networks to improve until the fakes become perfect.</p>
+<h3 id="a-tiny-pytorch-style-code-sketch">A tiny PyTorch-style code sketch</h3>
+<p>Now, let's see a small code sketch so that the idea becomes concrete. We will use PyTorch-style Python. <a href="https://outcomeschool.com/blog/how-does-pytorch-work" rel="noopener noreferrer" target="_blank">PyTorch</a> is a popular Python library used to build neural networks. This is just for the sake of understanding, so we keep it short.</p>
+<p>First, let's see the Generator as below:</p>
+<pre><code class="language-python">import torch.nn as nn
+# The Generator turns random noise into an image
+class Generator(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(100, 256),   # input is 100 random numbers
+            nn.ReLU(),
+            nn.Linear(256, 784),   # output is a 28x28 image (784 pixels)
+            nn.Tanh()
+        )
+    def forward(self, noise):
+        return self.net(noise)
+</code></pre>
+<p>Here, we can see the Generator:</p>
+<ul>
+<li>It takes <code>100</code> random numbers as input. This is the noise.</li>
+<li>It passes them through some layers.</li>
+<li>It outputs <code>784</code> numbers, which form a small <code>28x28</code> image.</li>
+</ul>
+<p>Now, let's see the Discriminator as below:</p>
+<pre><code class="language-python"># The Discriminator decides if an image is real or fake
+class Discriminator(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(784, 256),   # input is the image (784 pixels)
+            nn.ReLU(),
+            nn.Linear(256, 1),     # output is a single score
+            nn.Sigmoid()           # squeezes the score between 0 and 1
+        )
+    def forward(self, image):
+        return self.net(image)
+</code></pre>
+<p>Here, we can see the Discriminator:</p>
+<ul>
+<li>It takes an image of <code>784</code> pixels as input.</li>
+<li>It passes them through some layers.</li>
+<li>It outputs a single number between 0 and 1, which is the real-or-fake score.</li>
+</ul>
+<p>Now, let's see the heart of the training loop as below:</p>
+<pre><code class="language-python"># First, train the Discriminator on real and fake images
+real_score = discriminator(real_images)
+fake_images = generator(noise)
+fake_score = discriminator(fake_images.detach())
+d_loss = loss_fn(real_score, ones) + loss_fn(fake_score, zeros)
+d_loss.backward()
+d_optimizer.step()
+# Then, train the Generator to fool the Discriminator
+fake_score = discriminator(generator(noise))
+g_loss = loss_fn(fake_score, ones)   # Generator wants fakes labeled as real
+g_loss.backward()
+g_optimizer.step()
+</code></pre>
+<p>Here, we can notice the key idea:</p>
+<ul>
+<li>For the Discriminator, real images are labeled <code>ones</code> (real) and fake images are labeled <code>zeros</code> (fake). It learns to tell them apart.</li>
+<li>For the Generator, the fake images are labeled <code>ones</code>, because the Generator wants the Discriminator to believe the fakes are real.</li>
+<li><code>detach()</code> is used so that we do not update the Generator while training the Discriminator.</li>
+</ul>
+<p>This is how the two networks are trained one after the other in every round.</p>
+<h3 id="the-mode-collapse-problem">The mode collapse problem</h3>
+<p>Now, let's discuss a common problem in GANs called <strong>mode collapse</strong>.</p>
+<p><strong>Mode collapse</strong> happens when the Generator stops being creative and keeps producing the same output again and again.</p>
+<p>Let's say we are training a GAN to create images of all digits from 0 to 9. But the Generator discovers that creating only the digit "8" fools the Discriminator very well. So, it gets lazy and keeps creating only "8" again and again, ignoring all other digits.</p>
+<p>This is bad, because our GAN was supposed to create a variety of images, but now it produces only one type. The Generator collapsed into a single mode, which means a single kind of output. This is why we call it mode collapse.</p>
+<p>Let's compare the good case and the collapsed case like below:</p>
+<pre><code>  GOOD case (variety):
+  [ Generator ] ----&gt; 0 1 2 3 4 5 6 7 8 9
+  COLLAPSED case (mode collapse):
+  [ Generator ] ----&gt; 8 8 8 8 8 8 8 8 8 8
+</code></pre>
+<p>Here, we can see that in the good case the Generator produces a variety of digits from 0 to 9, just as we wanted. But in the collapsed case the Generator keeps producing only the digit "8" again and again. The output has lost all its variety, and this is exactly what mode collapse looks like.</p>
+<p>So, mode collapse means the GAN loses variety and keeps repeating itself.</p>
+<p>There are techniques to reduce this problem, for example, changing the loss function, adding more variety in training, and using improved GAN designs. But we must always watch out for mode collapse while training a GAN.</p>
+<h3 id="training-stability">Training stability</h3>
+<p>Now, let's understand why GANs are known to be hard to train.</p>
+<p>In a normal Machine Learning model, we train one network, and we just try to reduce one loss. It is simple. But in a GAN, we are training two networks that fight each other. This makes the training delicate.</p>
+<p>Here are the common issues we face:</p>
+<ul>
+<li><strong>One side becomes too strong.</strong> If the Discriminator becomes too good too fast, the Generator gets no useful feedback and stops learning. If the Generator becomes too good too fast, the Discriminator gets confused.</li>
+<li><strong>The training does not settle.</strong> Since both keep changing, the balance can keep shifting, and the networks may never reach a calm point.</li>
+<li><strong>Mode collapse</strong>, which we just learned about.</li>
+</ul>
+<p>So, training a GAN is like balancing two children on a see-saw. If one side is too heavy, the see-saw stops working. We must keep both sides balanced.</p>
+<p>To improve training stability, we can do the following:</p>
+<ul>
+<li>Keep the learning of both networks at a similar pace.</li>
+<li>Use better network designs like DCGAN.</li>
+<li>Use improved loss functions that give smoother feedback.</li>
+</ul>
+<p>This is how we keep our GAN training stable.</p>
+<p>Diffusion Models later improved on this very instability, which is why they have largely overtaken GANs for image generation today. We have a detailed blog on <a href="https://outcomeschool.com/blog/diffusion-models" rel="noopener noreferrer" target="_blank">Diffusion Models</a> that covers this end to end.</p>
+<h3 id="types-of-gans-dcgan-conditional-gan-stylegan-cyclegan">Types of GANs (DCGAN, Conditional GAN, StyleGAN, CycleGAN)</h3>
+<p>After the first GAN was introduced, many improved versions came into the picture. Now, let's briefly understand the most popular ones.</p>
+<p><strong>DCGAN (Deep Convolutional GAN):</strong> This GAN uses convolutional layers, which are special layers that are very good at understanding images. DCGAN made GANs much better and more stable at generating clear images. It is one of the most common starting points for image generation.</p>
+<p><strong>Conditional GAN (cGAN):</strong> In a normal GAN, we cannot control what the Generator creates. We just get a random image. In a <strong>Conditional GAN</strong>, we can give an extra instruction, called a condition. For example, we can tell it to create the digit "7" specifically, and it will create a "7". So, a Conditional GAN gives us control over the output.</p>
+<p><strong>StyleGAN:</strong> This is a very advanced GAN created by NVIDIA. It is famous for creating extremely realistic human faces. StyleGAN also lets us control the style of the image, for example, the hair, the age, or the expression of a face. The website that shows "this person does not exist" is powered by StyleGAN.</p>
+<p><strong>CycleGAN:</strong> This GAN is used to convert one type of image into another type without needing matching pairs of images. For example, it can turn a photo of a horse into a zebra, or turn a summer scene into a winter scene, or turn a normal photo into a painting in the style of a famous artist. CycleGAN learns the translation between two worlds of images.</p>
+<p>Let me tabulate the differences between these GAN types so that you can decide which one to use based on your use case:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>GAN Type</th>
+<th>Main Idea</th>
+<th>Common Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DCGAN</td>
+<td>Uses convolutional layers for images</td>
+<td>Clear, stable image generation</td>
+</tr>
+<tr>
+<td>Conditional GAN</td>
+<td>Adds a condition to control output</td>
+<td>Generating a specific category</td>
+</tr>
+<tr>
+<td>StyleGAN</td>
+<td>Controls style and detail of images</td>
+<td>Highly realistic faces</td>
+</tr>
+<tr>
+<td>CycleGAN</td>
+<td>Translates one image type to another</td>
+<td>Style transfer, photo conversion</td>
+</tr>
+</tbody>
+</table></div>
+<p>This is how different GANs solve different kinds of problems.</p>
+<h3 id="real-world-applications-of-gans">Real-world applications of GANs</h3>
+<p>Now, let's see where GANs are actually used in the real world. This is the most exciting part.</p>
+<ul>
+<li><strong>Image generation:</strong> GANs can create brand new images of faces, animals, objects, and more. These images look real but belong to no real thing.</li>
+<li><strong>Deepfakes:</strong> GANs can swap one person's face onto another person's video. This is powerful technology, and we must use it responsibly, because it can also be misused to spread false information.</li>
+<li><strong>Super-resolution:</strong> GANs can take a blurry, low-quality image and turn it into a sharp, high-quality image. This is very useful for old photos and low-quality videos.</li>
+<li><strong>Art and design:</strong> GANs can create original digital art, paintings, and designs. Artists use GANs as a creative tool.</li>
+<li><strong>Photo editing:</strong> GANs can change a person's hairstyle, age, or expression in a photo. They can also remove or add objects in an image.</li>
+<li><strong>Data generation:</strong> Sometimes we do not have enough real data to train a model. GANs can create extra realistic data to help train other Machine Learning models.</li>
+<li><strong>Medical imaging:</strong> GANs can help create medical images for research and can improve the quality of scans.</li>
+</ul>
+<p>So, now we know where we can use GANs.</p>
+<p>Because this generated content can look completely real, we also need a way to tell machine-made content apart from human-made content. We have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-llm-watermarking-work" rel="noopener noreferrer" target="_blank">How Does LLM Watermarking Work?</a> that explains how a hidden signal is placed inside generated content and read back later.</p>
+<p>GANs changed the way computers create. With just two networks competing against each other, we can generate images, art, and data that look completely real. This is the power of a Generative Adversarial Network, and that too learned almost entirely by the machine on its own.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="does-the-generator-in-a-gan-ever-see-real-images">Does the Generator in a GAN ever see real images?</h3>
+<p>No. The Generator never sees the real images directly. It takes random noise as input and only learns from the feedback given by the Discriminator. When the Discriminator catches a fake, the Generator learns from this mistake and improves its next fakes.</p>
+<h3 id="what-does-it-mean-when-the-discriminator-gives-a-score-of-0-5">What does it mean when the Discriminator gives a score of 0.5?</h3>
+<p>A score of around 0.5 means the Discriminator can no longer tell real from fake and is just guessing. This is the balance point of the minimax game. At this point, the Generator has won, and the fake images look truly real.</p>
+<h3 id="can-we-control-what-a-gan-generates">Can we control what a GAN generates?</h3>
+<p>Yes, with a Conditional GAN. In a normal GAN, we cannot control what the Generator creates, and we just get a random image. A Conditional GAN takes an extra instruction called a condition, so we can ask it to create a specific category, for example, the digit "7".</p>
+<h3 id="are-gans-still-the-best-choice-for-image-generation">Are GANs still the best choice for image generation?</h3>
+<p>Not today, since Diffusion Models have largely overtaken GANs for image generation. Diffusion Models improved on the training instability of GANs. GANs are hard to train because two networks fight each other, which can lead to one side becoming too strong, training that does not settle, and mode collapse.</p>
+<h3 id="why-do-we-call-detach-when-training-the-discriminator">Why do we call <code>detach()</code> when training the Discriminator?</h3>
+<p>We call <code>detach()</code> so that we do not update the Generator while training the Discriminator. In each round, the two networks are trained one after the other. First the Discriminator learns to tell real from fake, and then the Generator is trained to fool the Discriminator.</p>
+
+</section>
+
+<section class="print-lesson" id="lesson-m15-l1506">
+  <p class="print-lesson-kicker">Lesson 15.6</p>
+  <h1>What are Variational Autoencoders (VAEs) and How Do They Work?</h1>
+  <p class="print-lesson-meta">Lesson 15.6 · ~17 min · Published June 2, 2026 · <a href="https://outcomeschool.com/blog/variational-autoencoders">https://outcomeschool.com/blog/variational-autoencoders</a></p>
+  <p><img alt="Variational Autoencoders" src="../assets/images/15-15-06-what-are-variational-autoencoders-vaes-and-how-do-they-work/variational-autoencoders.png"/></p>
+<p>A Variational Autoencoder (VAE) is a special type of Autoencoder that learns a smooth and organized latent space, so that we can pick any random point from it and generate brand new, meaningful data like images.</p>
+<p>In this blog, we will learn about Variational Autoencoders. We will understand what they are, why we need them, how they work step by step, and how they are able to generate brand new data like images that never existed before.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is an Autoencoder?</li>
+<li>The problem with a normal Autoencoder</li>
+<li>What is a Variational Autoencoder?</li>
+<li>The encoder, the latent space, and the decoder</li>
+<li>The reparameterization trick</li>
+<li>The loss function of a Variational Autoencoder</li>
+<li>A simple example walk-through</li>
+<li>A simple code example</li>
+<li>Advantages of Variational Autoencoders</li>
+<li>Where Variational Autoencoders are used</li>
+</ul>
+<p>Let's get started.</p>
+<h3 id="what-is-an-autoencoder">What is an Autoencoder?</h3>
+<p>Before jumping into Variational Autoencoders, we must first understand a normal Autoencoder.</p>
+<p>In simple words, <strong>Autoencoder = Encoder + Decoder</strong>.</p>
+<p>An Autoencoder is a <a href="https://outcomeschool.com/blog/neural-network" rel="noopener noreferrer" target="_blank">neural network</a> that learns to compress data into a small form and then rebuild the original data back from that small form.</p>
+<p>It has two parts:</p>
+<ul>
+<li><strong>Encoder:</strong> It takes the input, like an image, and squeezes it down into a small set of numbers. This small set of numbers is called the <strong>latent vector</strong> or the <strong>code</strong>.</li>
+<li><strong>Decoder:</strong> It takes that small set of numbers and tries to rebuild the original input from it.</li>
+</ul>
+<p>Let's say we have a photo of a handwritten digit <code>7</code>. The encoder reads this photo and compresses it into a small list of numbers, for example just 2 numbers. The decoder then takes these 2 numbers and tries to draw the digit <code>7</code> back.</p>
+<p>The space where these small numbers live is called the <strong>latent space</strong>. The word "latent" simply means "hidden". So, the latent space is the hidden compressed space where the encoder stores the most important features of the data.</p>
+<p>So, why do we even compress the data? Because by forcing the network to squeeze everything into a few numbers, we force it to learn only the most important features of the data and throw away the noise.</p>
+<p>We train the Autoencoder by comparing the rebuilt output with the original input. If they are different, we tell the network to fix itself. Over time, the network gets very good at rebuilding the input. This is called <strong>reconstruction</strong>.</p>
+<h3 id="the-problem-with-a-normal-autoencoder">The problem with a normal Autoencoder</h3>
+<p>Now, here is the catch.</p>
+<p>A normal Autoencoder is great at rebuilding the inputs it has already seen. But it is bad at creating new data that it has never seen.</p>
+<p>Let's understand why.</p>
+<p>When a normal Autoencoder learns, it places each input at some point in the latent space. The image of a <code>7</code> goes to one point. The image of a <code>3</code> goes to another point. But these points can be scattered all over the place with big empty gaps between them.</p>
+<p>Now, suppose we want to generate a brand new digit that the model has never seen. To do this, we would pick a random point in the latent space and ask the decoder to draw something from it.</p>
+<p>But here is the problem. If we pick a random point, it could easily land in one of those empty gaps. The decoder has never seen anything in that gap during training. So, it produces garbage, which means a blurry mess that does not look like any digit.</p>
+<p>So, the latent space of a normal Autoencoder is <strong>not continuous and not organized</strong>. There are holes and gaps everywhere. We cannot safely pick a random point and expect a meaningful output.</p>
+<p>We needed a solution for that, and the Variational Autoencoder was introduced to solve this problem. So, here comes the Variational Autoencoder to the rescue.</p>
+<h3 id="what-is-a-variational-autoencoder">What is a Variational Autoencoder?</h3>
+<p><strong>A Variational Autoencoder, also called a VAE, is a special type of Autoencoder that learns a smooth and organized latent space, so that we can pick any random point from it and generate brand new, meaningful data.</strong></p>
+<p>In simple words, <strong>Variational Autoencoder = Autoencoder + a smooth, organized latent space</strong>.</p>
+<p>So, what is the key difference?</p>
+<p>A normal Autoencoder maps each input to a single point in the latent space.</p>
+<p>But a Variational Autoencoder maps each input to a small region in the latent space, not a single point. It describes this region using a probability distribution.</p>
+<p>Do not worry if the word "distribution" sounds heavy. Let's understand it in simple words.</p>
+<p>A <strong>distribution</strong> is just a way of saying "the value is most likely around here, and a little less likely as we move away". For example, the heights of people follow a distribution. Most people are around the average height, and very few people are extremely short or extremely tall.</p>
+<p>The most common distribution is the <strong>normal distribution</strong>, also called the <strong>Gaussian distribution</strong> or the <strong>bell curve</strong>. A normal distribution is fully described by just two numbers:</p>
+<ul>
+<li><strong>Mean, written as <code>mu</code>:</strong> the center of the distribution.</li>
+<li><strong>Standard deviation, written as <code>sigma</code>:</strong> how spread out the distribution is around the center.</li>
+</ul>
+<p>So, instead of saying "this <code>7</code> lives exactly at point 1.5", the Variational Autoencoder says "this <code>7</code> lives somewhere around 1.5, give or take a little". This little spread is the key trick.</p>
+<p>Because every input now covers a small region instead of a single point, these regions start to overlap and fill the gaps. So, the latent space becomes smooth and continuous with no holes. And when there are no holes, we can pick any random point and the decoder will produce something meaningful.</p>
+<h3 id="the-encoder-the-latent-space-and-the-decoder">The encoder, the latent space, and the decoder</h3>
+<p>Now, let's understand the three parts of a Variational Autoencoder.</p>
+<p>The best way to learn this is by taking an example.</p>
+<p>Suppose we feed an image of a handwritten digit into the Variational Autoencoder.</p>
+<p><strong>The encoder.</strong> The encoder reads the image. But instead of outputting one latent vector, it outputs two things: a mean <code>mu</code> and a standard deviation <code>sigma</code>. Together, these two numbers describe a normal distribution in the latent space. So, the encoder is telling us, "this digit lives in this region of the latent space".</p>
+<p><strong>The latent space.</strong> From the distribution given by <code>mu</code> and <code>sigma</code>, we pick a random sample. This random sample is our latent vector <code>z</code>. Because we pick <code>z</code> randomly from the region, the same input can produce slightly different <code>z</code> values each time. So, the decoder learns to rebuild the input not just from one exact point, but from the whole small region around it. This is what fills the gaps and makes the space smooth.</p>
+<p><strong>The decoder.</strong> The decoder takes the sampled latent vector <code>z</code> and rebuilds the image from it. The goal is for the rebuilt image to look like the original input.</p>
+<p>We can visualize the full flow of a Variational Autoencoder as below:</p>
+<pre><code>        Input Image
+             |
+             v
+         Encoder
+             |
+        +----+----+
+        |         |
+        v         v
+       mu       sigma
+        |         |
+        +----+----+
+             |
+             v
+   Sample z from the distribution
+             |
+             v
+         Decoder
+             |
+             v
+      Rebuilt Image
+</code></pre>
+<p>Here, we can see that the encoder turns the input into <code>mu</code> and <code>sigma</code>. Then we sample a latent vector <code>z</code> from the distribution described by <code>mu</code> and <code>sigma</code>. Finally, the decoder rebuilds the image from <code>z</code>.</p>
+<h3 id="the-reparameterization-trick">The reparameterization trick</h3>
+<p>Now, there is one problem we must solve.</p>
+<p>We just said we pick a random sample <code>z</code> from the distribution. But picking a random sample is a random operation. And during training, a neural network learns using a method called <a href="https://outcomeschool.com/blog/math-behind-backpropagation" rel="noopener noreferrer" target="_blank"><strong>backpropagation</strong></a>, which needs to flow gradients smoothly through every step.</p>
+<p>In simple words, backpropagation is how the network figures out how to adjust itself to reduce its mistakes. It must be able to trace the path from the output back to every input. But a random sampling step blocks this path, because we cannot take a gradient through pure randomness.</p>
+<p>So, here comes the <strong>reparameterization trick</strong> to the rescue.</p>
+<p>The idea is simple. Instead of directly picking a random <code>z</code> from the distribution, we rewrite the sampling as below:</p>
+<pre><code>z = mu + sigma * epsilon
+</code></pre>
+<p>Here:</p>
+<ul>
+<li><code>mu</code> is the mean from the encoder.</li>
+<li><code>sigma</code> is the standard deviation from the encoder.</li>
+<li><code>epsilon</code> is a random number drawn from a standard normal distribution with mean 0 and standard deviation 1. This is the same bell curve we learned about above, centered at 0.</li>
+</ul>
+<p>Here, we have moved all the randomness into <code>epsilon</code>. And <code>epsilon</code> does not depend on the network at all. It is just an outside random number.</p>
+<p>So now, <code>mu</code> and <code>sigma</code> are clean, smooth values that the network can learn. The randomness sits only in <code>epsilon</code>, which is outside the path of learning. This means backpropagation can now flow smoothly through <code>mu</code> and <code>sigma</code>, while the randomness is handled separately by <code>epsilon</code>.</p>
+<p>We can visualize the trick like below:</p>
+<pre><code>   Before (random step lies on the path):
+   forward    mu, sigma  ====&gt;  [ random sampling ]  ====&gt;  z
+   backward   mu, sigma  &lt;==X==   blocked            &lt;====  z
+   After (random step moved off the path):
+                                  epsilon
+                                     |
+                                     v
+   forward    mu, sigma  ====&gt;  mu + sigma * epsilon  ====&gt;  z
+   backward   mu, sigma  &lt;==============================  z
+</code></pre>
+<p>Here, the top row is the forward path and the bottom row is the backward gradient. In the "Before" case, the gradient hits the random sampling step and gets blocked, so <code>mu</code> and <code>sigma</code> never learn. In the "After" case, the path from <code>mu</code> and <code>sigma</code> to <code>z</code> is plain multiply and add, so the gradient flows all the way back. The only random part, <code>epsilon</code>, sits off to the side. This is how the reparameterization trick keeps the network trainable.</p>
+<p>This simple trick is what makes the whole Variational Autoencoder trainable. It is the heart of the VAE.</p>
+<h3 id="the-loss-function-of-a-variational-autoencoder">The loss function of a Variational Autoencoder</h3>
+<p>Now, let's understand how a Variational Autoencoder learns. The network learns by reducing a loss. The loss is made of two parts added together.</p>
+<p><strong>Part 1: Reconstruction loss.</strong> This part checks how close the rebuilt image is to the original image. If the rebuilt image is very different from the original, this loss is high. If the rebuilt image looks just like the original, this loss is low. So, this part pushes the decoder to rebuild the input correctly.</p>
+<p><strong>Part 2: KL divergence loss.</strong> This is the new and special part of a Variational Autoencoder.</p>
+<p>In simple words, <strong>KL divergence</strong> measures how different one distribution is from another distribution. Here, it measures how different the distribution produced by the encoder is from a standard normal distribution with mean 0 and standard deviation 1.</p>
+<p>So, this part gently pulls every encoded region towards the center of the latent space and keeps them all neatly packed together around one common point. This is exactly what removes the gaps and makes the latent space smooth and organized. Without this part, the encoder would push the regions far apart and the gaps would come back.</p>
+<p>So, the full loss is:</p>
+<p><strong>Total Loss = Reconstruction Loss + KL Divergence Loss</strong></p>
+<p>Now, notice the balance between these two parts.</p>
+<ul>
+<li>The reconstruction loss wants each input to be perfectly rebuilt, which pushes the regions apart so they do not get confused with each other.</li>
+<li>The KL divergence loss wants all the regions to be packed neatly around the center.</li>
+</ul>
+<p>These two parts pull against each other. The network finds a healthy balance between them. This balance is what gives us a latent space that is both accurate and smooth.</p>
+<h3 id="a-simple-example-walk-through">A simple example walk-through</h3>
+<p>Let's take a small example to make this concrete.</p>
+<p>Suppose we feed an image of the digit <code>7</code> into the Variational Autoencoder. For the sake of understanding, let's say our latent space has just 1 dimension, which means <code>mu</code>, <code>sigma</code>, and <code>z</code> are all single numbers.</p>
+<p><strong>Step 1:</strong> The encoder reads the image of <code>7</code> and outputs:</p>
+<ul>
+<li><code>mu</code> = 1.5</li>
+<li><code>sigma</code> = 0.2</li>
+</ul>
+<p>So, the encoder is saying, "the digit <code>7</code> lives around 1.5 in the latent space, with a small spread of 0.2".</p>
+<p><strong>Step 2:</strong> We draw a random <code>epsilon</code> from a standard normal distribution. Let's say we get:</p>
+<ul>
+<li><code>epsilon</code> = 0.5</li>
+</ul>
+<p><strong>Step 3:</strong> We compute the latent vector <code>z</code> using the reparameterization trick:</p>
+<ul>
+<li><code>z</code> = <code>mu</code> + <code>sigma</code> * <code>epsilon</code></li>
+<li><code>z</code> = 1.5 + 0.2 * 0.5</li>
+<li><code>z</code> = 1.5 + 0.1</li>
+<li><code>z</code> = 1.6</li>
+</ul>
+<p><strong>Step 4:</strong> We feed <code>z</code> = 1.6 into the decoder. The decoder rebuilds an image of the digit <code>7</code>.</p>
+<p><strong>Step 5:</strong> We compare the rebuilt <code>7</code> with the original <code>7</code> to get the reconstruction loss. We also compute the KL divergence loss to keep the distribution close to the standard normal. We add both losses and update the network.</p>
+<p>Now, here is the beautiful part. The next time we feed the same <code>7</code>, the random <code>epsilon</code> will be different, so <code>z</code> becomes a slightly different value like 1.55 or 1.62 or 1.48. This means the whole small region around 1.5 learns to produce a <code>7</code>. There are no sharp holes. This is what makes the space smooth.</p>
+<p>So, after training, if we want to generate a brand new digit, we simply pick any random point from the center region of the latent space and feed it straight to the decoder. We can pick from the center because the KL divergence loss packed all the regions around the center. Since the space is smooth and has no gaps, the decoder produces a clean, meaningful digit that never existed before.</p>
+<p>It works perfectly.</p>
+<h3 id="a-simple-code-example">A simple code example</h3>
+<p>Let's see a simple code example of a Variational Autoencoder in <a href="https://outcomeschool.com/blog/how-does-pytorch-work" rel="noopener noreferrer" target="_blank">PyTorch</a> as below:</p>
+<pre><code class="language-python">import torch
+import torch.nn as nn
+class VAE(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.encoder = nn.Linear(784, 400)
+        self.fc_mu = nn.Linear(400, 2)      # produces mu
+        self.fc_sigma = nn.Linear(400, 2)   # produces log of sigma
+        self.decoder = nn.Sequential(
+            nn.Linear(2, 400), nn.ReLU(),
+            nn.Linear(400, 784), nn.Sigmoid()
+        )
+</code></pre>
+<p>Here, we have defined the building blocks. The <code>encoder</code> reads the input image, which is <code>784</code> numbers for a 28 by 28 pixel image. From the encoder, <code>fc_mu</code> produces the mean <code>mu</code> and <code>fc_sigma</code> produces the spread, which we keep in the log form for stability. Our latent space has <code>2</code> dimensions. The <code>decoder</code> takes the <code>2</code> latent numbers and rebuilds the <code>784</code> pixels back.</p>
+<p>Now, let's add the forward pass with the reparameterization trick as below:</p>
+<pre><code class="language-python">    def forward(self, x):
+        h = torch.relu(self.encoder(x))
+        mu = self.fc_mu(h)
+        log_sigma = self.fc_sigma(h)
+        epsilon = torch.randn_like(mu)              # random number
+        z = mu + torch.exp(log_sigma) * epsilon     # reparameterization
+        return self.decoder(z), mu, log_sigma
+</code></pre>
+<p>Here, we can see the full flow. First, the encoder reads the input <code>x</code>. Then we get <code>mu</code> and <code>log_sigma</code>. After that, we draw a random <code>epsilon</code> using <code>torch.randn_like</code>. Then we apply the reparameterization trick to get <code>z</code>. Finally, the decoder rebuilds the image from <code>z</code>, and we also return <code>mu</code> and <code>log_sigma</code> so we can compute the loss.</p>
+<p><strong>Note:</strong> We let the network output <code>log_sigma</code> instead of <code>sigma</code> directly. This is a common trick to keep the training stable and to make sure the spread is always a positive number. The meaning stays the same as our simple formula <code>z = mu + sigma * epsilon</code>. We just recover <code>sigma</code> from <code>log_sigma</code> using <code>torch.exp</code>.</p>
+<p>Now, let's see the loss function as below:</p>
+<pre><code class="language-python">def vae_loss(rebuilt, original, mu, log_sigma):
+    recon = nn.functional.mse_loss(rebuilt, original, reduction='sum')
+    kl = -0.5 * torch.sum(1 + 2 * log_sigma - mu.pow(2) - torch.exp(2 * log_sigma))
+    return recon + kl
+</code></pre>
+<p>Here, we have the two parts of the loss. The <code>recon</code> is the reconstruction loss that checks how close the rebuilt image is to the original. The <code>kl</code> is the KL divergence loss that keeps the distribution close to a standard normal. We add both and return the total loss. This is exactly the <strong>Total Loss = Reconstruction Loss + KL Divergence Loss</strong> that we learned above.</p>
+<h3 id="advantages-of-variational-autoencoders">Advantages of Variational Autoencoders</h3>
+<p>Now, let's see the advantages of Variational Autoencoders.</p>
+<ul>
+<li><strong>Generation of new data:</strong> A Variational Autoencoder can create brand new data, like new images, that never existed before. We simply pick a random point in the latent space and the decoder draws something meaningful.</li>
+<li><strong>Smooth latent space:</strong> The latent space is smooth and continuous with no holes. So, if we slowly move from one point to another point, the generated output also changes slowly and smoothly. For example, a digit can slowly morph from a <code>4</code> into a <code>9</code>, passing through shapes that look in between.</li>
+<li><strong>Organized structure:</strong> Similar inputs end up close to each other in the latent space. This makes the space easy to understand and explore.</li>
+<li><strong>Stable training:</strong> Compared to some other <a href="https://outcomeschool.com/blog/what-is-generative-ai" rel="noopener noreferrer" target="_blank">generative models</a>, a Variational Autoencoder is easier and more stable to train, because its loss is clear and well behaved.</li>
+</ul>
+<p>That's the beauty of a Variational Autoencoder.</p>
+<h3 id="where-variational-autoencoders-are-used">Where Variational Autoencoders are used</h3>
+<p>Now, let's see where Variational Autoencoders are used.</p>
+<ul>
+<li><strong>Image generation:</strong> They are used to generate new images such as faces, digits, and objects.</li>
+<li><strong>Anomaly detection:</strong> A Variational Autoencoder learns what normal data looks like. So, if it sees something it cannot rebuild well, that data is likely an anomaly. This is used to detect fraud and faults.</li>
+<li><strong>Data compression:</strong> Since the encoder squeezes data into a small latent vector, it can be used to compress data.</li>
+<li><strong>Drug discovery:</strong> They are used to generate new molecule structures that could become new medicines.</li>
+<li><strong>Denoising:</strong> A Variational Autoencoder can take a noisy input and produce a clean version of it.</li>
+</ul>
+<p>Variational Autoencoders are one of the foundation ideas behind modern generative models. The core idea of learning a smooth latent space and sampling from it is used in many advanced systems today, including modern <a href="https://outcomeschool.com/blog/diffusion-models" rel="noopener noreferrer" target="_blank">diffusion models</a> such as Stable Diffusion, which use a Variational Autoencoder to build the latent space they work in. Other generative model families take a different route - for example, <a href="https://outcomeschool.com/blog/generative-adversarial-networks" rel="noopener noreferrer" target="_blank">Generative Adversarial Networks (GANs)</a> learn by pitting two networks against each other, and <a href="https://outcomeschool.com/blog/autoregressive-models" rel="noopener noreferrer" target="_blank">autoregressive models</a> build new data one piece at a time instead of sampling from a latent space all at once.</p>
+<p>The same encoder idea also powers AI agents that compress raw observations into a compact latent state, and we have a detailed blog on <a href="https://outcomeschool.com/blog/how-do-world-models-work" rel="noopener noreferrer" target="_blank">How do World Models work?</a> that explains this end to end.</p>
+<p>This was all about Variational Autoencoders.</p>
+<p>Now we must have understood what a Variational Autoencoder is, why we need it, how it works step by step, and how it generates brand new data.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="can-a-normal-autoencoder-generate-new-data">Can a normal Autoencoder generate new data?</h3>
+<p>Not reliably. A normal Autoencoder is great at rebuilding inputs it has already seen, but it is bad at creating new data. Its latent space has big empty gaps between points. If we pick a random point that lands in a gap, the decoder produces a blurry mess that does not look like any real data.</p>
+<h3 id="what-happens-if-we-remove-the-kl-divergence-loss-from-a-vae">What happens if we remove the KL divergence loss from a VAE?</h3>
+<p>The gaps in the latent space come back. The KL divergence loss gently pulls every encoded region towards the center and keeps them packed together. Without it, the reconstruction loss would push the regions far apart, and we could no longer pick a random point and expect a meaningful output.</p>
+<h3 id="why-does-a-vae-encoder-output-log-sigma-instead-of-sigma">Why does a VAE encoder output log sigma instead of sigma?</h3>
+<p>It outputs log sigma to keep training stable and to make sure the spread is always a positive number. The meaning stays the same as the formula z equals mu plus sigma times epsilon. We simply recover sigma from log sigma using the exponential function before applying the reparameterization trick.</p>
+<h3 id="how-is-a-vae-different-from-a-gan">How is a VAE different from a GAN?</h3>
+<p>A VAE learns a smooth latent space and generates new data by sampling a point from it and passing it to the decoder. A GAN learns by pitting two networks against each other instead. Compared to some other generative models, a VAE is easier and more stable to train, because its loss is clear and well behaved.</p>
+<h3 id="how-is-a-vae-related-to-stable-diffusion">How is a VAE related to Stable Diffusion?</h3>
+<p>Stable Diffusion uses a Variational Autoencoder to build the latent space it works in. The core idea of a VAE, learning a smooth latent space and sampling from it, is used in many advanced systems today. Variational Autoencoders are one of the foundation ideas behind modern generative models.</p>
+
+</section>
+
+</section>
+<p class="print-footer">Personal offline study copy · Content © Outcome School / Amit Shekhar</p>
+</main>
+</body>
+</html>

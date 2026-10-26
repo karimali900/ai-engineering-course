@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="How does an LPU work? Module 16 · Lesson 16.4 Source: Outcome School · Published: September 3, 2026 · Reading time: 25 min · Tags: llm , ai , system design An LPU (Language Process">
+<title>How does an LPU work? · AI Engineering Course</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/pygments.css">
+</head>
+<body class="">
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="topbar">
+  <button id="menu-toggle" class="icon-btn" type="button" aria-label="Toggle navigation">☰</button>
+  <a class="brand" href="../index.html">AI Engineering Course</a>
+  <div class="search-wrap">
+    <input id="search" type="search" placeholder="Search lessons…" autocomplete="off" aria-label="Search lessons">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+  <div class="progress-mini" title="Course progress"><span id="progress-text">0%</span></div>
+  <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle light/dark theme">🌙</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="progress-box">
+      <div class="progress-bar"><span id="progress-fill"></span></div>
+      <div class="progress-label" id="progress-label">0 of 0 lessons read</div>
+    </div>
+    <nav class="course-nav" aria-label="Course modules">
+<a class="nav-home" href="../index.html">Course home</a>
+<a class="nav-module-single" href="../modules/m00.html">0. Must Know</a>
+<details class="nav-module" data-module="1">
+<summary><span class="nav-module-title">1. Machine Learning Foundations</span><span class="nav-count" data-nav-count="1">0/9</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0101" data-module="1" aria-label="Mark What is Machine Learning? as read"></label><a href="../lessons/m01-l0101-what-is-machine-learning.html">1.1 What is Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0102" data-module="1" aria-label="Mark Supervised vs Unsupervised Learning as read"></label><a href="../lessons/m01-l0102-supervised-vs-unsupervised-learning.html">1.2 Supervised vs Unsupervised Learning</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0103" data-module="1" aria-label="Mark Linear Regression vs Logistic Regression as read"></label><a href="../lessons/m01-l0103-linear-regression-vs-logistic-regression.html">1.3 Linear Regression vs Logistic Regression</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0104" data-module="1" aria-label="Mark What is Feature Engineering in Machine Learning? as read"></label><a href="../lessons/m01-l0104-what-is-feature-engineering-in-machine-learning.html">1.4 What is Feature Engineering in Machine Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0105" data-module="1" aria-label="Mark Precision vs Recall as read"></label><a href="../lessons/m01-l0105-precision-vs-recall.html">1.5 Precision vs Recall</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0106" data-module="1" aria-label="Mark What Are L1 and L2 Loss Functions? as read"></label><a href="../lessons/m01-l0106-what-are-l1-and-l2-loss-functions.html">1.6 What Are L1 and L2 Loss Functions?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0107" data-module="1" aria-label="Mark What is Regularization in Machine Learning? L1 vs L2 Explained as read"></label><a href="../lessons/m01-l0107-what-is-regularization-in-machine-learning-l1-vs-l2-explained.html">1.7 What is Regularization in Machine Learning? L1 vs L2 Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0108" data-module="1" aria-label="Mark What is Reinforcement Learning? as read"></label><a href="../lessons/m01-l0108-what-is-reinforcement-learning.html">1.8 What is Reinforcement Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m01-l0109" data-module="1" aria-label="Mark What is Contrastive Learning? How It Works Step by Step as read"></label><a href="../lessons/m01-l0109-what-is-contrastive-learning-how-it-works-step-by-step.html">1.9 What is Contrastive Learning? How It Works Step by Step</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="2">
+<summary><span class="nav-module-title">2. Deep Learning and Neural Networks</span><span class="nav-count" data-nav-count="2">0/12</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0201" data-module="2" aria-label="Mark What is a Neural Network and How Does It Work? as read"></label><a href="../lessons/m02-l0201-what-is-a-neural-network-and-how-does-it-work.html">2.1 What is a Neural Network and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0202" data-module="2" aria-label="Mark What is Bias In Artificial Neural Network? as read"></label><a href="../lessons/m02-l0202-what-is-bias-in-artificial-neural-network.html">2.2 What is Bias In Artificial Neural Network?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0203" data-module="2" aria-label="Mark How Does Matrix Multiplication Work in Neural Networks? as read"></label><a href="../lessons/m02-l0203-how-does-matrix-multiplication-work-in-neural-networks.html">2.3 How Does Matrix Multiplication Work in Neural Networks?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0204" data-module="2" aria-label="Mark How Does Gradient Descent Work? as read"></label><a href="../lessons/m02-l0204-how-does-gradient-descent-work.html">2.4 How Does Gradient Descent Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0205" data-module="2" aria-label="Mark How Does Backpropagation Work? The Math Explained Step by Step as read"></label><a href="../lessons/m02-l0205-how-does-backpropagation-work-the-math-explained-step-by-step.html">2.5 How Does Backpropagation Work? The Math Explained Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0206" data-module="2" aria-label="Mark What is Cross-Entropy Loss? as read"></label><a href="../lessons/m02-l0206-what-is-cross-entropy-loss.html">2.6 What is Cross-Entropy Loss?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0207" data-module="2" aria-label="Mark What is Dropout in Neural Networks and How Does It Work? as read"></label><a href="../lessons/m02-l0207-what-is-dropout-in-neural-networks-and-how-does-it-work.html">2.7 What is Dropout in Neural Networks and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0208" data-module="2" aria-label="Mark Batch Normalization vs Layer Normalization as read"></label><a href="../lessons/m02-l0208-batch-normalization-vs-layer-normalization.html">2.8 Batch Normalization vs Layer Normalization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0209" data-module="2" aria-label="Mark What is RMSNorm? Root Mean Square Layer Normalization Explained as read"></label><a href="../lessons/m02-l0209-what-is-rmsnorm-root-mean-square-layer-normalization-explained.html">2.9 What is RMSNorm? Root Mean Square Layer Normalization Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0210" data-module="2" aria-label="Mark What is a Recurrent Neural Network (RNN)? as read"></label><a href="../lessons/m02-l0210-what-is-a-recurrent-neural-network-rnn.html">2.10 What is a Recurrent Neural Network (RNN)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0211" data-module="2" aria-label="Mark How does PyTorch work? as read"></label><a href="../lessons/m02-l0211-how-does-pytorch-work.html">2.11 How does PyTorch work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m02-l0212" data-module="2" aria-label="Mark How Does The Machine Learning Library TensorFlow Work? as read"></label><a href="../lessons/m02-l0212-how-does-the-machine-learning-library-tensorflow-work.html">2.12 How Does The Machine Learning Library TensorFlow Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="3">
+<summary><span class="nav-module-title">3. Generative AI and the Transformer Architecture</span><span class="nav-count" data-nav-count="3">0/16</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0301" data-module="3" aria-label="Mark What is Generative AI? as read"></label><a href="../lessons/m03-l0301-what-is-generative-ai.html">3.1 What is Generative AI?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0302" data-module="3" aria-label="Mark What are Autoregressive Models? as read"></label><a href="../lessons/m03-l0302-what-are-autoregressive-models.html">3.2 What are Autoregressive Models?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0303" data-module="3" aria-label="Mark Tokenization in LLMs as read"></label><a href="../lessons/m03-l0303-tokenization-in-llms.html">3.3 Tokenization in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0304" data-module="3" aria-label="Mark What is Byte Pair Encoding (BPE) in LLMs? as read"></label><a href="../lessons/m03-l0304-what-is-byte-pair-encoding-bpe-in-llms.html">3.4 What is Byte Pair Encoding (BPE) in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0305" data-module="3" aria-label="Mark What are Embeddings? as read"></label><a href="../lessons/m03-l0305-what-are-embeddings.html">3.5 What are Embeddings?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0306" data-module="3" aria-label="Mark How do RNNs and Transformers differ? as read"></label><a href="../lessons/m03-l0306-how-do-rnns-and-transformers-differ.html">3.6 How do RNNs and Transformers differ?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0307" data-module="3" aria-label="Mark How Does the Transformer Architecture Work? as read"></label><a href="../lessons/m03-l0307-how-does-the-transformer-architecture-work.html">3.7 How Does the Transformer Architecture Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0308" data-module="3" aria-label="Mark Encoder vs Decoder in Transformers as read"></label><a href="../lessons/m03-l0308-encoder-vs-decoder-in-transformers.html">3.8 Encoder vs Decoder in Transformers</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0309" data-module="3" aria-label="Mark What is Self Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0309-what-is-self-attention-in-transformers-and-how-does-it-work.html">3.9 What is Self Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0310" data-module="3" aria-label="Mark How Does Attention Work? The Math Behind Q, K, and V Step by Step as read"></label><a href="../lessons/m03-l0310-how-does-attention-work-the-math-behind-q-k-and-v-step-by-step.html">3.10 How Does Attention Work? The Math Behind Q, K, and V Step by Step</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0311" data-module="3" aria-label="Mark Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor as read"></label><a href="../lessons/m03-l0311-why-do-we-scale-attention-by-dk-the-math-behind-the-scaling-factor.html">3.11 Why Do We Scale Attention by √dₖ? The Math Behind the Scaling Factor</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0312" data-module="3" aria-label="Mark What is Causal Masking in Attention and Why Do LLMs Need It? as read"></label><a href="../lessons/m03-l0312-what-is-causal-masking-in-attention-and-why-do-llms-need-it.html">3.12 What is Causal Masking in Attention and Why Do LLMs Need It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0313" data-module="3" aria-label="Mark What is Multi-Head Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0313-what-is-multi-head-attention-in-transformers-and-how-does-it-work.html">3.13 What is Multi-Head Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0314" data-module="3" aria-label="Mark What is Cross Attention in Transformers and How Does It Work? as read"></label><a href="../lessons/m03-l0314-what-is-cross-attention-in-transformers-and-how-does-it-work.html">3.14 What is Cross Attention in Transformers and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0315" data-module="3" aria-label="Mark What is RoPE (Rotary Position Embedding)? The Math Behind It as read"></label><a href="../lessons/m03-l0315-what-is-rope-rotary-position-embedding-the-math-behind-it.html">3.15 What is RoPE (Rotary Position Embedding)? The Math Behind It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m03-l0316" data-module="3" aria-label="Mark What is the Feed-Forward Network in LLMs and What Does It Do? as read"></label><a href="../lessons/m03-l0316-what-is-the-feed-forward-network-in-llms-and-what-does-it-do.html">3.16 What is the Feed-Forward Network in LLMs and What Does It Do?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="4">
+<summary><span class="nav-module-title">4. How LLMs Generate Text</span><span class="nav-count" data-nav-count="4">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0401" data-module="4" aria-label="Mark How does Temperature control LLM output? as read"></label><a href="../lessons/m04-l0401-how-does-temperature-control-llm-output.html">4.1 How does Temperature control LLM output?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0402" data-module="4" aria-label="Mark How do Top-k and Top-p Sampling work? as read"></label><a href="../lessons/m04-l0402-how-do-top-k-and-top-p-sampling-work.html">4.2 How do Top-k and Top-p Sampling work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0403" data-module="4" aria-label="Mark Stop Tokens in LLMs as read"></label><a href="../lessons/m04-l0403-stop-tokens-in-llms.html">4.3 Stop Tokens in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0404" data-module="4" aria-label="Mark How does Token Streaming work? as read"></label><a href="../lessons/m04-l0404-how-does-token-streaming-work.html">4.4 How does Token Streaming work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0405" data-module="4" aria-label="Mark What is the Lost in the Middle Problem in LLMs and How to Fix It? as read"></label><a href="../lessons/m04-l0405-what-is-the-lost-in-the-middle-problem-in-llms-and-how-to-fix-it.html">4.5 What is the Lost in the Middle Problem in LLMs and How to Fix It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m04-l0406" data-module="4" aria-label="Mark Why Do LLMs Hallucinate? The Token-Level Explanation as read"></label><a href="../lessons/m04-l0406-why-do-llms-hallucinate-the-token-level-explanation.html">4.6 Why Do LLMs Hallucinate? The Token-Level Explanation</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="5">
+<summary><span class="nav-module-title">5. Modern LLM Architecture</span><span class="nav-count" data-nav-count="5">0/7</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0501" data-module="5" aria-label="Mark Evolution of LLM Architecture as read"></label><a href="../lessons/m05-l0501-evolution-of-llm-architecture.html">5.1 Evolution of LLM Architecture</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0502" data-module="5" aria-label="Mark What is Mixture of Experts (MoE) and How Does It Work? as read"></label><a href="../lessons/m05-l0502-what-is-mixture-of-experts-moe-and-how-does-it-work.html">5.2 What is Mixture of Experts (MoE) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0503" data-module="5" aria-label="Mark What is Grouped Query Attention (GQA) and Why Do LLMs Use It? as read"></label><a href="../lessons/m05-l0503-what-is-grouped-query-attention-gqa-and-why-do-llms-use-it.html">5.3 What is Grouped Query Attention (GQA) and Why Do LLMs Use It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0504" data-module="5" aria-label="Mark How does Sliding Window Attention work? as read"></label><a href="../lessons/m05-l0504-how-does-sliding-window-attention-work.html">5.4 How does Sliding Window Attention work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0505" data-module="5" aria-label="Mark How do Attention Sinks work? as read"></label><a href="../lessons/m05-l0505-how-do-attention-sinks-work.html">5.5 How do Attention Sinks work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0506" data-module="5" aria-label="Mark What is Flash Attention and Why Is It So Fast? as read"></label><a href="../lessons/m05-l0506-what-is-flash-attention-and-why-is-it-so-fast.html">5.6 What is Flash Attention and Why Is It So Fast?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m05-l0507" data-module="5" aria-label="Mark What is DeepSeek-V4 and How Does It Work? Architecture Explained as read"></label><a href="../lessons/m05-l0507-what-is-deepseek-v4-and-how-does-it-work-architecture-explained.html">5.7 What is DeepSeek-V4 and How Does It Work? Architecture Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="6">
+<summary><span class="nav-module-title">6. Types of Language Models</span><span class="nav-count" data-nav-count="6">0/5</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0601" data-module="6" aria-label="Mark What are Small Language Models (SLMs) and When Should We Use Them? as read"></label><a href="../lessons/m06-l0601-what-are-small-language-models-slms-and-when-should-we-use-them.html">6.1 What are Small Language Models (SLMs) and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0602" data-module="6" aria-label="Mark What are Large Reasoning Models (LRMs) and How Are They Different from LLMs? as read"></label><a href="../lessons/m06-l0602-what-are-large-reasoning-models-lrms-and-how-are-they-different-from-llms.html">6.2 What are Large Reasoning Models (LRMs) and How Are They Different from LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0603" data-module="6" aria-label="Mark What are Recursive Language Models (RLMs) and How Do They Work? as read"></label><a href="../lessons/m06-l0603-what-are-recursive-language-models-rlms-and-how-do-they-work.html">6.3 What are Recursive Language Models (RLMs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0604" data-module="6" aria-label="Mark How do Diffusion Language Models (DLMs) work? as read"></label><a href="../lessons/m06-l0604-how-do-diffusion-language-models-dlms-work.html">6.4 How do Diffusion Language Models (DLMs) work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m06-l0605" data-module="6" aria-label="Mark Jev and System One Models Explained as read"></label><a href="../lessons/m06-l0605-jev-and-system-one-models-explained.html">6.5 Jev and System One Models Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="7">
+<summary><span class="nav-module-title">7. Training, Fine-Tuning, and Alignment</span><span class="nav-count" data-nav-count="7">0/11</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0701" data-module="7" aria-label="Mark How does fine-tuning work? as read"></label><a href="../lessons/m07-l0701-how-does-fine-tuning-work.html">7.1 How does fine-tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0702" data-module="7" aria-label="Mark What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs? as read"></label><a href="../lessons/m07-l0702-what-is-lora-low-rank-adaptation-and-how-does-it-fine-tune-llms.html">7.2 What is LoRA (Low-Rank Adaptation) and How Does It Fine-Tune LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0703" data-module="7" aria-label="Mark How does Prefix Tuning work? as read"></label><a href="../lessons/m07-l0703-how-does-prefix-tuning-work.html">7.3 How does Prefix Tuning work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0704" data-module="7" aria-label="Mark How does Knowledge Distillation work? as read"></label><a href="../lessons/m07-l0704-how-does-knowledge-distillation-work.html">7.4 How does Knowledge Distillation work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0705" data-module="7" aria-label="Mark What is Continual Learning in LLMs? Solving Catastrophic Forgetting as read"></label><a href="../lessons/m07-l0705-what-is-continual-learning-in-llms-solving-catastrophic-forgetting.html">7.5 What is Continual Learning in LLMs? Solving Catastrophic Forgetting</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0706" data-module="7" aria-label="Mark What is Deep RL from Human Preferences? The Paper That Started RLHF as read"></label><a href="../lessons/m07-l0706-what-is-deep-rl-from-human-preferences-the-paper-that-started-rlhf.html">7.6 What is Deep RL from Human Preferences? The Paper That Started RLHF</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0707" data-module="7" aria-label="Mark What is InstructGPT? How GPT-3 Learned to Follow Instructions as read"></label><a href="../lessons/m07-l0707-what-is-instructgpt-how-gpt-3-learned-to-follow-instructions.html">7.7 What is InstructGPT? How GPT-3 Learned to Follow Instructions</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0708" data-module="7" aria-label="Mark What is RLHF? Reinforcement Learning from Human Feedback Explained as read"></label><a href="../lessons/m07-l0708-what-is-rlhf-reinforcement-learning-from-human-feedback-explained.html">7.8 What is RLHF? Reinforcement Learning from Human Feedback Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0709" data-module="7" aria-label="Mark What is Proximal Policy Optimization (PPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0709-what-is-proximal-policy-optimization-ppo-and-how-does-it-work.html">7.9 What is Proximal Policy Optimization (PPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0710" data-module="7" aria-label="Mark What is Direct Preference Optimization (DPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0710-what-is-direct-preference-optimization-dpo-and-how-does-it-work.html">7.10 What is Direct Preference Optimization (DPO) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m07-l0711" data-module="7" aria-label="Mark What is Group Relative Policy Optimization (GRPO) and How Does It Work? as read"></label><a href="../lessons/m07-l0711-what-is-group-relative-policy-optimization-grpo-and-how-does-it-work.html">7.11 What is Group Relative Policy Optimization (GRPO) and How Does It Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="8">
+<summary><span class="nav-module-title">8. Prompt Engineering and Context Engineering</span><span class="nav-count" data-nav-count="8">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0801" data-module="8" aria-label="Mark How does Chain-of-Thought (CoT) Prompting work? as read"></label><a href="../lessons/m08-l0801-how-does-chain-of-thought-cot-prompting-work.html">8.1 How does Chain-of-Thought (CoT) Prompting work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0802" data-module="8" aria-label="Mark How does Tree of Thoughts work? as read"></label><a href="../lessons/m08-l0802-how-does-tree-of-thoughts-work.html">8.2 How does Tree of Thoughts work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0803" data-module="8" aria-label="Mark How does Prompt Chaining work? as read"></label><a href="../lessons/m08-l0803-how-does-prompt-chaining-work.html">8.3 How does Prompt Chaining work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0804" data-module="8" aria-label="Mark How does Prompt Caching work? as read"></label><a href="../lessons/m08-l0804-how-does-prompt-caching-work.html">8.4 How does Prompt Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0805" data-module="8" aria-label="Mark What is Context Engineering? as read"></label><a href="../lessons/m08-l0805-what-is-context-engineering.html">8.5 What is Context Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m08-l0806" data-module="8" aria-label="Mark How does context compaction work? as read"></label><a href="../lessons/m08-l0806-how-does-context-compaction-work.html">8.6 How does context compaction work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="9">
+<summary><span class="nav-module-title">9. Vector Search and Retrieval-Augmented Generation (RAG)</span><span class="nav-count" data-nav-count="9">0/15</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0901" data-module="9" aria-label="Mark How does a Vector Database work? as read"></label><a href="../lessons/m09-l0901-how-does-a-vector-database-work.html">9.1 How does a Vector Database work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0902" data-module="9" aria-label="Mark How does Approximate Nearest Neighbor (ANN) search work? as read"></label><a href="../lessons/m09-l0902-how-does-approximate-nearest-neighbor-ann-search-work.html">9.2 How does Approximate Nearest Neighbor (ANN) search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0903" data-module="9" aria-label="Mark How does Semantic Search work? as read"></label><a href="../lessons/m09-l0903-how-does-semantic-search-work.html">9.3 How does Semantic Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0904" data-module="9" aria-label="Mark How does Hybrid Search work? as read"></label><a href="../lessons/m09-l0904-how-does-hybrid-search-work.html">9.4 How does Hybrid Search work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0905" data-module="9" aria-label="Mark How does a Reranker work? as read"></label><a href="../lessons/m09-l0905-how-does-a-reranker-work.html">9.5 How does a Reranker work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0906" data-module="9" aria-label="Mark What is ColBERT? Late Interaction Retrieval Explained as read"></label><a href="../lessons/m09-l0906-what-is-colbert-late-interaction-retrieval-explained.html">9.6 What is ColBERT? Late Interaction Retrieval Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0907" data-module="9" aria-label="Mark How to Chunk Documents for RAG? Chunking Strategies Explained as read"></label><a href="../lessons/m09-l0907-how-to-chunk-documents-for-rag-chunking-strategies-explained.html">9.7 How to Chunk Documents for RAG? Chunking Strategies Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0908" data-module="9" aria-label="Mark How does Contextual Retrieval work? as read"></label><a href="../lessons/m09-l0908-how-does-contextual-retrieval-work.html">9.8 How does Contextual Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0909" data-module="9" aria-label="Mark How does HyDE work in RAG? as read"></label><a href="../lessons/m09-l0909-how-does-hyde-work-in-rag.html">9.9 How does HyDE work in RAG?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0910" data-module="9" aria-label="Mark How do Query Rewriting and Multi-Query Retrieval work? as read"></label><a href="../lessons/m09-l0910-how-do-query-rewriting-and-multi-query-retrieval-work.html">9.10 How do Query Rewriting and Multi-Query Retrieval work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0911" data-module="9" aria-label="Mark How does an Embedding Cache work? as read"></label><a href="../lessons/m09-l0911-how-does-an-embedding-cache-work.html">9.11 How does an Embedding Cache work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0912" data-module="9" aria-label="Mark How does Semantic Caching work? as read"></label><a href="../lessons/m09-l0912-how-does-semantic-caching-work.html">9.12 How does Semantic Caching work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0913" data-module="9" aria-label="Mark What is Agentic RAG? How It Works and When to Use It as read"></label><a href="../lessons/m09-l0913-what-is-agentic-rag-how-it-works-and-when-to-use-it.html">9.13 What is Agentic RAG? How It Works and When to Use It</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0914" data-module="9" aria-label="Mark What is GraphRAG? How Knowledge Graphs Improve RAG as read"></label><a href="../lessons/m09-l0914-what-is-graphrag-how-knowledge-graphs-improve-rag.html">9.14 What is GraphRAG? How Knowledge Graphs Improve RAG</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m09-l0915" data-module="9" aria-label="Mark What is Vectorless RAG? RAG Without Embeddings or a Vector Database as read"></label><a href="../lessons/m09-l0915-what-is-vectorless-rag-rag-without-embeddings-or-a-vector-database.html">9.15 What is Vectorless RAG? RAG Without Embeddings or a Vector Database</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="10">
+<summary><span class="nav-module-title">10. AI Agents and Agentic Systems</span><span class="nav-count" data-nav-count="10">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1001" data-module="10" aria-label="Mark What is an AI Agent? How It Works as read"></label><a href="../lessons/m10-l1001-what-is-an-ai-agent-how-it-works.html">10.1 What is an AI Agent? How It Works</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1002" data-module="10" aria-label="Mark How does Function Calling work in LLMs? as read"></label><a href="../lessons/m10-l1002-how-does-function-calling-work-in-llms.html">10.2 How does Function Calling work in LLMs?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1003" data-module="10" aria-label="Mark What is an AI Agent Loop? as read"></label><a href="../lessons/m10-l1003-what-is-an-ai-agent-loop.html">10.3 What is an AI Agent Loop?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1004" data-module="10" aria-label="Mark What is a ReAct Agent? How It Thinks and Acts, Explained as read"></label><a href="../lessons/m10-l1004-what-is-a-react-agent-how-it-thinks-and-acts-explained.html">10.4 What is a ReAct Agent? How It Thinks and Acts, Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1005" data-module="10" aria-label="Mark What is a Plan-and-Execute Agent and How Does It Work? as read"></label><a href="../lessons/m10-l1005-what-is-a-plan-and-execute-agent-and-how-does-it-work.html">10.5 What is a Plan-and-Execute Agent and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1006" data-module="10" aria-label="Mark What is a Reflection Agent? How It Generates, Critiques, and Revises as read"></label><a href="../lessons/m10-l1006-what-is-a-reflection-agent-how-it-generates-critiques-and-revises.html">10.6 What is a Reflection Agent? How It Generates, Critiques, and Revises</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1007" data-module="10" aria-label="Mark How Does AI Agent Memory Work? The Memory Stack Explained as read"></label><a href="../lessons/m10-l1007-how-does-ai-agent-memory-work-the-memory-stack-explained.html">10.7 How Does AI Agent Memory Work? The Memory Stack Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1008" data-module="10" aria-label="Mark How does ChatGPT remember you? as read"></label><a href="../lessons/m10-l1008-how-does-chatgpt-remember-you.html">10.8 How does ChatGPT remember you?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1009" data-module="10" aria-label="Mark What is MCP (Model Context Protocol)? as read"></label><a href="../lessons/m10-l1009-what-is-mcp-model-context-protocol.html">10.9 What is MCP (Model Context Protocol)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1010" data-module="10" aria-label="Mark What are Agent Skills? as read"></label><a href="../lessons/m10-l1010-what-are-agent-skills.html">10.10 What are Agent Skills?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1011" data-module="10" aria-label="Mark What is OKF (Open Knowledge Format)? as read"></label><a href="../lessons/m10-l1011-what-is-okf-open-knowledge-format.html">10.11 What is OKF (Open Knowledge Format)?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1012" data-module="10" aria-label="Mark What are Multi-Agent Systems and When Should We Use Them? as read"></label><a href="../lessons/m10-l1012-what-are-multi-agent-systems-and-when-should-we-use-them.html">10.12 What are Multi-Agent Systems and When Should We Use Them?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1013" data-module="10" aria-label="Mark What are AI SubAgents? Why We Need Them and How They Work as read"></label><a href="../lessons/m10-l1013-what-are-ai-subagents-why-we-need-them-and-how-they-work.html">10.13 What are AI SubAgents? Why We Need Them and How They Work</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1014" data-module="10" aria-label="Mark How AI Agents Communicate as read"></label><a href="../lessons/m10-l1014-how-ai-agents-communicate.html">10.14 How AI Agents Communicate</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1015" data-module="10" aria-label="Mark What is AI Orchestration? How It Works and the Common Patterns as read"></label><a href="../lessons/m10-l1015-what-is-ai-orchestration-how-it-works-and-the-common-patterns.html">10.15 What is AI Orchestration? How It Works and the Common Patterns</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1016" data-module="10" aria-label="Mark What is Sakana Fugu? The Technical Report Explained as read"></label><a href="../lessons/m10-l1016-what-is-sakana-fugu-the-technical-report-explained.html">10.16 What is Sakana Fugu? The Technical Report Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1017" data-module="10" aria-label="Mark How do Computer-Use Agents work? as read"></label><a href="../lessons/m10-l1017-how-do-computer-use-agents-work.html">10.17 How do Computer-Use Agents work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m10-l1018" data-module="10" aria-label="Mark How do Browser Agents work? as read"></label><a href="../lessons/m10-l1018-how-do-browser-agents-work.html">10.18 How do Browser Agents work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="11">
+<summary><span class="nav-module-title">11. Agentic Engineering and Agent Frameworks</span><span class="nav-count" data-nav-count="11">0/8</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1101" data-module="11" aria-label="Mark What is Harness Engineering? as read"></label><a href="../lessons/m11-l1101-what-is-harness-engineering.html">11.1 What is Harness Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1102" data-module="11" aria-label="Mark What is Loop Engineering? as read"></label><a href="../lessons/m11-l1102-what-is-loop-engineering.html">11.2 What is Loop Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1103" data-module="11" aria-label="Mark What is Graph Engineering? as read"></label><a href="../lessons/m11-l1103-what-is-graph-engineering.html">11.3 What is Graph Engineering?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1104" data-module="11" aria-label="Mark AI Is Only as Good as Our Definition of Done as read"></label><a href="../lessons/m11-l1104-ai-is-only-as-good-as-our-definition-of-done.html">11.4 AI Is Only as Good as Our Definition of Done</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1105" data-module="11" aria-label="Mark How does LangChain work? as read"></label><a href="../lessons/m11-l1105-how-does-langchain-work.html">11.5 How does LangChain work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1106" data-module="11" aria-label="Mark How does LangGraph work? as read"></label><a href="../lessons/m11-l1106-how-does-langgraph-work.html">11.6 How does LangGraph work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1107" data-module="11" aria-label="Mark How does Claude Code work? as read"></label><a href="../lessons/m11-l1107-how-does-claude-code-work.html">11.7 How does Claude Code work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m11-l1108" data-module="11" aria-label="Mark How does Cursor work? as read"></label><a href="../lessons/m11-l1108-how-does-cursor-work.html">11.8 How does Cursor work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="12">
+<summary><span class="nav-module-title">12. LLM Inference Engineering</span><span class="nav-count" data-nav-count="12">0/18</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1201" data-module="12" aria-label="Mark LLM Inference Optimization as read"></label><a href="../lessons/m12-l1201-llm-inference-optimization.html">12.1 LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1202" data-module="12" aria-label="Mark Prefill vs Decode: LLM Inference Optimization as read"></label><a href="../lessons/m12-l1202-prefill-vs-decode-llm-inference-optimization.html">12.2 Prefill vs Decode: LLM Inference Optimization</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1203" data-module="12" aria-label="Mark What is Prefill-Decode Disaggregation in LLM Inference? as read"></label><a href="../lessons/m12-l1203-what-is-prefill-decode-disaggregation-in-llm-inference.html">12.3 What is Prefill-Decode Disaggregation in LLM Inference?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1204" data-module="12" aria-label="Mark KV Cache in LLMs as read"></label><a href="../lessons/m12-l1204-kv-cache-in-llms.html">12.4 KV Cache in LLMs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1205" data-module="12" aria-label="Mark What is KV Cache Compression? as read"></label><a href="../lessons/m12-l1205-what-is-kv-cache-compression.html">12.5 What is KV Cache Compression?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1206" data-module="12" aria-label="Mark What is Paged Attention in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1206-what-is-paged-attention-in-llms-and-how-does-it-work.html">12.6 What is Paged Attention in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1207" data-module="12" aria-label="Mark What is Continuous Batching in LLMs and How Does It Work? as read"></label><a href="../lessons/m12-l1207-what-is-continuous-batching-in-llms-and-how-does-it-work.html">12.7 What is Continuous Batching in LLMs and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1208" data-module="12" aria-label="Mark What is Speculative Decoding and How Does It Make LLMs Faster? as read"></label><a href="../lessons/m12-l1208-what-is-speculative-decoding-and-how-does-it-make-llms-faster.html">12.8 What is Speculative Decoding and How Does It Make LLMs Faster?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1209" data-module="12" aria-label="Mark What is N-gram Speculation in LLMs and How Does It Speed Up Generation? as read"></label><a href="../lessons/m12-l1209-what-is-n-gram-speculation-in-llms-and-how-does-it-speed-up-generation.html">12.9 What is N-gram Speculation in LLMs and How Does It Speed Up Generation?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1210" data-module="12" aria-label="Mark What is Medusa? Multi-Head Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1210-what-is-medusa-multi-head-speculative-decoding-explained.html">12.10 What is Medusa? Multi-Head Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1211" data-module="12" aria-label="Mark What is EAGLE? Feature-Level Speculative Decoding Explained as read"></label><a href="../lessons/m12-l1211-what-is-eagle-feature-level-speculative-decoding-explained.html">12.11 What is EAGLE? Feature-Level Speculative Decoding Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1212" data-module="12" aria-label="Mark How does Model Quantization work? as read"></label><a href="../lessons/m12-l1212-how-does-model-quantization-work.html">12.12 How does Model Quantization work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1213" data-module="12" aria-label="Mark How does GGUF work? as read"></label><a href="../lessons/m12-l1213-how-does-gguf-work.html">12.13 How does GGUF work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1214" data-module="12" aria-label="Mark How does llama.cpp run LLMs on everyday hardware? as read"></label><a href="../lessons/m12-l1214-how-does-llama-cpp-run-llms-on-everyday-hardware.html">12.14 How does llama.cpp run LLMs on everyday hardware?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1215" data-module="12" aria-label="Mark How does Ollama work? as read"></label><a href="../lessons/m12-l1215-how-does-ollama-work.html">12.15 How does Ollama work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1216" data-module="12" aria-label="Mark How does vLLM work? as read"></label><a href="../lessons/m12-l1216-how-does-vllm-work.html">12.16 How does vLLM work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1217" data-module="12" aria-label="Mark How does SGLang work? as read"></label><a href="../lessons/m12-l1217-how-does-sglang-work.html">12.17 How does SGLang work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m12-l1218" data-module="12" aria-label="Mark How does TensorRT-LLM work? as read"></label><a href="../lessons/m12-l1218-how-does-tensorrt-llm-work.html">12.18 How does TensorRT-LLM work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="13">
+<summary><span class="nav-module-title">13. Evaluation and Observability</span><span class="nav-count" data-nav-count="13">0/4</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1301" data-module="13" aria-label="Mark What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained as read"></label><a href="../lessons/m13-l1301-what-is-llm-evaluation-metrics-benchmarks-and-methods-explained.html">13.1 What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1302" data-module="13" aria-label="Mark What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs as read"></label><a href="../lessons/m13-l1302-what-is-llm-as-a-judge-how-to-use-an-llm-to-evaluate-llm-outputs.html">13.2 What is LLM as a Judge? How to Use an LLM to Evaluate LLM Outputs</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1303" data-module="13" aria-label="Mark How to Evaluate AI Agents? Metrics, Methods, and Best Practices as read"></label><a href="../lessons/m13-l1303-how-to-evaluate-ai-agents-metrics-methods-and-best-practices.html">13.3 How to Evaluate AI Agents? Metrics, Methods, and Best Practices</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m13-l1304" data-module="13" aria-label="Mark What is AI Agent Observability? Traces, Spans, and Metrics Explained as read"></label><a href="../lessons/m13-l1304-what-is-ai-agent-observability-traces-spans-and-metrics-explained.html">13.4 What is AI Agent Observability? Traces, Spans, and Metrics Explained</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="14">
+<summary><span class="nav-module-title">14. AI Safety and Security</span><span class="nav-count" data-nav-count="14">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1401" data-module="14" aria-label="Mark How do LLM guardrails work? as read"></label><a href="../lessons/m14-l1401-how-do-llm-guardrails-work.html">14.1 How do LLM guardrails work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1402" data-module="14" aria-label="Mark What is Prompt Injection in LLMs and How Do We Defend Against It? as read"></label><a href="../lessons/m14-l1402-what-is-prompt-injection-in-llms-and-how-do-we-defend-against-it.html">14.2 What is Prompt Injection in LLMs and How Do We Defend Against It?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m14-l1403" data-module="14" aria-label="Mark How Does LLM Watermarking Work? as read"></label><a href="../lessons/m14-l1403-how-does-llm-watermarking-work.html">14.3 How Does LLM Watermarking Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="15">
+<summary><span class="nav-module-title">15. Multimodal AI and Generative Models</span><span class="nav-count" data-nav-count="15">0/6</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1501" data-module="15" aria-label="Mark What is Multimodal AI? How It Works and Where It Is Used as read"></label><a href="../lessons/m15-l1501-what-is-multimodal-ai-how-it-works-and-where-it-is-used.html">15.1 What is Multimodal AI? How It Works and Where It Is Used</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1502" data-module="15" aria-label="Mark What is a Vision Transformer (ViT) and How Does It Work? as read"></label><a href="../lessons/m15-l1502-what-is-a-vision-transformer-vit-and-how-does-it-work.html">15.2 What is a Vision Transformer (ViT) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1503" data-module="15" aria-label="Mark How do Image Embeddings work? as read"></label><a href="../lessons/m15-l1503-how-do-image-embeddings-work.html">15.3 How do Image Embeddings work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1504" data-module="15" aria-label="Mark What are Diffusion Models and How Do They Generate Images? as read"></label><a href="../lessons/m15-l1504-what-are-diffusion-models-and-how-do-they-generate-images.html">15.4 What are Diffusion Models and How Do They Generate Images?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1505" data-module="15" aria-label="Mark What are Generative Adversarial Networks (GANs) and How Do They Work? as read"></label><a href="../lessons/m15-l1505-what-are-generative-adversarial-networks-gans-and-how-do-they-work.html">15.5 What are Generative Adversarial Networks (GANs) and How Do They Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m15-l1506" data-module="15" aria-label="Mark What are Variational Autoencoders (VAEs) and How Do They Work? as read"></label><a href="../lessons/m15-l1506-what-are-variational-autoencoders-vaes-and-how-do-they-work.html">15.6 What are Variational Autoencoders (VAEs) and How Do They Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="16" open>
+<summary><span class="nav-module-title">16. AI Infrastructure, Deployment, and System Design</span><span class="nav-count" data-nav-count="16">0/17</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1601" data-module="16" aria-label="Mark How does a GPU work for Deep Learning? as read"></label><a href="../lessons/m16-l1601-how-does-a-gpu-work-for-deep-learning.html">16.1 How does a GPU work for Deep Learning?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1602" data-module="16" aria-label="Mark How do CUDA Kernels work? as read"></label><a href="../lessons/m16-l1602-how-do-cuda-kernels-work.html">16.2 How do CUDA Kernels work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1603" data-module="16" aria-label="Mark How does a Google TPU work? as read"></label><a href="../lessons/m16-l1603-how-does-a-google-tpu-work.html">16.3 How does a Google TPU work?</a></li>
+<li class="nav-lesson active"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1604" data-module="16" aria-label="Mark How does an LPU work? as read"></label><a href="../lessons/m16-l1604-how-does-an-lpu-work.html">16.4 How does an LPU work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1605" data-module="16" aria-label="Mark Cloud vs On-device Model Deployment as read"></label><a href="../lessons/m16-l1605-cloud-vs-on-device-model-deployment.html">16.5 Cloud vs On-device Model Deployment</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1606" data-module="16" aria-label="Mark Android TensorFlow Lite Machine Learning Example as read"></label><a href="../lessons/m16-l1606-android-tensorflow-lite-machine-learning-example.html">16.6 Android TensorFlow Lite Machine Learning Example</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1607" data-module="16" aria-label="Mark What is LLM Routing? How to Send Each Query to the Right LLM as read"></label><a href="../lessons/m16-l1607-what-is-llm-routing-how-to-send-each-query-to-the-right-llm.html">16.7 What is LLM Routing? How to Send Each Query to the Right LLM</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1608" data-module="16" aria-label="Mark Design a Real-Time Voice AI Agent as read"></label><a href="../lessons/m16-l1608-design-a-real-time-voice-ai-agent.html">16.8 Design a Real-Time Voice AI Agent</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1609" data-module="16" aria-label="Mark What is turn-taking in a voice AI agent? as read"></label><a href="../lessons/m16-l1609-what-is-turn-taking-in-a-voice-ai-agent.html">16.9 What is turn-taking in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1610" data-module="16" aria-label="Mark What is barge-in in a voice AI agent? as read"></label><a href="../lessons/m16-l1610-what-is-barge-in-in-a-voice-ai-agent.html">16.10 What is barge-in in a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1611" data-module="16" aria-label="Mark Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture? as read"></label><a href="../lessons/m16-l1611-cascaded-vs-speech-to-speech-how-to-choose-the-right-voice-agent-architecture.html">16.11 Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1612" data-module="16" aria-label="Mark How do you build a latency budget for a voice AI agent? as read"></label><a href="../lessons/m16-l1612-how-do-you-build-a-latency-budget-for-a-voice-ai-agent.html">16.12 How do you build a latency budget for a voice AI agent?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1613" data-module="16" aria-label="Mark How does the voice-to-voice latency of a voice agent get measured? as read"></label><a href="../lessons/m16-l1613-how-does-the-voice-to-voice-latency-of-a-voice-agent-get-measured.html">16.13 How does the voice-to-voice latency of a voice agent get measured?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1614" data-module="16" aria-label="Mark Why does the time-to-first-audio matter more than total response time? as read"></label><a href="../lessons/m16-l1614-why-does-the-time-to-first-audio-matter-more-than-total-response-time.html">16.14 Why does the time-to-first-audio matter more than total response time?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1615" data-module="16" aria-label="Mark What is System Design? as read"></label><a href="../lessons/m16-l1615-what-is-system-design.html">16.15 What is System Design?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1616" data-module="16" aria-label="Mark HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events as read"></label><a href="../lessons/m16-l1616-http-request-vs-http-long-polling-vs-websocket-vs-server-sent-events.html">16.16 HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m16-l1617" data-module="16" aria-label="Mark How do Voice And Video Call Work? as read"></label><a href="../lessons/m16-l1617-how-do-voice-and-video-call-work.html">16.17 How do Voice And Video Call Work?</a></li>
+</ul>
+</details>
+<details class="nav-module" data-module="17">
+<summary><span class="nav-module-title">17. Frontier Ideas in AI</span><span class="nav-count" data-nav-count="17">0/3</span></summary>
+<ul>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1701" data-module="17" aria-label="Mark What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work? as read"></label><a href="../lessons/m17-l1701-what-is-joint-embedding-predictive-architecture-jepa-and-how-does-it-work.html">17.1 What is Joint Embedding Predictive Architecture (JEPA) and How Does It Work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1702" data-module="17" aria-label="Mark How do World Models work? as read"></label><a href="../lessons/m17-l1702-how-do-world-models-work.html">17.2 How do World Models work?</a></li>
+<li class="nav-lesson"><label class="nav-check"><input type="checkbox" data-lesson="m17-l1703" data-module="17" aria-label="Mark What is Recursive Self-Improvement (RSI)? as read"></label><a href="../lessons/m17-l1703-what-is-recursive-self-improvement-rsi.html">17.3 What is Recursive Self-Improvement (RSI)?</a></li>
+</ul>
+</details>
+<a class="nav-module-single" href="../modules/m18.html">18. Prepare for AI Engineering Interviews</a>
+</nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="content-wrap">
+    <main class="content" id="content">
+      
+<article>
+  <header class="lesson-header">
+    <p class="breadcrumb">
+      <a href="../index.html">Course</a> /
+      <a href="../modules/m16.html">Module 16</a> /
+      Lesson 16.4
+    </p>
+    <h1>How does an LPU work?</h1>
+    <div class="lesson-meta">
+      <span>Lesson 16.4 · ~25 min · Published September 3, 2026</span>
+      <a href="https://outcomeschool.com/blog/how-does-an-lpu-work" target="_blank" rel="noopener noreferrer">Original article</a>
+    </div>
+    <div class="lesson-tags"><span class="tag">llm</span> <span class="tag">ai</span> <span class="tag">system-design</span></div>
+    <label class="read-toggle">
+      <input type="checkbox" data-lesson="m16-l1604" data-module="16">
+      Mark as read
+    </label>
+    
+  </header>
+  <details class="toc">
+<summary>On this page</summary>
+<ul>
+<li><a href="#what-is-an-lpu">What is an LPU?</a>
+</li>
+<li><a href="#how-an-llm-writes-text-one-token-at-a-time">How an LLM writes text, one token at a time</a>
+</li>
+<li><a href="#the-real-bottleneck-is-memory-not-math">The real bottleneck is memory, not math</a>
+</li>
+<li><a href="#why-a-gpu-struggles-here">Why a GPU struggles here</a>
+</li>
+<li><a href="#idea-1-keep-the-model-on-the-chip">Idea 1: Keep the model on the chip</a>
+</li>
+<li><a href="#the-problem-with-on-chip-memory">The problem with on-chip memory</a>
+</li>
+<li><a href="#idea-2-remove-all-the-guesswork">Idea 2: Remove all the guesswork</a>
+</li>
+<li><a href="#idea-3-a-network-that-never-waits">Idea 3: A network that never waits</a>
+</li>
+<li><a href="#the-assembly-line">The assembly line</a>
+</li>
+<li><a href="#what-happens-when-we-send-a-prompt">What happens when we send a prompt</a>
+</li>
+<li><a href="#why-an-lpu-is-fast-all-in-one-place">Why an LPU is fast, all in one place</a>
+</li>
+<li><a href="#where-an-lpu-works-well">Where an LPU works well</a>
+</li>
+<li><a href="#where-an-lpu-does-not-work-well">Where an LPU does not work well</a>
+</li>
+<li><a href="#lpu-vs-gpu">LPU vs GPU</a>
+</li>
+<li><a href="#when-to-use-which-one">When to use which one</a>
+</li>
+<li><a href="#frequently-asked-questions">Frequently Asked Questions</a>
+<ul>
+<li><a href="#who-created-the-lpu">Who created the LPU?</a></li>
+<li><a href="#does-adding-more-compute-power-make-llm-token-generation-faster">Does adding more compute power make LLM token generation faster?</a></li>
+<li><a href="#was-the-lpu-built-to-speed-up-prefill-or-decode">Was the LPU built to speed up prefill or decode?</a></li>
+<li><a href="#doesn-t-splitting-a-model-across-hundreds-of-lpu-chips-slow-it-down">Doesn&#x27;t splitting a model across hundreds of LPU chips slow it down?</a></li>
+</ul>
+</li>
+</ul>
+</details>
+  <p><img alt="How does an LPU work?" decoding="async" loading="lazy" src="../assets/images/16-16-04-how-does-an-lpu-work/how-does-an-lpu-work.png"/></p>
+<p>An LPU (Language Processing Unit) is a chip built for one single job: running a large language model that is already trained, and producing text as fast as possible.</p>
+<p>In this blog, we will learn about how an LPU works, the chip that was built for one single job, running a large language model and printing words on our screen as fast as possible. We will also see what an LPU actually is, how a language model writes text one token at a time, why memory and not math is the real bottleneck, how an LPU keeps the model right next to the compute, how the compiler plans every single cycle in advance, how hundreds of chips work together like an assembly line, and where it works well and where it fails.</p>
+<p>We will cover the following:</p>
+<ul>
+<li>What is an LPU?</li>
+<li>How an LLM writes text, one token at a time</li>
+<li>The real bottleneck is memory, not math</li>
+<li>Why a GPU struggles here</li>
+<li>Idea 1: Keep the model on the chip</li>
+<li>The problem with on-chip memory</li>
+<li>Idea 2: Remove all the guesswork</li>
+<li>Idea 3: A network that never waits</li>
+<li>The assembly line</li>
+<li>What happens when we send a prompt</li>
+<li>Why an LPU is fast, all in one place</li>
+<li>Where an LPU works well</li>
+<li>Where an LPU does not work well</li>
+<li>LPU vs GPU</li>
+<li>When to use which one</li>
+</ul>
+<p>Let's get started.</p>
+<h2 id="what-is-an-lpu">What is an LPU? <a aria-hidden="true" class="anchor" href="#what-is-an-lpu">#</a></h2>
+<p><strong>An LPU is a chip that is built for one single job, running a large language model that is already trained, and producing text as fast as possible.</strong></p>
+<p>LPU = Language Processing Unit.</p>
+<p>In simple words, it is a processor that has been designed around the way a language model writes text, and around nothing else.</p>
+<p>Let's compare it with the chips that we already know.</p>
+<ul>
+<li>A <strong>CPU</strong> is a general worker. It can do almost anything, but it does only a few things at a time.</li>
+<li>A <strong><a href="https://outcomeschool.com/blog/how-does-a-gpu-work-for-deep-learning" rel="noopener noreferrer" target="_blank">GPU</a></strong> is a huge team of workers. It was made for graphics, and later we found that it is also very good at the heavy parallel math that machine learning needs.</li>
+<li>An <strong>LPU</strong> is a specialist. It was made only for running a language model that is already trained.</li>
+</ul>
+<p>Google took a similar specialist route with its own chip for machine learning, and we have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-a-google-tpu-work" rel="noopener noreferrer" target="_blank">how a Google TPU works</a> that walks through that design step by step.</p>
+<p>Here, two words are very important, "already trained". An LPU is built for <strong><a href="https://outcomeschool.com/blog/llm-inference-optimization" rel="noopener noreferrer" target="_blank">inference</a></strong>, which means using a model that has already finished learning. It is not built for training a model.</p>
+<p>The term LPU was introduced by a company called Groq, which builds these chips. But the ideas behind it are general, and those ideas are what we are going to understand here.</p>
+<p>Now, the obvious question is, we already have GPUs, and they are extremely powerful, so why do we need a new chip at all?</p>
+<p>To answer that, we must first understand what a language model actually does when it writes text. Once we understand that, the design of the LPU will feel obvious.</p>
+<h2 id="how-an-llm-writes-text-one-token-at-a-time">How an LLM writes text, one token at a time <a aria-hidden="true" class="anchor" href="#how-an-llm-writes-text-one-token-at-a-time">#</a></h2>
+<p>Before jumping into the hardware, we must know how a language model produces an answer.</p>
+<p>A language model does not write the full answer in one shot. It writes one <strong><a href="https://outcomeschool.com/blog/tokenization-in-llms" rel="noopener noreferrer" target="_blank">token</a></strong> at a time. A token is a small piece of text, sometimes a full word, sometimes a part of a word.</p>
+<p>Let's say we ask the model, "The capital of France is".</p>
+<ul>
+<li>The model reads the whole sentence and produces one token, "Paris".</li>
+<li>Now the model reads "The capital of France is Paris" and produces the next token, ".".</li>
+<li>Now the model reads "The capital of France is Paris." and decides that the answer is over.</li>
+</ul>
+<p>We can write this loop like below:</p>
+<pre><code>input = "The capital of France is"
+loop:
+    read the entire model
+    compute the next token
+    add that token to the input
+    if the token means "the answer is over":
+        stop
+</code></pre>
+<p>Here, we can notice the most important thing about this loop. Every token must wait for the token before it. We cannot compute token number five before we have token number four, because token number four is part of the input for token number five.</p>
+<p>So, text generation is a chain.</p>
+<p>This single sentence explains almost everything about the LPU. A chain cannot be made faster by adding more workers. It can only be made faster by making each link of the chain finish quicker.</p>
+<p>Now, let's see what actually takes time inside one link of that chain.</p>
+<h2 id="the-real-bottleneck-is-memory-not-math">The real bottleneck is memory, not math <a aria-hidden="true" class="anchor" href="#the-real-bottleneck-is-memory-not-math">#</a></h2>
+<p>A language model is just a very large pile of numbers. These numbers are called <strong>weights</strong>, or <strong>parameters</strong>, and both words mean the same thing here. They were learned during training, and they are the entire knowledge of the model. When we hear "a 70B model", it simply means a model that carries 70 billion such numbers.</p>
+<p>Each of these numbers takes up some space. If we store each one in 8 bits, which is 1 byte, then 70 billion numbers take around 70 GB of space. So, the model itself is a 70 GB pile of numbers sitting in memory.</p>
+<p>Storing each weight in fewer bits shrinks this pile directly, and we have a detailed blog on <a href="https://outcomeschool.com/blog/how-does-model-quantization-work" rel="noopener noreferrer" target="_blank">how Model Quantization works</a> that explains this in depth.</p>
+<p><strong>To produce one single token, the chip must read every single weight of the model, from the first one to the last one.</strong></p>
+<p>And what does the chip do with each weight? It multiplies it with a number and adds the result. That is one multiply and one add. That is all.</p>
+<p>So, for every number that we move from memory into the chip, we do almost no work with it. We move a lot and we compute very less. The chip finishes the math and then sits idle, waiting for the next batch of numbers to arrive.</p>
+<p>Let's take an analogy for the sake of understanding.</p>
+<p>Suppose there is a chef in a kitchen. The chef is incredibly fast and can cook any dish in a few seconds. But all the recipe books are kept in a warehouse across the road. For every single dish, the chef must walk to the warehouse, carry all the books back, read one line from each book, and cook.</p>
+<p>The cooking takes seconds. The walking takes minutes.</p>
+<p>Making the chef faster will not help at all. The chef is not the problem. The distance to the books is the problem.</p>
+<p>This is exactly the situation inside a chip that is running a language model. The math is not the bottleneck. Moving the weights is the bottleneck. In simple words, the work is <strong>memory bound</strong>, not <strong>compute bound</strong>.</p>
+<p>Now that we have understood where the time actually goes, it is time to see why a GPU has a hard time with this.</p>
+<h2 id="why-a-gpu-struggles-here">Why a GPU struggles here <a aria-hidden="true" class="anchor" href="#why-a-gpu-struggles-here">#</a></h2>
+<p>A GPU is a wonderful machine, and it is the reason modern AI exists at all. But it was designed for a different shape of problem.</p>
+<p>A GPU keeps the model weights in a memory called <strong>HBM</strong>, which stands for High Bandwidth Memory. HBM sits right beside the chip, on the same small board, and it is genuinely fast. But it is still outside the chip, and the numbers still have to travel across a wire to reach the <strong>compute units</strong>, which are the parts of the chip that actually do the multiplying and the adding.</p>
+<p>Before we put numbers on it, we must know one word, <strong>bandwidth</strong>. Bandwidth is simply how many bytes the memory can hand over to the chip in one second. If a memory has a bandwidth of 3 TB per second, it can deliver 3,000 GB of data every second.</p>
+<p>Now, let's put rough numbers on it, just for the sake of understanding.</p>
+<pre><code>Weights of a 70B model, stored in 8-bit = 70 GB
+Weights that must be read per token     = 70 GB
+HBM bandwidth on a modern GPU           = around 3 TB per second
+Time for one token  = 70 / 3000 = 0.023 seconds = 23 milliseconds
+Tokens in a second  = 1 / 0.023 = around 43 tokens
+</code></pre>
+<p>Here, we can see that even in the perfect case, where the GPU never wastes a single moment, one token takes around 23 milliseconds, and one user gets around 43 tokens per second. That is the ceiling. No amount of extra math power will push it higher, because the wire is the limit.</p>
+<p>So, how does a GPU cope with this today? The answer is <strong><a href="https://outcomeschool.com/blog/continuous-batching-in-llms" rel="noopener noreferrer" target="_blank">batching</a></strong>. The GPU waits for many users to arrive, and then it reads the model once and serves all of them together in the same trip. One walk to the warehouse, many dishes cooked.</p>
+<p><strong>Advantage:</strong> The total number of tokens per second, counting all the users together, becomes very high. This total is called <strong>throughput</strong>.</p>
+<p><strong>Disadvantage:</strong> Every individual user still waits, because their own chain of tokens is still moving at the same slow pace. And to fill a batch, the GPU sometimes has to wait for more users to show up, which adds even more delay.</p>
+<p>So, batching gives us high throughput. It does not give us speed for one person.</p>
+<p>There is one more thing to notice. A GPU is a flexible machine. It has caches that guess which data we will need next, schedulers that decide while running which work goes where, and waiting lines that reorder the instructions. All of this flexibility is very useful when we do not know what the program will look like. But it costs chip area, it costs power, and it makes the timing unpredictable.</p>
+<p>So, we have two problems now. The model is too far away, and the chip spends a lot of its effort on guessing.</p>
+<p>The LPU attacks both of these problems directly. Let's see how.</p>
+<h2 id="idea-1-keep-the-model-on-the-chip">Idea 1: Keep the model on the chip <a aria-hidden="true" class="anchor" href="#idea-1-keep-the-model-on-the-chip">#</a></h2>
+<p>The first idea is the simplest one to say and the hardest one to build.</p>
+<p><strong>Do not keep the weights in a memory outside the chip. Keep them inside the chip itself.</strong></p>
+<p>The memory that lives inside a chip is called <strong>SRAM</strong>. It sits right next to the compute units, so the numbers barely have to travel at all. Because there is no long wire and no separate memory chip to reach, SRAM is dramatically faster than HBM.</p>
+<p>Let's redo our calculation with on-chip memory.</p>
+<pre><code>Weights that must be read per token = 70 GB
+On-chip SRAM bandwidth              = around 80 TB per second
+Time for one token  = 70 / 80000 = 0.000875 seconds = 0.875 milliseconds
+Tokens in a second  = 1 / 0.000875 = around 1,100 tokens
+</code></pre>
+<p>Here, we can see that the same read now takes less than one millisecond instead of 23 milliseconds. That is roughly 26 times faster, and it turns 43 tokens per second into more than a thousand tokens per second, for a single user, without any batching at all.</p>
+<p><strong>Note:</strong> These are rough numbers used only to show the idea. The real numbers change with the model, with how the numbers are stored, and with the hardware generation. The point to remember is the gap between the two, not the exact digits.</p>
+<p>To feel what this means, an average person reads around 5 words per second. So a model producing a thousand tokens per second is writing far faster than any of us can read. The words stop appearing one by one and start appearing in whole paragraphs.</p>
+<p>The chef is no longer walking across the road. The recipe books are now lying open on the kitchen counter.</p>
+<p>This is the single biggest reason an LPU feels so fast when we watch it write.</p>
+<h2 id="the-problem-with-on-chip-memory">The problem with on-chip memory <a aria-hidden="true" class="anchor" href="#the-problem-with-on-chip-memory">#</a></h2>
+<p>Now, if putting the model inside the chip is such a good idea, why does everyone not do it?</p>
+<p>Because on-chip memory is tiny.</p>
+<p>SRAM is expensive and it takes a lot of physical space on the chip itself, and the space on a chip is the most costly thing a chip designer has. An LPU chip carries around 230 MB of it, which is a very generous amount for on-chip memory, but it is nothing compared to what a large model needs.</p>
+<pre><code>Size of a 70B model in 8-bit = 70,000 MB
+On-chip SRAM per LPU chip    = 230 MB
+Chips needed = 70,000 / 230 = around 305 chips
+</code></pre>
+<p>So, one chip cannot hold the model. Not even close.</p>
+<p>Here is the trade at the heart of the LPU. <strong>It gives up memory size to gain memory speed.</strong> A GPU chip can hold tens of GB but reads them slowly. An LPU chip holds only 230 MB but reads them incredibly fast. The LPU chose speed, and now it has to live with the consequence of that choice.</p>
+<p>So, here comes a simple idea to the rescue. <strong>We cut the model into slices and give one slice to each chip.</strong></p>
+<p>A language model is made of layers stacked one after the other. So, chip number 1 holds the first few layers, chip number 2 holds the next few layers, and so on, until the last chip holds the final layers. Together, the hundreds of chips hold the whole model, and every chip holds its own slice permanently, right inside itself.</p>
+<p>Now, the next big question is, if the model is spread across 300 chips, will they not spend all their time sending data to each other?</p>
+<p>The answer is no, and the reason is simple.</p>
+<p>The slice of weights sitting on a chip is huge, hundreds of megabytes. But the thing that travels from one chip to the next is not the weights. It is the <strong>activation</strong>, which is the small bundle of numbers that represents the sentence so far after passing through those layers. For one token, that bundle is only a few kilobytes.</p>
+<p>So, the huge thing stays still, and only the tiny thing moves.</p>
+<p>This is the trade that makes the whole design work. We accept that we need many chips, and in return we never have to move the model again.</p>
+<p>This was all about keeping the model close to the compute. Now, let's learn about the second idea.</p>
+<h2 id="idea-2-remove-all-the-guesswork">Idea 2: Remove all the guesswork <a aria-hidden="true" class="anchor" href="#idea-2-remove-all-the-guesswork">#</a></h2>
+<p>The second idea is about the chip itself.</p>
+<p>A normal processor decides things while it is running. It has a cache that guesses which data will be needed next. It has a branch predictor that guesses which way the program will turn. It has a scheduler that decides, while the program is running, which unit does which piece of work. All of this happens on the fly, thousands of times per second.</p>
+<p>An LPU throws all of that away.</p>
+<p><strong>In an LPU, the compiler decides everything before the chip is ever switched on.</strong></p>
+<p>Here, a <strong>compiler</strong> is simply a program that takes our work and turns it into the exact instructions a chip will follow. On a normal machine, the compiler prepares the instructions and the chip still makes many decisions on its own. On an LPU, the compiler makes all of those decisions too, and it makes them in advance.</p>
+<p>Here, one more word will help us, <strong>clock cycle</strong>. Every chip has an internal heartbeat, and each single beat is called a clock cycle. A modern chip beats more than a billion times per second, and every small action inside the chip happens on one of these beats.</p>
+<p>Now, the compiler knows the model completely. It knows every layer, every multiplication, and every number that has to move. So it writes out a full plan that says which unit does what on which exact beat, and which piece of data sits on which wire on which exact beat.</p>
+<p>The chip does not decide anything. It only follows the plan.</p>
+<p>Let's take an analogy.</p>
+<p>Consider a busy road crossing with traffic lights. Every car arrives whenever it wants. The lights react, cars wait, some cars slip through, some get stuck. It works, but nobody can tell you exactly when a particular car will reach the other side.</p>
+<p>Now consider a railway timetable. The train leaves at 9:00, reaches the next station at 9:14, and leaves again at 9:15. Nothing is decided in the moment. Everything was decided months ago, and the whole network is built so that the plan holds.</p>
+<p>A GPU is the traffic crossing. An LPU is the railway timetable.</p>
+<p>This gives us two big wins.</p>
+<p><strong>First</strong>, all the chip space that would have gone into caches, predictors, and schedulers is now free. That space is given to more compute units and more SRAM instead. Nothing is spent on guessing.</p>
+<p><strong>Second</strong>, the timing becomes exact. If we ask an LPU how long a request will take, it can tell us the answer down to the clock cycle, before running it. This kind of predictability is very hard to get on a normal chip.</p>
+<p>This approach is called <strong>deterministic execution</strong>, which simply means that the same work always takes exactly the same time, because nothing is left to chance. It is also described as software-defined hardware, because the software plan is doing the job that the hardware normally does by itself.</p>
+<p>Till now, we have learned how one chip behaves. Now, it is time to learn how hundreds of them behave together.</p>
+<h2 id="idea-3-a-network-that-never-waits">Idea 3: A network that never waits <a aria-hidden="true" class="anchor" href="#idea-3-a-network-that-never-waits">#</a></h2>
+<p>We have hundreds of chips, and each of them holds one slice of the model. Now those chips have to talk to each other for every single token.</p>
+<p>Normally, chips talk to each other the way computers talk on a network. One chip sends a message, the other chip replies to say that it has received the message, two messages sometimes arrive at the same moment and one of them has to wait, and the waiting line sometimes gets full. Every one of these little events adds a small delay, and nobody can say in advance how big that delay will be. When the data has to pass through hundreds of chips one after the other, these small delays pile up into a big delay.</p>
+<p>An LPU handles this differently. All the chips run on a synchronized clock, and the compiler plans the movement between chips exactly the way it plans the movement inside a chip.</p>
+<p>So, chip number 7 knows that on cycle number 4,120 the data from chip number 6 will arrive on a particular wire. It does not ask. It does not wait. It does not check. It simply reaches out at that cycle, and the data is there.</p>
+<p>There is no handshake, no acknowledgement, and no retry, because there is nothing to be uncertain about.</p>
+<p>This is how the machine keeps behaving like one big chip even though it is made of hundreds of small ones.</p>
+<h2 id="the-assembly-line">The assembly line <a aria-hidden="true" class="anchor" href="#the-assembly-line">#</a></h2>
+<p>Now that we have all three ideas, let's put them together and see the machine as a whole.</p>
+<p>Think of a car factory assembly line. Station 1 fits the frame, station 2 fits the engine, station 3 fits the doors, and so on. The car moves from station to station, and every station has its own tools kept right beside it, permanently.</p>
+<p>A group of LPU chips working together is exactly this.</p>
+<ul>
+<li>Every chip is a station.</li>
+<li>The slice of model weights is the set of tools kept permanently at that station.</li>
+<li>The activation, that small bundle of numbers, is the car moving down the line.</li>
+<li>The compiler is the factory schedule that says which station does what at which second.</li>
+</ul>
+<p>The activation enters the first chip, passes through its layers, moves to the second chip, and keeps flowing forward until it comes out of the last chip as the next token.</p>
+<p>And here is one more advantage. The moment chip number 1 has passed its work to chip number 2, chip number 1 is free. It does not sit idle waiting for the token to finish the whole journey. It immediately starts working on the next request. So, the line always stays full, exactly like a real assembly line.</p>
+<p>This is how hundreds of small chips behave like one very fast machine. Now, let's walk through one actual request from start to end.</p>
+<h2 id="what-happens-when-we-send-a-prompt">What happens when we send a prompt <a aria-hidden="true" class="anchor" href="#what-happens-when-we-send-a-prompt">#</a></h2>
+<p><strong>Step 1: The model is loaded, once.</strong></p>
+<p>Long before our request arrives, the compiler prepared the plan and the model was spread across the chips. Each chip loaded its slice into its own SRAM. This happens one time. After that, the weights never move again.</p>
+<p><strong>Step 2: The prompt is read.</strong></p>
+<p>We send "The capital of France is". All the words of this prompt are already known, so there is no chain to wait for, and every word can be pushed through the machine together. This first stage is called <strong><a href="https://outcomeschool.com/blog/prefill-vs-decode-llm-inference-optimization" rel="noopener noreferrer" target="_blank">prefill</a></strong>.</p>
+<p>Here, we can notice something important. Because many words travel together, one read of the weights does useful work for all of them at once. So prefill is not memory bound at all, it is compute bound, and even a GPU handles it well. We have a detailed blog on <a href="https://outcomeschool.com/blog/prefill-decode-disaggregation" rel="noopener noreferrer" target="_blank">Prefill-Decode Disaggregation</a> that explains how large serving systems use this difference to run the two phases on separate machines.</p>
+<p><strong>Step 3: The first token is produced.</strong></p>
+<p>The numbers flow through chip 1, chip 2, chip 3, and onward through every chip in the line. Out of the last chip comes one token, "Paris". The time from our request to this first word is called <strong>time to first token</strong>, and the general word for such waiting time is <strong>latency</strong>. Lower latency means the answer starts arriving sooner.</p>
+<p><strong>Step 4: The token is fed back in.</strong></p>
+<p>Now "Paris" is added to the sentence, and the whole journey repeats to produce the next token. This stage, one token at a time, is called <strong>decode</strong>.</p>
+<p>And decode is exactly the memory bound stage that we discussed earlier. One trip through the whole model produces only one word. This is the slow part on a GPU, and this is the part the LPU was built to fix.</p>
+<p>There is also a software way to attack the very same problem, and we have a detailed blog on <a href="https://outcomeschool.com/blog/speculative-decoding" rel="noopener noreferrer" target="_blank">Speculative Decoding</a> that explains how a model can produce several tokens in one trip.</p>
+<p><strong>Step 5: The loop keeps going.</strong></p>
+<p>Every trip through the line produces exactly one token. Because the weights are already sitting inside the chips and every movement was planned in advance, each trip is extremely short. So the words appear on our screen in a smooth, fast <a href="https://outcomeschool.com/blog/how-does-token-streaming-work" rel="noopener noreferrer" target="_blank">stream</a>.</p>
+<p><strong>Step 6: The model stops.</strong></p>
+<p>At some point the model produces a <a href="https://outcomeschool.com/blog/stop-tokens-in-llms" rel="noopener noreferrer" target="_blank">special token that means the answer is over</a>, and the loop ends.</p>
+<h2 id="why-an-lpu-is-fast-all-in-one-place">Why an LPU is fast, all in one place <a aria-hidden="true" class="anchor" href="#why-an-lpu-is-fast-all-in-one-place">#</a></h2>
+<p>Let's collect the reasons in one place.</p>
+<ul>
+<li><strong>The weights never travel.</strong> They live inside the chip in SRAM, so the slowest step of the whole process is removed.</li>
+<li><strong>Only the small thing moves.</strong> Activations are a few kilobytes, while the weights are gigabytes.</li>
+<li><strong>Nothing is spent on guessing.</strong> There are no caches and no predictors, so all that chip space does real work instead.</li>
+<li><strong>The timing is planned, not discovered.</strong> The compiler knows every cycle in advance, so no unit ever waits to find out what to do next.</li>
+<li><strong>The chips never negotiate.</strong> They share one clock, so no chip ever asks another chip whether the data is ready, and no chip ever waits in a line.</li>
+<li><strong>The line stays full.</strong> As soon as a chip finishes its part, it starts on the next request.</li>
+</ul>
+<p>Put together, this is why a single user sees many hundreds of tokens per second instead of a few dozen, without waiting for any batch to fill up.</p>
+<h2 id="where-an-lpu-works-well">Where an LPU works well <a aria-hidden="true" class="anchor" href="#where-an-lpu-works-well">#</a></h2>
+<ul>
+<li><strong>Chat applications</strong>, where the answer should feel instant instead of slowly typed out.</li>
+<li><strong><a href="https://outcomeschool.com/blog/design-a-real-time-voice-ai-agent" rel="noopener noreferrer" target="_blank">Voice assistants</a> and live translation</strong>, where a delay of even half a second is felt immediately.</li>
+<li><strong><a href="https://outcomeschool.com/blog/ai-agent" rel="noopener noreferrer" target="_blank">AI agents</a></strong>, where the model uses a tool such as a search or a calculator, reads the result, thinks again, and uses another tool. Here the model runs many times for one single task, so every millisecond saved gets multiplied many times over.</li>
+<li><strong><a href="https://outcomeschool.com/blog/large-reasoning-models" rel="noopener noreferrer" target="_blank">Reasoning models</a></strong>, which produce a long chain of thinking tokens before giving the final answer. A model that has to write 2,000 tokens of reasoning is exactly the case where token speed decides everything.</li>
+<li><strong>Workloads that need predictable timing</strong>, because the compiler can tell us the exact latency in advance.</li>
+</ul>
+<h2 id="where-an-lpu-does-not-work-well">Where an LPU does not work well <a aria-hidden="true" class="anchor" href="#where-an-lpu-does-not-work-well">#</a></h2>
+<p>We must also be honest about the limits.</p>
+<ul>
+<li><strong>It cannot train models.</strong> Training keeps changing the weights, and it also has to store a lot of extra bookkeeping numbers that record how each weight should be corrected. That needs far more memory, and the weights refuse to sit still. An LPU is built on the exact opposite assumption, that the weights never change.</li>
+<li><strong>It needs many chips for one model.</strong> Because on-chip memory is small, a large model needs hundreds of chips before it can run at all. There is no small setup.</li>
+<li><strong>It is not flexible.</strong> Everything is planned ahead of time. A new model, or even a change in how the numbers are stored, means the whole plan has to be built again. A GPU can accept almost anything we throw at it, right away.</li>
+<li><strong>Long conversations put pressure on memory.</strong> While generating, the model also keeps a <strong><a href="https://outcomeschool.com/blog/kv-cache-in-llms" rel="noopener noreferrer" target="_blank">KV cache</a></strong>, which is a saved summary of everything it has already read so that it does not have to read the past again. That cache lives in the same precious on-chip memory, and it grows with the length of the conversation.</li>
+<li><strong>Cost per token is a different question.</strong> For a job where nobody is sitting and waiting, such as reading and labelling a million documents overnight, a GPU serving a very large batch can be cheaper for the same work. There, latency does not matter at all, and only the total output matters.</li>
+</ul>
+<h2 id="lpu-vs-gpu">LPU vs GPU <a aria-hidden="true" class="anchor" href="#lpu-vs-gpu">#</a></h2>
+<p>Let me tabulate the differences between an LPU and a GPU for your better understanding.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Point</th>
+<th>GPU</th>
+<th>LPU</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Built for</td>
+<td>Any parallel math, training and inference</td>
+<td>Running a trained language model</td>
+</tr>
+<tr>
+<td>Where the weights live</td>
+<td>HBM, next to the chip</td>
+<td>SRAM, inside the chip</td>
+</tr>
+<tr>
+<td>Memory speed</td>
+<td>Around 3 TB per second</td>
+<td>Around 80 TB per second</td>
+</tr>
+<tr>
+<td>Memory size per chip</td>
+<td>Tens of GB</td>
+<td>Around 230 MB</td>
+</tr>
+<tr>
+<td>Chips needed for a large model</td>
+<td>A few</td>
+<td>Hundreds</td>
+</tr>
+<tr>
+<td>Who plans the work</td>
+<td>The hardware, while it is running</td>
+<td>The compiler, before it ever runs</td>
+</tr>
+<tr>
+<td>Caches and branch prediction</td>
+<td>Present</td>
+<td>Not present</td>
+</tr>
+<tr>
+<td>Chip to chip talking</td>
+<td>Messages, with waiting and replies</td>
+<td>One shared clock, with no waiting</td>
+</tr>
+<tr>
+<td>Timing</td>
+<td>Varies from run to run</td>
+<td>Exact and known in advance</td>
+</tr>
+<tr>
+<td>Speed for a single user</td>
+<td>Moderate</td>
+<td>Very high</td>
+</tr>
+<tr>
+<td>Batching</td>
+<td>Needed to get good total output</td>
+<td>Not needed to get good speed</td>
+</tr>
+<tr>
+<td>Training support</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Flexibility</td>
+<td>Very high</td>
+<td>Low, everything is planned ahead of time</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="when-to-use-which-one">When to use which one <a aria-hidden="true" class="anchor" href="#when-to-use-which-one">#</a></h2>
+<p><strong>Use a GPU</strong> when we are training a model, when we are experimenting and changing things often, when we need to run many different kinds of models on the same machine, or when we are running a large batch job where nobody is sitting and waiting for the output. When we do stay on the GPU, an engine like <a href="https://outcomeschool.com/blog/how-does-tensorrt-llm-work" rel="noopener noreferrer" target="_blank">TensorRT-LLM</a> squeezes out most of what that hardware can give.</p>
+<p><strong>Use an LPU</strong> when the model is fixed and already trained, and when the speed of the answer is the thing our users actually feel. Chat, voice, agents, and reasoning models fall in this bucket.</p>
+<p>The bigger lesson here goes beyond one chip. For years we made models faster by adding more math power. The LPU shows us that once a workload becomes memory bound, the win comes from moving data less, not from computing more. Shorten the distance between the numbers and the compute, plan every movement in advance, and the same math suddenly finishes many times faster.</p>
+<p>Now we must have understood how an LPU works.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions <a aria-hidden="true" class="anchor" href="#frequently-asked-questions">#</a></h2>
+<h3 id="who-created-the-lpu">Who created the LPU? <a aria-hidden="true" class="anchor" href="#who-created-the-lpu">#</a></h3>
+<p>The term LPU was introduced by a company called Groq, which builds these chips. LPU stands for Language Processing Unit. The ideas behind it are general, though: keep the model weights inside the chip, let the compiler plan every step in advance, and run many chips on one shared clock.</p>
+<h3 id="does-adding-more-compute-power-make-llm-token-generation-faster">Does adding more compute power make LLM token generation faster? <a aria-hidden="true" class="anchor" href="#does-adding-more-compute-power-make-llm-token-generation-faster">#</a></h3>
+<p>No, not for one user. Generating a token is memory bound, not compute bound. To produce one token, the chip must read every weight of the model, but it does only one multiply and one add with each weight. So the chip finishes the math and waits for data, and the win comes from moving data less, not from computing more.</p>
+<h3 id="was-the-lpu-built-to-speed-up-prefill-or-decode">Was the LPU built to speed up prefill or decode? <a aria-hidden="true" class="anchor" href="#was-the-lpu-built-to-speed-up-prefill-or-decode">#</a></h3>
+<p>The LPU was built mainly to fix decode, where one trip through the whole model produces only one token. In prefill, all the words of the prompt are already known and travel together, so one read of the weights does useful work for all of them. That makes prefill compute bound, and even a GPU handles it well.</p>
+<h3 id="doesn-t-splitting-a-model-across-hundreds-of-lpu-chips-slow-it-down">Doesn't splitting a model across hundreds of LPU chips slow it down? <a aria-hidden="true" class="anchor" href="#doesn-t-splitting-a-model-across-hundreds-of-lpu-chips-slow-it-down">#</a></h3>
+<p>No. The weights never move between chips. Each chip keeps its slice of the model permanently in its own SRAM. The only thing that travels from one chip to the next is the activation, which is just a few kilobytes for one token. Since all chips share one clock and follow the compiler's plan, no chip waits for another.</p>
+
+  <nav class="prev-next" aria-label="Lesson navigation"><a href="m16-l1603-how-does-a-google-tpu-work.html"><span class="label">← Previous lesson</span>16.3 How does a Google TPU work?</a><a class="next" href="m16-l1605-cloud-vs-on-device-model-deployment.html"><span class="label">Next lesson →</span>16.5 Cloud vs On-device Model Deployment</a></nav>
+  <footer class="footer">
+    <p>Personal offline study copy · Content © Outcome School / Amit Shekhar ·
+    <a href="../notice.html">usage notice</a>.</p>
+    <p>Source: <a href="https://outcomeschool.com/blog/how-does-an-lpu-work" target="_blank" rel="noopener noreferrer">https://outcomeschool.com/blog/how-does-an-lpu-work</a></p>
+  </footer>
+</article>
+
+    </main>
+  </div>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>
